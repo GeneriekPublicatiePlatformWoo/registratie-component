@@ -1,0 +1,48 @@
+# Inspired by https://docs.docker.com/compose/django/
+version: '3'
+
+services:
+  db:
+    # NOTE: No persistance storage configured.
+    # Using v14 to prevent schema permissions. See also docker-init-db.sql.
+    # See: https://hub.docker.com/_/postgres/
+    image: postgres:${PG_VERSION:-14}
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./docker-init-db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  web:
+    build: .
+    image: maykinmedia/odrc:latest
+    environment:
+      - DJANGO_SETTINGS_MODULE=odrc.conf.docker
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-y+ft+x%cn27#aburc25w22+r6g*zucacw19)oa^@sqg+(5ew%}
+      - DB_NAME=odrc
+      - DB_USER=odrc
+      - DB_HOST=db
+      # Only allow all hosts for development/testing purposes!
+      - ALLOWED_HOSTS=*
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+# See: src/odrc/conf/docker.py
+# Optional containers below:
+#  elasticsearch:
+#    # NOTE: No persistance storage configured.
+#    # See: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+#    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+#    container_name: elasticsearch
+#    environment:
+#      - discovery.type=single-node
+#      - cluster.routing.allocation.disk.threshold_enabled=false
+#    ports:
+#      - 9200:9200
+#  redis:
+#    # NOTE: No persistance storage configured.
+#    # See: https://hub.docker.com/_/redis/
+#    image: redis
+#    ports:
+#        - 6379:6379
