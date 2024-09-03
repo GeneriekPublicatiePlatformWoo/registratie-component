@@ -1,0 +1,7 @@
+-c base.txt
+-r base.txt
+
+# Documentation
+sphinx
+sphinx-rtd-theme
+sphinx-tabs

@@ -1,0 +1,17 @@
+-c base.txt
+-r base.txt
+
+# Dependencies only relevant for (unit) testing
+coverage
+django-webtest
+factory-boy
+freezegun
+tblib
+
+# Code formatting
+black
+isort[colors]
+flake8
+
+# Docs
+pytest

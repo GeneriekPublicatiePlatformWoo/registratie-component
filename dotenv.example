@@ -1,0 +1,10 @@
+SECRET_KEY="django-insecure-fgggi4*bl2wdg$&@0&)t7ewy5-2!b3l4lhx4_+^zpw%x2i28v8"
+DB_NAME="woo_publications"
+DB_USER="woo_publications"
+#
+# For peer authentication via unix domain socket
+# these should be kept empty.
+#
+DB_PASSWORD=""
+DB_HOST=""
+DB_PORT=""
