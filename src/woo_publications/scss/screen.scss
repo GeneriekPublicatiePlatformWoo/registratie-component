@@ -1,4 +1,3 @@
-@import 'app';
-@import 'settings';
-@import 'components';
-@import 'views';
+@use "global";
+@use "components";
+@use "views";

@@ -14,7 +14,9 @@
     </head>
 
     <body class="view__body">
-        <main>
+        {% include "includes/header.html" %}
+
+        <main class="view__main">
             {% block content %}
                 Override <code>{% verbatim %}{% block content %}{% endverbatim %}</code>
                 to get some actual content.
