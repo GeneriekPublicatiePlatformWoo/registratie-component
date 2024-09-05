@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from maykin_2fa import monkeypatch_admin
@@ -17,9 +18,9 @@ from woo_publications.accounts.views.password_reset import PasswordResetView
 monkeypatch_admin()
 
 handler500 = "woo_publications.utils.views.server_error"
-admin.site.site_header = "woo_publications admin"
-admin.site.site_title = "woo_publications admin"
-admin.site.index_title = "woo_publications dashboard"
+admin.site.site_header = _("WOO publications")
+admin.site.site_title = _("WOO publications")
+admin.site.index_title = _("WOO publications dashboard")
 
 # URL routing
 
