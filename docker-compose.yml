@@ -17,7 +17,7 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - ./docker-init-db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init_db.sql
       - db:/var/lib/postgresql/data
 
   redis:
