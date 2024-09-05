@@ -52,6 +52,10 @@
     //     z-index: 3;
     //   }
     // }
+
+    @at-root body.login #header {
+      padding-block-end: 15px !important;
+    }
   }
 }
 
