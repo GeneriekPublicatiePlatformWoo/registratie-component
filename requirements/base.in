@@ -6,7 +6,8 @@ python-decouple  # processing of envvar configs
 # Framework libraries
 django ~= 4.2
 django-admin-index
-django-axes
+django-axes[ipware]
+django-capture-tag
 django-hijack
 django-redis
 django-rosetta

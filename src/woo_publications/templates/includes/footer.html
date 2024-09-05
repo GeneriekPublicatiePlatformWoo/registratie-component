@@ -1,0 +1,55 @@
+{% load static i18n capture_tags %}
+
+{% capture as website_link silent %}<a class="link" href="https://www.maykinmedia.nl">Maykin</a>{% endcapture %}
+{% capture as opengem_link silent %}<a class="link" href="https://opengem.nl">Open Gemeente Initiatief</a>{% endcapture %}
+
+{% capture as issues_link silent %}<a class="link link--muted" href="https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues">issues</a>{% endcapture %}
+{% capture as cg_link silent %}<a class="link link--muted" href="https://commonground.nl/">Common Ground</a>{% endcapture %}
+
+<footer class="footer">
+    <div class="footer__row footer__row--3-cols">
+        <section>
+            <img src="{% static 'ico/favicon-96x96.png' %}" alt="Maykin logo" height="48">
+            <p class="footer__plain-content footer__plain-content--small">
+                {% blocktrans trimmed %}
+                    Developed by {{ website_link }}<br>
+                    within the {{ opengem_link }} &copy; 2024<br>
+                {% endblocktrans %}
+            </p>
+        </section>
+
+        <section>
+            <header class="footer__column-header">{{ settings.PROJECT_NAME }}</header>
+            <ul class="footer__list">
+                <li>
+                    <a class="link link--muted" href="https://hub.docker.com/r/maykinmedia/woo-publications">
+                        {% trans "Docker image" %}
+                    </a>
+                </li>
+                <li>
+                    <a class="link link--muted" href="https://github.com/GeneriekPublicatiePlatformWoo/registratie-component">
+                        {% trans "Code on Github" %}
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <header class="footer__column-header">{% trans "Other" %}</header>
+            <ul class="footer__list">
+                <li>
+                    {% blocktrans %}Report {{ issues_link }} for questions, bugs or wishes{% endblocktrans %}
+                </li>
+                <li>
+                    {% blocktrans %}Read more on {{ cg_link }}{% endblocktrans %}
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="footer__row footer__row--2-cols">
+        <code>{{ settings.RELEASE }}</code>
+        <code class="content content--align-right">{{ settings.GIT_SHA|default:"" }}</code>
+    </div>
+
+</footer>

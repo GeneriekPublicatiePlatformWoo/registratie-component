@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Django-hijack (and Django-hijack-admin)
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 import sentry_sdk
 
@@ -91,9 +92,6 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.sessions",
     "django.contrib.contenttypes",
-    # NOTE: If enabled, at least one Site object is required and
-    # uncomment SITE_ID above.
-    # 'django.contrib.sites',
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Two-factor authentication in the Django admin, enforced.
@@ -103,17 +101,14 @@ INSTALLED_APPS = [
     "two_factor",
     "two_factor.plugins.webauthn",  # USB key/token support
     "maykin_2fa",
-    # Optional applications.
     "ordered_model",
     "django_admin_index",
     "django.contrib.admin",
-    # 'django.contrib.admindocs',
-    # 'django.contrib.humanize',
-    # 'django.contrib.sitemaps',
     # External applications.
     "axes",
     "hijack",
     "hijack.contrib.admin",
+    "capture_tag",
     # Project applications.
     "woo_publications.accounts",
     "woo_publications.utils",
@@ -334,7 +329,7 @@ FIXTURE_DIRS = (DJANGO_PROJECT_DIR / "fixtures",)
 #
 # Custom settings
 #
-PROJECT_NAME = "woo_publications"
+PROJECT_NAME = _("WOO Publications")
 ENVIRONMENT = config("ENVIRONMENT", "")
 ENABLE_ADMIN_NAV_SIDEBAR = config("ENABLE_ADMIN_NAV_SIDEBAR", default=False)
 

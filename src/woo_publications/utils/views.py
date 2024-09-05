@@ -19,7 +19,7 @@ def server_error(request, template_name=ERROR_500_TEMPLATE_NAME):
             # Reraise if it's a missing custom template.
             raise
         return http.HttpResponseServerError(
-            "<h1>Server Error (500)</h1>", content_type="text/html"
+            b"<h1>Server Error (500)</h1>", content_type="text/html"
         )
     context = {"request": request}
     return http.HttpResponseServerError(template.render(context))

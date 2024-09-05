@@ -2,6 +2,9 @@ from time import time
 
 from django.core.cache import caches
 from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest
+
+from axes.helpers import get_client_ip_address
 
 
 class ThrottleMixin:
@@ -21,6 +24,8 @@ class ThrottleMixin:
     # get and options should always be fast. By default
     # do not throttle them.
     throttle_methods = ["post", "put", "patch", "delete", "head", "trace"]
+
+    request: HttpRequest
 
     def get_throttle_cache(self):
         return caches["default"]
@@ -85,5 +90,4 @@ class IPThrottleMixin(ThrottleMixin):
     """
 
     def get_throttle_identifier(self):
-        # REMOTE_ADDR is correctly set in XForwardedForMiddleware
-        return str(self.request.META["REMOTE_ADDR"])
+        return get_client_ip_address(self.request)
