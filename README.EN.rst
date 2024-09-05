@@ -103,9 +103,9 @@ Licensed under the EUPL_
 
 .. _`EUPL`: LICENSE.md
 
-.. |build-status| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/workflows/ci/badge.svg?branch=main
+.. |build-status| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/ci.yml/badge.svg
     :alt: Build status
-    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions?query=workflow%3Aci
+    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/ci.yml
 
 .. |docs| image:: https://readthedocs.org/projects/odrc/badge/?version=latest
     :target: https://odrc.readthedocs.io/
@@ -126,6 +126,6 @@ Licensed under the EUPL_
 .. |python-versions| image:: https://img.shields.io/badge/python-3.12%2B-blue.svg
     :alt: Supported Python version
 
-.. |oas| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/workflows/oas/badge.svg
-    :alt: OAS checks
-    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions?query=workflow%3Aoas
+.. |oas| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/oas.yml/badge.svg
+    :alt: OpenAPI specification checks
+    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/oas.yml
