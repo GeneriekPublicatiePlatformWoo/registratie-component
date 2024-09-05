@@ -97,6 +97,10 @@ django-axes==6.5.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+django-capture-tag==1.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-debug-toolbar==4.4.6
     # via -r requirements/dev.in
 django-extensions==3.2.3

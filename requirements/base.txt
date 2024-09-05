@@ -38,6 +38,8 @@ django-admin-index==3.1.1
     # via -r requirements/base.in
 django-axes==6.5.1
     # via -r requirements/base.in
+django-capture-tag==1.0
+    # via -r requirements/base.in
 django-formtools==2.5.1
     # via django-two-factor-auth
 django-hijack==3.6.0

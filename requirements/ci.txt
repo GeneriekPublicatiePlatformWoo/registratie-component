@@ -75,6 +75,10 @@ django-axes==6.5.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+django-capture-tag==1.0
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
 django-formtools==2.5.1
     # via
     #   -c requirements/base.txt

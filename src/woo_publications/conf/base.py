@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     "axes",
     "hijack",
     "hijack.contrib.admin",
+    "capture_tag",
     # Project applications.
     "woo_publications.accounts",
     "woo_publications.utils",
