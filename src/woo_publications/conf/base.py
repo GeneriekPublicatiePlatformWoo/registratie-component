@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Django-hijack (and Django-hijack-admin)
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 import sentry_sdk
 
@@ -335,7 +336,7 @@ FIXTURE_DIRS = (DJANGO_PROJECT_DIR / "fixtures",)
 #
 # Custom settings
 #
-PROJECT_NAME = "woo_publications"
+PROJECT_NAME = _("WOO Publications")
 ENVIRONMENT = config("ENVIRONMENT", "")
 ENABLE_ADMIN_NAV_SIDEBAR = config("ENABLE_ADMIN_NAV_SIDEBAR", default=False)
 

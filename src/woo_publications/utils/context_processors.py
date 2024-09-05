@@ -5,6 +5,8 @@ def settings(request):
     public_settings = (
         "GOOGLE_ANALYTICS_ID",
         "PROJECT_NAME",
+        "RELEASE",
+        "GIT_SHA",
     )
 
     context = {
