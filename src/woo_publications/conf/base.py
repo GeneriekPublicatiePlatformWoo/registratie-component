@@ -92,9 +92,6 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.sessions",
     "django.contrib.contenttypes",
-    # NOTE: If enabled, at least one Site object is required and
-    # uncomment SITE_ID above.
-    # 'django.contrib.sites',
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Two-factor authentication in the Django admin, enforced.
@@ -104,13 +101,9 @@ INSTALLED_APPS = [
     "two_factor",
     "two_factor.plugins.webauthn",  # USB key/token support
     "maykin_2fa",
-    # Optional applications.
     "ordered_model",
     "django_admin_index",
     "django.contrib.admin",
-    # 'django.contrib.admindocs',
-    # 'django.contrib.humanize',
-    # 'django.contrib.sitemaps',
     # External applications.
     "axes",
     "hijack",

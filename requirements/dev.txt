@@ -114,6 +114,10 @@ django-hijack==3.6.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+django-ipware==7.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-ordered-model==3.7.4
     # via
     #   -c requirements/ci.txt
@@ -311,6 +315,11 @@ python-dotenv==1.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+python-ipware==3.0.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-ipware
 qrcode==7.4.2
     # via
     #   -c requirements/ci.txt

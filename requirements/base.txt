@@ -44,6 +44,8 @@ django-formtools==2.5.1
     # via django-two-factor-auth
 django-hijack==3.6.0
     # via -r requirements/base.in
+django-ipware==7.0.1
+    # via django-axes
 django-ordered-model==3.7.4
     # via django-admin-index
 django-otp==1.5.2
@@ -80,6 +82,8 @@ python-decouple==3.8
     # via -r requirements/base.in
 python-dotenv==1.0.1
     # via -r requirements/base.in
+python-ipware==3.0.0
+    # via django-ipware
 qrcode==7.4.2
     # via django-two-factor-auth
 redis==5.0.8
