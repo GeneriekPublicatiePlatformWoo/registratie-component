@@ -1,0 +1,133 @@
+[
+    {
+        "model": "admin_index.appgroup",
+        "fields": {
+            "order": 0,
+            "translations": {
+                "en": "Accounts",
+                "nl": "Accounts"
+            },
+            "name": "Accounts",
+            "slug": "accounts",
+            "models": [
+                [
+                    "accounts",
+                    "user"
+                ],
+                [
+                    "auth",
+                    "group"
+                ],
+                [
+                    "otp_totp",
+                    "totpdevice"
+                ],
+                [
+                    "two_factor_webauthn",
+                    "webauthndevice"
+                ]
+            ]
+        }
+    },
+    {
+        "model": "admin_index.appgroup",
+        "fields": {
+            "order": 1,
+            "translations": {
+                "en": "WOO publications",
+                "nl": "WOO publicaties"
+            },
+            "name": "WOO publications",
+            "slug": "woo_publications",
+            "models": []
+        }
+    },
+    {
+        "model": "admin_index.appgroup",
+        "fields": {
+            "order": 2,
+            "translations": {
+                "en": "Logging",
+                "nl": "Logging"
+            },
+            "name": "Logging",
+            "slug": "logging",
+            "models": [
+                [
+                    "axes",
+                    "accessattempt"
+                ],
+                [
+                    "axes",
+                    "accesslog"
+                ],
+                [
+                    "axes",
+                    "accessfailurelog"
+                ],
+                [
+                    "log_outgoing_requests",
+                    "outgoingrequestslog"
+                ]
+            ]
+        }
+    },
+    {
+        "model": "admin_index.appgroup",
+        "fields": {
+            "order": 3,
+            "translations": {
+                "en": "Configuration",
+                "nl": "Configuratie"
+            },
+            "name": "Configuratie",
+            "slug": "configuration",
+            "models": [
+                [
+                    "admin_index",
+                    "appgroup"
+                ],
+                [
+                    "notifications_api_common",
+                    "notificationsconfig"
+                ],
+                [
+                    "sites",
+                    "site"
+                ],
+                [
+                    "zgw_consumers",
+                    "service"
+                ],
+                [
+                    "zgw_consumers",
+                    "nlxconfig"
+                ],
+                [
+                    "otp_static",
+                    "staticdevice"
+                ],
+                [
+                    "otp_totp",
+                    "totpdevice"
+                ],
+                [
+                    "two_factor_webauthn",
+                    "webauthndevice"
+                ],
+                [
+                    "simple_certmanager",
+                    "certificate"
+                ],
+                [
+                    "mozilla_django_oidc_db",
+                    "openidconnectconfig"
+                ],
+                [
+                    "log_outgoing_requests",
+                    "outgoingrequestslogconfig"
+                ]
+            ]
+        }
+    }
+]

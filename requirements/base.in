@@ -1,24 +1,5 @@
-# Core python libraries
-psycopg  # database driver
-python-dotenv  # environment variables for secrets
-python-decouple  # processing of envvar configs
+open-api-framework
 
-# Framework libraries
-django ~= 4.2
-django-admin-index
 django-axes[ipware]
 django-capture-tag
-django-hijack
-django-redis
 django-rosetta
-maykin-2fa
-
-# API libraries
-# djangorestframework
-# django-extra-fields
-# django-filter
-
-# WSGI servers & monitoring - production oriented
-uwsgi
-sentry-sdk  # error monitoring
-elastic-apm  # Elastic APM integration

@@ -1,5 +1,5 @@
 {% extends "maykin_2fa/login.html" %}
-{% load i18n %}
+{% load solo_tags i18n %}
 
 
 {% block footer %}
@@ -8,7 +8,15 @@
 
 
 {% block extra_login_options %}
-{#Include additional (OIDC) authentication options here #}
+
+{% get_solo 'mozilla_django_oidc_db.OpenIDConnectConfig' as oidc_config %}
+{% if oidc_config.enabled %}
+<div class="admin-login-option">{% trans "or" %}</div>
+<div class="admin-login-option">
+    <a href="{% url 'oidc_authentication_init' %}">{% trans "Login with organization account" %}</a>
+</div>
+{% endif %}
+
 {% endblock %}
 
 

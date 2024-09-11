@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateView
 
 from maykin_2fa import monkeypatch_admin
 from maykin_2fa.urls import urlpatterns, webauthn_urlpatterns
+from mozilla_django_oidc_db.views import AdminLoginFailure
 
 from woo_publications.accounts.views.password_reset import PasswordResetView
 
@@ -36,6 +37,7 @@ urlpatterns = [
         name="password_reset_done",
     ),
     # Use custom login views for the admin + support hardware tokens
+    path("admin/login/failure/", AdminLoginFailure.as_view(), name="admin-oidc-error"),
     path("admin/", include((urlpatterns, "maykin_2fa"))),
     path("admin/", include((webauthn_urlpatterns, "two_factor"))),
     path("admin/hijack/", include("hijack.urls")),
@@ -50,8 +52,14 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path(
+        "api/",
+        include("woo_publications.api.urls"),
+    ),
     # Simply show the index template.
     path("", TemplateView.as_view(template_name="master.html"), name="root"),
+    path("ref/", include("vng_api_common.urls")),
+    path("oidc/", include("mozilla_django_oidc.urls")),
 ]
 
 # NOTE: The staticfiles_urlpatterns also discovers static files (ie. no need to run collectstatic). Both the static

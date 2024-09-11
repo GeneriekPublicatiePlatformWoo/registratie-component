@@ -15,9 +15,8 @@ set -eu -o pipefail
 
 OUTFILE=${1:-src/woo_publications/api/openapi.yaml}
 
-# TODO: enable once API dependencies are added
-# src/manage.py spectacular \
-#     --validate \
-#     --fail-on-warn \
-#     --lang=nl \
-#     --file "$OUTFILE"
+src/manage.py spectacular \
+    --validate \
+    --fail-on-warn \
+    --lang=nl \
+    --file "$OUTFILE"

@@ -1,6 +1,12 @@
 openapi: 3.0.3
 info:
-  title: Openbare Documenten Registratie API
-  version: 0.1.0
-servers: []
+  title: WOO Publications
+  version: 0.0.0
+  description: WIP
+  contact:
+    url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component
+  license:
+    name: EUPL
+    url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md
 paths: {}
+components: {}
