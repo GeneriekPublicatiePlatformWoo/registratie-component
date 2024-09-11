@@ -13,10 +13,12 @@ DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql"
 INSTALLED_APPS = INSTALLED_APPS + [
     # External applications.
     "capture_tag",
+    "hijack",
+    "hijack.contrib.admin",
     # Project applications.
     "woo_publications.accounts",
-    "woo_publications.utils",
     "woo_publications.api",
+    "woo_publications.utils",
 ]
 
 MIDDLEWARE = MIDDLEWARE + [

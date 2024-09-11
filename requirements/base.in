@@ -2,4 +2,5 @@ open-api-framework
 
 django-axes[ipware]
 django-capture-tag
+django-hijack
 django-rosetta
