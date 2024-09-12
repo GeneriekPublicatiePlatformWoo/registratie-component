@@ -53,7 +53,7 @@ def keycloak_login(
 
 
 @contextmanager
-def mock_oidc_db_config(app_label: str, model: str, **overrides):
+def mock_oidc_db_config(**overrides):
     """
     Bundle all the required mocks.
 
@@ -63,7 +63,7 @@ def mock_oidc_db_config(app_label: str, model: str, **overrides):
     The below configured data including the secrets are can be found in the test-realm.json file.
     This can be found within the docker directory within this project.
     And these tests are supposed to be run while running the keycloak docker-compose configuration.
-    More information can be found within the `keycloak/docker-compose.keycloak.yml` file.
+    More information can be found within the `docker/keycloak/README.md` file.
     """
     defaults = {
         "enabled": True,
@@ -77,7 +77,7 @@ def mock_oidc_db_config(app_label: str, model: str, **overrides):
         "oidc_op_user_endpoint": f"{KEYCLOAK_BASE_URL}/userinfo",
     }
     field_values = {**defaults, **overrides}
-    model_cls = apps.get_model(app_label, model)
+    model_cls = apps.get_model("mozilla_django_oidc_db", "OpenIDConnectConfig")
     with (
         # bypass django-solo queries + cache hits
         patch(

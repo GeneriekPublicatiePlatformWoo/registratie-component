@@ -1,3 +1,4 @@
+import inspect
 import os
 from pathlib import Path
 
@@ -14,11 +15,9 @@ class VCRMixin(VCRMixin):
     """
 
     def _get_cassette_library_dir(self):
-        split_path = str(self.__class__.__module__).split(".")
-        test_dir = split_path.pop()
-        path = Path("/".join(split_path))
         class_name = self.__class__.__qualname__
-        return str("src" / path / "vcr_cassettes" / test_dir / class_name)
+        path = Path(inspect.getfile(self.__class__))
+        return str(path.parent / "vcr_cassettes" / path.stem / class_name)
 
     def _get_cassette_name(self):
         return f"{self._testMethodName}.yaml"

@@ -14,8 +14,6 @@ from .factories import UserFactory
 
 mock_admin_oidc_config = partial(
     mock_oidc_db_config,
-    app_label="mozilla_django_oidc_db",
-    model="OpenIDConnectConfig",
     id=1,  # required for the group queries because we're using in-memory objects
     make_users_staff=True,
     username_claim=["preferred_username"],
@@ -46,6 +44,7 @@ class OIDCLoginButtonTestCase(WebTest):
         config.oidc_rp_client_id = "id"
         config.oidc_rp_client_secret = "secret"
         config.save()
+        self.addCleanup(config.clear_cache)
 
         response = self.app.get(reverse("admin:login"))
 
