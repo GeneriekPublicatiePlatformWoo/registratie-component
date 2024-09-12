@@ -14,10 +14,11 @@ os.environ.setdefault("DB_NAME", "woo_publications")
 os.environ.setdefault("DB_USER", "woo_publications")
 os.environ.setdefault("DB_PASSWORD", "woo_publications")
 
+os.environ.setdefault("DISABLE_2FA", "yes")
 os.environ.setdefault("ENVIRONMENT", "development")
 os.environ.setdefault("LOG_REQUESTS", "no")
 os.environ.setdefault("LOG_STDOUT", "1")
-os.environ.setdefault("DISABLE_2FA", "yes")
+os.environ.setdefault("VCR_RECORD_MODE", "once")
 
 from .base import *  # noqa isort:skip
 

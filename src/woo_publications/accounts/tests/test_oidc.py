@@ -1,20 +1,16 @@
 from functools import partial
-from pathlib import Path
 
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-import vcr
 from django_webtest import WebTest
 from mozilla_django_oidc_db.models import OpenIDConnectConfig
 
 from woo_publications.utils.tests.keycloak import keycloak_login, mock_oidc_db_config
+from woo_publications.utils.tests.vcr import VCRMixin
 
 from ..models import User
 from .factories import UserFactory
-
-TEST_FILES = (Path(__file__).parent / "cassets").resolve()
-
 
 mock_admin_oidc_config = partial(
     mock_oidc_db_config,
@@ -64,8 +60,7 @@ class OIDCLoginButtonTestCase(WebTest):
         )
 
 
-class OIDCFLowTests(WebTest):
-    @vcr.use_cassette(str(TEST_FILES / "duplicate_email.yaml"))
+class OIDCFLowTests(VCRMixin, WebTest):
     @mock_admin_oidc_config()
     def test_duplicate_email_unique_constraint_violated(self):
         # this user collides on the email address
@@ -102,7 +97,6 @@ class OIDCFLowTests(WebTest):
             self.assertEqual(staff_user.email, "admin@example.com")
             self.assertTrue(staff_user.is_staff)
 
-    @vcr.use_cassette(str(TEST_FILES / "happy_flow.yaml"))
     @mock_admin_oidc_config()
     def test_happy_flow(self):
         login_page = self.app.get(reverse("admin:login"))
@@ -123,7 +117,6 @@ class OIDCFLowTests(WebTest):
         user = User.objects.get()
         self.assertEqual(user.username, "admin")
 
-    @vcr.use_cassette(str(TEST_FILES / "happy_flow_existing_user.yaml"))
     @mock_admin_oidc_config(make_users_staff=False)
     def test_happy_flow_existing_user(self):
         staff_user = UserFactory.create(

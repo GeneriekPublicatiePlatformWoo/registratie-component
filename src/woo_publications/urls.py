@@ -30,7 +30,7 @@ urlpatterns = [
     path("api/", include("woo_publications.api.urls")),
     # Simply show the index template.
     path("", TemplateView.as_view(template_name="master.html"), name="root"),
-    path("oidc/", include("mozilla_django_oidc.urls")),
+    path("auth/oidc/", include("mozilla_django_oidc.urls")),
 ]
 
 # NOTE: The staticfiles_urlpatterns also discovers static files (ie. no need to run collectstatic). Both the static
