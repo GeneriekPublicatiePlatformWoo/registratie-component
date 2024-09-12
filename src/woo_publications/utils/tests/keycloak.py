@@ -59,6 +59,11 @@ def mock_oidc_db_config(app_label: str, model: str, **overrides):
 
     This context manager deliberately prevents the mocked things from being injected in
     the test method signature.
+
+    The below configured data including the secrets are can be found in the test-realm.json file.
+    This can be found within the docker directory within this project.
+    And these tests are supposed to be run while running the keycloak docker-compose configuration.
+    More information can be found within the `keycloak/docker-compose.keycloak.yml` file.
     """
     defaults = {
         "enabled": True,
@@ -76,7 +81,7 @@ def mock_oidc_db_config(app_label: str, model: str, **overrides):
     with (
         # bypass django-solo queries + cache hits
         patch(
-            f"{model_cls.__module__}.{model}.get_solo",
+            "mozilla_django_oidc_db.models.OpenIDConnectConfig.get_solo",
             return_value=model_cls(**field_values),
         ),
         # mock the state & nonce random value generation so we get predictable URLs to

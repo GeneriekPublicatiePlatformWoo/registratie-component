@@ -11,7 +11,7 @@ from mozilla_django_oidc_db.models import OpenIDConnectConfig
 from woo_publications.utils.tests.keycloak import keycloak_login, mock_oidc_db_config
 
 from ..models import User
-from .factories import StaffUserFactory
+from .factories import UserFactory
 
 TEST_FILES = (Path(__file__).parent / "cassets").resolve()
 
@@ -31,6 +31,7 @@ class OIDCLoginButtonTestCase(WebTest):
         config = OpenIDConnectConfig.get_solo()
         config.enabled = False
         config.save()
+        self.addCleanup(config.clear_cache)
 
         response = self.app.get(reverse("admin:login"))
 
@@ -68,8 +69,8 @@ class OIDCFLowTests(WebTest):
     @mock_admin_oidc_config()
     def test_duplicate_email_unique_constraint_violated(self):
         # this user collides on the email address
-        staff_user = StaffUserFactory.create(
-            username="no-match", email="admin@example.com"
+        staff_user = UserFactory.create(
+            is_staff=True, username="no-match", email="admin@example.com"
         )
         login_page = self.app.get(reverse("admin:login"))
         start_response = login_page.click(
@@ -125,7 +126,9 @@ class OIDCFLowTests(WebTest):
     @vcr.use_cassette(str(TEST_FILES / "happy_flow_existing_user.yaml"))
     @mock_admin_oidc_config(make_users_staff=False)
     def test_happy_flow_existing_user(self):
-        staff_user = StaffUserFactory.create(username="admin", email="update-me")
+        staff_user = UserFactory.create(
+            is_staff=True, username="admin", email="update-me"
+        )
         login_page = self.app.get(reverse("admin:login"))
         start_response = login_page.click(
             description=_("Login with organization account")

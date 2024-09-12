@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: WOO Publications
-  version: 0.0.0
+  version: 0.1.0
   description: WIP
   contact:
     url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component

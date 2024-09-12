@@ -1,41 +1,34 @@
 from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 
 from drf_spectacular.views import (
+    SpectacularAPIView,
     SpectacularJSONAPIView,
     SpectacularRedocView,
-    SpectacularYAMLAPIView,
 )
-from vng_api_common import routers
-
-from .views import redirect_to_schema_view
+from rest_framework import routers
 
 router = routers.DefaultRouter()
 
 
 urlpatterns = [
+    path("docs/", RedirectView.as_view(pattern_name="api-docs")),
     re_path(
-        r"^v(?P<version>\d+)/",
+        "v1",
         include(
             [
-                re_path(r"^", include(router.urls)),
-                path("", router.APIRootView.as_view(), name="api-root"),
                 path(
-                    "openapi.yaml",
-                    SpectacularYAMLAPIView.as_view(),
-                    name="schema-yaml",
-                ),
-                path(
-                    "openapi.json",
-                    SpectacularJSONAPIView.as_view(),
-                    name="schema-json",
+                    "",
+                    SpectacularJSONAPIView.as_view(schema=None),
+                    name="api-schema-json",
                 ),
                 path(
                     "docs/",
-                    SpectacularRedocView.as_view(url_name="schema-yaml"),
-                    name="schema-redoc",
+                    SpectacularRedocView.as_view(url_name="api-schema-json"),
+                    name="api-docs",
                 ),
+                path("schema", SpectacularAPIView.as_view(schema=None), name="schema"),
             ]
         ),
     ),
-    path("docs/", redirect_to_schema_view, name="redirect_to_schema"),
 ]

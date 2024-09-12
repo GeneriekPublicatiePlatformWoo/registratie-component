@@ -8,16 +8,6 @@ from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
-from maykin_2fa import monkeypatch_admin
-from maykin_2fa.urls import urlpatterns, webauthn_urlpatterns
-from mozilla_django_oidc_db.views import AdminLoginFailure
-
-from woo_publications.accounts.views.password_reset import PasswordResetView
-
-# Configure admin
-
-monkeypatch_admin()
-
 handler500 = "woo_publications.utils.views.server_error"
 admin.site.site_header = _("WOO publications")
 admin.site.site_title = _("WOO publications")
@@ -26,22 +16,7 @@ admin.site.index_title = _("WOO publications dashboard")
 # URL routing
 
 urlpatterns = [
-    path(
-        "admin/password_reset/",
-        PasswordResetView.as_view(),
-        name="admin_password_reset",
-    ),
-    path(
-        "admin/password_reset/done/",
-        auth_views.PasswordResetDoneView.as_view(),
-        name="password_reset_done",
-    ),
-    # Use custom login views for the admin + support hardware tokens
-    path("admin/login/failure/", AdminLoginFailure.as_view(), name="admin-oidc-error"),
-    path("admin/", include((urlpatterns, "maykin_2fa"))),
-    path("admin/", include((webauthn_urlpatterns, "two_factor"))),
-    path("admin/hijack/", include("hijack.urls")),
-    path("admin/", admin.site.urls),
+    path("admin/", include("woo_publications.admin.urls")),
     path(
         "reset/<uidb64>/<token>/",
         auth_views.PasswordResetConfirmView.as_view(),
@@ -52,13 +27,9 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path(
-        "api/",
-        include("woo_publications.api.urls"),
-    ),
+    path("api/", include("woo_publications.api.urls")),
     # Simply show the index template.
     path("", TemplateView.as_view(template_name="master.html"), name="root"),
-    path("ref/", include("vng_api_common.urls")),
     path("oidc/", include("mozilla_django_oidc.urls")),
 ]
 

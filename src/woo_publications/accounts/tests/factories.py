@@ -20,11 +20,3 @@ class UserFactory(DjangoModelFactory):
             is_staff=True,
             is_superuser=True,
         )
-
-
-class StaffUserFactory(UserFactory):
-    is_staff = True
-
-
-class SuperUserFactory(StaffUserFactory):
-    is_superuser = True

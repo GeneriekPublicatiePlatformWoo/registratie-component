@@ -6,7 +6,6 @@ coverage
 django-webtest
 factory-boy
 freezegun
-requests-mock
 pyquery
 tblib
 vcrpy

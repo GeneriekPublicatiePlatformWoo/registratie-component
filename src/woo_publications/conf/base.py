@@ -2,13 +2,14 @@ from django.utils.translation import gettext_lazy as _
 
 from open_api_framework.conf.base import *  # noqa
 from open_api_framework.conf.utils import config
-
-from .api import *  # noqa
+from vng_api_common.conf.api import BASE_REST_FRAMEWORK
 
 init_sentry()
 
 
-DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql"
+TIME_ZONE = "Europe/Amsterdam"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INSTALLED_APPS = INSTALLED_APPS + [
     # External applications.
@@ -21,9 +22,18 @@ INSTALLED_APPS = INSTALLED_APPS + [
     "woo_publications.utils",
 ]
 
+INSTALLED_APPS.remove("vng_api_common")
+INSTALLED_APPS.remove("notifications_api_common")
+
 MIDDLEWARE = MIDDLEWARE + [
     "hijack.middleware.HijackUserMiddleware",
 ]
+
+#
+# SECURITY settings
+#
+
+CSRF_FAILURE_VIEW = "woo_publications.accounts.views.csrf_failure"
 
 #
 # Custom settings
@@ -95,3 +105,41 @@ HIJACK_INSERT_BEFORE = (
 SUBPATH = config("SUBPATH", None)
 if SUBPATH:
     SUBPATH = f"/{SUBPATH.strip('/')}"
+
+#
+# DJANGO REST FRAMEWORK
+#
+
+REST_FRAMEWORK = BASE_REST_FRAMEWORK.copy()
+REST_FRAMEWORK["PAGE_SIZE"] = 100
+REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
+REST_FRAMEWORK["DEFAULT_FILTER_BACKENDS"] = ()
+REST_FRAMEWORK["DEFAULT_PAGINATION_CLASS"] = None
+REST_FRAMEWORK["EXCEPTION_HANDLER"] = "rest_framework.views.exception_handler"
+
+SPECTACULAR_SETTINGS = {
+    "SCHEMA_PATH_PREFIX": "/api/v1",
+    "TITLE": "WOO Publications",
+    "DESCRIPTION": "WIP",
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+        "drf_spectacular.contrib.djangorestframework_camel_case.camelize_serializer_fields",
+    ],
+    "SERVE_INCLUDE_SCHEMA": False,
+    "CAMELIZE_NAMES": True,
+    "TOS": None,
+    "CONTACT": {
+        "url": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component",
+        "email": "support@maykinmedia.nl",
+    },
+    "LICENSE": {
+        "name": "EUPL",
+        "url": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md",
+    },
+    "VERSION": "0.1.0",
+    "TAGS": [],
+    "EXTERNAL_DOCS": {
+        "description": "Functional and technical documentation",
+        "url": "https://odrc.readthedocs.io/",
+    },
+}
