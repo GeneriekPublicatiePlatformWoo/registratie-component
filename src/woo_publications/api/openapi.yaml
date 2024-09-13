@@ -9,8 +9,127 @@ info:
   license:
     name: EUPL
     url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md
-paths: {}
-components: {}
+paths:
+  /api/v1/informatie-categorie/:
+    get:
+      operationId: informatieCategorieList
+      description: Alle informatie categorieën opvragen.
+      summary: Alle informatie categorieën opvragen.
+      parameters:
+      - in: query
+        name: identifier
+        schema:
+          type: string
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - informatie categorie
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInformatieCategorieList'
+          description: ''
+  /api/v1/informatie-categorie/{id}/:
+    get:
+      operationId: informatieCategorieRetrieve
+      description: Een specifiek informatie categorie opvragen.
+      summary: Een specifiek informatie categorie opvragen.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this informatie categorie.
+        required: true
+      tags:
+      - informatie categorie
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InformatieCategorie'
+          description: ''
+components:
+  schemas:
+    InformatieCategorie:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+          description: De unieke URL van deze informatie categorie binnen deze API.
+        identifier:
+          type: string
+          format: uri
+          maxLength: 255
+        name:
+          type: string
+          title: Naam
+          maxLength: 80
+        namePlural:
+          type: string
+          maxLength: 80
+        definition:
+          type: string
+        origin:
+          $ref: '#/components/schemas/OriginEnum'
+        order:
+          type: integer
+          readOnly: true
+      required:
+      - identifier
+      - name
+      - namePlural
+      - order
+      - origin
+      - url
+    OriginEnum:
+      enum:
+      - waardelijst
+      - zelf_toegevoegd
+      type: string
+      description: |-
+        * `waardelijst` - Waardelijst
+        * `zelf_toegevoegd` - Zelf toegevoegd
+    PaginatedInformatieCategorieList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformatieCategorie'
 externalDocs:
   description: Functional and technical documentation
   url: https://odrc.readthedocs.io/
