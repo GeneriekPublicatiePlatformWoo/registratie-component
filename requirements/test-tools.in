@@ -6,7 +6,9 @@ coverage
 django-webtest
 factory-boy
 freezegun
+pyquery
 tblib
+vcrpy
 
 # Code formatting
 black

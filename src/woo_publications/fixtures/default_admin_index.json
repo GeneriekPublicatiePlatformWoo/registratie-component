@@ -1,0 +1,129 @@
+[
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 0,
+        "translations": {
+            "en": "Accounts",
+            "nl": "Accounts"
+        },
+        "name": "Accounts",
+        "slug": "accounts",
+        "models": [
+            [
+                "accounts",
+                "user"
+            ],
+            [
+                "auth",
+                "group"
+            ],
+            [
+                "otp_totp",
+                "totpdevice"
+            ],
+            [
+                "two_factor_webauthn",
+                "webauthndevice"
+            ]
+        ]
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 1,
+        "translations": {
+            "en": "WOO publications",
+            "nl": "WOO publicaties"
+        },
+        "name": "WOO publications",
+        "slug": "woo_publications",
+        "models": []
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 2,
+        "translations": {
+            "en": "Logging",
+            "nl": "Logging"
+        },
+        "name": "Logging",
+        "slug": "logging",
+        "models": [
+            [
+                "axes",
+                "accessattempt"
+            ],
+            [
+                "axes",
+                "accessfailurelog"
+            ],
+            [
+                "axes",
+                "accesslog"
+            ],
+            [
+                "log_outgoing_requests",
+                "outgoingrequestslog"
+            ]
+        ]
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 3,
+        "translations": {
+            "en": "Configuration",
+            "nl": "Configuratie"
+        },
+        "name": "Configuratie",
+        "slug": "configuration",
+        "models": [
+            [
+                "admin_index",
+                "appgroup"
+            ],
+            [
+                "log_outgoing_requests",
+                "outgoingrequestslogconfig"
+            ],
+            [
+                "mozilla_django_oidc_db",
+                "openidconnectconfig"
+            ],
+            [
+                "otp_static",
+                "staticdevice"
+            ],
+            [
+                "otp_totp",
+                "totpdevice"
+            ],
+            [
+                "simple_certmanager",
+                "certificate"
+            ],
+            [
+                "sites",
+                "site"
+            ],
+            [
+                "two_factor_webauthn",
+                "webauthndevice"
+            ],
+            [
+                "zgw_consumers",
+                "nlxconfig"
+            ],
+            [
+                "zgw_consumers",
+                "service"
+            ]
+        ]
+    }
+}
+]

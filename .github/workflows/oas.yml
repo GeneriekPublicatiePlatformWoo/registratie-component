@@ -38,9 +38,9 @@ jobs:
 
       - name: Generate the API specification
         run: |
-          # FIXME: remove once spectacular is added
-          cp src/woo_publications/api/openapi.yaml openapi.yaml
           ./bin/generate_api_schema.sh openapi.yaml
+        env:
+          DJANGO_SETTINGS_MODULE: woo_publications.conf.ci
 
       - name: Store generated API specification for later use
         uses: actions/upload-artifact@v4

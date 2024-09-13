@@ -14,9 +14,11 @@ os.environ.setdefault("DB_NAME", "woo_publications")
 os.environ.setdefault("DB_USER", "woo_publications")
 os.environ.setdefault("DB_PASSWORD", "woo_publications")
 
+os.environ.setdefault("DISABLE_2FA", "yes")
 os.environ.setdefault("ENVIRONMENT", "development")
 os.environ.setdefault("LOG_REQUESTS", "no")
 os.environ.setdefault("LOG_STDOUT", "1")
+os.environ.setdefault("VCR_RECORD_MODE", "once")
 
 from .base import *  # noqa isort:skip
 
@@ -80,10 +82,6 @@ INSTALLED_APPS += ["django_extensions"]
 # Django rosetta
 ROSETTA_SHOW_AT_ADMIN_PANEL = True
 INSTALLED_APPS += ["rosetta"]
-
-# None of the authentication backends require two-factor authentication.
-if config("DISABLE_2FA", default=False):
-    MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = AUTHENTICATION_BACKENDS
 
 # THOU SHALT NOT USE NAIVE DATETIMES
 warnings.filterwarnings(

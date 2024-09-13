@@ -5,17 +5,40 @@ alabaster==0.7.16
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   sphinx
+amqp==5.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   kombu
+ape-pie==0.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   zgw-consumers
 asgiref==3.8.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django
     #   django-axes
+    #   django-cors-headers
 asn1crypto==1.5.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webauthn
+async-timeout==4.0.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   redis
+attrs==24.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   glom
+    #   jsonschema
+    #   referencing
 babel==2.16.0
     # via
     #   -c requirements/ci.txt
@@ -26,10 +49,27 @@ beautifulsoup4==4.12.3
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webtest
+billiard==4.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
 black==24.8.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+bleach==6.1.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-markup
+    #   open-api-framework
+boltons==24.0.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   face
+    #   glom
 bump2version==1.0.1
     # via -r requirements/dev.in
 cbor2==5.6.4
@@ -37,6 +77,13 @@ cbor2==5.6.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webauthn
+celery==5.4.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   flower
+    #   notifications-api-common
+    #   open-api-framework
 certifi==2024.8.30
     # via
     #   -c requirements/ci.txt
@@ -44,7 +91,7 @@ certifi==2024.8.30
     #   elastic-apm
     #   requests
     #   sentry-sdk
-cffi==1.17.0
+cffi==1.17.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -59,10 +106,44 @@ click==8.1.7
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
+click-didyoumean==0.3.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
+click-plugins==1.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
+click-repl==0.3.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
 colorama==0.4.6
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+commonground-api-common==1.13.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+coreapi==2.3.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+coreschema==0.0.4
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   coreapi
 coverage==7.6.1
     # via
     #   -c requirements/ci.txt
@@ -71,40 +152,97 @@ cryptography==43.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-simple-certmanager
+    #   josepy
+    #   mozilla-django-oidc
     #   pyopenssl
     #   webauthn
-django==4.2.15
+cssselect==1.2.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   pyquery
+django==4.2.16
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
     #   django-admin-index
+    #   django-appconf
     #   django-axes
+    #   django-cors-headers
+    #   django-csp
     #   django-debug-toolbar
     #   django-extensions
+    #   django-filter
     #   django-formtools
     #   django-hijack
+    #   django-jsonform
+    #   django-log-outgoing-requests
+    #   django-markup
     #   django-otp
     #   django-phonenumber-field
+    #   django-privates
     #   django-redis
+    #   django-relativedelta
+    #   django-rest-framework-condition
     #   django-rosetta
+    #   django-sendfile2
+    #   django-setup-configuration
+    #   django-simple-certmanager
+    #   django-solo
     #   django-two-factor-auth
+    #   djangorestframework
+    #   djangorestframework-inclusions
+    #   drf-nested-routers
+    #   drf-spectacular
+    #   drf-yasg
     #   maykin-2fa
+    #   mozilla-django-oidc
+    #   mozilla-django-oidc-db
+    #   notifications-api-common
+    #   open-api-framework
+    #   zgw-consumers
 django-admin-index==3.1.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
+django-appconf==1.0.6
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-log-outgoing-requests
 django-axes==6.5.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
 django-capture-tag==1.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+django-cors-headers==4.4.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+django-csp==3.8
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 django-debug-toolbar==4.4.6
     # via -r requirements/dev.in
 django-extensions==3.2.3
     # via -r requirements/dev.in
+django-filter==24.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   djangorestframework-gis
+    #   open-api-framework
 django-formtools==2.5.1
     # via
     #   -c requirements/ci.txt
@@ -118,12 +256,28 @@ django-ipware==7.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+django-jsonform==2.22.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   mozilla-django-oidc-db
+    #   open-api-framework
+django-log-outgoing-requests==0.6.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+django-markup==1.9
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 django-ordered-model==3.7.4
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-admin-index
-django-otp==1.5.2
+django-otp==1.5.4
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -133,14 +287,54 @@ django-phonenumber-field==8.0.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-two-factor-auth
+django-privates==2.0.0.post1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-simple-certmanager
 django-redis==5.4.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
+django-relativedelta==2.0.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   zgw-consumers
+django-rest-framework-condition==0.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
 django-rosetta==0.10.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+django-sendfile2==0.7.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-privates
+django-setup-configuration==0.3.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+django-simple-certmanager==2.3.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   zgw-consumers
+django-solo==2.3.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   django-log-outgoing-requests
+    #   mozilla-django-oidc-db
+    #   notifications-api-common
+    #   zgw-consumers
 django-two-factor-auth==1.17.0
     # via
     #   -c requirements/ci.txt
@@ -150,13 +344,58 @@ django-webtest==1.9.12
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+djangorestframework==3.15.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   djangorestframework-gis
+    #   djangorestframework-inclusions
+    #   drf-nested-routers
+    #   drf-spectacular
+    #   drf-yasg
+    #   notifications-api-common
+    #   open-api-framework
+djangorestframework-camel-case==1.4.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   notifications-api-common
+djangorestframework-gis==1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+djangorestframework-inclusions==1.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 docutils==0.20.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-markup
+    #   python-creole
     #   sphinx
     #   sphinx-rtd-theme
     #   sphinx-tabs
+drf-nested-routers==0.94.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+drf-spectacular==0.27.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+drf-yasg==1.21.7
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
 ecs-logging==2.2.0
     # via
     #   -c requirements/ci.txt
@@ -166,11 +405,17 @@ elastic-apm==6.23.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
+face==20.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   glom
 factory-boy==3.3.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-faker==28.1.0
+faker==28.4.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -179,38 +424,122 @@ flake8==7.1.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+flower==2.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 freezegun==1.5.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+furl==2.1.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   ape-pie
+gemma-zds-client==2.0.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   notifications-api-common
 gitdb==4.0.11
     # via gitpython
 gitpython==3.1.43
     # via -r requirements/dev.in
+glom==23.5.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   mozilla-django-oidc-db
+html5lib==1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   textile
+humanize==4.10.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   flower
 idna==3.8
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   requests
+    #   yarl
 imagesize==1.4.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   sphinx
+inflection==0.5.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   drf-spectacular
+    #   drf-yasg
 iniconfig==2.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   pytest
+iso-639==0.4.5
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+isodate==0.6.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
 isort==5.13.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+itypes==1.2.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   coreapi
 jinja2==3.1.4
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   coreschema
     #   sphinx
+josepy==1.14.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   mozilla-django-oidc
+jsonschema==4.23.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   drf-spectacular
+jsonschema-specifications==2023.12.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   jsonschema
+kombu==5.4.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
+lxml==5.3.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   pyquery
+markdown==3.7
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-markup
 markupsafe==2.1.5
     # via
     #   -c requirements/ci.txt
@@ -220,21 +549,57 @@ maykin-2fa==1.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
 mccabe==0.7.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   flake8
+mozilla-django-oidc==4.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   mozilla-django-oidc-db
+mozilla-django-oidc-db==0.19.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
+multidict==6.1.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   yarl
 mypy-extensions==1.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
+notifications-api-common==0.2.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+open-api-framework==0.8.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+orderedmultidict==1.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   furl
+oyaml==1.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
 packaging==24.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
+    #   drf-yasg
     #   pytest
     #   sphinx
 pathspec==0.12.1
@@ -242,12 +607,12 @@ pathspec==0.12.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
-phonenumberslite==8.13.44
+phonenumberslite==8.13.45
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-two-factor-auth
-platformdirs==4.2.2
+platformdirs==4.3.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -262,10 +627,21 @@ polib==1.2.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-rosetta
-psycopg==3.2.1
+prometheus-client==0.20.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   flower
+prompt-toolkit==3.0.47
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   click-repl
+psycopg2==2.9.9
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 pycodestyle==2.12.1
     # via
     #   -c requirements/ci.txt
@@ -285,41 +661,78 @@ pygments==2.18.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-markup
     #   sphinx
     #   sphinx-tabs
+pyjwt==2.9.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   commonground-api-common
+    #   gemma-zds-client
+    #   zgw-consumers
 pyopenssl==24.2.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   josepy
     #   webauthn
 pypng==0.20220715.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   qrcode
-pytest==8.3.2
+pyquery==2.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+pytest==8.3.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+python-creole==1.4.10
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-markup
 python-dateutil==2.9.0.post0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   celery
+    #   django-relativedelta
     #   faker
     #   freezegun
 python-decouple==3.8
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
 python-dotenv==1.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
 python-ipware==3.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-ipware
+pytz==2024.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   drf-yasg
+    #   flower
+pyyaml==6.0.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   drf-spectacular
+    #   drf-yasg
+    #   gemma-zds-client
+    #   oyaml
+    #   vcrpy
 qrcode==7.4.2
     # via
     #   -c requirements/ci.txt
@@ -330,21 +743,57 @@ redis==5.0.8
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-redis
+referencing==0.35.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   jsonschema
+    #   jsonschema-specifications
+regex==2024.9.11
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   textile
 requests==2.32.3
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   ape-pie
+    #   commonground-api-common
+    #   coreapi
+    #   django-log-outgoing-requests
     #   django-rosetta
+    #   gemma-zds-client
+    #   mozilla-django-oidc
+    #   open-api-framework
     #   sphinx
-sentry-sdk==2.13.0
+    #   zgw-consumers
+rpds-py==0.20.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   jsonschema
+    #   referencing
+sentry-sdk==2.14.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   open-api-framework
 six==1.16.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   bleach
+    #   furl
+    #   html5lib
+    #   isodate
+    #   orderedmultidict
     #   python-dateutil
+smartypants==2.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-markup
 smmap==5.0.1
     # via gitdb
 snowballstemmer==2.2.0
@@ -419,12 +868,35 @@ tblib==3.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+textile==4.0.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-markup
+tornado==6.4.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   flower
 typing-extensions==4.12.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-    #   psycopg
+    #   mozilla-django-oidc-db
     #   qrcode
+    #   zgw-consumers
+tzdata==2024.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   celery
+uritemplate==4.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   coreapi
+    #   drf-spectacular
+    #   drf-yasg
 urllib3==2.2.2
     # via
     #   -c requirements/ci.txt
@@ -436,16 +908,39 @@ uwsgi==2.0.26
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   open-api-framework
+vcrpy==6.0.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+vine==5.1.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   amqp
+    #   celery
+    #   kombu
 waitress==3.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webtest
+wcwidth==0.2.13
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   prompt-toolkit
 webauthn==2.2.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-two-factor-auth
+webencodings==0.5.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   bleach
+    #   html5lib
 webob==1.8.8
     # via
     #   -c requirements/ci.txt
@@ -461,3 +956,15 @@ wrapt==1.16.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   elastic-apm
+    #   vcrpy
+yarl==1.11.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   vcrpy
+zgw-consumers==0.35.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   notifications-api-common
+    #   open-api-framework
