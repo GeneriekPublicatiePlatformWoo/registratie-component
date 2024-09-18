@@ -19,6 +19,7 @@ INSTALLED_APPS = INSTALLED_APPS + [
     # Project applications.
     "woo_publications.accounts",
     "woo_publications.api",
+    "woo_publications.metadata",
     "woo_publications.utils",
 ]
 
