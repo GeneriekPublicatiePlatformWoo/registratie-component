@@ -20,10 +20,14 @@ paths:
         name: identifier
         schema:
           type: string
+          format: uri
+        description: Search the information category based on the unique URI that
+          identifies a specific category.
       - in: query
-        name: name
+        name: naam
         schema:
           type: string
+        description: Search the information category based on the name of the category.
       - name: page
         required: false
         in: query
@@ -51,7 +55,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this informatie categorie.
+        description: A unique integer value identifying this information category.
         required: true
       tags:
       - informatie categorie
@@ -69,44 +73,51 @@ components:
     InformatieCategorie:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-          description: De unieke URL van deze informatie categorie binnen deze API.
         identifier:
           type: string
           format: uri
+          description: The unique URI that identifies this category in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
           maxLength: 255
-        name:
+        naam:
           type: string
-          title: Naam
+          description: The name of the category.
           maxLength: 80
-        namePlural:
+        naamMeervoud:
           type: string
+          title: Name plural
+          description: The plural name of the category.
           maxLength: 80
-        definition:
+        definitie:
           type: string
-        origin:
-          $ref: '#/components/schemas/OriginEnum'
+          title: Definition
+          description: The description of the category.
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OorsprongEnum'
+          title: Origin
+          description: |-
+            Determines where the category is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the category can not be modified or deleted.
+
+            * `waardelijst` - Value list
+            * `zelf_toegevoegd` - Custom entry
         order:
           type: integer
           readOnly: true
+          description: The order number of the category.
       required:
       - identifier
-      - name
-      - namePlural
+      - naam
       - order
-      - origin
-      - url
-    OriginEnum:
+    OorsprongEnum:
       enum:
       - waardelijst
       - zelf_toegevoegd
       type: string
       description: |-
-        * `waardelijst` - Waardelijst
-        * `zelf_toegevoegd` - Zelf toegevoegd
+        * `waardelijst` - Value list
+        * `zelf_toegevoegd` - Custom entry
     PaginatedInformatieCategorieList:
       type: object
       required:
