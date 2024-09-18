@@ -11,6 +11,8 @@ TIME_ZONE = "Europe/Amsterdam"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+INSTALLED_APPS.remove("django.contrib.sites")
+
 INSTALLED_APPS = INSTALLED_APPS + [
     # External applications.
     "capture_tag",
