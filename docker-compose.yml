@@ -52,6 +52,8 @@ services:
     volumes: &web_volumes
       - media:/app/media
       - log:/app/log
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - 8000:8000
     depends_on:
