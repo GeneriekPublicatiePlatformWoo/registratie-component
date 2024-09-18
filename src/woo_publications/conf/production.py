@@ -29,8 +29,6 @@ SESSION_CACHE_ALIAS = "default"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 # Production logging facility.
-
-# Production logging facility.
 handlers = ["console"] if LOG_STDOUT else ["django"]
 
 LOGGING["loggers"].update(
@@ -48,3 +46,7 @@ LOGGING["loggers"].update(
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Sets X-Content-Type-Options: nosniff
 SECURE_BROWSER_XSS_FILTER = True  # Sets X-XSS-Protection: 1; mode=block
+
+SILENCED_SYSTEM_CHECKS += [
+    "utils.W002",  # host.docker.internal is not relevant for production
+]
