@@ -108,3 +108,23 @@ jobs:
           DB_USER: postgres
           DB_NAME: postgres
           DB_PASSWORD: ''
+
+  type-checking:
+    name: Type checking (Pyright)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install additional dependencies
+        run: |
+          pip install uv
+          uv pip install \
+            --system \
+            -r requirements/type-checking.txt
+      - uses: jakebailey/pyright-action@v1
+        with:
+          version: 1.1.381  # keep in sync with requirements/type-checking.txt
+          project: pyright.pyproject.toml
