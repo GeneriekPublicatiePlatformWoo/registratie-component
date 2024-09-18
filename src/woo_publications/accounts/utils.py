@@ -1,11 +1,16 @@
+from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
 
 
 def validate_max_permissions(
-    current_user: User, permissions=None, groups=None, is_superuser=None
+    current_user: User,
+    permissions: models.Manager[Permission] | models.QuerySet[Permission],
+    groups: models.Manager[Group] | models.QuerySet[Group],
+    is_superuser=None,
 ):
     """
     Validate that the ``permissions``, ``groups`` and ``superuser``-flag are

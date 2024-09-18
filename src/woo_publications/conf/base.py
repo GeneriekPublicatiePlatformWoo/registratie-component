@@ -1,8 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 
 from open_api_framework.conf.base import *  # noqa
-from open_api_framework.conf.utils import config
 from vng_api_common.conf.api import BASE_REST_FRAMEWORK
+
+from .utils import config
 
 init_sentry()
 
@@ -106,7 +107,7 @@ HIJACK_INSERT_BEFORE = (
 
 # Subpath (optional)
 # This environment variable can be configured during deployment.
-SUBPATH = config("SUBPATH", None)
+SUBPATH = config("SUBPATH", default="")
 if SUBPATH:
     SUBPATH = f"/{SUBPATH.strip('/')}"
 

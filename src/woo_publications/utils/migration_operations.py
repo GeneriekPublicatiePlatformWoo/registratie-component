@@ -36,10 +36,12 @@ class ResetSequences(migrations.RunSQL):
         ...     ]
     """
 
-    reversible = True
-
     def __init__(self, *args, **kwargs):
-        super().__init__(None, *args, **kwargs)
+        super().__init__("", *args, **kwargs)
+
+    @property
+    def reversible(self):
+        return True
 
     def database_forwards(self, app_label, schema_editor, from_state, to_state) -> None:
         if router.allow_migrate(
@@ -54,7 +56,7 @@ class ResetSequences(migrations.RunSQL):
 
             sql = "\n".join(x[0] for x in rows)
 
-            self._run_sql(schema_editor, sql)
+            self._run_sql(schema_editor, sql)  # type: ignore
 
     def database_backwards(self, *args, **kwargs) -> None:
         pass

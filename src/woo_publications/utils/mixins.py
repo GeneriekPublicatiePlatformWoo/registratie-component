@@ -30,9 +30,9 @@ class ThrottleMixin:
     def get_throttle_cache(self):
         return caches["default"]
 
-    def get_throttle_identifier(self):
+    def get_throttle_identifier(self) -> str:
         user = getattr(self, "user_cache", self.request.user)
-        return str(user.id)
+        return str(user.pk)
 
     def create_throttle_key(self):
         """
@@ -70,6 +70,7 @@ class ThrottleMixin:
     def should_be_throttled(self):
         if self.throttle_methods == "all":
             return True
+        assert self.request.method is not None
         return self.request.method.lower() in self.throttle_methods
 
     def dispatch(self, request, *args, **kwargs):
@@ -80,7 +81,7 @@ class ThrottleMixin:
             ):
                 raise PermissionDenied
 
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)  # type: ignore
 
 
 class IPThrottleMixin(ThrottleMixin):
@@ -89,5 +90,7 @@ class IPThrottleMixin(ThrottleMixin):
     per IP-address a user can access a certain view.
     """
 
-    def get_throttle_identifier(self):
-        return get_client_ip_address(self.request)
+    def get_throttle_identifier(self) -> str:
+        ip_address = get_client_ip_address(self.request)
+        assert ip_address is not None
+        return ip_address

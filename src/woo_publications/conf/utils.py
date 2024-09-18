@@ -1,12 +1,13 @@
 import logging
 
-from decouple import Csv, config as _config, undefined
+from decouple import Csv, Undefined, undefined
+from open_api_framework.conf.utils import config as _config
 from sentry_sdk.integrations import DidNotEnable, django, redis
 
 logger = logging.getLogger(__name__)
 
 
-def config(option: str, default=undefined, *args, **kwargs):
+def config[T](option: str, default: T | Undefined = undefined, *args, **kwargs) -> T:
     """
     Pull a config parameter from the environment.
 
@@ -20,11 +21,8 @@ def config(option: str, default=undefined, *args, **kwargs):
         kwargs.pop("split")
         kwargs["cast"] = Csv()
         if default == []:
-            default = ""
-
-    if default is not undefined and default is not None:
-        kwargs.setdefault("cast", type(default))
-    return _config(option, default=default, *args, **kwargs)
+            default = ""  # type: ignore
+    return _config(option, default=default, *args, **kwargs)  # type: ignore
 
 
 def get_sentry_integrations() -> list:

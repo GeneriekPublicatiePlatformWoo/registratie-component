@@ -17,7 +17,7 @@ class PreventPrivilegeEscalationMixin:
         if self._target_user is None:  # pragma: no cover
             raise RuntimeError("Could not determine target user.")
 
-        cleaned_data = super().clean()
+        cleaned_data = super().clean()  # type: ignore
         user_permissions = cleaned_data.get("user_permissions")
         groups = cleaned_data.get("groups")
         is_superuser = cleaned_data.get("is_superuser")
