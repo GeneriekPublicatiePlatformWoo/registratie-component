@@ -1,3 +1,6 @@
+glom
+requests
+
 open-api-framework
 
 django-axes[ipware]

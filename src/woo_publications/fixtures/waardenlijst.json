@@ -1,0 +1,218 @@
+[
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_139c6280",
+            "naam": "wet of algemeen verbindend voorschrift",
+            "naam_meervoud": "wetten en algemeen verbindende voorschriften",
+            "definitie": "wetten en andere algemeen verbindende voorschriften",
+            "oorsprong": "waardelijst",
+            "order": 1010
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_3a248e3a",
+            "naam": "agenda of besluitenlijst bestuurscollege",
+            "naam_meervoud": "agenda’s en besluitenlijsten bestuurscolleges",
+            "definitie": "agenda’s en besluitenlijsten van vergaderingen van de ministerraad, gedeputeerde staten, colleges van burgemeester en wethouders en dagelijkse besturen van waterschappen en dagelijkse besturen van openbare lichamen als bedoeld in de Wet gemeenschappelijke regelingen",
+            "oorsprong": "waardelijst",
+            "order": 1090
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_3baef532",
+            "naam": "Woo-verzoek of -besluit",
+            "naam_meervoud": "Woo-verzoeken en -besluiten",
+            "definitie": "de inhoud van de schriftelijke verzoeken op grond van artikel 4.1, van de schriftelijke beslissingen op die verzoeken en de daarbij verstrekte informatie",
+            "oorsprong": "waardelijst",
+            "order": 1140
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_40a05794",
+            "naam": "organisatie en werkwijze",
+            "naam_meervoud": "organisatie en werkwijze",
+            "definitie": "inzicht in zijn organisatie en werkwijze, waaronder de taken en bevoegdheden van de organisatieonderdelen",
+            "oorsprong": "waardelijst",
+            "order": 1040
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_46a81018",
+            "naam": "beschikking",
+            "naam_meervoud": "beschikkingen",
+            "definitie": "beschikkingen, met uitzondering van 21 categorieën.",
+            "oorsprong": "waardelijst",
+            "order": 1160
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_759721e2",
+            "naam": "ontwerp van wet- en regelgeving met adviesaanvraag",
+            "naam_meervoud": "ontwerpen van wet- en regelgeving met adviesaanvraag",
+            "definitie": "ontwerpen van wetten, andere algemeen verbindende voorschriften en overige besluiten van algemene strekking waarover een extern advies is gevraagd, met inbegrip van de adviesaanvraag",
+            "oorsprong": "waardelijst",
+            "order": 1030
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_816e508d",
+            "naam": "inspanningsverplichting art 3.1 Woo",
+            "naam_meervoud": "inspanningsverplichting art 3.1 Woo",
+            "definitie": "Informatie die niet valt onder een van de informatiecategorieën van artikel 3.3 Woo, maar actief openbaar is gemaakt op grond van de algemene inspanningsverplichting van artikel 3.1 Woo ",
+            "oorsprong": "waardelijst",
+            "order": 2000
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_89ee6784",
+            "naam": "bereikbaarheidsgegevens",
+            "naam_meervoud": "bereikbaarheidsgegevens",
+            "definitie": "de bereikbaarheid van het bestuursorgaan en zijn organisatieonderdelen en de wijze waarop een verzoek om informatie kan worden ingediend",
+            "oorsprong": "waardelijst",
+            "order": 1050
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_8c840238",
+            "naam": "bij vertegenwoordigend orgaan ingekomen stuk",
+            "naam_meervoud": "bij vertegenwoordigende organen ingekomen stukken",
+            "definitie": "bij de Kamers en de verenigde vergadering der Staten-Generaal, provinciale staten, gemeenteraden en algemene besturen van waterschappen ter behandeling ingekomen stukken, tenzij deze betrekking hebben op door de regering vertrouwelijk aan de Staten-Generaal verstrekte informatie of tenzij deze betrekking hebben op individuele gevallen",
+            "oorsprong": "waardelijst",
+            "order": 1060
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_8fc2335c",
+            "naam": "convenant",
+            "naam_meervoud": "convenanten",
+            "definitie": "convenanten",
+            "oorsprong": "waardelijst",
+            "order": 1110
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_99a836c7",
+            "naam": "advies",
+            "naam_meervoud": "adviezen",
+            "definitie": "adviezen:\n1. over de ontwerpen, bedoeld in het eerste lid, onderdeel c, van adviescolleges of -commissies alsmede van andere externe partijen indien die om advies zijn verzocht;\n2. over andere onderwerpen van adviescolleges of -commissies, alsmede de op dat advies betrekking hebbende adviesaanvraag, uitgezonderd adviezen die betrekking hebben op individuele gevallen;",
+            "oorsprong": "waardelijst",
+            "order": 1100
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_a870c43d",
+            "naam": "klachtoordeel",
+            "naam_meervoud": "klachtoordelen",
+            "definitie": "schriftelijke oordelen in klachtprocedures als bedoeld in titel 9.1 van de Algemene wet bestuursrecht",
+            "oorsprong": "waardelijst",
+            "order": 1170
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_aab6bfc7",
+            "naam": "overig besluit van algemene strekking",
+            "naam_meervoud": "overige besluiten van algemene strekking",
+            "definitie": "overige besluiten van algemene strekking",
+            "oorsprong": "waardelijst",
+            "order": 1020
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_c6cd1213",
+            "naam": "jaarplan of jaarverslag",
+            "naam_meervoud": "jaarplannen en jaarverslagen",
+            "definitie": "jaarplannen en jaarverslagen van bestuursorganen inzake de voorgenomen uitvoering van de taak of de verantwoording van die uitvoering",
+            "oorsprong": "waardelijst",
+            "order": 1120
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_c76862ab",
+            "naam": "vergaderstuk Staten-Generaal",
+            "naam_meervoud": "vergaderstukken Staten-Generaal",
+            "definitie": "vergaderstukken en verslagen van de Kamers en de verenigde vergadering der Staten-Generaal en hun commissies, tenzij deze betrekking hebben op door de regering vertrouwelijk aan de Staten-Generaal verstrekte informatie",
+            "oorsprong": "waardelijst",
+            "order": 1070
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_cf268088",
+            "naam": "subsidieverplichting anders dan met beschikking",
+            "naam_meervoud": "subsidieverplichtingen anders dan met beschikking",
+            "definitie": "verplichtingen tot verstrekking van subsidies, anders dan met een beschikking (NB - alleen bij Min. BZ)",
+            "oorsprong": "waardelijst",
+            "order": 1130
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_db4862c3",
+            "naam": "vergaderstuk decentrale overheid",
+            "naam_meervoud": "vergaderstukken decentrale overheden",
+            "definitie": "vergaderstukken en verslagen van provinciale staten, gemeenteraden en algemene besturen van waterschappen, algemene besturen van openbare lichamen, besturen van bedrijfsvoeringsorganisaties en gemeenschappelijke organen als bedoeld in de Wet gemeenschappelijke regelingen en hun commissies",
+            "oorsprong": "waardelijst",
+            "order": 1080
+        }
+    },
+    {
+        "pk": null,
+        "model": "metadata.informatiecategorie",
+        "fields": {
+            "identifier": "https://identifier.overheid.nl/tooi/def/thes/kern/c_fdaee95e",
+            "naam": "onderzoeksrapport",
+            "naam_meervoud": "onderzoeksrapporten",
+            "definitie": "op verzoek van een bestuursorgaan ambtelijk of extern opgestelde onderzoeksrapporten die geen onderdeel vormen van de uitvoering van de taak van dat bestuursorgaan, die voornamelijk uit feitelijk materiaal bestaan en die betrekking hebben op:\n1. de wijze van functioneren van de eigen organisatie;\n2. de voorbereiding of de evaluatie van beleid, inclusief de uitvoering, naleving en handhaving.",
+            "oorsprong": "waardelijst",
+            "order": 1150
+        }
+    }
+]

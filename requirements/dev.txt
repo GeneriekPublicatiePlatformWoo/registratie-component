@@ -27,11 +27,6 @@ asn1crypto==1.5.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webauthn
-async-timeout==4.0.3
-    # via
-    #   -c requirements/ci.txt
-    #   -r requirements/ci.txt
-    #   redis
 attrs==24.2.0
     # via
     #   -c requirements/ci.txt
