@@ -5,4 +5,4 @@ class UtilsConfig(AppConfig):
     name = "woo_publications.utils"
 
     def ready(self):
-        from . import checks  # noqa
+        from . import checks, query  # noqa

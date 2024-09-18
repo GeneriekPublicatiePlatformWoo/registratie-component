@@ -4,7 +4,9 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 
-from ..models import InformatieCategorie
+from woo_publications.metadata.models import InformatieCategorie
+
+from ..filterset.category import InformatieCategorieFilterset
 from ..serializer.category import InformatieCategorieSerializer
 
 
@@ -24,8 +26,4 @@ class InformatieCategorieViewset(
 ):
     queryset = InformatieCategorie.objects.all()
     serializer_class = InformatieCategorieSerializer
-    lookup_field = "pk"
-    filterset_fields = [
-        "identifier",
-        "name",
-    ]
+    filterset_class = InformatieCategorieFilterset
