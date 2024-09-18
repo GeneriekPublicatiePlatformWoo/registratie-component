@@ -89,6 +89,7 @@ services:
       - CACHE_AXES=redis:6379/0
       - ODRC_SUPERUSER_USERNAME=admin
       - ODRC_SUPERUSER_EMAIL=admin@host.docker.internal
+      - DISABLE_2FA=true
       - DJANGO_SUPERUSER_PASSWORD=admin
       - ALLOWED_HOSTS=*
       # Environment labeling
@@ -97,6 +98,7 @@ services:
       - ENVIRONMENT_BACKGROUND_COLOR=#1d63ed
       - ENVIRONMENT_FOREGROUND_COLOR=white
     volumes: &web_volumes
+      - ./docker/fixtures/:/app/fixtures
       - media:/app/media
       - log:/app/log
     extra_hosts:
