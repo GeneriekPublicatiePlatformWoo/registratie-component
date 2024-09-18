@@ -12,7 +12,7 @@ class UserFactory(DjangoModelFactory):
     last_name = factory.Faker("last_name")
     password = factory.PostGenerationMethodCall("set_password", "password")
 
-    class Meta:
+    class Meta:  # type: ignore
         model = User
 
     class Params:

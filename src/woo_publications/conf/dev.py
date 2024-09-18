@@ -100,6 +100,6 @@ warnings.filterwarnings(
 
 # Override settings with local settings.
 try:
-    from .local import *  # noqa
+    from .local import *  # type: ignore # noqa
 except ImportError:
     pass
