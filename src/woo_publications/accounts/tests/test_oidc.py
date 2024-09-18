@@ -81,9 +81,9 @@ class OIDCFLowTests(VCRMixin, WebTest):
             self.assertEqual(error_page.status_code, 200)
             self.assertEqual(error_page.request.path, reverse("admin-oidc-error"))
             self.assertEqual(
-                error_page.context["oidc_error"],
+                error_page.context["oidc_error"].strip(),
                 'duplicate key value violates unique constraint "filled_email_unique"\n'
-                "DETAIL:  Key (email)=(admin@example.com) already exists.\n",
+                "DETAIL:  Key (email)=(admin@example.com) already exists.",
             )
             self.assertContains(
                 error_page, "duplicate key value violates unique constraint"
