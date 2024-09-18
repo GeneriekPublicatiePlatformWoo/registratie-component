@@ -1,4 +1,5 @@
 import os
+import sys
 import warnings
 
 os.environ.setdefault("DEBUG", "yes")
@@ -21,6 +22,7 @@ os.environ.setdefault("LOG_STDOUT", "1")
 os.environ.setdefault("VCR_RECORD_MODE", "once")
 
 from .base import *  # noqa isort:skip
+from .utils import mute_logging  # noqa isort:skip
 
 # Feel free to switch dev to sqlite3 for simple projects,
 # os.environ.setdefault("DB_ENGINE", "django.db.backends.sqlite3")
@@ -64,6 +66,11 @@ CACHES.update(
         "axes": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"},
     }
 )
+
+if "test" in sys.argv:
+    if "VERBOSE" not in os.environ:
+        # shut up logging
+        mute_logging(LOGGING)
 
 #
 # Library settings
