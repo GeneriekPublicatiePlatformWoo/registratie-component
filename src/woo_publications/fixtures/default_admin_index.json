@@ -39,12 +39,7 @@
         },
         "name": "WOO publications",
         "slug": "woo_publications",
-        "models": [
-            [
-                "api",
-                "informatiecategorie"
-            ]
-        ]
+        "models": []
     }
 },
 {
