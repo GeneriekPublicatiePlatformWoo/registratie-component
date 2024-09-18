@@ -1,0 +1,11 @@
+[tool.pyright]
+include = [
+    "src/",
+]
+exclude = [
+    "**/__pycache__",
+]
+ignore = []
+
+pythonVersion = "3.12"
+pythonPlatform = "Linux"

@@ -22,6 +22,7 @@ asgiref==3.8.1
     #   django
     #   django-axes
     #   django-cors-headers
+    #   django-stubs
 asn1crypto==1.5.1
     # via
     #   -c requirements/ci.txt
@@ -65,8 +66,6 @@ boltons==24.0.0
     #   -r requirements/ci.txt
     #   face
     #   glom
-bump2version==1.0.1
-    # via -r requirements/dev.in
 cbor2==5.6.4
     # via
     #   -c requirements/ci.txt
@@ -167,8 +166,6 @@ django==4.2.16
     #   django-axes
     #   django-cors-headers
     #   django-csp
-    #   django-debug-toolbar
-    #   django-extensions
     #   django-filter
     #   django-formtools
     #   django-hijack
@@ -186,6 +183,8 @@ django==4.2.16
     #   django-setup-configuration
     #   django-simple-certmanager
     #   django-solo
+    #   django-stubs
+    #   django-stubs-ext
     #   django-two-factor-auth
     #   djangorestframework
     #   djangorestframework-inclusions
@@ -227,10 +226,6 @@ django-csp==3.8
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   open-api-framework
-django-debug-toolbar==4.4.6
-    # via -r requirements/dev.in
-django-extensions==3.2.3
-    # via -r requirements/dev.in
 django-filter==24.3
     # via
     #   -c requirements/ci.txt
@@ -330,6 +325,14 @@ django-solo==2.3.0
     #   mozilla-django-oidc-db
     #   notifications-api-common
     #   zgw-consumers
+django-stubs==5.0.4
+    # via
+    #   -r requirements/type-checking.in
+    #   djangorestframework-stubs
+django-stubs-ext==5.0.4
+    # via
+    #   -r requirements/type-checking.in
+    #   django-stubs
 django-two-factor-auth==1.17.0
     # via
     #   -c requirements/ci.txt
@@ -367,6 +370,8 @@ djangorestframework-inclusions==1.2.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   open-api-framework
+djangorestframework-stubs==3.15.1
+    # via -r requirements/type-checking.in
 docutils==0.20.1
     # via
     #   -c requirements/ci.txt
@@ -439,10 +444,6 @@ gemma-zds-client==2.0.0
     #   -r requirements/ci.txt
     #   commonground-api-common
     #   notifications-api-common
-gitdb==4.0.11
-    # via gitpython
-gitpython==3.1.43
-    # via -r requirements/dev.in
 glom==23.5.0
     # via
     #   -c requirements/ci.txt
@@ -570,6 +571,8 @@ mypy-extensions==1.0.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
+nodeenv==1.9.1
+    # via pyright
 notifications-api-common==0.2.2
     # via
     #   -c requirements/ci.txt
@@ -681,6 +684,8 @@ pyquery==2.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+pyright==1.1.381
+    # via -r requirements/type-checking.in
 pytest==8.3.3
     # via
     #   -c requirements/ci.txt
@@ -758,6 +763,7 @@ requests==2.32.3
     #   coreapi
     #   django-log-outgoing-requests
     #   django-rosetta
+    #   djangorestframework-stubs
     #   gemma-zds-client
     #   mozilla-django-oidc
     #   open-api-framework
@@ -789,8 +795,6 @@ smartypants==2.0.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-markup
-smmap==5.0.1
-    # via gitdb
 snowballstemmer==2.2.0
     # via
     #   -c requirements/ci.txt
@@ -805,7 +809,6 @@ sphinx==7.4.7
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-    #   -r requirements/dev.in
     #   sphinx-rtd-theme
     #   sphinx-tabs
     #   sphinxcontrib-jquery
@@ -813,7 +816,6 @@ sphinx-rtd-theme==2.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-    #   -r requirements/dev.in
 sphinx-tabs==3.4.5
     # via
     #   -c requirements/ci.txt
@@ -858,7 +860,6 @@ sqlparse==0.5.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django
-    #   django-debug-toolbar
 tblib==3.0.0
     # via
     #   -c requirements/ci.txt
@@ -873,10 +874,21 @@ tornado==6.4.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   flower
+types-pyyaml==6.0.12.20240917
+    # via
+    #   django-stubs
+    #   djangorestframework-stubs
+types-requests==2.32.0.20240914
+    # via
+    #   -r requirements/type-checking.in
+    #   djangorestframework-stubs
 typing-extensions==4.12.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-stubs
+    #   django-stubs-ext
+    #   djangorestframework-stubs
     #   mozilla-django-oidc-db
     #   qrcode
     #   zgw-consumers
@@ -899,6 +911,7 @@ urllib3==2.2.2
     #   elastic-apm
     #   requests
     #   sentry-sdk
+    #   types-requests
 uwsgi==2.0.26
     # via
     #   -c requirements/ci.txt
