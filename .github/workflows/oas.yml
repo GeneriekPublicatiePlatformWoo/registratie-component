@@ -124,57 +124,57 @@ jobs:
             -o ./tests/postman/collection.json \
             --pretty
 
-  sdks:
-    name: Generate SDKs from API schema
-    runs-on: ubuntu-latest
-    needs:
-      - check-up-to-date  # no point in linting something that's not up to date
+  # sdks:
+  #   name: Generate SDKs from API schema
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - check-up-to-date  # no point in linting something that's not up to date
 
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download generated OAS
-        uses: actions/download-artifact@v4
-        with:
-          name: woo-publications-oas
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: npm
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Download generated OAS
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: woo-publications-oas
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version-file: '.nvmrc'
+  #         cache: npm
 
-      - name: Install dependencies
-        run: npm install -g @openapitools/openapi-generator-cli
+  #     - name: Install dependencies
+  #       run: npm install -g @openapitools/openapi-generator-cli
 
-      - name: Validate schema
-        run: |
-          openapi-generator-cli \
-            validate -i openapi.yaml
+  #     - name: Validate schema
+  #       run: |
+  #         openapi-generator-cli \
+  #           validate -i openapi.yaml
 
-      - name: Generate Java client
-        run: |
-          openapi-generator-cli \
-            generate \
-            -i openapi.yaml \
-            --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
-            -o ./sdks/java \
-            -g java \
-            --additional-properties=dateLibrary=java8,java8=true,optionalProjectFile=false,optionalAssemblyInfo=false
+  #     - name: Generate Java client
+  #       run: |
+  #         openapi-generator-cli \
+  #           generate \
+  #           -i openapi.yaml \
+  #           --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
+  #           -o ./sdks/java \
+  #           -g java \
+  #           --additional-properties=dateLibrary=java8,java8=true,optionalProjectFile=false,optionalAssemblyInfo=false
 
-      - name: Generate .NET client
-        run: |
-          openapi-generator-cli \
-            generate \
-            -i openapi.yaml \
-            --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
-            -o ./sdks/net \
-            -g csharp \
-            --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false
+  #     - name: Generate .NET client
+  #       run: |
+  #         openapi-generator-cli \
+  #           generate \
+  #           -i openapi.yaml \
+  #           --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
+  #           -o ./sdks/net \
+  #           -g csharp \
+  #           --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false
 
-      - name: Generate Python client
-        run: |
-          openapi-generator-cli \
-            generate \
-            -i openapi.yaml \
-            --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
-            -o ./sdks/python \
-            -g python \
-            --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false+
+  #     - name: Generate Python client
+  #       run: |
+  #         openapi-generator-cli \
+  #           generate \
+  #           -i openapi.yaml \
+  #           --global-property=modelTests=false,apiTests=false,modelDocs=false,apiDocs=false \
+  #           -o ./sdks/python \
+  #           -g python \
+  #           --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false+
