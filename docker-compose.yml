@@ -33,7 +33,7 @@ services:
     environment: &openzaak_web_env
       - DJANGO_SETTINGS_MODULE=openzaak.conf.docker
       - SECRET_KEY=${SECRET_KEY:-django-insecure-^#9nzgn*@-@0szv+$$)6th!i+$$ks^+bt@&ejcgzqt==7af(a(u3}
-      - ALLOWED_HOSTS=openzaak-web,host.docker.internal,localhost
+      - ALLOWED_HOSTS=openzaak-web,openzaak.docker.internal,localhost
       - DB_NAME=openzaak
       - DB_USER=openzaak
       - DB_HOST=db
@@ -103,6 +103,9 @@ services:
       - log:/app/log
     extra_hosts:
       - "host.docker.internal:host-gateway"
+      # required because Open Zaak otherwise treats our /catalogi/api/v1/ endpoints as
+      # internal
+      - "openzaak.docker.internal:host-gateway"
     ports:
       - 8000:8000
     depends_on:
