@@ -31,7 +31,7 @@ services:
   openzaak-web:
     image: openzaak/open-zaak:${OPENZAAK_VERSION:-1.14.0}
     environment: &openzaak_web_env
-      - DJANGO_SETTINGS_MODULE=openzaak.conf.docker
+      - DJANGO_SETTINGS_MODULE=openzaak.conf.patched_settings
       - SECRET_KEY=${SECRET_KEY:-django-insecure-^#9nzgn*@-@0szv+$$)6th!i+$$ks^+bt@&ejcgzqt==7af(a(u3}
       - ALLOWED_HOSTS=openzaak-web,openzaak.docker.internal,localhost
       - DB_NAME=openzaak
@@ -53,6 +53,7 @@ services:
     volumes: &openzaak_web_volumes
       # mount fixtures dir to automatically populate the DB
       - ./docker/open-zaak/fixtures/:/app/fixtures
+      - ./docker/open-zaak/patched_settings.py:/app/src/openzaak/conf/patched_settings.py
       - oz-media:/app/media  # Shared media volume to get access to saved OAS files
       - oz-private-media:/app/private-media
     depends_on:
