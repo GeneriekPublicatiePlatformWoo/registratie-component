@@ -90,20 +90,24 @@ def check_docker_hostname_dns(app_configs, **kwargs):
     properly though, otherwise they'll get weird and hard-to-understand test failures.
     """
     warnings = []
+    required_hosts = [
+        "host.docker.internal",
+        "openzaak.docker.internal",
+    ]
 
-    try:
-        socket.gethostbyname("host.docker.internal")
-    except socket.gaierror:  # pragma: no cover
-        warnings.append(
-            Warning(
-                "Could not resolve host.internal.docker to an IP address (expecting "
-                "127.0.0.1). This will result in test failures.",
-                hint=(
-                    "Add the line '127.0.0.1 host.docker.internal' to your /etc/hosts "
-                    "file."
-                ),
-                id="utils.W002",
+    for hostname in required_hosts:
+        try:
+            socket.gethostbyname(hostname)
+        except socket.gaierror:  # pragma: no cover
+            warnings.append(
+                Warning(
+                    f"Could not resolve {hostname} to an IP address (expecting "
+                    "127.0.0.1). This will result in test failures.",
+                    hint=(
+                        f"Add the line '127.0.0.1 {hostname}' to your /etc/hosts file."
+                    ),
+                    id="utils.W002",
+                )
             )
-        )
 
     return warnings

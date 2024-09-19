@@ -2,12 +2,12 @@ import inspect
 import os
 from pathlib import Path
 
-from vcr.unittest import VCRMixin
+from vcr.unittest import VCRMixin as _VCRMixin
 
 RECORD_MODE = os.environ.get("VCR_RECORD_MODE", "none")
 
 
-class VCRMixin(VCRMixin):
+class VCRMixin(_VCRMixin):
     """
     Mixin to use VCR in your unit tests.
 

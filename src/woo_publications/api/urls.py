@@ -1,4 +1,4 @@
-from django.urls import include, path, re_path
+from django.urls import include, path
 from django.views.generic import RedirectView
 
 from drf_spectacular.views import SpectacularJSONAPIView, SpectacularRedocView
@@ -10,8 +10,8 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path("docs/", RedirectView.as_view(pattern_name="api:api-docs")),
-    re_path(
-        "v1",
+    path(
+        "v1/",
         include(
             [
                 path(
