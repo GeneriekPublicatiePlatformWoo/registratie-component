@@ -11,7 +11,7 @@ class InformationCategoryFilterset(FilterSet):
     identifier = URLFilter(
         lookup_expr="icontains",
         help_text=_(
-            "Search the information category based on the unique URI that identifies a specific category."
+            "Search the information category based on the unique IRI that identifies a specific category."
         ),
     )
     naam = filters.CharFilter(

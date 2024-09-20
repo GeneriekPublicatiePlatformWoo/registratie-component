@@ -1,5 +1,4 @@
 import re
-from typing import Union
 
 from djangorestframework_camel_case.util import (
     camelize_re,
@@ -7,7 +6,7 @@ from djangorestframework_camel_case.util import (
 )
 
 
-def underscore_to_camel(input_: Union[str, int]) -> str | Union[str, int]:
+def underscore_to_camel[T: str | int](input_: T) -> T:
     """
     Convert a string from under_score to camelCase.
     """

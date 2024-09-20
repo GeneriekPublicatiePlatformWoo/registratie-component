@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
 
 from ..models import InformationCategory
 from .filters import InformationCategoryFilterset

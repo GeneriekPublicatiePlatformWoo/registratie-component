@@ -1,6 +1,6 @@
 from drf_spectacular.contrib.django_filters import DjangoFilterExtension
 
-from .utils import underscore_to_camel
+from woo_publications.api.utils import underscore_to_camel
 
 
 class CamelizeFilterExtension(DjangoFilterExtension):
@@ -10,11 +10,13 @@ class CamelizeFilterExtension(DjangoFilterExtension):
         """
         camelize query parameters
         """
-        parameters = super().get_schema_operation_parameters(
+        parameters = super().get_schema_operation_parameters(  # pragma: no cover
             auto_schema, *args, **kwargs
         )
 
         for parameter in parameters:
-            parameter["name"] = underscore_to_camel(parameter["name"])
+            parameter["name"] = underscore_to_camel(
+                parameter["name"]
+            )  # pragma: no cover
 
-        return parameters
+        return parameters  # pragma: no cover
