@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedInformatieCategorieList'
+                $ref: '#/components/schemas/PaginatedInformationCategoryList'
           description: ''
   /api/v1/informatie-categorie/{id}/:
     get:
@@ -66,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InformatieCategorie'
+                $ref: '#/components/schemas/InformationCategory'
           description: ''
   /catalogi/api/v1/informatieobjecttypen/{uuid}:
     get:
@@ -161,7 +161,7 @@ components:
       - url
       - vertrouwelijkheidaanduiding
       - zaaktypen
-    InformatieCategorie:
+    InformationCategory:
       type: object
       properties:
         identifier:
@@ -209,7 +209,7 @@ components:
       description: |-
         * `waardelijst` - Value list
         * `zelf_toegevoegd` - Custom entry
-    PaginatedInformatieCategorieList:
+    PaginatedInformationCategoryList:
       type: object
       required:
       - count
@@ -231,7 +231,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/InformatieCategorie'
+            $ref: '#/components/schemas/InformationCategory'
     VertrouwelijkheidaanduidingEnum:
       enum:
       - openbaar

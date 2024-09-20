@@ -2,12 +2,12 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
-from woo_publications.metadata.models import InformatieCategorie
+from woo_publications.metadata.models import InformationCategory
 
 
-class InformatieCategorieSerializer(serializers.ModelSerializer):
+class InformationCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = InformatieCategorie
+        model = InformationCategory
         fields = (
             "identifier",
             "naam",

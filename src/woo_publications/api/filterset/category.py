@@ -2,12 +2,12 @@ from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 
-from woo_publications.metadata.models import InformatieCategorie
+from woo_publications.metadata.models import InformationCategory
 
 from .custom_filters import URLFilter
 
 
-class InformatieCategorieFilterset(FilterSet):
+class InformationCategoryFilterset(FilterSet):
     identifier = URLFilter(
         lookup_expr="exact",
         help_text=_(
@@ -22,7 +22,7 @@ class InformatieCategorieFilterset(FilterSet):
     )
 
     class Meta:
-        model = InformatieCategorie
+        model = InformationCategory
         fields = (
             "identifier",
             "naam",

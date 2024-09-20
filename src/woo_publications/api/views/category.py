@@ -4,10 +4,10 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 
-from woo_publications.metadata.models import InformatieCategorie
+from woo_publications.metadata.models import InformationCategory
 
-from ..filterset.category import InformatieCategorieFilterset
-from ..serializer.category import InformatieCategorieSerializer
+from ..filterset.category import InformationCategoryFilterset
+from ..serializer.category import InformationCategorySerializer
 
 
 @extend_schema(tags=["informatie categorie"])
@@ -21,9 +21,9 @@ from ..serializer.category import InformatieCategorieSerializer
         description="Een specifiek informatie categorie opvragen.",
     ),
 )
-class InformatieCategorieViewset(
+class InformationCategoryViewset(
     ListModelMixin, RetrieveModelMixin, viewsets.GenericViewSet
 ):
-    queryset = InformatieCategorie.objects.all()
-    serializer_class = InformatieCategorieSerializer
-    filterset_class = InformatieCategorieFilterset
+    queryset = InformationCategory.objects.all()
+    serializer_class = InformationCategorySerializer
+    filterset_class = InformationCategoryFilterset

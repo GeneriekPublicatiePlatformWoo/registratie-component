@@ -3,32 +3,33 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from woo_publications.metadata.constants import InformatieCategorieOrigins
-from woo_publications.metadata.tests.factories import InformatieCategorieFactory
+from woo_publications.metadata.constants import InformationCategoryOrigins
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 
-class InformatieCategorieTests(APITestCase):
-    def setUp(self):
-        self.information_category_value_list = InformatieCategorieFactory.create(
+class InformationCategoryTests(APITestCase):
+    @classmethod
+    def setUpTestData(self):
+        super().setUpTestData()
+        self.information_category_value_list = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="first item",
             naam_meervoud="first items",
             definitie="This is some information about the first item.",
             order=0,
-            oorsprong=InformatieCategorieOrigins.value_list,
+            oorsprong=InformationCategoryOrigins.value_list,
         )
-        self.information_category_custom_entry = InformatieCategorieFactory.create(
+        self.information_category_custom_entry = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
             naam="second item",
             naam_meervoud="second items",
             definitie="This is some information about the second item.",
             order=1,
-            oorsprong=InformatieCategorieOrigins.custom_entry,
+            oorsprong=InformationCategoryOrigins.custom_entry,
         )
-        super().setUp()
 
     def test_list_informatie_categorie(self):
-        list_url = reverse("api:informatiecategorie-list")
+        list_url = reverse("api:informationcategory-list")
         response = self.client.get(list_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -47,7 +48,7 @@ class InformatieCategorieTests(APITestCase):
         )
         self.assertEqual(data["results"][0]["order"], 0)
         self.assertEqual(
-            data["results"][0]["oorsprong"], InformatieCategorieOrigins.value_list
+            data["results"][0]["oorsprong"], InformationCategoryOrigins.value_list
         )
 
         # Second item
@@ -62,11 +63,11 @@ class InformatieCategorieTests(APITestCase):
         )
         self.assertEqual(data["results"][1]["order"], 1)
         self.assertEqual(
-            data["results"][1]["oorsprong"], InformatieCategorieOrigins.custom_entry
+            data["results"][1]["oorsprong"], InformationCategoryOrigins.custom_entry
         )
 
     def test_list_informatie_categorie_search_on_identifier(self):
-        list_url = reverse("api:informatiecategorie-list")
+        list_url = reverse("api:informationcategory-list")
         response = self.client.get(
             list_url, {"identifier": "https://www.example.com/waardenlijsten/1"}
         )
@@ -87,7 +88,7 @@ class InformatieCategorieTests(APITestCase):
         )
         self.assertEqual(data["results"][0]["order"], 0)
         self.assertEqual(
-            data["results"][0]["oorsprong"], InformatieCategorieOrigins.value_list
+            data["results"][0]["oorsprong"], InformationCategoryOrigins.value_list
         )
 
         with self.subTest("with_none_existing_identifier"):
@@ -101,7 +102,7 @@ class InformatieCategorieTests(APITestCase):
             self.assertEqual(data["count"], 0)
 
     def test_list_informatie_categorie_search_on_naam(self):
-        list_url = reverse("api:informatiecategorie-list")
+        list_url = reverse("api:informationcategory-list")
         response = self.client.get(list_url, {"naam": "second item"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -120,7 +121,7 @@ class InformatieCategorieTests(APITestCase):
         )
         self.assertEqual(data["results"][0]["order"], 1)
         self.assertEqual(
-            data["results"][0]["oorsprong"], InformatieCategorieOrigins.custom_entry
+            data["results"][0]["oorsprong"], InformationCategoryOrigins.custom_entry
         )
 
         with self.subTest("with_none_existing_naam"):
@@ -132,7 +133,7 @@ class InformatieCategorieTests(APITestCase):
 
     def test_detail_informatie_categorie(self):
         list_url = reverse(
-            "api:informatiecategorie-detail",
+            "api:informationcategory-detail",
             kwargs={"pk": self.information_category_value_list.pk},
         )
         response = self.client.get(list_url)
@@ -148,4 +149,4 @@ class InformatieCategorieTests(APITestCase):
             data["definitie"], "This is some information about the first item."
         )
         self.assertEqual(data["order"], 0)
-        self.assertEqual(data["oorsprong"], InformatieCategorieOrigins.value_list)
+        self.assertEqual(data["oorsprong"], InformationCategoryOrigins.value_list)
