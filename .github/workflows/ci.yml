@@ -76,6 +76,10 @@ jobs:
           pg-service: 'postgres'
           setup-node: 'yes'
 
+      - name: Add host.docker.internal hostname to DNS resolution
+        run: |
+          sudo echo "127.0.0.1 host.docker.internal openzaak.docker.internal" | sudo tee -a /etc/hosts
+
       - name: Run tests
         run: |
           python src/manage.py compilemessages

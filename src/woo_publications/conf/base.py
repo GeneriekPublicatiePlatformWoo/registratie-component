@@ -94,7 +94,7 @@ AXES_COOLOFF_TIME = 1
 #
 # we run the admin site monkeypatch instead.
 # Relying Party name for WebAuthn (hardware tokens)
-TWO_FACTOR_WEBAUTHN_RP_NAME = "woo_publications"
+TWO_FACTOR_WEBAUTHN_RP_NAME = f"WOO Publications ({ENVIRONMENT})"
 
 
 #
@@ -148,3 +148,8 @@ SPECTACULAR_SETTINGS = {
         "url": "https://odrc.readthedocs.io/",
     },
 }
+
+#
+# ZGW-CONSUMERS
+#
+ZGW_CONSUMERS_IGNORE_OAS_FIELDS = True

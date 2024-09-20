@@ -379,9 +379,13 @@ face==20.1.1
     #   -r requirements/base.txt
     #   glom
 factory-boy==3.3.1
-    # via -r requirements/test-tools.in
+    # via
+    #   -r requirements/test-tools.in
+    #   zgw-consumers
 faker==28.4.1
-    # via factory-boy
+    # via
+    #   factory-boy
+    #   zgw-consumers
 flake8==7.1.1
     # via -r requirements/test-tools.in
 flower==2.0.1
@@ -648,6 +652,7 @@ pyyaml==6.0.2
     #   gemma-zds-client
     #   oyaml
     #   vcrpy
+    #   zgw-consumers
 qrcode==7.4.2
     # via
     #   -c requirements/base.txt
@@ -681,8 +686,11 @@ requests==2.32.3
     #   gemma-zds-client
     #   mozilla-django-oidc
     #   open-api-framework
+    #   requests-mock
     #   sphinx
     #   zgw-consumers
+requests-mock==1.12.1
+    # via zgw-consumers
 rpds-py==0.20.0
     # via
     #   -c requirements/base.txt
@@ -828,5 +836,6 @@ zgw-consumers==0.35.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+    #   -r requirements/test-tools.in
     #   notifications-api-common
     #   open-api-framework

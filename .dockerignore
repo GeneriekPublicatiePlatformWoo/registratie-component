@@ -6,11 +6,16 @@ docker-compose*
 .vscode
 env/
 local.py
-/doc/_build/
+/docs/
+/docker/
 
 /htmlcov
 .coverage
+# tests and test assets
+src/**/tests/**
 
+src/woo_publications/static/bundles
+/log/
 /static/
 /media/
 /private_media/

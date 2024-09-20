@@ -761,8 +761,13 @@ requests==2.32.3
     #   gemma-zds-client
     #   mozilla-django-oidc
     #   open-api-framework
+    #   requests-mock
     #   sphinx
     #   zgw-consumers
+requests-mock==1.12.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 rpds-py==0.20.0
     # via
     #   -c requirements/ci.txt

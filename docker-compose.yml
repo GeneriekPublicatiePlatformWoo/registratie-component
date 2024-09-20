@@ -13,18 +13,66 @@
 
 services:
   db:
-    image: postgres:${PG_VERSION:-16}
+    image: postgis/postgis:${PG_VERSION:-16-master}
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./docker/open-zaak/db/0001-init-open-zaak-db.sql:/docker-entrypoint-initdb.d/0001-init-open-zaak-db.sql
+      - ./docker/open-zaak/db/0002-extensions.sh:/docker-entrypoint-initdb.d/0002-extensions.sh
       - db:/var/lib/postgresql/data
 
   redis:
-    image: redis:6
+    image: redis:7
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redis-data:/data
+
+  openzaak-web:
+    image: openzaak/open-zaak:${OPENZAAK_VERSION:-1.14.0}
+    environment: &openzaak_web_env
+      - DJANGO_SETTINGS_MODULE=openzaak.conf.patched_settings
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-^#9nzgn*@-@0szv+$$)6th!i+$$ks^+bt@&ejcgzqt==7af(a(u3}
+      - ALLOWED_HOSTS=openzaak-web,openzaak.docker.internal,localhost
+      - DB_NAME=openzaak
+      - DB_USER=openzaak
+      - DB_HOST=db
+      - IS_HTTPS=no
+      - CACHE_DEFAULT=redis:6379/1
+      - CACHE_AXES=redis:6379/1
+      - SUBPATH=${SUBPATH:-/}
+      - OPENZAAK_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - OPENZAAK_SUPERUSER_EMAIL=admin@localhost
+      - DISABLE_2FA=true
+      - CELERY_BROKER_URL=redis://redis:6379/2
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - NOTIFICATIONS_DISABLED=true
+      - JWT_EXPIRY=99999999999  # Roughly 3170 years. This is required for tests with time frozen to work
+      - CELERY_WORKER_CONCURRENCY=${CELERY_WORKER_CONCURRENCY:-2}
+    volumes: &openzaak_web_volumes
+      # mount fixtures dir to automatically populate the DB
+      - ./docker/open-zaak/fixtures/:/app/fixtures
+      - ./docker/open-zaak/patched_settings.py:/app/src/openzaak/conf/patched_settings.py
+      - oz-media:/app/media  # Shared media volume to get access to saved OAS files
+      - oz-private-media:/app/private-media
+    depends_on:
+      - db
+      - redis
+      - openzaak-celery
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8001:8000
+
+  openzaak-celery:
+    image: openzaak/open-zaak:${OPENZAAK_VERSION:-1.14.0}
+    environment: *openzaak_web_env
+    volumes: *openzaak_web_volumes
+    command: /celery_worker.sh
+    depends_on:
+      - db
+      - redis
 
   web: &web_build
     build:
@@ -42,6 +90,7 @@ services:
       - CACHE_AXES=redis:6379/0
       - ODRC_SUPERUSER_USERNAME=admin
       - ODRC_SUPERUSER_EMAIL=admin@host.docker.internal
+      - DISABLE_2FA=true
       - DJANGO_SUPERUSER_PASSWORD=admin
       - ALLOWED_HOSTS=*
       # Environment labeling
@@ -50,8 +99,14 @@ services:
       - ENVIRONMENT_BACKGROUND_COLOR=#1d63ed
       - ENVIRONMENT_FOREGROUND_COLOR=white
     volumes: &web_volumes
+      - ./docker/fixtures/:/app/fixtures
       - media:/app/media
       - log:/app/log
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      # required because Open Zaak otherwise treats our /catalogi/api/v1/ endpoints as
+      # internal
+      - "openzaak.docker.internal:host-gateway"
     ports:
       - 8000:8000
     depends_on:
@@ -60,6 +115,8 @@ services:
 
 volumes:
   db:
+  redis-data:
+  oz-media:
+  oz-private-media:
   log:
   media:
-  redis-data:

@@ -9,6 +9,7 @@ freezegun
 pyquery
 tblib
 vcrpy
+zgw-consumers[testutils]
 
 # Code formatting
 black

@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: '{"informatieobjecttype": "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/b3ff3b25-42eb-4e56-a587-ac632b286496",
+      "bronorganisatie": "000000000", "creatiedatum": "2024-09-18", "titel": "Test
+      document", "auteur": "Automated test suite", "taal": "ENG", "bestandsomvang":
+      0}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTcyNjczNTc2MiwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.zbuvPLFVyRG6xsfNPb8tzx_7VgvwRveof8cpTw19JHI
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '293'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+    method: POST
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/b999559c-2894-42cd-99ad-559d9775f0f5","identificatie":"DOCUMENT-2024-0000000001","bronorganisatie":"000000000","creatiedatum":"2024-09-18","titel":"Test
+        document","vertrouwelijkheidaanduiding":"openbaar","auteur":"Automated test
+        suite","status":"","formaat":"","taal":"ENG","versie":1,"beginRegistratie":"2024-09-19T08:49:24.423610Z","bestandsnaam":"","inhoud":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/b999559c-2894-42cd-99ad-559d9775f0f5/download?versie=1","bestandsomvang":0,"link":"","beschrijving":"","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":null,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/b3ff3b25-42eb-4e56-a587-ac632b286496","locked":false,"bestandsdelen":[],"trefwoorden":[],"lock":""}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Length:
+      - '1030'
+      Content-Security-Policy:
+      - frame-ancestors 'none'; script-src 'self'; style-src 'self'; default-src 'self';
+        frame-src 'self'; object-src 'none'; form-action 'self'; img-src 'self'; base-uri
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Location:
+      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/b999559c-2894-42cd-99ad-559d9775f0f5
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1

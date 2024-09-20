@@ -28,6 +28,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("api/", include("woo_publications.api.urls")),
+    path("catalogi/api/v1/", include("woo_publications.contrib.documents_api.api")),
     # Simply show the index template.
     path("", TemplateView.as_view(template_name="master.html"), name="root"),
     path("auth/oidc/", include("mozilla_django_oidc.urls")),

@@ -1,4 +1,5 @@
 import os
+import socket
 
 from django.conf import settings
 from django.core.checks import Error, Warning, register
@@ -77,3 +78,36 @@ def check_missing_init_files(app_configs, **kwargs):
         )
 
     return errors
+
+
+@register
+def check_docker_hostname_dns(app_configs, **kwargs):
+    """
+    Check that the host.internal.docker hostname resolves to an IP address.
+
+    For simplicity sake we will program interaction tests on this hostname - this
+    requires developers (and CI environments) to have their /etc/hosts configured
+    properly though, otherwise they'll get weird and hard-to-understand test failures.
+    """
+    warnings = []
+    required_hosts = [
+        "host.docker.internal",
+        "openzaak.docker.internal",
+    ]
+
+    for hostname in required_hosts:
+        try:
+            socket.gethostbyname(hostname)
+        except socket.gaierror:  # pragma: no cover
+            warnings.append(
+                Warning(
+                    f"Could not resolve {hostname} to an IP address (expecting "
+                    "127.0.0.1). This will result in test failures.",
+                    hint=(
+                        f"Add the line '127.0.0.1 {hostname}' to your /etc/hosts file."
+                    ),
+                    id="utils.W002",
+                )
+            )
+
+    return warnings
