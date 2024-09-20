@@ -13,9 +13,9 @@ from .factories import InformationCategoryFactory
 @disable_admin_mfa()
 class TestInformationCategoryAdmin(WebTest):
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         super().setUpTestData()
-        self.user = UserFactory.create(
+        cls.user = UserFactory.create(
             is_staff=True,
             is_superuser=True,
         )
