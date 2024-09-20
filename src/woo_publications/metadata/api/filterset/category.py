@@ -2,9 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 
+from woo_publications.api.custom_filters import URLFilter
 from woo_publications.metadata.models import InformationCategory
-
-from .custom_filters import URLFilter
 
 
 class InformationCategoryFilterset(FilterSet):

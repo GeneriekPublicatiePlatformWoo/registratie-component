@@ -6,7 +6,7 @@ from woo_publications.metadata.models import InformationCategory
 
 
 class InformationCategorySerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta:  # type: ignore
         model = InformationCategory
         fields = (
             "identifier",
