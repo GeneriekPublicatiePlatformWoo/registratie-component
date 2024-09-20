@@ -6,7 +6,7 @@ from maykin_2fa.test import disable_admin_mfa
 from woo_publications.accounts.tests.factories import UserFactory
 
 from ..constants import InformationCategoryOrigins
-from ..models import CUSTOM_IDENTIFIER_URL_PREFIX, InformationCategory
+from ..models import CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX, InformationCategory
 from .factories import InformationCategoryFactory
 
 
@@ -165,7 +165,9 @@ class TestInformationCategoryAdmin(WebTest):
         added_item = InformationCategory.objects.order_by("-pk").first()
         assert added_item is not None
         self.assertEqual(added_item.naam, "new item")
-        self.assertTrue(added_item.identifier.startswith(CUSTOM_IDENTIFIER_URL_PREFIX))
+        self.assertTrue(
+            added_item.identifier.startswith(CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX)
+        )
         self.assertEqual(added_item.order, 0)
         self.assertEqual(added_item.naam_meervoud, "new items")
         self.assertEqual(

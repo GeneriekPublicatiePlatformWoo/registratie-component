@@ -8,13 +8,19 @@ from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins
 
-CUSTOM_IDENTIFIER_URL_PREFIX = (
+CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
 )
 
+CUSTOM_THEME_URL_PREFIX = "https://generiek-publicatieplatform.woo/thema/"
 
-def get_default_identifier():
-    return f"{CUSTOM_IDENTIFIER_URL_PREFIX}{uuid.uuid4()}"
+
+def get_default_information_category_identifier():
+    return f"{CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX}{uuid.uuid4()}"
+
+
+def get_default_theme_identifier():
+    return f"{CUSTOM_THEME_URL_PREFIX}{uuid.uuid4()}"
 
 
 class InformationCategory(OrderedModel):
@@ -27,24 +33,11 @@ class InformationCategory(OrderedModel):
         max_length=255,
         unique=True,
         editable=False,
-        default=get_default_identifier,
+        default=get_default_information_category_identifier,
     )
-    naam = models.CharField(
-        _("name"),
-        help_text=_("The name of the category."),
-        max_length=80,
-    )
-    naam_meervoud = models.CharField(
-        _("name plural"),
-        help_text=_("The plural name of the category."),
-        max_length=80,
-        blank=True,
-    )
-    definitie = models.TextField(
-        _("definition"),
-        help_text=_("The description of the category."),
-        blank=True,
-    )
+    naam = models.CharField(_("name"), max_length=80)
+    naam_meervoud = models.CharField(_("name plural"), max_length=80, blank=True)
+    definitie = models.TextField(_("definition"), blank=True)
     oorsprong = models.CharField(
         _("origin"),
         help_text=_(
@@ -70,43 +63,21 @@ class Theme(MP_Node):
     identifier = models.URLField(
         _("identifier"),
         help_text=_(
-            "The unique URI that identifies this theme in the overheid.nl value list. "
+            "The unique IRI that identifies this theme in the overheid.nl value list. "
             "For entries that have been added manually, an identifier is generated."
         ),
         max_length=255,
         unique=True,
         editable=False,
-        default=get_default_identifier,
+        default=get_default_theme_identifier,
     )
-    naam = models.CharField(
-        _("name"),
-        help_text=_("The name of the theme."),
-        max_length=80,
-    )
-    publicatie_status_actief = models.BooleanField(
-        _("publication status active"),
-        help_text=_("A flag to display if this theme is active or not."),
-        default=False,
-        blank=False,
-    )
-    oorsprong = models.CharField(
-        _("origin"),
-        help_text=_(
-            "Determines where the theme is defined and sourced from, and how "
-            "the identifier should be interpreted. If the value list is the origin, the "
-            "theme can not be modified or deleted."
-        ),
-        choices=InformationCategoryOrigins.choices,
-        blank=False,
-        max_length=15,
-        default=InformationCategoryOrigins.custom_entry,
-    )
+    naam = models.CharField(_("name"), max_length=80)
 
     node_order_by = ("naam",)
 
     class Meta:  # type: ignore
         verbose_name = _("theme")
-        verbose_name_plural = _("theme's")
+        verbose_name_plural = _("themes")
 
     def __str__(self):
         return self.naam
