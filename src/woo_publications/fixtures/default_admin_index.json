@@ -2,10 +2,10 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 0,
+        "order": 2,
         "translations": {
             "en": "Accounts",
-            "nl": "Accounts"
+            "nl": "Gebruikers"
         },
         "name": "Accounts",
         "slug": "accounts",
@@ -32,7 +32,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 1,
+        "order": 6,
         "translations": {
             "en": "WOO publications",
             "nl": "WOO publicaties"
@@ -45,7 +45,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 2,
+        "order": 3,
         "translations": {
             "en": "Logging",
             "nl": "Logging"
@@ -75,7 +75,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 3,
+        "order": 4,
         "translations": {
             "en": "Configuration",
             "nl": "Configuratie"
@@ -96,20 +96,8 @@
                 "openidconnectconfig"
             ],
             [
-                "otp_static",
-                "staticdevice"
-            ],
-            [
-                "otp_totp",
-                "totpdevice"
-            ],
-            [
                 "simple_certmanager",
                 "certificate"
-            ],
-            [
-                "two_factor_webauthn",
-                "webauthndevice"
             ],
             [
                 "zgw_consumers",
@@ -120,6 +108,103 @@
                 "service"
             ]
         ]
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 1,
+        "translations": {
+            "nl": "Metagegevens"
+        },
+        "name": "Metadata",
+        "slug": "metadata",
+        "models": [
+            [
+                "metadata",
+                "informationcategory"
+            ]
+        ]
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 0,
+        "translations": {
+            "en": "Publications"
+        },
+        "name": "Publicaties",
+        "slug": "publicaties",
+        "models": []
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 5,
+        "translations": {
+            "en": "Useful links"
+        },
+        "name": "Handige links",
+        "slug": "handige-links",
+        "models": []
+    }
+},
+{
+    "model": "admin_index.applink",
+    "fields": {
+        "order": 0,
+        "translations": {
+            "en": "Documentation"
+        },
+        "app_group": [
+            "handige-links"
+        ],
+        "name": "Documentatie",
+        "link": "https://odrc.readthedocs.io/"
+    }
+},
+{
+    "model": "admin_index.applink",
+    "fields": {
+        "order": 1,
+        "translations": {
+            "en": "Github"
+        },
+        "app_group": [
+            "handige-links"
+        ],
+        "name": "Github",
+        "link": "https://github.com/GeneriekPublicatiePlatformWoo"
+    }
+},
+{
+    "model": "admin_index.applink",
+    "fields": {
+        "order": 2,
+        "translations": {
+            "en": "Report a bug"
+        },
+        "app_group": [
+            "handige-links"
+        ],
+        "name": "Bug rapporteren",
+        "link": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues/new/choose"
+    }
+},
+{
+    "model": "admin_index.applink",
+    "fields": {
+        "order": 3,
+        "translations": {
+            "en": "API documentation"
+        },
+        "app_group": [
+            "handige-links"
+        ],
+        "name": "API documentatie",
+        "link": "/api/docs/"
     }
 }
 ]
