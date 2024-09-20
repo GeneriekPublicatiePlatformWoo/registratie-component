@@ -138,7 +138,7 @@ class TestInformationCategoryAdmin(WebTest):
         form["naam"] = "changed"
         form["naam_meervoud"] = "changed"
         form["definitie"] = "changed"
-        response = form.submit("submit")
+        response = form.submit(name="_save")
 
         self.assertEqual(response.status_code, 302)
         information_category.refresh_from_db()

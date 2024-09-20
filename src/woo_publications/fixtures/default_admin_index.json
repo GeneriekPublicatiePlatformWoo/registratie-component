@@ -123,6 +123,10 @@
             [
                 "metadata",
                 "informationcategory"
+            ],
+            [
+                "metadata",
+                "theme"
             ]
         ]
     }
