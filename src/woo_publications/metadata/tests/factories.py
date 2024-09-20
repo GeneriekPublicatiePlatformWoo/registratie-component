@@ -1,10 +1,10 @@
 import factory
 
-from ..models import InformatieCategorie
+from ..models import InformationCategory
 
 
-class InformatieCategorieFactory(factory.django.DjangoModelFactory):
+class InformationCategoryFactory(factory.django.DjangoModelFactory):
     naam = factory.Faker("word")
 
-    class Meta:
-        model = InformatieCategorie
+    class Meta:  # type: ignore
+        model = InformationCategory

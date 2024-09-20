@@ -1,12 +1,22 @@
+import uuid
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from ordered_model.models import OrderedModel
 
-from .constants import InformatieCategorieOrigins
+from .constants import InformationCategoryOrigins
+
+CUSTOM_IDENTIFIER_URL_PREFIX = (
+    "https://generiek-publicatieplatform.woo/informatiecategorie/"
+)
 
 
-class InformatieCategorie(OrderedModel):
+def get_default_identifier():
+    return f"{CUSTOM_IDENTIFIER_URL_PREFIX}{uuid.uuid4()}"
+
+
+class InformationCategory(OrderedModel):
     identifier = models.URLField(
         _("identifier"),
         help_text=_(
@@ -15,6 +25,8 @@ class InformatieCategorie(OrderedModel):
         ),
         max_length=255,
         unique=True,
+        editable=False,
+        default=get_default_identifier,
     )
     naam = models.CharField(
         _("name"),
@@ -39,10 +51,10 @@ class InformatieCategorie(OrderedModel):
             "the identifier should be interpreted. If the value list is the origin, the "
             "category can not be modified or deleted."
         ),
-        choices=InformatieCategorieOrigins.choices,
+        choices=InformationCategoryOrigins.choices,
         blank=False,
         max_length=15,
-        default=InformatieCategorieOrigins.custom_entry,
+        default=InformationCategoryOrigins.custom_entry,
     )
 
     class Meta(OrderedModel.Meta):
