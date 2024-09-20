@@ -2,19 +2,20 @@ from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 
-from woo_publications.api.custom_filters import URLFilter
-from woo_publications.metadata.models import InformationCategory
+from woo_publications.api.filters import URLFilter
+
+from ..models import InformationCategory
 
 
 class InformationCategoryFilterset(FilterSet):
     identifier = URLFilter(
-        lookup_expr="exact",
+        lookup_expr="icontains",
         help_text=_(
             "Search the information category based on the unique URI that identifies a specific category."
         ),
     )
     naam = filters.CharFilter(
-        lookup_expr="exact",
+        lookup_expr="icontains",
         help_text=_(
             "Search the information category based on the name of the category."
         ),

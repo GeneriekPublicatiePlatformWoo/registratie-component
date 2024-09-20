@@ -4,12 +4,11 @@ from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularJSONAPIView, SpectacularRedocView
 from rest_framework import routers
 
-from woo_publications.metadata.api.views.category import InformationCategoryViewset
+from woo_publications.metadata.api.viewsets import InformationCategoryViewset
 
 app_name = "api"
 
 router = routers.DefaultRouter()
-router.include_root_view = False
 
 router.register("informatie-categorie", InformationCategoryViewset)
 
@@ -19,7 +18,6 @@ urlpatterns = [
         "v1/",
         include(
             [
-                path("", include(router.urls)),
                 path(
                     "",
                     SpectacularJSONAPIView.as_view(schema=None),
@@ -33,4 +31,5 @@ urlpatterns = [
             ]
         ),
     ),
+    path("v1/", include(router.urls)),
 ]

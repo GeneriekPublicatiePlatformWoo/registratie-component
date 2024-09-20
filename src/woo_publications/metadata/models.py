@@ -20,7 +20,7 @@ class InformationCategory(OrderedModel):
     identifier = models.URLField(
         _("identifier"),
         help_text=_(
-            "The unique URI that identifies this category in the overheid.nl value list. "
+            "The unique IRI that identifies this category in the overheid.nl value list. "
             "For entries that have been added manually, an identifier is generated."
         ),
         max_length=255,

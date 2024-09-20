@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
-from woo_publications.metadata.models import InformationCategory
+from ..models import InformationCategory
 
 
 class InformationCategorySerializer(serializers.ModelSerializer):
@@ -17,5 +17,9 @@ class InformationCategorySerializer(serializers.ModelSerializer):
             "order",
         )
         extra_kwargs = {
-            "order": {"help_text": _("The order number of the category.")},
+            "order": {
+                "help_text": _(
+                    "Controls the (default) ordering of categories in result lists."
+                )
+            },
         }
