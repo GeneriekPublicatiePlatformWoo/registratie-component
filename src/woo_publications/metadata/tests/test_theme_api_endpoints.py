@@ -25,22 +25,28 @@ class ThemeTests(APITestCase):
         data = response.json()
         self.assertEqual(data["count"], 2)
 
+        expected_second_item_data = {
+            "uuid": str(child_theme.uuid),
+            "identifier": "https://www.example.com/thema/2",
+            "naam": "second item",
+            "subThemes": [],
+            "depth": 2,
+        }
+
+        expected_first_item_data = {
+            "uuid": str(parent_theme.uuid),
+            "identifier": "https://www.example.com/thema/1",
+            "naam": "first item",
+            "subThemes": [
+                expected_second_item_data,
+            ],
+            "depth": 1,
+        }
+
         with self.subTest("first_item_in_response_with_expected_data"):
-            expected_first_item_data = {
-                "uuid": str(parent_theme.uuid),
-                "identifier": "https://www.example.com/thema/1",
-                "naam": "first item",
-                "depth": 1,
-            }
             self.assertEqual(data["results"][0], expected_first_item_data)
 
         with self.subTest("second_item_in_response_with_expected_data"):
-            expected_second_item_data = {
-                "uuid": str(child_theme.uuid),
-                "identifier": "https://www.example.com/thema/2",
-                "naam": "second item",
-                "depth": 2,
-            }
             self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_detail_theme(self):
@@ -62,6 +68,7 @@ class ThemeTests(APITestCase):
             "uuid": str(theme.uuid),
             "identifier": "https://www.example.com/thema/1",
             "naam": "item one",
+            "subThemes": [],
             "depth": 1,
         }
 

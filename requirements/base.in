@@ -10,3 +10,4 @@ django-treebeard
 
 # DRF & other API tooling
 open-api-framework
+djangorestframework-recursive

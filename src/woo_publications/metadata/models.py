@@ -1,4 +1,5 @@
 import uuid
+from functools import cached_property
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -80,6 +81,10 @@ class Theme(MP_Node):
     class Meta:  # type: ignore
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
+
+    @cached_property
+    def sub_themes(self):
+        return self.get_children()
 
     def __str__(self):
         return self.naam

@@ -558,6 +558,11 @@ components:
         naam:
           type: string
           maxLength: 80
+        subThemes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Theme'
+          description: The nested themes attached to this current theme.
         depth:
           type: integer
           maximum: 2147483647
@@ -569,6 +574,7 @@ components:
       - depth
       - identifier
       - naam
+      - subThemes
     VertrouwelijkheidaanduidingEnum:
       enum:
       - openbaar
