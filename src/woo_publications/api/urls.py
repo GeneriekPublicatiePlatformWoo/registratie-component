@@ -4,13 +4,17 @@ from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularJSONAPIView, SpectacularRedocView
 from rest_framework import routers
 
-from woo_publications.metadata.api.viewsets import InformationCategoryViewSet
+from woo_publications.metadata.api.viewsets import (
+    InformationCategoryViewSet,
+    ThemeViewSet,
+)
 
 app_name = "api"
 
 router = routers.DefaultRouter()
 
 router.register("informatiecategorieen", InformationCategoryViewSet)
+router.register("themas", ThemeViewSet)
 
 urlpatterns = [
     path("docs/", RedirectView.as_view(pattern_name="api:api-docs")),

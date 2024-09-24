@@ -68,6 +68,70 @@ paths:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
           description: ''
+  /api/v1/themas/:
+    get:
+      operationId: themasList
+      description: Retrieve every theme.
+      summary: Retrieve every theme.
+      parameters:
+      - in: query
+        name: identifier
+        schema:
+          type: string
+          format: uri
+        description: Search the theme based on the unique IRI that identifies a specific
+          theme.
+      - in: query
+        name: naam
+        schema:
+          type: string
+        description: Search the theme based on the name of the theme.
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: super
+        schema:
+          type: boolean
+        description: Displays either all or no super themes (filters if depth is 1
+          or higher)
+      tags:
+      - themas
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedThemeList'
+          description: ''
+  /api/v1/themas/{id}/:
+    get:
+      operationId: themasRetrieve
+      description: Retrieve a specific theme.
+      summary: Retrieve a specific theme.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this theme.
+        required: true
+      tags:
+      - themas
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Theme'
+          description: ''
   /catalogi/api/v1/informatieobjecttypen/{uuid}:
     get:
       operationId: catalogiApiV1InformatieobjecttypenRetrieve
@@ -229,6 +293,52 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InformationCategory'
+    PaginatedThemeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Theme'
+    Theme:
+      type: object
+      properties:
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          description: The unique IRI that identifies this theme in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
+        naam:
+          type: string
+          maxLength: 80
+        depth:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Indicates the tree level of the theme.1 being a super theme
+            and everything below it being a sub theme.
+      required:
+      - depth
+      - identifier
+      - naam
     VertrouwelijkheidaanduidingEnum:
       enum:
       - openbaar
