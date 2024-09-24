@@ -10,7 +10,7 @@ from .models import InformationCategory, Theme
 
 @admin.register(InformationCategory)
 class InformationCategoryAdmin(OrderedModelAdmin):
-    list_display = ("uuid", "naam", "identifier", "oorsprong", "move_up_down_links")
+    list_display = ("naam", "identifier", "oorsprong", "move_up_down_links")
     readonly_fields = (
         "uuid",
         "oorsprong",
@@ -31,15 +31,8 @@ class InformationCategoryAdmin(OrderedModelAdmin):
 class ThemeAdmin(
     TreeAdmin
 ):  # use Model admin because nothing should be editable anyway
-    list_display = (
-        "uuid",
-        "naam",
-        "identifier",
-    )
-    search_fields = (
-        "identifier",
-        "naam",
-    )
+    list_display = ("naam", "identifier")
+    search_fields = ("identifier", "naam")
     form = movenodeform_factory(Theme)
 
     def has_change_permission(self, request, obj=None):

@@ -8,17 +8,17 @@ from .filters import InformationCategoryFilterSet
 from .serializer import InformationCategorySerializer, ThemeSerializer
 
 
-@extend_schema(tags=["informatiecategorieën"])
+@extend_schema(tags=["Informatiecategorieën"])
 @extend_schema_view(
     list=extend_schema(
-        summary=_("all available information category."),
+        summary=_("All available information categories."),
         description=_(
             "Returns a paginated result list of existing information categories."
         ),
     ),
     retrieve=extend_schema(
-        summary="the specific information category.",
-        description="Retrieve a specific information category.",
+        summary=_("Retrieve a specific information category."),
+        description=_("Retrieve a specific information category."),
     ),
 )
 class InformationCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -29,15 +29,15 @@ class InformationCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (permissions.AllowAny,)
 
 
-@extend_schema(tags=["themas"])
+@extend_schema(tags=["Themas"])
 @extend_schema_view(
     list=extend_schema(
-        summary=_("all available themes."),
+        summary=_("All available themes."),
         description=_("Returns a paginated result list of existing themes."),
     ),
     retrieve=extend_schema(
-        summary="the specific theme.",
-        description="Retrieve a specific theme.",
+        summary=_("Retrieve a specific theme."),
+        description=_("Retrieve a specific theme."),
     ),
 )
 class ThemeViewSet(viewsets.ReadOnlyModelViewSet):

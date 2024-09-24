@@ -14,7 +14,7 @@ paths:
     get:
       operationId: informatiecategorieenList
       description: Returns a paginated result list of existing information categories.
-      summary: all available information category.
+      summary: All available information categories.
       parameters:
       - in: query
         name: identifier
@@ -35,7 +35,7 @@ paths:
         schema:
           type: integer
       tags:
-      - informatiecategorieën
+      - Informatiecategorieën
       security:
       - {}
       responses:
@@ -49,7 +49,7 @@ paths:
     get:
       operationId: informatiecategorieenRetrieve
       description: Retrieve a specific information category.
-      summary: the specific information category.
+      summary: Retrieve a specific information category.
       parameters:
       - in: path
         name: uuid
@@ -58,7 +58,7 @@ paths:
           format: uuid
         required: true
       tags:
-      - informatiecategorieën
+      - Informatiecategorieën
       security:
       - {}
       responses:
@@ -72,7 +72,7 @@ paths:
     get:
       operationId: themasList
       description: Returns a paginated result list of existing themes.
-      summary: all available themes.
+      summary: All available themes.
       parameters:
       - name: page
         required: false
@@ -81,7 +81,7 @@ paths:
         schema:
           type: integer
       tags:
-      - themas
+      - Themas
       security:
       - {}
       responses:
@@ -95,7 +95,7 @@ paths:
     get:
       operationId: themasRetrieve
       description: Retrieve a specific theme.
-      summary: the specific theme.
+      summary: Retrieve a specific theme.
       parameters:
       - in: path
         name: uuid
@@ -104,7 +104,7 @@ paths:
           format: uuid
         required: true
       tags:
-      - themas
+      - Themas
       security:
       - {}
       responses:
