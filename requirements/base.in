@@ -4,3 +4,4 @@ django-axes[ipware]
 django-capture-tag
 django-hijack
 django-rosetta
+django-treebeard

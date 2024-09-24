@@ -19,6 +19,7 @@ INSTALLED_APPS = INSTALLED_APPS + [
     "capture_tag",
     "hijack",
     "hijack.contrib.admin",
+    "treebeard",
     # Project applications.
     "woo_publications.accounts",
     "woo_publications.api",

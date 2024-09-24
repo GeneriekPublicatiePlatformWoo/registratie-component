@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             model_name="informationcategory",
             name="identifier",
             field=models.URLField(
-                default=woo_publications.metadata.models.get_default_identifier,
+                default=woo_publications.metadata.models.get_default_information_category_identifier,
                 editable=False,
                 help_text="The unique IRI that identifies this category in the overheid.nl value list. For entries that have been added manually, an identifier is generated.",
                 max_length=255,

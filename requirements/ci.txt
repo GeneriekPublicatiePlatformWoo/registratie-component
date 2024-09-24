@@ -164,6 +164,7 @@ django==4.2.16
     #   django-setup-configuration
     #   django-simple-certmanager
     #   django-solo
+    #   django-treebeard
     #   django-two-factor-auth
     #   djangorestframework
     #   djangorestframework-inclusions
@@ -304,6 +305,10 @@ django-solo==2.3.0
     #   mozilla-django-oidc-db
     #   notifications-api-common
     #   zgw-consumers
+django-treebeard==4.7.1
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
 django-two-factor-auth==1.17.0
     # via
     #   -c requirements/base.txt

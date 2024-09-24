@@ -185,6 +185,7 @@ django==4.2.16
     #   django-solo
     #   django-stubs
     #   django-stubs-ext
+    #   django-treebeard
     #   django-two-factor-auth
     #   djangorestframework
     #   djangorestframework-inclusions
@@ -333,6 +334,10 @@ django-stubs-ext==5.0.4
     # via
     #   -r requirements/type-checking.in
     #   django-stubs
+django-treebeard==4.7.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-two-factor-auth==1.17.0
     # via
     #   -c requirements/ci.txt
