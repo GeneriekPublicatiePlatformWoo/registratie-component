@@ -9,7 +9,7 @@ from .factories import InformationCategoryFactory
 
 class InformationCategoryTests(APITestCase):
     def test_list_informatie_categorie(self):
-        InformationCategoryFactory.create(
+        information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="first item",
             naam_meervoud="first items",
@@ -17,7 +17,7 @@ class InformationCategoryTests(APITestCase):
             order=0,
             oorsprong=InformationCategoryOrigins.value_list,
         )
-        InformationCategoryFactory.create(
+        information_category2 = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
             naam="second item",
             naam_meervoud="second items",
@@ -36,6 +36,7 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("first_item_in_response_with_expected_data"):
             expected_first_item_data = {
+                "uuid": str(information_category.uuid),
                 "identifier": "https://www.example.com/waardenlijsten/1",
                 "naam": "first item",
                 "naamMeervoud": "first items",
@@ -47,6 +48,7 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("second_item_in_response_with_expected_data"):
             expected_second_item_data = {
+                "uuid": str(information_category2.uuid),
                 "identifier": "https://www.example.com/waardenlijsten/2",
                 "naam": "second item",
                 "naamMeervoud": "second items",
@@ -57,7 +59,7 @@ class InformationCategoryTests(APITestCase):
             self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_list_informatie_categorie_search_on_identifier(self):
-        InformationCategoryFactory.create(
+        information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="first item",
             naam_meervoud="first items",
@@ -77,6 +79,7 @@ class InformationCategoryTests(APITestCase):
         list_url = reverse("api:informationcategory-list")
 
         expected_first_item_data = {
+            "uuid": str(information_category.uuid),
             "identifier": "https://www.example.com/waardenlijsten/1",
             "naam": "first item",
             "naamMeervoud": "first items",
@@ -105,7 +108,7 @@ class InformationCategoryTests(APITestCase):
             self.assertEqual(data["count"], 0)
 
     def test_list_informatie_categorie_search_on_naam(self):
-        InformationCategoryFactory.create(
+        information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="item one",
             naam_meervoud="item one (but plural?)",
@@ -113,7 +116,7 @@ class InformationCategoryTests(APITestCase):
             order=0,
             oorsprong=InformationCategoryOrigins.value_list,
         )
-        InformationCategoryFactory.create(
+        information_category2 = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
             naam="item two",
             naam_meervoud="item two (but plural?)",
@@ -125,6 +128,7 @@ class InformationCategoryTests(APITestCase):
         list_url = reverse("api:informationcategory-list")
 
         expected_item_one_data = {
+            "uuid": str(information_category.uuid),
             "identifier": "https://www.example.com/waardenlijsten/1",
             "naam": "item one",
             "naamMeervoud": "item one (but plural?)",
@@ -133,6 +137,7 @@ class InformationCategoryTests(APITestCase):
             "oorsprong": InformationCategoryOrigins.value_list,
         }
         expected_item_two_data = {
+            "uuid": str(information_category2.uuid),
             "identifier": "https://www.example.com/waardenlijsten/2",
             "naam": "item two",
             "naamMeervoud": "item two (but plural?)",
@@ -177,7 +182,7 @@ class InformationCategoryTests(APITestCase):
 
         list_url = reverse(
             "api:informationcategory-detail",
-            kwargs={"pk": information_category.pk},
+            kwargs={"uuid": str(information_category.uuid)},
         )
         response = self.client.get(list_url)
 
@@ -185,6 +190,7 @@ class InformationCategoryTests(APITestCase):
         data = response.json()
 
         expected_data = {
+            "uuid": str(information_category.uuid),
             "identifier": "https://www.example.com/waardenlijsten/1",
             "naam": "first item",
             "naamMeervoud": "first items",

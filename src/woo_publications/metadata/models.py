@@ -24,6 +24,7 @@ def get_default_theme_identifier():
 
 
 class InformationCategory(OrderedModel):
+    uuid = models.UUIDField(_("UUID"), unique=True, default=uuid.uuid4)
     identifier = models.URLField(
         _("identifier"),
         help_text=_(
@@ -60,6 +61,7 @@ class InformationCategory(OrderedModel):
 
 
 class Theme(MP_Node):
+    uuid = models.UUIDField(_("UUID"), unique=True, default=uuid.uuid4)
     identifier = models.URLField(
         _("identifier"),
         help_text=_(

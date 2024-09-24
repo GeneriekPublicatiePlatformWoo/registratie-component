@@ -9,6 +9,7 @@ class InformationCategorySerializer(serializers.ModelSerializer):
     class Meta:  # type: ignore
         model = InformationCategory
         fields = (
+            "uuid",
             "identifier",
             "naam",
             "naam_meervoud",
@@ -29,6 +30,7 @@ class ThemeSerializer(serializers.ModelSerializer):
     class Meta:  # type: ignore
         model = Theme
         fields = (
+            "uuid",
             "identifier",
             "naam",
             "depth",
@@ -36,8 +38,9 @@ class ThemeSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "depth": {
                 "help_text": _(
-                    "Indicates the tree level of the theme."
-                    "1 being a super theme and everything below it being a sub theme."
+                    "Indicates how deeply the theme is nested within its parents. "
+                    "A value of one means it's a root node, a value of 2 is a child, "
+                    "a value of three is a grandchild etc."
                 )
             },
         }

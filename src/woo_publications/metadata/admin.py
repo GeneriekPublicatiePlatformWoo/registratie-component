@@ -10,8 +10,11 @@ from .models import InformationCategory, Theme
 
 @admin.register(InformationCategory)
 class InformationCategoryAdmin(OrderedModelAdmin):
-    list_display = ("naam", "identifier", "oorsprong", "move_up_down_links")
-    readonly_fields = ("oorsprong",)
+    list_display = ("uuid", "naam", "identifier", "oorsprong", "move_up_down_links")
+    readonly_fields = (
+        "uuid",
+        "oorsprong",
+    )
     search_fields = (
         "identifier",
         "naam",
@@ -29,6 +32,7 @@ class ThemeAdmin(
     TreeAdmin
 ):  # use Model admin because nothing should be editable anyway
     list_display = (
+        "uuid",
         "naam",
         "identifier",
     )
