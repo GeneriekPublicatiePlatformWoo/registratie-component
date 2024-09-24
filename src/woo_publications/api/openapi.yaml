@@ -173,17 +173,14 @@ components:
             generated.
         naam:
           type: string
-          description: The name of the category.
           maxLength: 80
         naamMeervoud:
           type: string
           title: Name plural
-          description: The plural name of the category.
           maxLength: 80
         definitie:
           type: string
           title: Definition
-          description: The description of the category.
         oorsprong:
           allOf:
           - $ref: '#/components/schemas/OorsprongEnum'
