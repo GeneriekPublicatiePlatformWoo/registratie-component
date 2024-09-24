@@ -1,6 +1,12 @@
-{# altered tree_change_list file to prevent user from changing tree #}
 {% extends "admin/change_list.html" %}
 {% load admin_list admin_tree static %}
+
+{% comment %}
+    This file is made to alter the tree_change_list.html page within the treebeard library.
+    This template only gets used currently in conjuction with the Theme's models.
+    Which should only display the loaded in data from the government, so we want to restrict the user from alter the data.
+    Hence why I altered this file to remove the js files, which handles requests from the drag and drop feature.
+{% endcomment %}
 
 {% block extrastyle %}
     {{ block.super }}

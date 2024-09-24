@@ -21,6 +21,7 @@ class TestInformationCategoryAdmin(WebTest):
     def test_theme_admin_show_items(self):
         ThemeFactory.create(naam="first item")
         ThemeFactory.create(naam="second item")
+
         response = self.app.get(
             reverse(
                 "admin:metadata_theme_changelist",
@@ -36,16 +37,21 @@ class TestInformationCategoryAdmin(WebTest):
     def test_theme_admin_search(self):
         theme = ThemeFactory.create(naam="first item")
         theme2 = ThemeFactory.create(naam="second item")
+
         response = self.app.get(
             reverse(
                 "admin:metadata_theme_changelist",
             ),
             user=self.user,
         )
+
+        self.assertEqual(response.status_code, 200)
+
         form = response.forms["changelist-search"]
 
         with self.subTest("filter_on_naam"):
             form["q"] = "first item"
+
             search_response = form.submit()
 
             self.assertEqual(search_response.status_code, 200)
@@ -56,6 +62,7 @@ class TestInformationCategoryAdmin(WebTest):
 
         with self.subTest("filter_on_identifier"):
             form["q"] = theme2.identifier
+
             search_response = form.submit()
 
             self.assertEqual(search_response.status_code, 200)
@@ -74,6 +81,7 @@ class TestInformationCategoryAdmin(WebTest):
         )
 
         response = self.app.get(url, user=self.user)
+
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["theme_form"]
@@ -91,4 +99,5 @@ class TestInformationCategoryAdmin(WebTest):
         url = reverse("admin:metadata_theme_add")
 
         response = self.app.get(url, user=self.user, expect_errors=True)
+
         self.assertEqual(response.status_code, 403)
