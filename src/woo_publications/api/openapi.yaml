@@ -13,8 +13,8 @@ paths:
   /api/v1/informatiecategorieen/:
     get:
       operationId: informatiecategorieenList
-      description: Retrieve every information category.
-      summary: Retrieve every information category.
+      description: Returns a paginated result list of existing information categories.
+      summary: All available information categories.
       parameters:
       - in: query
         name: identifier
@@ -35,7 +35,7 @@ paths:
         schema:
           type: integer
       tags:
-      - informatiecategorieën
+      - Informatiecategorieën
       security:
       - {}
       responses:
@@ -45,20 +45,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedInformationCategoryList'
           description: ''
-  /api/v1/informatiecategorieen/{id}/:
+  /api/v1/informatiecategorieen/{uuid}/:
     get:
       operationId: informatiecategorieenRetrieve
       description: Retrieve a specific information category.
       summary: Retrieve a specific information category.
       parameters:
       - in: path
-        name: id
+        name: uuid
         schema:
-          type: integer
-        description: A unique integer value identifying this information category.
+          type: string
+          format: uuid
         required: true
       tags:
-      - informatiecategorieën
+      - Informatiecategorieën
       security:
       - {}
       responses:
@@ -67,6 +67,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
+          description: ''
+  /api/v1/themas/:
+    get:
+      operationId: themasList
+      description: Returns a paginated result list of existing themes.
+      summary: All available themes.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Themas
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedThemeList'
+          description: ''
+  /api/v1/themas/{uuid}/:
+    get:
+      operationId: themasRetrieve
+      description: Retrieve a specific theme.
+      summary: Retrieve a specific theme.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Themas
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Theme'
           description: ''
   /catalogi/api/v1/informatieobjecttypen/{uuid}:
     get:
@@ -164,6 +210,9 @@ components:
     InformationCategory:
       type: object
       properties:
+        uuid:
+          type: string
+          format: uuid
         identifier:
           type: string
           format: uri
@@ -229,6 +278,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InformationCategory'
+    PaginatedThemeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Theme'
+    Theme:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          description: The unique IRI that identifies this theme in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
+        naam:
+          type: string
+          maxLength: 80
+        depth:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Indicates how deeply the theme is nested within its parents.
+            A value of one means it's a root node, a value of 2 is a child, a value
+            of three is a grandchild etc.
+      required:
+      - depth
+      - identifier
+      - naam
     VertrouwelijkheidaanduidingEnum:
       enum:
       - openbaar
