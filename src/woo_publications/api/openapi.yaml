@@ -10,6 +10,64 @@ info:
     name: EUPL
     url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md
 paths:
+  /api/v1/informatiecategorieen/:
+    get:
+      operationId: informatiecategorieenList
+      description: Retrieve every information category.
+      summary: Retrieve every information category.
+      parameters:
+      - in: query
+        name: identifier
+        schema:
+          type: string
+          format: uri
+        description: Search the information category based on the unique IRI that
+          identifies a specific category.
+      - in: query
+        name: naam
+        schema:
+          type: string
+        description: Search the information category based on the name of the category.
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - informatiecategorieën
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInformationCategoryList'
+          description: ''
+  /api/v1/informatiecategorieen/{id}/:
+    get:
+      operationId: informatiecategorieenRetrieve
+      description: Retrieve a specific information category.
+      summary: Retrieve a specific information category.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this information category.
+        required: true
+      tags:
+      - informatiecategorieën
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InformationCategory'
+          description: ''
   /catalogi/api/v1/informatieobjecttypen/{uuid}:
     get:
       operationId: catalogiApiV1InformatieobjecttypenRetrieve
@@ -103,6 +161,77 @@ components:
       - url
       - vertrouwelijkheidaanduiding
       - zaaktypen
+    InformationCategory:
+      type: object
+      properties:
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          description: The unique IRI that identifies this category in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
+        naam:
+          type: string
+          description: The name of the category.
+          maxLength: 80
+        naamMeervoud:
+          type: string
+          title: Name plural
+          description: The plural name of the category.
+          maxLength: 80
+        definitie:
+          type: string
+          title: Definition
+          description: The description of the category.
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OorsprongEnum'
+          title: Origin
+          description: |-
+            Determines where the category is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the category can not be modified or deleted.
+
+            * `waardelijst` - Value list
+            * `zelf_toegevoegd` - Custom entry
+        order:
+          type: integer
+          readOnly: true
+          description: Controls the (default) ordering of categories in result lists.
+      required:
+      - identifier
+      - naam
+      - order
+    OorsprongEnum:
+      enum:
+      - waardelijst
+      - zelf_toegevoegd
+      type: string
+      description: |-
+        * `waardelijst` - Value list
+        * `zelf_toegevoegd` - Custom entry
+    PaginatedInformationCategoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformationCategory'
     VertrouwelijkheidaanduidingEnum:
       enum:
       - openbaar
