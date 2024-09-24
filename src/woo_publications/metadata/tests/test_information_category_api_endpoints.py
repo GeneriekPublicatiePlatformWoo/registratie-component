@@ -84,14 +84,6 @@ class InformationCategoryTests(APITestCase):
             "order": 0,
             "oorsprong": InformationCategoryOrigins.value_list,
         }
-        expected_second_item_data = {
-            "identifier": "https://www.example.com/waardenlijsten/2",
-            "naam": "second item",
-            "naamMeervoud": "second items",
-            "definitie": "This is some information about the second item.",
-            "order": 1,
-            "oorsprong": InformationCategoryOrigins.custom_entry,
-        }
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
@@ -102,17 +94,6 @@ class InformationCategoryTests(APITestCase):
             data = response.json()
             self.assertEqual(data["count"], 1)
             self.assertEqual(data["results"][0], expected_first_item_data)
-
-        with self.subTest("test_with_incomplete_match"):
-            response = self.client.get(
-                list_url, {"identifier": "https://www.example.com/waardenlij"}
-            )
-
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            data = response.json()
-            self.assertEqual(data["count"], 2)
-            self.assertEqual(data["results"][0], expected_first_item_data)
-            self.assertEqual(data["results"][1], expected_second_item_data)
 
         with self.subTest("with_none_existing_identifier"):
             response = self.client.get(

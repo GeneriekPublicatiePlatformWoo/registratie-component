@@ -7,9 +7,9 @@ from woo_publications.api.filters import URLFilter
 from ..models import InformationCategory
 
 
-class InformationCategoryFilterset(FilterSet):
+class InformationCategoryFilterSet(FilterSet):
     identifier = URLFilter(
-        lookup_expr="icontains",
+        lookup_expr="exact",
         help_text=_(
             "Search the information category based on the unique IRI that identifies a specific category."
         ),

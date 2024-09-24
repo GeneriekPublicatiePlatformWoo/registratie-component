@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import permissions, viewsets
 
 from ..models import InformationCategory
-from .filters import InformationCategoryFilterset
+from .filters import InformationCategoryFilterSet
 from .serializer import InformationCategorySerializer
 
 
@@ -19,8 +19,8 @@ from .serializer import InformationCategorySerializer
         description="Retrieve a specific information category.",
     ),
 )
-class InformationCategoryViewset(viewsets.ReadOnlyModelViewSet):
+class InformationCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = InformationCategory.objects.all()
     serializer_class = InformationCategorySerializer
-    filterset_class = InformationCategoryFilterset
+    filterset_class = InformationCategoryFilterSet
     permission_classes = (permissions.AllowAny,)

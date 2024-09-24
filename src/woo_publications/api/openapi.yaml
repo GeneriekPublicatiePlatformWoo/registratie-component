@@ -10,9 +10,9 @@ info:
     name: EUPL
     url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md
 paths:
-  /api/v1/informatie-categorie/:
+  /api/v1/informatiecategorieen/:
     get:
-      operationId: informatieCategorieList
+      operationId: informatiecategorieenList
       description: Retrieve every information category.
       summary: Retrieve every information category.
       parameters:
@@ -45,9 +45,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedInformationCategoryList'
           description: ''
-  /api/v1/informatie-categorie/{id}/:
+  /api/v1/informatiecategorieen/{id}/:
     get:
-      operationId: informatieCategorieRetrieve
+      operationId: informatiecategorieenRetrieve
       description: Retrieve a specific information category.
       summary: Retrieve a specific information category.
       parameters:
