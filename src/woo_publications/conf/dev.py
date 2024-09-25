@@ -86,6 +86,11 @@ INTERNAL_IPS = ("127.0.0.1",)
 # Django extensions
 INSTALLED_APPS += ["django_extensions"]
 
+# DRF - browsable API
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] += (
+    "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
+)
+
 # Django rosetta
 ROSETTA_SHOW_AT_ADMIN_PANEL = True
 INSTALLED_APPS += ["rosetta"]
