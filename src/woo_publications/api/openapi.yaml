@@ -68,6 +68,170 @@ paths:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
           description: ''
+  /api/v1/publicaties/:
+    get:
+      operationId: publicatiesList
+      description: Returns a paginated result list of existing publications.
+      summary: All available publications.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: sorteer
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - -officiele_titel
+            - -registratiedatum
+            - -verkorte_titel
+            - officiele_titel
+            - registratiedatum
+            - verkorte_titel
+        description: |-
+          Order on.
+
+          * `registratiedatum` - Registratiedatum
+          * `-registratiedatum` - Registratiedatum (aflopend)
+          * `officiele_titel` - Officiele titel
+          * `-officiele_titel` - Officiele titel (aflopend)
+          * `verkorte_titel` - Verkorte titel
+          * `-verkorte_titel` - Verkorte titel (aflopend)
+        explode: false
+        style: form
+      tags:
+      - Publicaties
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicationList'
+          description: ''
+    post:
+      operationId: publicatiesCreate
+      description: Create a publication.
+      summary: Create a publication.
+      tags:
+      - Publicaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+          description: ''
+  /api/v1/publicaties/{uuid}/:
+    get:
+      operationId: publicatiesRetrieve
+      description: Retrieve a specific publication.
+      summary: Retrieve a specific publication.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Publicaties
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+          description: ''
+    put:
+      operationId: publicatiesUpdate
+      description: Update a publication entirely.
+      summary: Update a publication entirely.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Publicaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+          description: ''
+    patch:
+      operationId: publicatiesPartialUpdate
+      description: Update a publication partially.
+      summary: Update a publication partially.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Publicaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPublication'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+          description: ''
+    delete:
+      operationId: publicatiesDestroy
+      description: Destroy a publication.
+      summary: Destroy a publication.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Publicaties
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
   /api/v1/themas/:
     get:
       operationId: themasList
@@ -278,6 +442,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InformationCategory'
+    PaginatedPublicationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Publication'
     PaginatedThemeList:
       type: object
       required:
@@ -301,6 +488,62 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Theme'
+    PatchedPublication:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        officieleTitel:
+          type: string
+          title: Official title
+          maxLength: 255
+        verkorteTitel:
+          type: string
+          title: Short title
+          maxLength: 255
+        omschrijving:
+          type: string
+          title: Description
+        registratiedatum:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created on
+          description: System timestamp reflecting when the publication was registered
+            in the database. Not to be confused with the creation date of the publication,
+            which is usually *before* the registration date.
+    Publication:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        officieleTitel:
+          type: string
+          title: Official title
+          maxLength: 255
+        verkorteTitel:
+          type: string
+          title: Short title
+          maxLength: 255
+        omschrijving:
+          type: string
+          title: Description
+        registratiedatum:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Created on
+          description: System timestamp reflecting when the publication was registered
+            in the database. Not to be confused with the creation date of the publication,
+            which is usually *before* the registration date.
+      required:
+      - officieleTitel
+      - registratiedatum
+      - uuid
     Theme:
       type: object
       properties:
