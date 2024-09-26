@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import permissions, viewsets
 
-from .filters import PublicationFilterSet
 from ..models import Publication
+from .filters import PublicationFilterSet
 from .serializer import PublicationSerializer
 
 

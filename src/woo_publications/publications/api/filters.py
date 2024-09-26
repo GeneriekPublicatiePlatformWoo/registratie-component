@@ -17,6 +17,4 @@ class PublicationFilterSet(FilterSet):
 
     class Meta:
         model = Publication
-        fields = (
-            "sorteer",
-        )
+        fields = ("sorteer",)
