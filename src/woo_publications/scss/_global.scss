@@ -7,12 +7,16 @@
   --body-color: #212529;
 
   // Link component
-  --link-color: blue;
+  --link-color: #017092;
   --link-color-hover: var(--link-color);
   --link-color-muted: #6c757d;
 
   // footer component
   --footer-border-color: #dee2e6;
+
+  // tabs component
+  --tabs-border-color: #dee2e6;
+  --tabs-item-hover-border-color: #f3f3f3;
 }
 
 body {

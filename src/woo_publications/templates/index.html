@@ -14,15 +14,15 @@
         </p>
     </header>
 
-    <article class="container container--center">
-        <nav class="nav">
-            <ul class="nav__list">
-                <li class="nav__item" data-id="nl">Nederlands</li>
-                <li class="nav__item" data-id="en">English</li>
+    <article class="page-content page-content--centered">
+        <nav class="tabs">
+            <ul class="tabs__list">
+                <li class="tabs__item tabs__item--active" data-id="nl" aria-role="tab">Nederlands</li>
+                <li class="tabs__item" data-id="en" aria-role="tab">English</li>
             </ul>
 
-            <div class="nav__content">
-                <div class="nav__pane" id="nl" lang="nl">
+            <div class="tabs__content">
+                <div class="tabs__pane tabs__pane--active" id="nl" lang="nl">
                     <p>
                         De Publicatiebank en bijhorende API bevatten en ontsluiten
                         overheidsdocumenten in het kader van de Wet Open Overheid (WOO).
@@ -39,7 +39,7 @@
                         productie-doeleinden dien je een publicatiecomponent te koppelen.
                     </p>
                 </div>
-                <div class="nav__pane" id="en" lang="en">
+                <div class="tabs__pane" id="en" lang="en">
                     <p>
                         The publications database and accompanying API contain and expose
                         government documents intended for publication in the context of
@@ -58,7 +58,7 @@
                     </p>
                 </div>
             </div>
-        </article>
+        </nav>
 
         <p>
             <strong>
