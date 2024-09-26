@@ -1,3 +1,6 @@
+import uuid
+from unittest.mock import patch
+
 from django.urls import reverse
 
 from rest_framework import status
@@ -23,14 +26,13 @@ class ThemeTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
-        self.assertEqual(data["count"], 2)
+        self.assertEqual(data["count"], 1)
 
         expected_second_item_data = {
             "uuid": str(child_theme.uuid),
             "identifier": "https://www.example.com/thema/2",
             "naam": "second item",
             "subThemes": [],
-            "depth": 2,
         }
 
         expected_first_item_data = {
@@ -40,14 +42,10 @@ class ThemeTests(APITestCase):
             "subThemes": [
                 expected_second_item_data,
             ],
-            "depth": 1,
         }
 
         with self.subTest("first_item_in_response_with_expected_data"):
             self.assertEqual(data["results"][0], expected_first_item_data)
-
-        with self.subTest("second_item_in_response_with_expected_data"):
-            self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_detail_theme(self):
         theme = ThemeFactory.create(
@@ -69,7 +67,53 @@ class ThemeTests(APITestCase):
             "identifier": "https://www.example.com/thema/1",
             "naam": "item one",
             "subThemes": [],
-            "depth": 1,
         }
 
         self.assertEqual(data, expected_data)
+
+    def test_detail_theme_wrong_uuid(self):
+        list_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": str(uuid.uuid4)},
+        )
+
+        response = self.client.get(list_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_detail_broken_uuid(self):
+        # UUID misses 3 characters
+        list_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": "d6323f56-5331-4b43-8e8c-63509be1e"},
+        )
+
+        response = self.client.get(list_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_detail_normalize_tree_dump_errors_result_in_404(self):
+        list_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": str(uuid.uuid4)},
+        )
+
+        with self.subTest("tree_dump_returns_dict_instead_of_object"):
+            with patch(
+                "woo_publications.metadata.api.viewsets._normalize_tree_dump",
+                return_value={},
+            ):
+
+                response = self.client.get(list_url)
+
+                self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        with self.subTest("tree_dump_returns_empty_list"):
+            with patch(
+                "woo_publications.metadata.api.viewsets._normalize_tree_dump",
+                return_value=[{}],
+            ):
+
+                response = self.client.get(list_url)
+
+                self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

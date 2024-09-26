@@ -40,14 +40,4 @@ class ThemeSerializer(serializers.ModelSerializer):
             "identifier",
             "naam",
             "sub_themes",
-            "depth",
         )
-        extra_kwargs = {
-            "depth": {
-                "help_text": _(
-                    "Indicates how deeply the theme is nested within its parents. "
-                    "A value of one means it's a root node, a value of 2 is a child, "
-                    "a value of three is a grandchild etc."
-                )
-            },
-        }
