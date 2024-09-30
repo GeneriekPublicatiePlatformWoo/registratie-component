@@ -1,5 +1,5 @@
 .button {
-  display: block;
+  display: flex;
   padding-block: 0.25rem;
   padding-inline: 0.5rem;
   border-radius: 0.2rem;
@@ -8,6 +8,13 @@
   color: var(--button-color);
   background-color: var(--button-background-color);
   text-decoration: none;
+
+  &:has(.fas) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
+  }
 
   &:hover {
     background-color: var(--button-hover-background-color);
