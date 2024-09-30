@@ -1,6 +1,8 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block view_class %}{{ block.super }} landing-page{% endblock %}
+
 {% block content %}
 
     <header class="page-title">
@@ -70,23 +72,27 @@
             </strong>
         </p>
 
-        <p>
-            <a href="{% url 'api:api-schema-json' %}" class="button">
-                <i class="fas fa-file-alt"></i>
-                {% trans "Open API specification (JSON)" %}
-            </a>
-            <a href="{% url 'api:api-docs' %}" class="button">
-                <i class="fas fa-wifi"></i>
-                {% trans "API docs (ReDoc)" %}
-            </a>
-        </p>
+        <div class="landing-page__nav-buttons">
 
-        <p>
-            <a href="{% url 'admin:index' %}" class="button button--alert">
-                <i class="fas fa-lock"></i>
-                {% trans "Administration" %}
-            </a>
-        </p>
+            <div class="button-group">
+                <a href="{% url 'api:api-schema-json' %}" class="button">
+                    <i class="fas fa-file-alt"></i>
+                    {% trans "Open API specification" %}
+                </a>
+                <a href="{% url 'api:api-docs' %}" class="button">
+                    <i class="fas fa-wifi"></i>
+                    {% trans "API docs (ReDoc)" %}
+                </a>
+            </div>
+
+            <div class="button-group">
+                <a href="{% url 'admin:index' %}" class="button button--alert">
+                    <i class="fas fa-lock"></i>
+                    {% trans "Administration" %}
+                </a>
+            </div>
+
+        </div>
 
     </div>
 

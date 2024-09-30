@@ -1,5 +1,5 @@
 {% load static %}<!DOCTYPE html>
-<html lang="en" class="view {% block view_class %}view--{{ request.resolver_match.namespaces|join:'-' }}-{{ request.resolver_match.url_name }}{% endblock %}">
+<html lang="en" class="view {% block view_class %}view--{% if request.resolver_match.namespaces %}{{ request.resolver_match.namespaces|join:'-' }}-{% endif %}{{ request.resolver_match.url_name }}{% endblock %}">
     <head>
         <meta charset="utf-8">
         <title>{% block title %}{{ settings.PROJECT_NAME }}{% endblock %}</title>
