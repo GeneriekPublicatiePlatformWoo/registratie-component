@@ -1,43 +1,99 @@
 {% extends "master.html" %}
+{% load i18n %}
+
+{% block view_class %}{{ block.super }} landing-page{% endblock %}
 
 {% block content %}
 
-  <div class="title">
-    <h1 class="title__header">{{ settings.PROJECT_NAME }} API</h1>
-    <p class="title__description">{{ settings.SITE_TITLE }}</p>
-  </div>
+    <header class="page-title">
+        <h1 class="page-title__title">
+            {% trans "WOO Publications API" %}
+        </h1>
+        <p class="page-title__description">
+            {% blocktrans trimmed %}
+                Repository and JSON-based API for WOO publications.
+            {% endblocktrans %}
+        </p>
+    </header>
 
-  <div class="container container--center">
-    <nav class="nav">
-      <ul class="nav__list">
-        <li class="nav__item" data-id="nl">Nederlands</li>
-        <li class="nav__item" data-id="en">English</li>
-      </ul>
+    <article class="page-content page-content--centered">
+        <nav class="tabs">
+            <ul class="tabs__list">
+                <li class="tabs__item tabs__item--active" data-id="nl" aria-role="tab">Nederlands</li>
+                <li class="tabs__item" data-id="en" aria-role="tab">English</li>
+            </ul>
 
-      <div class="nav__content">
-        <div class="nav__pane" id="nl">
-          WIP TEKST
+            <div class="tabs__content">
+                <div class="tabs__pane tabs__pane--active" id="nl" lang="nl">
+                    <p>
+                        De Publicatiebank en bijhorende API bevatten en ontsluiten
+                        overheidsdocumenten in het kader van de Wet Open Overheid (WOO).
+                        Deze registratiecomponent maakt het mogelijk voor:
+                    </p>
+
+                    <ul class="list list--centered">
+                        <li>publicatiecomponenten om publicaties en documenten te beheren</li>
+                        <li>burgerportalen om publicaties weer te geven en indexeren in de landelijke index</li>
+                    </ul>
+
+                    <p>
+                        Dit component bevat slechts een minimale beheeromgeving. Voor
+                        productie-doeleinden dien je een publicatiecomponent te koppelen.
+                    </p>
+                </div>
+                <div class="tabs__pane" id="en" lang="en">
+                    <p>
+                        The publications database and accompanying API contain and expose
+                        government documents intended for publication in the context of
+                        the "Open Government Law", for which the Dutch abbreviation is "WOO".
+                        This registration component enables:
+                    </p>
+
+                    <ul class="list list--centered">
+                        <li>publication components to manage publications and documents</li>
+                        <li>citizen portals to display publications and have them indexed in the national index</li>
+                    </ul>
+
+                    <p>
+                        This component contains only a minimal administrative interface.
+                        For production purposes you need to connect a publication component.
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <p>
+            <strong>
+                Licensed under the
+                <a
+                class="link"
+                href="https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md"
+                >European Union Public License (EUPL) 1.2</a>
+            </strong>
+        </p>
+
+        <div class="landing-page__nav-buttons">
+
+            <div class="button-group">
+                <a href="{% url 'api:api-schema-json' %}" class="button">
+                    <i class="fas fa-file-alt"></i>
+                    {% trans "Open API specification" %}
+                </a>
+                <a href="{% url 'api:api-docs' %}" class="button">
+                    <i class="fas fa-wifi"></i>
+                    {% trans "API docs (ReDoc)" %}
+                </a>
+            </div>
+
+            <div class="button-group">
+                <a href="{% url 'admin:index' %}" class="button button--alert">
+                    <i class="fas fa-lock"></i>
+                    {% trans "Administration" %}
+                </a>
+            </div>
+
         </div>
-        <div class="nav__pane" id="en">
-          WIP TEXT
-        </div>
-      </div>
-    </nav>
 
-    <p>
-      <b>Licensed under the <a class="link" href="https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md">
-        European Union Public License (EUPL) 1.2</a></b>
-    </p>
-
-    <p>
-      <a href="{% url "schema" version=version %}" class="button"><i class="fas fa-file-alt"></i> Open API specification</a>
-      <a href="{% url "api-root" version=version %}" class="button"><i class="fas fa-wifi"></i> API root</a>
-    </p>
-
-    <p>
-      <a href="{% url 'admin:index' %}" class="button button--alert"><i class="fas fa-lock"></i> Administration</a>
-    </p>
-
-  </div>
+    </div>
 
 {% endblock %}
