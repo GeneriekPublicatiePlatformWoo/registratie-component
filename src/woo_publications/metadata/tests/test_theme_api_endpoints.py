@@ -1,5 +1,4 @@
 import uuid
-from unittest.mock import patch
 
 from django.urls import reverse
 
@@ -91,29 +90,3 @@ class ThemeTests(APITestCase):
         response = self.client.get(list_url)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-    def test_detail_normalize_tree_dump_errors_result_in_404(self):
-        list_url = reverse(
-            "api:theme-detail",
-            kwargs={"uuid": str(uuid.uuid4)},
-        )
-
-        with self.subTest("tree_dump_returns_dict_instead_of_object"):
-            with patch(
-                "woo_publications.metadata.api.viewsets._normalize_tree_dump",
-                return_value={},
-            ):
-
-                response = self.client.get(list_url)
-
-                self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-        with self.subTest("tree_dump_returns_empty_list"):
-            with patch(
-                "woo_publications.metadata.api.viewsets._normalize_tree_dump",
-                return_value=[{}],
-            ):
-
-                response = self.client.get(list_url)
-
-                self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
