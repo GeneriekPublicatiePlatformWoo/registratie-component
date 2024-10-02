@@ -1,4 +1,5 @@
 import uuid
+from typing import ClassVar
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -7,6 +8,7 @@ from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins
+from .query import CustomMP_NodeManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
@@ -75,11 +77,21 @@ class Theme(MP_Node):
     )
     naam = models.CharField(_("name"), max_length=80)
 
+    objects: ClassVar[CustomMP_NodeManager] = CustomMP_NodeManager()
+
     node_order_by = ("naam",)
+
+    sub_themes: list[
+        "Theme"
+    ]  # dynamically set by Theme.objects.as_tree() queryset method
 
     class Meta:  # type: ignore
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sub_themes = []
 
     def __str__(self):
         return self.naam
