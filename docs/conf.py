@@ -8,19 +8,18 @@
 import os
 import sys
 
+import django
+from django.core.management import call_command
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "woo_publications.conf.ci")
 sys.path.insert(0, os.path.abspath("../src"))
 
 import woo_publications  # noqa isort:skip
 
-# from objects.setup import setup_env  # noqa isort:skip
+from woo_publications.setup import setup_env  # noqa isort:skip
 
-# TODO: This needs to be enabled when we want to use autodoc to grab
-# documentation from classes and functions. However, enabling django.setup()
-# causes RTD to fail because GDAL is not present in the RTD environment.
-# See: https://github.com/readthedocs/readthedocs-docker-images/issues/114#issuecomment-570566599
-#
-# setup_env()
-# django.setup()
+setup_env()
+django.setup()
 
 # -- Project information -----------------------------------------------------
 
@@ -39,6 +38,7 @@ release = woo_publications.__version__
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.graphviz",
     "sphinx.ext.todo",
     # "sphinx_tabs.tabs",
     # "recommonmark",
@@ -86,3 +86,19 @@ linkcheck_ignore = [
     r"https://.*sentry.*",
     r"https://www\.miniwebtool\.com/django-secret-key-generator",
 ]
+
+
+def generate_schema_diagram(app):
+    dot_file = os.path.join(app.srcdir, "developers/_assets/db_schema.dot")
+
+    # generate graphviz dot file
+    call_command(
+        "graph_models",
+        group_models=True,
+        all_applications=True,
+        output=dot_file,
+    )
+
+
+def setup(app):
+    app.connect("builder-inited", generate_schema_diagram)

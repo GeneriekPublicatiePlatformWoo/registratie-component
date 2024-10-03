@@ -7,3 +7,4 @@ Developers
    :maxdepth: 1
 
    installation
+   reference

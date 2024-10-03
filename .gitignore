@@ -21,6 +21,7 @@ __pycache__
 
 # Generated files
 /docs/_build
+/docs/developers/_assets/db_schema.*
 
 # Coverage reports
 /reports/
