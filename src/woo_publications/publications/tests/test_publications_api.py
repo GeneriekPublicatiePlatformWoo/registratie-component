@@ -10,13 +10,13 @@ from .factories import PublicationFactory
 
 class PublicationApiTests(APITestCase):
     def test_list_publications(self):
-        with freeze_time("2024-09-24T12:00:00-00:00"):
+        with freeze_time("2024-09-25T12:30:00-00:00"):
             publication = PublicationFactory.create(
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
-        with freeze_time("2024-09-25T12:30:00-00:00"):
+        with freeze_time("2024-09-24T12:00:00-00:00"):
             publication2 = PublicationFactory.create(
                 officiele_titel="title two",
                 verkorte_titel="two",
@@ -35,7 +35,7 @@ class PublicationApiTests(APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "registratiedatum": "2024-09-24T14:00:00+02:00",
+                "registratiedatum": "2024-09-25T14:30:00+02:00",
             }
 
             self.assertEqual(data["results"][0], expected_first_item_data)
@@ -46,7 +46,7 @@ class PublicationApiTests(APITestCase):
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
-                "registratiedatum": "2024-09-25T14:30:00+02:00",
+                "registratiedatum": "2024-09-24T14:00:00+02:00",
             }
 
             self.assertEqual(data["results"][1], expected_second_item_data)
