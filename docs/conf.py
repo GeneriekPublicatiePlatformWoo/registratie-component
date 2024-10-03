@@ -24,7 +24,7 @@ import woo_publications  # noqa isort:skip
 
 # -- Project information -----------------------------------------------------
 
-project = "woo_publications"
+project = "WOO Publications"
 copyright = "Maykin B.V. 2024"
 author = woo_publications.__author__
 
@@ -38,7 +38,8 @@ release = woo_publications.__version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    # "sphinx.ext.todo",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.todo",
     # "sphinx_tabs.tabs",
     # "recommonmark",
     # "sphinx_markdown_tables",
@@ -83,4 +84,5 @@ linkcheck_ignore = [
     r"https?://.*\.example.com*",
     r"http://localhost:\d+/",
     r"https://.*sentry.*",
+    r"https://www\.miniwebtool\.com/django-secret-key-generator",
 ]

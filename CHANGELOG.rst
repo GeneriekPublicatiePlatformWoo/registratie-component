@@ -1,8 +1,10 @@
-==============
-Change history
-==============
+=============
+Release notes
+=============
 
-0.1.0 (2024-??-??)
-==================
+dev (unreleased)
+================
 
-* Initial release.
+In its current phase, we're iterating quickly and do not publish versioned releases yet.
+
+On Docker Hub, the ``latest`` tag follows the ``main`` branch from Github.
