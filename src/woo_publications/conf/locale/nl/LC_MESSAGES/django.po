@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 20:35+0100\n"
+"POT-Creation-Date: 2024-10-03 12:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,45 +18,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: foobar/accounts/models.py:18
+#: woo_publications/accounts/models.py:19
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: foobar/accounts/models.py:22
+#: woo_publications/accounts/models.py:23
 msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Vereist. 150 tekens of minder. Alleen letters, cijfers en @/,/+/-/_ tekens "
 "zijn toegestaan."
 
-#: foobar/accounts/models.py:26
+#: woo_publications/accounts/models.py:27
 msgid "A user with that username already exists."
 msgstr "Een gebruiker met deze gebruikersnaam bestaat al."
 
-#: foobar/accounts/models.py:29
+#: woo_publications/accounts/models.py:30
 msgid "first name"
 msgstr "voornaam"
 
-#: foobar/accounts/models.py:30
+#: woo_publications/accounts/models.py:31
 msgid "last name"
 msgstr "achternaam"
 
-#: foobar/accounts/models.py:31
+#: woo_publications/accounts/models.py:32
 msgid "email address"
 msgstr "e-mailadres"
 
-#: foobar/accounts/models.py:33
+#: woo_publications/accounts/models.py:34
 msgid "staff status"
 msgstr "stafstatus"
 
-#: foobar/accounts/models.py:35
+#: woo_publications/accounts/models.py:36
 msgid "Designates whether the user can log into this admin site."
 msgstr "Bepaalt of de gebruiker zich op deze beheerwebsite kan aanmelden."
 
-#: foobar/accounts/models.py:38
+#: woo_publications/accounts/models.py:39
 msgid "active"
 msgstr "actief"
 
-#: foobar/accounts/models.py:41
+#: woo_publications/accounts/models.py:42
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -64,83 +64,423 @@ msgstr ""
 "Bepaalt of deze gebruiker als actief dient te worden behandeld. U kunt dit "
 "uitvinken in plaats van een gebruiker te verwijderen."
 
-#: foobar/accounts/models.py:45
+#: woo_publications/accounts/models.py:46
 msgid "date joined"
 msgstr "datum toegetreden"
 
-#: foobar/accounts/models.py:53
+#: woo_publications/accounts/models.py:54
 msgid "user"
 msgstr "gebruiker"
 
-#: foobar/accounts/models.py:54
+#: woo_publications/accounts/models.py:55
 msgid "users"
 msgstr "gebruikers"
 
-#: foobar/accounts/utils.py:18
+#: woo_publications/accounts/utils.py:23
 msgid "You need to be superuser to create other superusers."
 msgstr ""
 "U dient een supergebruiker te zijn om andere supergebruikers aan te maken."
 
-#: foobar/accounts/utils.py:44
+#: woo_publications/accounts/utils.py:49
 msgid "You cannot create or update a user with more permissions than yourself."
 msgstr "U kunt een gebruiker niet meer rechten geven dan u zelf heeft."
 
-#: foobar/templates/admin/base_site.html:5
-#: foobar/templates/admin/base_site.html:24
+#: woo_publications/contrib/documents_api/api.py:78
+msgid "Retrieve a document type"
+msgstr ""
+
+#: woo_publications/metadata/api/filters.py:14
+msgid ""
+"Search the information category based on the unique IRI that identifies a "
+"specific category."
+msgstr ""
+
+#: woo_publications/metadata/api/filters.py:20
+msgid "Search the information category based on the name of the category."
+msgstr ""
+
+#: woo_publications/metadata/api/serializer.py:23
+msgid "Controls the (default) ordering of categories in result lists."
+msgstr ""
+
+#: woo_publications/metadata/api/serializer.py:41
+msgid ""
+"Indicates how deeply the theme is nested within its parents. A value of one "
+"means it's a root node, a value of 2 is a child, a value of three is a "
+"grandchild etc."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:14
+msgid "All available information categories."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:16
+msgid "Returns a paginated result list of existing information categories."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:20
+#: woo_publications/metadata/api/viewsets.py:21
+msgid "Retrieve a specific information category."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:35
+msgid "All available themes."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:36
+msgid "Returns a paginated result list of existing themes."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:39
+#: woo_publications/metadata/api/viewsets.py:40
+msgid "Retrieve a specific theme."
+msgstr ""
+
+#: woo_publications/metadata/constants.py:6
+msgid "Value list"
+msgstr ""
+
+#: woo_publications/metadata/constants.py:7
+msgid "Custom entry"
+msgstr ""
+
+#: woo_publications/metadata/models.py:27
+#: woo_publications/metadata/models.py:64
+#: woo_publications/publications/models.py:9
+msgid "UUID"
+msgstr ""
+
+#: woo_publications/metadata/models.py:29
+#: woo_publications/metadata/models.py:66
+#: woo_publications/publications/models.py:54
+msgid "identifier"
+msgstr ""
+
+#: woo_publications/metadata/models.py:31
+msgid ""
+"The unique IRI that identifies this category in the overheid.nl value list. "
+"For entries that have been added manually, an identifier is generated."
+msgstr ""
+
+#: woo_publications/metadata/models.py:39
+#: woo_publications/metadata/models.py:76
+#, fuzzy
+#| msgid "username"
+msgid "name"
+msgstr "gebruikersnaam"
+
+#: woo_publications/metadata/models.py:40
+msgid "name plural"
+msgstr ""
+
+#: woo_publications/metadata/models.py:41
+#, fuzzy
+#| msgid "Administration"
+msgid "definition"
+msgstr "Beheer"
+
+#: woo_publications/metadata/models.py:43
+msgid "origin"
+msgstr ""
+
+#: woo_publications/metadata/models.py:45
+msgid ""
+"Determines where the category is defined and sourced from, and how the "
+"identifier should be interpreted. If the value list is the origin, the "
+"category can not be modified or deleted."
+msgstr ""
+
+#: woo_publications/metadata/models.py:56
+msgid "information category"
+msgstr ""
+
+#: woo_publications/metadata/models.py:57
+msgid "information categories"
+msgstr ""
+
+#: woo_publications/metadata/models.py:68
+msgid ""
+"The unique IRI that identifies this theme in the overheid.nl value list. For "
+"entries that have been added manually, an identifier is generated."
+msgstr ""
+
+#: woo_publications/metadata/models.py:81
+msgid "theme"
+msgstr ""
+
+#: woo_publications/metadata/models.py:82
+msgid "themes"
+msgstr ""
+
+#: woo_publications/publications/api/filters.py:10
+msgid "Order on."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:14
+msgid "All available publications."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:15
+msgid "Returns a paginated result list of existing publications."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:18
+#: woo_publications/publications/api/viewsets.py:19
+msgid "Retrieve a specific publication."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:22
+#: woo_publications/publications/api/viewsets.py:23
+msgid "Create a publication."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:26
+#: woo_publications/publications/api/viewsets.py:27
+msgid "Update a publication partially."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:30
+#: woo_publications/publications/api/viewsets.py:31
+msgid "Update a publication entirely."
+msgstr ""
+
+#: woo_publications/publications/api/viewsets.py:34
+#: woo_publications/publications/api/viewsets.py:35
+msgid "Destroy a publication."
+msgstr ""
+
+#: woo_publications/publications/models.py:15
+#: woo_publications/publications/models.py:60
+msgid "official title"
+msgstr ""
+
+#: woo_publications/publications/models.py:19
+#: woo_publications/publications/models.py:64
+msgid "short title"
+msgstr ""
+
+#: woo_publications/publications/models.py:23
+#: woo_publications/publications/models.py:68
+msgid "description"
+msgstr ""
+
+#: woo_publications/publications/models.py:25
+#: woo_publications/publications/models.py:98
+msgid "created on"
+msgstr ""
+
+#: woo_publications/publications/models.py:29
+#: woo_publications/publications/models.py:102
+msgid ""
+"System timestamp reflecting when the publication was registered in the "
+"database. Not to be confused with the creation date of the publication, "
+"which is usually *before* the registration date."
+msgstr ""
+
+#: woo_publications/publications/models.py:36
+#: woo_publications/publications/models.py:46
+msgid "publication"
+msgstr ""
+
+#: woo_publications/publications/models.py:37
+msgid "publications"
+msgstr ""
+
+#: woo_publications/publications/models.py:48
+msgid ""
+"The publication that this document belongs to. A publication may have zero "
+"or more documents."
+msgstr ""
+
+#: woo_publications/publications/models.py:55
+msgid "The (primary) unique identifier."
+msgstr ""
+
+#: woo_publications/publications/models.py:70
+msgid "creation date"
+msgstr ""
+
+#: woo_publications/publications/models.py:72
+msgid ""
+"Date when the (physical) document came into existence. Not to be confused "
+"with the registration timestamp of the document - the creation date is "
+"typically *before* the registration date."
+msgstr ""
+
+#: woo_publications/publications/models.py:78
+msgid "file format"
+msgstr ""
+
+#: woo_publications/publications/models.py:81
+msgid ""
+"TODO - placeholder accepting anything, in the future this will be validated "
+"against a reference value list."
+msgstr ""
+
+#: woo_publications/publications/models.py:87
+#, fuzzy
+#| msgid "first name"
+msgid "file name"
+msgstr "voornaam"
+
+#: woo_publications/publications/models.py:89
+msgid "File name 'on disk' of the document, e.g. 'gelakt-verslag.pdf'."
+msgstr ""
+
+#: woo_publications/publications/models.py:93
+msgid "file size"
+msgstr ""
+
+#: woo_publications/publications/models.py:95
+msgid "Size of the file on disk, in bytes."
+msgstr ""
+
+#: woo_publications/publications/models.py:109
+msgid "document"
+msgstr ""
+
+#: woo_publications/publications/models.py:110
+msgid "documents"
+msgstr ""
+
+#: woo_publications/templates/admin/base_site.html:5
+#: woo_publications/templates/admin/base_site.html:23
+#: woo_publications/templates/index.html:91
 msgid "Administration"
 msgstr "Beheer"
 
-#: foobar/templates/admin/base_site.html:41
-msgid "View 2fa profile"
-msgstr "Tweestapsauthenticatie beheren"
+#: woo_publications/templates/admin/base_site.html:38
+msgid "View site"
+msgstr ""
 
-#: foobar/templates/admin/base_site.html:44
+#: woo_publications/templates/admin/base_site.html:44
+msgid "Account security"
+msgstr ""
+
+#: woo_publications/templates/admin/base_site.html:47
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: foobar/templates/admin/base_site.html:46
+#: woo_publications/templates/admin/base_site.html:52
 msgid "Log out"
 msgstr "Afmelden"
 
-#: foobar/templates/admin/base_site__admintools.html:4
-msgid "admin"
-msgstr "beheer"
-
-#: foobar/templates/admin/base_site__admintools.html:17
-msgid "administration"
-msgstr "beheer"
-
-#: foobar/templates/hijack/contrib/admin/button.html:6
+#: woo_publications/templates/hijack/contrib/admin/button.html:6
 msgid "hijack"
 msgstr "overnemen"
 
-#: foobar/templates/hijack/contrib/admin/button.html:8
+#: woo_publications/templates/hijack/contrib/admin/button.html:8
 #, python-format
 msgid "Hijack %(username)s"
 msgstr "Inloggen als %(username)s"
 
-#: foobar/templates/samples/pager.html:8 foobar/templates/samples/pager.html:10
-msgid "Previous"
-msgstr "Vorige"
+#: woo_publications/templates/includes/footer.html:14
+#, python-format
+msgid ""
+"Developed by %(website_link)s<br> within the %(opengem_link)s &copy; 2024<br>"
+msgstr ""
 
-#: foobar/templates/samples/pager.html:16
-#: foobar/templates/samples/pager.html:18
-msgid "Next"
-msgstr "Volgende"
+#: woo_publications/templates/includes/footer.html:26
+msgid "Documentation"
+msgstr ""
 
-#: foobar/utils/management/commands/clear_cache.py:10
+#: woo_publications/templates/includes/footer.html:31
+msgid "Docker image"
+msgstr ""
+
+#: woo_publications/templates/includes/footer.html:36
+msgid "Code on Github"
+msgstr ""
+
+#: woo_publications/templates/includes/footer.html:43
+msgid "Other"
+msgstr ""
+
+#: woo_publications/templates/includes/footer.html:46
+#, python-format
+msgid "Report %(issues_link)s for questions, bugs or wishes"
+msgstr ""
+
+#: woo_publications/templates/includes/footer.html:49
+#, python-format
+msgid "Read more on %(cg_link)s"
+msgstr ""
+
+#: woo_publications/templates/index.html:10
+msgid "WOO Publications API"
+msgstr ""
+
+#: woo_publications/templates/index.html:13
+msgid "Repository and JSON-based API for WOO publications."
+msgstr ""
+
+#: woo_publications/templates/index.html:80
+msgid "Open API specification"
+msgstr ""
+
+#: woo_publications/templates/index.html:84
+msgid "API docs (ReDoc)"
+msgstr ""
+
+#: woo_publications/templates/maykin_2fa/login.html:13
+msgid "or"
+msgstr ""
+
+#: woo_publications/templates/maykin_2fa/login.html:15
+msgid "Login with organization account"
+msgstr ""
+
+#: woo_publications/templates/maykin_2fa/login.html:23
+msgid "Contact support"
+msgstr ""
+
+#: woo_publications/urls.py:12 woo_publications/urls.py:13
+msgid "WOO publications"
+msgstr ""
+
+#: woo_publications/urls.py:14
+msgid "WOO publications dashboard"
+msgstr ""
+
+#: woo_publications/utils/management/commands/clear_cache.py:10
 msgid "Clear given cache only"
 msgstr "Leeg alleen de opgegeven cache"
 
-#: foobar/utils/validators.py:22
+#: woo_publications/utils/templates/utils/includes/version_info.html:4
 #, python-format
-msgid "The provided value contains an invalid character: %s"
-msgstr "Uw invoer bevat een ongeldig teken: %s"
+msgid "version %(RELEASE)s"
+msgstr ""
 
-#: foobar/utils/validators.py:30
-msgid "Invalid mobile phonenumber."
-msgstr "Ongeldig mobiel telefoonnumer."
+#: woo_publications/utils/templates/utils/includes/version_info.html:8
+#, python-format
+msgid "GIT SHA: %(GIT_SHA)s"
+msgstr ""
 
-#: foobar/utils/validators.py:50
-msgid "Invalid postal code."
-msgstr "Ongeldige postcode."
+#: woo_publications/conf/base.py:47
+msgid "WOO Publications"
+msgstr ""
+
+#~ msgid "View 2fa profile"
+#~ msgstr "Tweestapsauthenticatie beheren"
+
+#~ msgid "admin"
+#~ msgstr "beheer"
+
+#~ msgid "administration"
+#~ msgstr "beheer"
+
+#~ msgid "Previous"
+#~ msgstr "Vorige"
+
+#~ msgid "Next"
+#~ msgstr "Volgende"
+
+#, python-format
+#~ msgid "The provided value contains an invalid character: %s"
+#~ msgstr "Uw invoer bevat een ongeldig teken: %s"
+
+#~ msgid "Invalid mobile phonenumber."
+#~ msgstr "Ongeldig mobiel telefoonnumer."
+
+#~ msgid "Invalid postal code."
+#~ msgstr "Ongeldige postcode."
