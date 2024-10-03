@@ -53,12 +53,9 @@ class TestInformationCategoryAdmin(WebTest):
             oorsprong=InformationCategoryOrigins.custom_entry,
         )
         url = reverse("admin:metadata_informationcategory_changelist")
-        response = self.app.get(
-            reverse(
-                "admin:metadata_informationcategory_changelist",
-            ),
-            user=self.user,
-        )
+
+        response = self.app.get(url, user=self.user)
+
         form = response.forms["changelist-search"]
 
         with self.subTest("filter_on_naam"):

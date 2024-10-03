@@ -140,7 +140,12 @@
         },
         "name": "Publicaties",
         "slug": "publicaties",
-        "models": []
+        "models": [
+            [
+                "publications",
+                "publication"
+            ]
+        ]
     }
 },
 {
