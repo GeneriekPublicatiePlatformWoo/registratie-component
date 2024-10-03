@@ -38,6 +38,7 @@ jobs:
 
       - name: Generate the API specification
         run: |
+          src/manage.py compilemessages
           ./bin/generate_api_schema.sh openapi.yaml
         env:
           DJANGO_SETTINGS_MODULE: woo_publications.conf.ci
