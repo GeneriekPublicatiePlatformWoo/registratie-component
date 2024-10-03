@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.template.defaultfilters import filesizeformat
+from django.urls import reverse
+from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
+
+from furl import furl
 
 from .models import Document, Publication
 
@@ -17,6 +21,7 @@ class PublicationAdmin(admin.ModelAdmin):
         "verkorte_titel",
         "registratiedatum",
         "uuid",
+        "show_actions",
     )
     readonly_fields = (
         "uuid",
@@ -30,6 +35,22 @@ class PublicationAdmin(admin.ModelAdmin):
     list_filter = ("registratiedatum",)
     date_hierarchy = "registratiedatum"
     inlines = (DocumentInlineAdmin,)
+
+    @admin.display(description=_("actions"))
+    def show_actions(self, obj: Publication) -> str:
+        actions = [
+            (
+                furl(reverse("admin:publications_document_changelist")).add(
+                    {"publicatie__exact": obj.pk}
+                ),
+                _("Show documents"),
+            )
+        ]
+        return format_html_join(
+            " | ",
+            '<a href="{}">{}</a>',
+            actions,
+        )
 
 
 @admin.register(Document)

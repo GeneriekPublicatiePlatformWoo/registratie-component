@@ -1,7 +1,12 @@
-open-api-framework
+# Pure python dependencies
+furl
 
+# Django packages
 django-axes[ipware]
 django-capture-tag
 django-hijack
 django-rosetta
 django-treebeard
+
+# DRF & other API tooling
+open-api-framework
