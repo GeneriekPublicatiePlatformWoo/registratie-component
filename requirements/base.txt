@@ -208,7 +208,9 @@ face==20.1.1
 flower==2.0.1
     # via open-api-framework
 furl==2.1.3
-    # via ape-pie
+    # via
+    #   -r requirements/base.in
+    #   ape-pie
 gemma-zds-client==2.0.0
     # via
     #   commonground-api-common
