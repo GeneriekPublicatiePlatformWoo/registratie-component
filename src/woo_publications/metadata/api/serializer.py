@@ -29,6 +29,7 @@ class InformationCategorySerializer(serializers.ModelSerializer):
 
 class ThemeSerializer(serializers.ModelSerializer):
     sub_themes = serializers.ListField(
+        source="get_children",
         child=RecursiveField(),
         help_text=_("The nested themes attached to this current theme."),
     )
