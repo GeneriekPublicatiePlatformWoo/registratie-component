@@ -190,6 +190,7 @@ django==4.2.16
     #   django-two-factor-auth
     #   djangorestframework
     #   djangorestframework-inclusions
+    #   djangorestframework-recursive
     #   drf-nested-routers
     #   drf-spectacular
     #   drf-yasg
@@ -359,6 +360,7 @@ djangorestframework==3.15.2
     #   commonground-api-common
     #   djangorestframework-gis
     #   djangorestframework-inclusions
+    #   djangorestframework-recursive
     #   drf-nested-routers
     #   drf-spectacular
     #   drf-yasg
@@ -380,6 +382,10 @@ djangorestframework-inclusions==1.2.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   open-api-framework
+djangorestframework-recursive==0.1.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 djangorestframework-stubs==3.15.1
     # via -r requirements/type-checking.in
 docutils==0.20.1

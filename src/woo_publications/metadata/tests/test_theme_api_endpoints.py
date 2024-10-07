@@ -1,3 +1,5 @@
+import uuid
+
 from django.urls import reverse
 
 from rest_framework import status
@@ -23,25 +25,26 @@ class ThemeTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
-        self.assertEqual(data["count"], 2)
+        self.assertEqual(data["count"], 1)
+
+        expected_second_item_data = {
+            "uuid": str(child_theme.uuid),
+            "identifier": "https://www.example.com/thema/2",
+            "naam": "second item",
+            "subThemes": [],
+        }
+
+        expected_first_item_data = {
+            "uuid": str(parent_theme.uuid),
+            "identifier": "https://www.example.com/thema/1",
+            "naam": "first item",
+            "subThemes": [
+                expected_second_item_data,
+            ],
+        }
 
         with self.subTest("first_item_in_response_with_expected_data"):
-            expected_first_item_data = {
-                "uuid": str(parent_theme.uuid),
-                "identifier": "https://www.example.com/thema/1",
-                "naam": "first item",
-                "depth": 1,
-            }
             self.assertEqual(data["results"][0], expected_first_item_data)
-
-        with self.subTest("second_item_in_response_with_expected_data"):
-            expected_second_item_data = {
-                "uuid": str(child_theme.uuid),
-                "identifier": "https://www.example.com/thema/2",
-                "naam": "second item",
-                "depth": 2,
-            }
-            self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_detail_theme(self):
         theme = ThemeFactory.create(
@@ -62,7 +65,28 @@ class ThemeTests(APITestCase):
             "uuid": str(theme.uuid),
             "identifier": "https://www.example.com/thema/1",
             "naam": "item one",
-            "depth": 1,
+            "subThemes": [],
         }
 
         self.assertEqual(data, expected_data)
+
+    def test_detail_theme_wrong_uuid(self):
+        list_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": str(uuid.uuid4)},
+        )
+
+        response = self.client.get(list_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_detail_broken_uuid(self):
+        # UUID misses 3 characters
+        list_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": "d6323f56-5331-4b43-8e8c-63509be1e"},
+        )
+
+        response = self.client.get(list_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

@@ -41,7 +41,16 @@ class InformationCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     ),
 )
 class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Theme.objects.all().order_by("pk")
+    queryset = Theme.objects.all().order_by("path")
     serializer_class = ThemeSerializer
     lookup_field = "uuid"
     permission_classes = (permissions.AllowAny,)
+
+    def filter_queryset(self, queryset):
+        qs = super().filter_queryset(queryset)
+        # for list operations, restrict to the root nodes and let the serializer
+        # look up the children.
+        # See #63 for the ticket to optimize this!
+        if self.action == "list":
+            qs = qs.filter(depth=1)
+        return qs
