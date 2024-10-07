@@ -1,6 +1,9 @@
 -c base.txt
 -r base.txt
 
+# Graphviz DB schema generation
+django-extensions
+
 # Documentation
 sphinx
 sphinx-rtd-theme

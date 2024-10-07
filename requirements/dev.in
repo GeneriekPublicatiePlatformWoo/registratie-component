@@ -7,7 +7,6 @@ gitpython
 
 # Debug tooling
 django-debug-toolbar
-django-extensions
 
 # Documentation
 sphinx

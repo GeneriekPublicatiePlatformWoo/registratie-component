@@ -105,6 +105,7 @@ jobs:
         with:
           python-version: '3.12'
           setup-node: 'no'
+          apt-packages: 'gettext postgresql-client graphviz'
 
       - name: Build and test docs
         run: |

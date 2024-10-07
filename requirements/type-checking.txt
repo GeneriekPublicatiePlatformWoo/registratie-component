@@ -166,6 +166,7 @@ django==4.2.16
     #   django-axes
     #   django-cors-headers
     #   django-csp
+    #   django-extensions
     #   django-filter
     #   django-formtools
     #   django-hijack
@@ -227,6 +228,10 @@ django-csp==3.8
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   open-api-framework
+django-extensions==3.2.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-filter==24.3
     # via
     #   -c requirements/ci.txt
