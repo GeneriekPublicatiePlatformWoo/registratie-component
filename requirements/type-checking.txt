@@ -186,6 +186,7 @@ django==4.2.16
     #   django-solo
     #   django-stubs
     #   django-stubs-ext
+    #   django-timeline-logger
     #   django-treebeard
     #   django-two-factor-auth
     #   djangorestframework
@@ -210,6 +211,7 @@ django-appconf==1.0.6
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-log-outgoing-requests
+    #   django-timeline-logger
 django-axes==6.5.1
     # via
     #   -c requirements/ci.txt
@@ -340,6 +342,10 @@ django-stubs-ext==5.0.4
     # via
     #   -r requirements/type-checking.in
     #   django-stubs
+django-timeline-logger==4.0.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-treebeard==4.7.1
     # via
     #   -c requirements/ci.txt

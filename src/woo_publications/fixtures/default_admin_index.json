@@ -143,11 +143,11 @@
         "models": [
             [
                 "publications",
-                "publication"
+                "document"
             ],
             [
                 "publications",
-                "document"
+                "publication"
             ]
         ]
     }
