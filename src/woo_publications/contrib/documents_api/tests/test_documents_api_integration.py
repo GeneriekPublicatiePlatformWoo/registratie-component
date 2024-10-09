@@ -17,27 +17,28 @@ for these tests, make sure to bring up the docker compose in the root of the rep
 See ``docker/open-zaak/README.md`` for the test credentials and available data.
 """
 
-from django.test import TestCase
+from django.test import LiveServerTestCase
 
+from furl import furl
+from rest_framework.reverse import reverse
 from zgw_consumers.client import build_client
 from zgw_consumers.constants import APITypes, AuthTypes
 from zgw_consumers.test.factories import ServiceFactory
 
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 from woo_publications.utils.tests.vcr import VCRMixin
 
-DUMMY_DOCUMENT_TYPE = (
-    "http://host.docker.internal:8000"
-    "/catalogi/api/v1/informatieobjecttypen/b3ff3b25-42eb-4e56-a587-ac632b286496"
-)
 
+class DocumentsApiIntegrationTests(VCRMixin, LiveServerTestCase):
+    # host and port must match the service declared in
+    # docker/open-zaak/fixtures/configuration.json
+    host = "0.0.0.0"
+    port = 8100
 
-class DocumentsApiIntegrationTests(VCRMixin, TestCase):
+    def setUp(self):
+        super().setUp()
 
-    @classmethod
-    def setUpTestData(cls):
-        super().setUpTestData()
-
-        cls.documents_api_service = ServiceFactory.create(
+        self.documents_api_service = ServiceFactory.build(
             label="Open Zaak (docker-compose)",
             api_root="http://openzaak.docker.internal:8001/documenten/api/v1/",
             api_type=APITypes.drc,
@@ -47,9 +48,18 @@ class DocumentsApiIntegrationTests(VCRMixin, TestCase):
         )
 
     def test_can_create_document_with_woo_publications_informatieobjecttype(self):
+        information_category = InformationCategoryFactory.create()
+        iot_path = reverse(
+            "catalogi-informatieobjecttypen-detail",
+            kwargs={"uuid": information_category.uuid},
+        )
+        iot_url = (
+            furl(self.live_server_url.replace("0.0.0.0", "host.docker.internal"))
+            / iot_path
+        )
         client = build_client(self.documents_api_service)
         document_data = {
-            "informatieobjecttype": DUMMY_DOCUMENT_TYPE,
+            "informatieobjecttype": str(iot_url),
             "bronorganisatie": "000000000",
             "creatiedatum": "2024-09-18",
             "titel": "Test document",
