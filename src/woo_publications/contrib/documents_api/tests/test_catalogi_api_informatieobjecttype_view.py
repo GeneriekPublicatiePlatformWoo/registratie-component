@@ -4,16 +4,23 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
+
 
 class CatalogiAPIDocumentTypeViewTests(APITestCase):
 
-    def test_dummy_data_returned(self):
-        """
-        Assert that we (initially) return dummy data.
-        """
-        uuid_str = str(uuid4())
+    def test_information_category_exposed_as_documenttype(self):
+        information_category = InformationCategoryFactory.create(
+            identifier=(
+                "https://generiek-publicatieplatform.woo/informatiecategorie/"
+                "f083a7d1-de29-46f9-98d5-677a8e27ebfb"
+            ),
+            naam="Raadsbesluit",
+            definitie="Besluit vastgesteld tijdens raadsvergaderingen.",
+        )
         endpoint = reverse(
-            "catalogi-informatieobjecttypen-detail", kwargs={"uuid": uuid_str}
+            "catalogi-informatieobjecttypen-detail",
+            kwargs={"uuid": information_category.uuid},
         )
 
         response = self.client.get(endpoint)
@@ -22,12 +29,22 @@ class CatalogiAPIDocumentTypeViewTests(APITestCase):
         expected_data = {
             "url": f"http://testserver{endpoint}",
             "catalogus": "http://testserver/catalogi/api/v1/catalogussen/-fake-",
-            "omschrijving": "Placeholder",
+            "omschrijving": "Raadsbesluit",
             "vertrouwelijkheidaanduiding": "openbaar",
             "beginGeldigheid": "2024-09-01",
             "concept": False,
-            "informatieobjectcategorie": "Placeholder",
+            "informatieobjectcategorie": "Wet Open Overheid",
             "besluittypen": [],
             "zaaktypen": [],
         }
         self.assertEqual(response.json(), expected_data)
+
+    def test_404_for_bad_uuid_reference(self):
+        endpoint = reverse(
+            "catalogi-informatieobjecttypen-detail",
+            kwargs={"uuid": str(uuid4())},
+        )
+
+        response = self.client.get(endpoint)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
