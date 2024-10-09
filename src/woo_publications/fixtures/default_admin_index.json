@@ -68,6 +68,10 @@
             [
                 "log_outgoing_requests",
                 "outgoingrequestslog"
+            ],
+            [
+                "logging",
+                "timelinelogproxy"
             ]
         ]
     }
