@@ -284,7 +284,11 @@ paths:
   /catalogi/api/v1/informatieobjecttypen/{uuid}:
     get:
       operationId: catalogiApiV1InformatieobjecttypenRetrieve
-      description: Expose an information category as a Catalogi API `informatieobjecttype`.
+      description: |-
+        Expose an information category as a Catalogi API `informatieobjecttype`.
+
+        **NOTE**: this API endpoint is internal and used in the integration with the
+        Documenten API. Publication components are not expected to interact with it.
       summary: Haal een documenttype op
       parameters:
       - in: path
