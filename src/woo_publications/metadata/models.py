@@ -7,6 +7,7 @@ from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins
+from .manager import InformationCategoryManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
@@ -52,9 +53,14 @@ class InformationCategory(OrderedModel):
         default=InformationCategoryOrigins.custom_entry,
     )
 
+    objects = InformationCategoryManager()
+
     class Meta(OrderedModel.Meta):
         verbose_name = _("information category")
         verbose_name_plural = _("information categories")
+
+    def natural_key(self):
+        return (self.identifier,)
 
     def __str__(self):
         return self.naam

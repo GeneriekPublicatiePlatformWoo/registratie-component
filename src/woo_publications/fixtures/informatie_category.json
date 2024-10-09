@@ -1,7 +1,6 @@
 [
 {
     "model": "metadata.informationcategory",
-    "pk": 1,
     "fields": {
         "order": 1010,
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
@@ -14,7 +13,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 2,
     "fields": {
         "order": 1090,
         "uuid": "380f49a4-8578-4317-b91e-3dfd13bab89b",
@@ -27,7 +25,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 3,
     "fields": {
         "order": 1140,
         "uuid": "b84c3b0d-a471-48f5-915f-7fbd8b94188f",
@@ -40,7 +37,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 4,
     "fields": {
         "order": 1040,
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
@@ -53,7 +49,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 5,
     "fields": {
         "order": 1160,
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
@@ -66,7 +61,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 6,
     "fields": {
         "order": 1030,
         "uuid": "88fb1c5e-e899-456d-b077-6101a9829c11",
@@ -79,7 +73,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 7,
     "fields": {
         "order": 2000,
         "uuid": "8223209f-a502-4dda-b1b6-c33b61525239",
@@ -92,7 +85,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 8,
     "fields": {
         "order": 1050,
         "uuid": "7184027d-5634-4bd4-8121-871916384f0e",
@@ -105,7 +97,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 9,
     "fields": {
         "order": 1060,
         "uuid": "ca9a38d6-5774-43fb-acc0-04832e9fd231",
@@ -118,7 +109,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 10,
     "fields": {
         "order": 1110,
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
@@ -131,7 +121,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 11,
     "fields": {
         "order": 1100,
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
@@ -144,7 +133,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 12,
     "fields": {
         "order": 1170,
         "uuid": "3e9298ed-c90a-49fb-b89d-0cc060b7b0f7",
@@ -157,7 +145,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 13,
     "fields": {
         "order": 1020,
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
@@ -170,7 +157,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 14,
     "fields": {
         "order": 1120,
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
@@ -183,7 +169,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 15,
     "fields": {
         "order": 1070,
         "uuid": "568ebb54-9e43-4c12-924f-77f7d812026d",
@@ -196,7 +181,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 16,
     "fields": {
         "order": 1130,
         "uuid": "68e33566-9f48-4547-8024-2d0d03b54b4d",
@@ -209,7 +193,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 17,
     "fields": {
         "order": 1080,
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
@@ -222,7 +205,6 @@
 },
 {
     "model": "metadata.informationcategory",
-    "pk": 18,
     "fields": {
         "order": 1150,
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",

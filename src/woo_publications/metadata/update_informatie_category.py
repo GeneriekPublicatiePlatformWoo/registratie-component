@@ -1,14 +1,17 @@
 from io import StringIO
 from pathlib import Path
 
-from django.conf import settings
 from django.core.management import call_command
 
 import requests
 from glom import PathAccessError, T, glom
 
-from woo_publications.metadata.constants import InformationCategoryOrigins
-from woo_publications.metadata.models import InformationCategory
+from .constants import InformationCategoryOrigins
+from .models import InformationCategory
+
+WAARDENLIJST_URL = (
+    "https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json"
+)
 
 SPEC = {
     "naam": T["http://www.w3.org/2004/02/skos/core#prefLabel"][0]["@value"],
@@ -21,35 +24,31 @@ SPEC = {
 
 
 class InformatieCategoryWaardenlijstError(Exception):
-    pass
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(message)
 
 
-def update_informatie_category(file_path: str):
-    if not file_path:
-        file_path = str(
-            Path(
-                settings.BASE_DIR
-                / "src"
-                / "woo_publications"
-                / "fixtures"
-                / "informatie_category.json"
-            )
-        )
-
-    response = requests.get(
-        "https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json"
-    )
+def update_informatie_category(file_path: Path):
+    try:
+        response = requests.get(WAARDENLIJST_URL)
+    except requests.RequestException as err:
+        raise InformatieCategoryWaardenlijstError(
+            "Could not retrieve the value list data."
+        ) from err
 
     try:
         response.raise_for_status()
-    except requests.exceptions.ConnectionError as err:
+    except requests.RequestException as err:
         raise InformatieCategoryWaardenlijstError(
-            "Could not connect with url."
+            f"Got an unexpected response status code when retrieving the value list data: {response.status_code}."
         ) from err
 
     data = response.json()
     if not data:
-        raise InformatieCategoryWaardenlijstError("Could not retrieve json from url.")
+        raise InformatieCategoryWaardenlijstError(
+            "Received empty data from value list."
+        )
 
     for waardenlijst in data:
         # filter out all ids that aren't waardenlijsten
@@ -60,11 +59,11 @@ def update_informatie_category(file_path: str):
             continue
 
         fields = glom(waardenlijst, SPEC, skip_exc=PathAccessError)
-        fields["oorsprong"] = InformationCategoryOrigins.value_list
 
         if fields:
+            fields["oorsprong"] = InformationCategoryOrigins.value_list
             InformationCategory.objects.update_or_create(
-                identifier=waardenlijst.get("@id"), defaults=fields
+                identifier=waardenlijst["@id"], defaults=fields
             )
 
     to_export = InformationCategory.objects.filter(
