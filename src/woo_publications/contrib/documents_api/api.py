@@ -6,6 +6,9 @@ The real implementation will translation the
 API standard compliant.
 """
 
+from uuid import UUID
+
+from django.shortcuts import get_object_or_404
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
@@ -15,12 +18,13 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from zgw_consumers.api_models.constants import VertrouwelijkheidsAanduidingen
 
-DUMMY_IOT = {
-    "omschrijving": "Placeholder",
+from woo_publications.metadata.models import InformationCategory
+
+FIXED_DUMMY_IOT_DATA = {
     "vertrouwelijkheidaanduiding": VertrouwelijkheidsAanduidingen.openbaar,
     "begin_geldigheid": "2024-09-01",
     "concept": False,
-    "informatieobjectcategorie": "Placeholder",
+    "informatieobjectcategorie": "Wet Open Overheid",
     "besluittypen": [],
     "zaaktypen": [],
 }
@@ -82,16 +86,23 @@ class CatalogiAPIDocumentTypeSerializer(serializers.Serializer):
 class CatalogiAPIDocumentTypeView(views.APIView):
     permission_classes = (permissions.AllowAny,)
 
-    def get(self, request: Request, *args, **kwargs):
+    def get(self, request: Request, uuid: UUID, *args, **kwargs):
         """
         Expose an information category as a Catalogi API `informatieobjecttype`.
+
+        **NOTE**: this API endpoint is internal and used in the integration with the
+        Documenten API. Publication components are not expected to interact with it.
         """
+        information_category = get_object_or_404(InformationCategory, uuid=uuid)
         data = {
             "url": request.build_absolute_uri(request.path),
             "catalogus": request.build_absolute_uri(
                 "/catalogi/api/v1/catalogussen/-fake-"
             ),
-            **DUMMY_IOT,
+            **FIXED_DUMMY_IOT_DATA,
+            # API spec has upper limit of 80 chars - our model is now capped to 80 chars,
+            # but this could change in the future
+            "omschrijving": information_category.naam[:80],
         }
         serializer = CatalogiAPIDocumentTypeSerializer(instance=data)
         return Response(
