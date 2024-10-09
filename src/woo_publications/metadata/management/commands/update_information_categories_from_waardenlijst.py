@@ -3,9 +3,9 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from woo_publications.metadata.update_informatie_category import (
+from ...waardenlijst_sync import (
     InformatieCategoryWaardenlijstError,
-    update_informatie_category,
+    update_information_category,
 )
 
 
@@ -18,11 +18,9 @@ class Command(BaseCommand):
             action="store",
             help="The file path to where the fixture file will be created.",
             default=Path(
-                settings.BASE_DIR
-                / "src"
-                / "woo_publications"
+                settings.DJANGO_PROJECT_DIR
                 / "fixtures"
-                / "informatie_category.json"
+                / "information_categories.json",
             ),
         )
 
@@ -32,6 +30,6 @@ class Command(BaseCommand):
             file_path = Path(file_path)
 
         try:
-            update_informatie_category(file_path)
+            update_information_category(file_path)
         except InformatieCategoryWaardenlijstError as err:
             raise CommandError(err.message) from err

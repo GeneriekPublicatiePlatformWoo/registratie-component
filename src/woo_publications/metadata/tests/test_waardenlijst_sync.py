@@ -11,9 +11,9 @@ import requests_mock
 
 from ...utils.tests.vcr import VCRMixin
 from ..models import InformationCategory
-from ..update_informatie_category import (
+from ..waardenlijst_sync import (
     InformatieCategoryWaardenlijstError,
-    update_informatie_category,
+    update_information_category,
 )
 
 
@@ -24,7 +24,7 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
         with tempfile.NamedTemporaryFile(suffix=".json") as file:
             file_path = Path(file.name)
 
-            update_informatie_category(file_path)
+            update_information_category(file_path)
 
             with self.subTest("database populated"):
                 self.assertEqual(InformationCategory.objects.count(), 18)
@@ -42,7 +42,7 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
     @requests_mock.Mocker()
     def test_request_get_raises_valid_exception(self, m):
         m.register_uri(
-            requests_mock.ANY, requests_mock.ANY, side_effect=requests.RequestException
+            requests_mock.ANY, requests_mock.ANY, exc=requests.RequestException
         )
         assert not InformationCategory.objects.exists()
 
@@ -53,7 +53,7 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
                 InformatieCategoryWaardenlijstError,
                 "Could not retrieve the value list data.",
             ):
-                update_informatie_category(file_path)
+                update_information_category(file_path)
 
     @requests_mock.Mocker()
     def test_request_get_invalid_status_code(self, m):
@@ -67,7 +67,7 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
                 InformatieCategoryWaardenlijstError,
                 "Got an unexpected response status code when retrieving the value list data: 400.",
             ):
-                update_informatie_category(file_path)
+                update_information_category(file_path)
 
     @requests_mock.Mocker()
     def test_request_has_no_data(self, m):
@@ -81,4 +81,4 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
                 InformatieCategoryWaardenlijstError,
                 "Received empty data from value list.",
             ):
-                update_informatie_category(file_path)
+                update_information_category(file_path)

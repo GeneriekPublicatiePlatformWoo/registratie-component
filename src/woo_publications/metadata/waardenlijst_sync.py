@@ -9,9 +9,7 @@ from glom import PathAccessError, T, glom
 from .constants import InformationCategoryOrigins
 from .models import InformationCategory
 
-WAARDENLIJST_URL = (
-    "https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json"
-)
+WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json"
 
 SPEC = {
     "naam": T["http://www.w3.org/2004/02/skos/core#prefLabel"][0]["@value"],
@@ -29,7 +27,7 @@ class InformatieCategoryWaardenlijstError(Exception):
         super().__init__(message)
 
 
-def update_informatie_category(file_path: Path):
+def update_information_category(file_path: Path):
     try:
         response = requests.get(WAARDENLIJST_URL)
     except requests.RequestException as err:
@@ -53,18 +51,16 @@ def update_informatie_category(file_path: Path):
     for waardenlijst in data:
         # filter out all ids that aren't waardenlijsten
         if (
-            not waardenlijst.get("@type")[0]
+            not waardenlijst["@type"][0]
             == "http://www.w3.org/2004/02/skos/core#Concept"
         ):
             continue
 
         fields = glom(waardenlijst, SPEC, skip_exc=PathAccessError)
-
-        if fields:
-            fields["oorsprong"] = InformationCategoryOrigins.value_list
-            InformationCategory.objects.update_or_create(
-                identifier=waardenlijst["@id"], defaults=fields
-            )
+        InformationCategory.objects.update_or_create(
+            identifier=waardenlijst["@id"],
+            defaults={**fields, "oorsprong": InformationCategoryOrigins.value_list},
+        )
 
     to_export = InformationCategory.objects.filter(
         oorsprong=InformationCategoryOrigins.value_list
