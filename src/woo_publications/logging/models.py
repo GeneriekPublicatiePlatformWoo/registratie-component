@@ -10,7 +10,7 @@ from .constants import Events
 
 
 class ActingUser(TypedDict):
-    identifier: str
+    identifier: int | str
     display_name: str
 
 
@@ -49,7 +49,7 @@ class TimelineLogProxy(TimelineLog):
         if self.extra_data is None:
             raise ValueError("'extra_data' may not be empty.")
         if not isinstance(self.extra_data, dict):
-            raise TypeError("'extra_data' must be a JSON object (python dict)")
+            raise TypeError("'extra_data' must be a JSON object (python dict).")
 
         # ensure that we always track the event
         self._validate_event()
