@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex
 
@@ -26,7 +26,15 @@ done
 >&2 echo "Apply database migrations"
 python src/manage.py migrate
 
-# Load any JSON fixtures present
+# Load fixtures distributed in the image
+_FIXED_FIXTURES=("information_categories")
+for fixture in $_FIXED_FIXTURES
+do
+    echo "Loading required fixture $fixture"
+    python src/manage.py loaddata $fixture
+done
+
+# Load any JSON fixtures present in the configured fixtures dir
 if [ -d $fixtures_dir ]; then
     echo "Loading fixtures from $fixtures_dir"
 
