@@ -9,7 +9,8 @@ from django.test import TestCase
 import requests
 import requests_mock
 
-from ...utils.tests.vcr import VCRMixin
+from woo_publications.utils.tests.vcr import VCRMixin
+
 from ..models import InformationCategory
 from ..waardenlijst_sync import (
     InformatieCategoryWaardenlijstError,
@@ -31,6 +32,8 @@ class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
 
             with self.subTest("user content does not cause conflicts"):
                 information_category = InformationCategory.objects.order_by("pk").last()
+                assert information_category is not None
+
                 information_category.identifier = "https://something.else"
                 information_category.uuid = uuid4()
                 information_category.save()
