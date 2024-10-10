@@ -68,6 +68,10 @@
             [
                 "log_outgoing_requests",
                 "outgoingrequestslog"
+            ],
+            [
+                "logging",
+                "timelinelogproxy"
             ]
         ]
     }
@@ -143,11 +147,11 @@
         "models": [
             [
                 "publications",
-                "publication"
+                "document"
             ],
             [
                 "publications",
-                "document"
+                "publication"
             ]
         ]
     }
