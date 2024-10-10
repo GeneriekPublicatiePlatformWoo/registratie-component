@@ -1,0 +1,324 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json
+  response:
+    body:
+      string: "[ {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_139c6280\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"wetten en andere algemeen
+        verbindende voorschriften\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"wet of algemeen verbindend voorschrift\"\n  }
+        ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1010\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"wetten en algemeen
+        verbindende voorschriften\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_3a248e3a\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"agenda\u2019s en besluitenlijsten
+        van vergaderingen van de ministerraad, gedeputeerde staten, colleges van burgemeester
+        en wethouders en dagelijkse besturen van waterschappen en dagelijkse besturen
+        van openbare lichamen als bedoeld in de Wet gemeenschappelijke regelingen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"agenda of besluitenlijst bestuurscollege\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1090\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"agenda\u2019s en besluitenlijsten
+        bestuurscolleges\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_3baef532\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"de inhoud van de schriftelijke
+        verzoeken op grond van artikel 4.1, van de schriftelijke beslissingen op die
+        verzoeken en de daarbij verstrekte informatie\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"Woo-verzoek of -besluit\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1140\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"Woo-verzoeken en -besluiten\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_40a05794\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"inzicht in zijn organisatie
+        en werkwijze, waaronder de taken en bevoegdheden van de organisatieonderdelen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"organisatie en werkwijze\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1040\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"organisatie en werkwijze\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_46a81018\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"beschikkingen, met
+        uitzondering van 21 categorie\xEBn.\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"beschikking\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1160\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"beschikkingen\"\n  }
+        ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_759721e2\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"ontwerpen van wetten,
+        andere algemeen verbindende voorschriften en overige besluiten van algemene
+        strekking waarover een extern advies is gevraagd, met inbegrip van de adviesaanvraag\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"ontwerp van wet- en regelgeving met adviesaanvraag\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1030\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"ontwerpen van wet-
+        en regelgeving met adviesaanvraag\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_816e508d\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"Informatie die niet
+        valt onder een van de informatiecategorie\xEBn van artikel 3.3 Woo, maar actief
+        openbaar is gemaakt op grond van de algemene inspanningsverplichting van artikel
+        3.1 Woo \"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [
+        {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"inspanningsverplichting art 3.1 Woo\"\n  } ],\n
+        \ \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"2000\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"inspanningsverplichting
+        art 3.1 Woo\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_89ee6784\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"de bereikbaarheid van
+        het bestuursorgaan en zijn organisatieonderdelen en de wijze waarop een verzoek
+        om informatie kan worden ingediend\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"bereikbaarheidsgegevens\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1050\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"bereikbaarheidsgegevens\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_8c840238\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"bij de Kamers en de
+        verenigde vergadering der Staten-Generaal, provinciale staten, gemeenteraden
+        en algemene besturen van waterschappen ter behandeling ingekomen stukken,
+        tenzij deze betrekking hebben op door de regering vertrouwelijk aan de Staten-Generaal
+        verstrekte informatie of tenzij deze betrekking hebben op individuele gevallen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"bij vertegenwoordigend orgaan ingekomen stuk\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1060\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"bij vertegenwoordigende
+        organen ingekomen stukken\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_8fc2335c\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"convenanten\"\n  }
+        ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"convenant\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1110\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"convenanten\"\n  }
+        ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_99a836c7\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"adviezen:\\n1. over
+        de ontwerpen, bedoeld in het eerste lid, onderdeel c, van adviescolleges of
+        -commissies alsmede van andere externe partijen indien die om advies zijn
+        verzocht;\\n2. over andere onderwerpen van adviescolleges of -commissies,
+        alsmede de op dat advies betrekking hebbende adviesaanvraag, uitgezonderd
+        adviezen die betrekking hebben op individuele gevallen;\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"advies\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1100\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"adviezen\"\n  } ]\n},
+        {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_a870c43d\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"schriftelijke oordelen
+        in klachtprocedures als bedoeld in titel 9.1 van de Algemene wet bestuursrecht\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"klachtoordeel\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1170\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"klachtoordelen\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_aab6bfc7\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"overige besluiten van
+        algemene strekking\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"overig besluit van algemene strekking\"\n  }
+        ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1020\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"overige besluiten van
+        algemene strekking\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_c6cd1213\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"jaarplannen en jaarverslagen
+        van bestuursorganen inzake de voorgenomen uitvoering van de taak of de verantwoording
+        van die uitvoering\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"jaarplan of jaarverslag\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1120\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"jaarplannen en jaarverslagen\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_c76862ab\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"vergaderstukken en
+        verslagen van de Kamers en de verenigde vergadering der Staten-Generaal en
+        hun commissies, tenzij deze betrekking hebben op door de regering vertrouwelijk
+        aan de Staten-Generaal verstrekte informatie\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"vergaderstuk Staten-Generaal\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1070\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"vergaderstukken Staten-Generaal\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_cf268088\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"verplichtingen tot
+        verstrekking van subsidies, anders dan met een beschikking (NB - alleen bij
+        Min. BZ)\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [
+        {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"subsidieverplichting anders dan met beschikking\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1130\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"subsidieverplichtingen
+        anders dan met beschikking\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_db4862c3\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"vergaderstukken en
+        verslagen van provinciale staten, gemeenteraden en algemene besturen van waterschappen,
+        algemene besturen van openbare lichamen, besturen van bedrijfsvoeringsorganisaties
+        en gemeenschappelijke organen als bedoeld in de Wet gemeenschappelijke regelingen
+        en hun commissies\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"vergaderstuk decentrale overheid\"\n  } ],\n
+        \ \"http://www.w3.org/2004/02/skos/core#topConceptOf\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1080\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"vergaderstukken decentrale
+        overheden\"\n  } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/c_fdaee95e\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#Concept\" ],\n  \"http://www.w3.org/2004/02/skos/core#definition\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"op verzoek van een
+        bestuursorgaan ambtelijk of extern opgestelde onderzoeksrapporten die geen
+        onderdeel vormen van de uitvoering van de taak van dat bestuursorgaan, die
+        voornamelijk uit feitelijk materiaal bestaan en die betrekking hebben op:\\n1.
+        de wijze van functioneren van de eigen organisatie;\\n2. de voorbereiding
+        of de evaluatie van beleid, inclusief de uitvoering, naleving en handhaving.\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#inScheme\" : [ {\n    \"@id\"
+        : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \"onderzoeksrapport\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#topConceptOf\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"http://www.w3.org/ns/shacl#order\" : [ {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n
+        \   \"@value\" : \"1150\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/prefLabelVoorGroepen\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"onderzoeksrapporten\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2004/02/skos/core#ConceptScheme\" ],\n
+        \ \"http://www.w3.org/2004/02/skos/core#definition\" : [ {\n    \"@language\"
+        : \"nl\",\n    \"@value\" : \" informatiecategorie\xEBn die expliciet worden
+        genoemd in artikel 3.3 van de Wet open overheid (Woo)\"\n  } ],\n  \"http://www.w3.org/2004/02/skos/core#prefLabel\"
+        : [ {\n    \"@language\" : \"nl\",\n    \"@value\" : \"Woo informatiecategorie\xEBn\"\n
+        \ } ]\n}, {\n  \"@id\" : \"https://identifier.overheid.nl/tooi/set/scw_woo_informatiecategorieen/3\",\n
+        \ \"@type\" : [ \"http://www.w3.org/2002/07/owl#Ontology\", \"https://identifier.overheid.nl/tooi/def/wl/SchemagebaseerdeConceptwaardelijst\"
+        ],\n  \"http://purl.org/dc/terms/description\" : [ {\n    \"@value\" : \"Waardelijst
+        met informatiecategorie\xEBn zoals benoemd in de Wet open overheid.\"\n  }
+        ],\n  \"http://purl.org/pav/derivedFrom\" : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern\"\n
+        \ } ],\n  \"http://www.w3.org/2002/07/owl#imports\" : [ {\n    \"@id\" : \"http://www.w3.org/2004/02/skos/core\"\n
+        \ }, {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/ont\"\n  },
+        {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/wl\"\n  }, {\n
+        \   \"@id\" : \"http://purl.org/pav\"\n  } ],\n  \"http://www.w3.org/2002/07/owl#versionInfo\"
+        : [ {\n    \"@value\" : \"Nieuwe informatiecategorie \\\"inspanningsverplichting\\\"
+        toegevoegd.\"\n  } ],\n  \"http://www.w3.org/ns/prov#generatedAtTime\" : [
+        {\n    \"@type\" : \"http://www.w3.org/2001/XMLSchema#dateTime\",\n    \"@value\"
+        : \"2024-06-27T12:33:46.204Z\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/publicatiedatum\"
+        : [ {\n    \"@value\" : \"2024-06-27\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/titel\"
+        : [ {\n    \"@value\" : \"Woo informatiecategorie\xEBn\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/verantwoordelijke\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/id/ministerie/mnre1034\"\n
+        \ } ],\n  \"https://identifier.overheid.nl/tooi/def/ont/zichtdatum\" : [ {\n
+        \   \"@type\" : \"http://www.w3.org/2001/XMLSchema#date\",\n    \"@value\"
+        : \"2024-06-27\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/wl/afgeleidVanVersie\"
+        : [ {\n    \"@value\" : \"\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/wl/bronversie\"
+        : [ {\n    \"@value\" : \"\"\n  } ],\n  \"https://identifier.overheid.nl/tooi/def/wl/schema\"
+        : [ {\n    \"@id\" : \"https://identifier.overheid.nl/tooi/def/thes/kern/wooInformatiecategorieen\"\n
+        \ } ],\n  \"https://identifier.overheid.nl/tooi/def/wl/volgnummer\" : [ {\n
+        \   \"@type\" : \"http://www.w3.org/2001/XMLSchema#integer\",\n    \"@value\"
+        : \"3\"\n  } ]\n} ]"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Length:
+      - '23176'
+      Content-Security-Policy:
+      - frame-ancestors 'self'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 10 Oct 2024 08:35:39 GMT
+      ETag:
+      - '"61e6c558ec8da1:0"'
+      Expect-CT:
+      - enforce, max-age=30
+      Last-Modified:
+      - Thu, 27 Jun 2024 12:34:20 GMT
+      Permissions-Policy:
+      - geolocation=(), midi=(), notifications=(), push=(), microphone=(), camera=(),
+        magnetometer=(), gyroscope=(), speaker=(), vibrate=(), fullscreen=(), payment=()
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Content-Security-Policy:
+      - frame-ancestors 'self'
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - 1; mode=block
+      x-webkit-csp:
+      - frame-ancestors 'self'
+    status:
+      code: 200
+      message: OK
+version: 1
