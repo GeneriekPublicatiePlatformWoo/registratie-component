@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.test import override_settings
 from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.translation import gettext as _
 
@@ -14,6 +15,9 @@ from ..constants import Events
 from ..models import TimelineLogProxy
 
 
+# must decorate the class, since at the test-level the wsgi app is already being
+# initialized and overriding the setting is too late
+@override_settings(SESSION_ENGINE="django.contrib.sessions.backends.db")
 @disable_admin_mfa()
 class AuditLogAdminTests(WebTest):
 
@@ -236,3 +240,41 @@ class AuditLogAdminTests(WebTest):
             self.assertNumLogsDisplayed(response, 1)
             self.assertNotContains(response, "1234")
             self.assertContains(response, "testsuite")
+
+    def test_no_excessive_queries_for_content_object(self):
+        # create a 100 records to fill the admin - can't use bulk create because that
+        # skips the save method :)
+        log_content_type = ContentType.objects.get_for_model(TimelineLog)
+        for __ in range(100):
+            TimelineLogProxy.objects.create(
+                object_id=log_content_type.pk,
+                content_type=ContentType.objects.get_for_model(ContentType),
+                extra_data={
+                    "event": Events.read,
+                    "acting_user": {
+                        "identifier": "testsuite",
+                        "display_name": "Automated tests",
+                    },
+                },
+            )
+        # do login to trigger auth related queries early
+        self.app.get(reverse("admin:index"), user=self.superuser)
+
+        # Expected queries:
+        #
+        #  1. mozilla-django-oidc-db config grabbing (not sure why?)
+        #  2. select django session for authenticated user
+        #  3. look up the super user from the session's user_id
+        #  4. get total count of log records
+        #  5. get total count of log records (bis)
+        #  6. select the log records to display
+        #  7. get the admin index configuration
+        #  8. get the admin index configuration (second aspect)
+        #  9. get the admin index configuration (third aspect)
+        # 10. get the timestamp min/max for the date_hierarchy links
+        # 11. another query related to date_hierarchy I think
+        with self.assertNumQueries(11):
+            response = self.app.get(self.list_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNumLogsDisplayed(response, 100)

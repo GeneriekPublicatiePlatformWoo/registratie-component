@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
 from django.utils.translation import gettext_lazy as _
 
@@ -21,6 +21,7 @@ class MetadataDict(TypedDict):
 
     event: str
     acting_user: ActingUser
+    _cached_object_repr: NotRequired[str]
 
 
 class TimelineLogProxy(TimelineLog):
@@ -55,8 +56,17 @@ class TimelineLogProxy(TimelineLog):
         self._validate_event()
         # ensure that we always track the acting user
         self._validate_user_details()
+        self._cache_object_repr()
 
         super().save(*args, **kwargs)
+
+    def _cache_object_repr(self) -> None:
+        # cache the object representation so we can avoid querying the content_object
+        # in the admin list page, which does wonders for performance
+        assert self.extra_data is not None
+        if not self.object_id or not self.content_type_id:
+            return
+        self.extra_data["_cached_object_repr"] = str(self.content_object)
 
     def _validate_event(self):
         assert self.extra_data is not None
@@ -92,6 +102,16 @@ class TimelineLogProxy(TimelineLog):
                 "The user details in audit logs must contain the 'identifier' and "
                 "'display_name' keys."
             ) from err
+
+    def get_related_object_repr(self) -> str:
+        if not self.object_id or not self.content_type_id:
+            return ""
+        if (
+            self.extra_data is None
+            or (obj_repr := self.extra_data.get("_cached_object_repr")) is None
+        ):
+            return str(self.content_object)
+        return obj_repr
 
     @property
     def event(self) -> Events | Literal["unknown"]:

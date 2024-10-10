@@ -82,13 +82,13 @@ class TimelineLogProxyAdmin(admin.ModelAdmin):
     def content_admin_link(self, obj: TimelineLogProxy) -> str:
         if not (obj.object_id and obj.content_type_id):
             return "-"
+
         ct = obj.content_type
+        obj_repr = obj.get_related_object_repr()
         try:
             admin_path = reverse(
                 f"admin:{ct.app_label}_{ct.model}_change", args=(obj.object_id,)
             )
         except NoReverseMatch:  # content type not enabled in the admin
-            return "-"
-        return format_html(
-            '<a href="{u}">{t}</a>', u=admin_path, t=str(obj.content_object)
-        )
+            return obj_repr
+        return format_html('<a href="{u}">{t}</a>', u=admin_path, t=obj_repr)
