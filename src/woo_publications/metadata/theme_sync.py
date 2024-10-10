@@ -3,7 +3,7 @@ from io import StringIO
 from django.core.management import call_command
 
 import requests
-from glom import Path, PathAccessError, T, glom, Coalesce
+from glom import Coalesce, Path, PathAccessError, T, glom
 
 from woo_publications.metadata.models import Theme
 
@@ -15,10 +15,10 @@ SPEC = {
         "naam": T["http://www.w3.org/2004/02/skos/core#prefLabel"][0]["@value"],
     },
     "parents": Coalesce(
-        (T["http://www.w3.org/2004/02/skos/core#broader"], ["@id"]),
-        default=[]
+        (T["http://www.w3.org/2004/02/skos/core#broader"], ["@id"]), default=[]
     ),
 }
+
 
 class ThemeWaardenlijstError(Exception):
     def __init__(self, message: str):
@@ -26,14 +26,11 @@ class ThemeWaardenlijstError(Exception):
         super().__init__(message)
 
 
-
 def update_theme(file_path: Path):
     try:
         response = requests.get(WAARDENLIJST_URL)
     except requests.RequestException as err:
-        raise ThemeWaardenlijstError(
-            "Could not retrieve the value list data."
-        ) from err
+        raise ThemeWaardenlijstError("Could not retrieve the value list data.") from err
 
     try:
         response.raise_for_status()
@@ -44,9 +41,7 @@ def update_theme(file_path: Path):
 
     data = response.json()
     if not data:
-        raise ThemeWaardenlijstError(
-            "Received empty data from value list."
-        )
+        raise ThemeWaardenlijstError("Received empty data from value list.")
 
     waardenlijst = [
         glom(theme, SPEC, skip_exc=PathAccessError)

@@ -11,77 +11,75 @@ import requests_mock
 
 from woo_publications.utils.tests.vcr import VCRMixin
 
-from ..models import InformationCategory
-from ..waardenlijst_sync import (
-    InformatieCategoryWaardenlijstError,
-    update_information_category,
-)
+from ..models import Theme
+from ..theme_sync import ThemeWaardenlijstError, update_theme
 
 
-class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
+class UpdateThemeTestCase(VCRMixin, TestCase):
     def test_data_gets_stored_and_turned_into_fixture(self):
-        assert not InformationCategory.objects.exists()
+        assert not Theme.objects.exists()
 
         with tempfile.NamedTemporaryFile(suffix=".json") as file:
             file_path = Path(file.name)
 
-            update_information_category(file_path)
+            update_theme(file_path)
 
             with self.subTest("database populated"):
-                self.assertEqual(InformationCategory.objects.count(), 18)
+                self.assertEqual(Theme.objects.count(), 92)
 
             with self.subTest("user content does not cause conflicts"):
-                information_category = InformationCategory.objects.order_by("pk").last()
-                assert information_category is not None
+                theme = Theme.objects.order_by("pk").last()
+                assert theme is not None
 
-                information_category.identifier = "https://something.else"
-                information_category.uuid = uuid4()
-                information_category.save()
+                theme.identifier = "https://something.else"
+                theme.uuid = uuid4()
+                theme.path = theme.path + "1"
+                theme.save()
 
                 call_command("loaddata", file_path, stdout=StringIO())
 
-                self.assertEqual(InformationCategory.objects.count(), 19)
+                self.assertEqual(Theme.objects.count(), 93)
 
     @requests_mock.Mocker()
     def test_request_get_raises_valid_exception(self, m):
         m.register_uri(
             requests_mock.ANY, requests_mock.ANY, exc=requests.RequestException
         )
-        assert not InformationCategory.objects.exists()
+        assert not Theme.objects.exists()
 
         with tempfile.NamedTemporaryFile(suffix=".json") as file:
             file_path = Path(file.name)
 
             with self.assertRaisesMessage(
-                InformatieCategoryWaardenlijstError,
+                ThemeWaardenlijstError,
                 "Could not retrieve the value list data.",
             ):
-                update_information_category(file_path)
+                update_theme(file_path)
 
     @requests_mock.Mocker()
     def test_request_get_invalid_status_code(self, m):
         m.register_uri(requests_mock.ANY, requests_mock.ANY, status_code=400)
-        assert not InformationCategory.objects.exists()
+        assert not Theme.objects.exists()
 
         with tempfile.NamedTemporaryFile(suffix=".json") as file:
             file_path = Path(file.name)
 
             with self.assertRaisesMessage(
-                InformatieCategoryWaardenlijstError,
+                ThemeWaardenlijstError,
                 "Got an unexpected response status code when retrieving the value list data: 400.",
             ):
-                update_information_category(file_path)
+                update_theme(file_path)
 
     @requests_mock.Mocker()
     def test_request_has_no_data(self, m):
         m.register_uri(requests_mock.ANY, requests_mock.ANY, status_code=200, json=[])
-        assert not InformationCategory.objects.exists()
+        assert not Theme.objects.exists()
 
         with tempfile.NamedTemporaryFile(suffix=".json") as file:
             file_path = Path(file.name)
 
             with self.assertRaisesMessage(
-                InformatieCategoryWaardenlijstError,
+                ThemeWaardenlijstError,
                 "Received empty data from value list.",
             ):
-                update_information_category(file_path)
+                update_theme(file_path)

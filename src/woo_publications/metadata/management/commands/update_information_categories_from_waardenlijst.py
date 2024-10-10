@@ -3,7 +3,7 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from ...waardenlijst_sync import (
+from ...information_category_sync import (
     InformatieCategoryWaardenlijstError,
     update_information_category,
 )

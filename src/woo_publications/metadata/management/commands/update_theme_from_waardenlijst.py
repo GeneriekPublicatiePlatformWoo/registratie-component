@@ -3,10 +3,7 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from ...theme_sync import (
-    ThemeWaardenlijstError,
-    update_theme,
-)
+from ...theme_sync import ThemeWaardenlijstError, update_theme
 
 
 class Command(BaseCommand):
@@ -18,9 +15,7 @@ class Command(BaseCommand):
             action="store",
             help="The file path to where the fixture file will be created.",
             default=Path(
-                settings.DJANGO_PROJECT_DIR
-                / "fixtures"
-                / "themes.json",
+                settings.DJANGO_PROJECT_DIR / "fixtures" / "themes.json",
             ),
         )
 
