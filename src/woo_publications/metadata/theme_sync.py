@@ -1,9 +1,10 @@
 from io import StringIO
+from pathlib import Path
 
 from django.core.management import call_command
 
 import requests
-from glom import Coalesce, Path, PathAccessError, T, glom
+from glom import Coalesce, PathAccessError, T, glom
 
 from woo_publications.metadata.models import Theme
 
