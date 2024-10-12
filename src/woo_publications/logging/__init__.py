@@ -1,2 +1,2 @@
-from .logevent import * #  noqa
-from .constants import * #  noqa
+from .constants import *  # noqa
+from .logevent import *  # noqa
