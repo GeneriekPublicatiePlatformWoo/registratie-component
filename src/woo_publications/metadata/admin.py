@@ -4,12 +4,13 @@ from ordered_model.admin import OrderedModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
+from ..logging import AdminAuditLogMixin
 from .constants import InformationCategoryOrigins
 from .models import InformationCategory, Theme
 
 
 @admin.register(InformationCategory)
-class InformationCategoryAdmin(OrderedModelAdmin):
+class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
     list_display = ("naam", "identifier", "oorsprong", "move_up_down_links")
     readonly_fields = (
         "uuid",
@@ -29,7 +30,7 @@ class InformationCategoryAdmin(OrderedModelAdmin):
 
 @admin.register(Theme)
 class ThemeAdmin(
-    TreeAdmin
+    AdminAuditLogMixin, TreeAdmin
 ):  # use Model admin because nothing should be editable anyway
     list_display = ("naam", "identifier")
     search_fields = ("identifier", "naam")
