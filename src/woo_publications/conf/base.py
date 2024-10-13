@@ -128,6 +128,9 @@ REST_FRAMEWORK["DEFAULT_FILTER_BACKENDS"] = (
 REST_FRAMEWORK["DEFAULT_PAGINATION_CLASS"] = (
     "rest_framework.pagination.PageNumberPagination"
 )
+REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
+    "woo_publications.api.permissions.AuditHeaderPermission",
+)
 REST_FRAMEWORK["EXCEPTION_HANDLER"] = "rest_framework.views.exception_handler"
 
 SPECTACULAR_SETTINGS = {
@@ -137,6 +140,7 @@ SPECTACULAR_SETTINGS = {
     "POSTPROCESSING_HOOKS": [
         "drf_spectacular.hooks.postprocess_schema_enums",
         "drf_spectacular.contrib.djangorestframework_camel_case.camelize_serializer_fields",
+        "woo_publications.api.drf_spectacular.hooks.add_log_parameter",
     ],
     "SERVE_INCLUDE_SCHEMA": False,
     "CAMELIZE_NAMES": True,
