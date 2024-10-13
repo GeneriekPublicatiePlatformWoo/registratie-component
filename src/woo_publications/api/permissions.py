@@ -1,5 +1,6 @@
 from rest_framework.permissions import BasePermission
 
+
 class AuditHeaderPermission(BasePermission):
     AUDIT_HEADERS = [
         "HTTP_AUDIT_USER_REPRESENTATION",

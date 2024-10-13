@@ -6,12 +6,13 @@ from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
-from woo_publications.logging import AdminAuditLogMixin
+from woo_publications.logging import AdminAuditLogMixin, AuditLogInlineformset
 
 from .models import Document, Publication
 
 
 class DocumentInlineAdmin(admin.StackedInline):
+    formset = AuditLogInlineformset
     model = Document
     extra = 0
 
