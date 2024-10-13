@@ -26,7 +26,6 @@ class InformationCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = InformationCategorySerializer
     filterset_class = InformationCategoryFilterSet
     lookup_field = "uuid"
-    permission_classes = (permissions.AllowAny,)
 
 
 @extend_schema(tags=["Themas"])
@@ -44,7 +43,6 @@ class ThemeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Theme.objects.all().order_by("path")
     serializer_class = ThemeSerializer
     lookup_field = "uuid"
-    permission_classes = (permissions.AllowAny,)
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)

@@ -6,6 +6,7 @@ from rest_framework import permissions, viewsets
 from ..models import Publication
 from .filters import PublicationFilterSet
 from .serializer import PublicationSerializer
+from ...api.permissions import AuditHeaderPermission
 
 
 @extend_schema(tags=["Publicaties"])
@@ -40,4 +41,3 @@ class PublicationViewSet(viewsets.ModelViewSet):
     serializer_class = PublicationSerializer
     filterset_class = PublicationFilterSet
     lookup_field = "uuid"
-    permission_classes = (permissions.AllowAny,)
