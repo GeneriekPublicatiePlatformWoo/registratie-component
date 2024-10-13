@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.contrib.admin import ModelAdmin
+from django.forms import BaseInlineFormSet
 
 if TYPE_CHECKING:
     from django.db import models
@@ -80,3 +81,39 @@ class AdminAuditLogMixin(ModelAdmin):
 
             audit_event(obj, Events.read, django_user=request.user)
         return super().change_view(request, object_id, form_url, extra_context)
+
+    def get_formset_kwargs(self, request, obj, inline, prefix):
+        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)
+        kwargs["_django_user"] = request.user
+        return kwargs
+
+
+class AuditLogInlineformset(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        self.django_user = kwargs.pop("_django_user", None)
+        super().__init__(*args, **kwargs)
+
+    def save_new(self, form, commit=True):
+        obj = super().save_new(form, commit)
+        object_data = {
+            field.name: str(getattr(obj, field.name))
+            for field in obj._meta.fields
+            if field.name not in ["id", "pk"]
+        }
+        audit_event(
+            obj, Events.create, django_user=self.django_user, object_data=object_data
+        )
+        return obj
+
+    def save_existing(self, form, instance, commit=True):
+        changed_fields = form.changed_data
+        changed_data = {
+            field_name: form.cleaned_data[field_name] for field_name in changed_fields
+        }
+        audit_event(
+            instance,
+            Events.update,
+            django_user=self.django_user,
+            changed_data=changed_data,
+        )
+        return super().save_existing(form, instance, commit)

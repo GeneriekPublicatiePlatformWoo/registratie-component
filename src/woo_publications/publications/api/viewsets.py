@@ -1,12 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
 from ..models import Publication
 from .filters import PublicationFilterSet
 from .serializer import PublicationSerializer
-from ...api.permissions import AuditHeaderPermission
 
 
 @extend_schema(tags=["Publicaties"])
