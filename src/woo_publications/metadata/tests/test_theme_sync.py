@@ -40,6 +40,40 @@ class UpdateThemeTestCase(VCRMixin, TestCase):
 
                 self.assertEqual(Theme.objects.count(), 93)
 
+    def test_data_update_existing_data(self):
+        assert not Theme.objects.exists()
+
+        root = Theme.add_root(
+            identifier="https://identifier.overheid.nl/tooi/def/thes/top/c_0361ffb3",
+            naam="temp-name-will-be-updated",
+        )
+
+        child = root.add_child(
+            identifier="https://identifier.overheid.nl/tooi/def/thes/top/c_068da9fb",
+            naam="child-that-is-connected-to-wrong-parent",
+        )
+
+        with tempfile.NamedTemporaryFile(suffix=".json") as file:
+            file_path = Path(file.name)
+
+            update_theme(file_path)
+
+            with self.subTest("database hasn't added extra items."):
+                self.assertEqual(Theme.objects.count(), 92)
+
+            with self.subTest("root has updated back to original data"):
+                root.refresh_from_db()
+
+                self.assertNotEqual(root.naam, "temp-name-will-be-updated")
+
+            with self.subTest("child has updated back to original data"):
+                child.refresh_from_db()
+
+                self.assertNotEqual(
+                    child.naam, "child-that-is-connected-to-wrong-parent"
+                )
+                self.assertNotEqual(child.get_root(), root)
+
     @requests_mock.Mocker()
     def test_request_get_raises_valid_exception(self, m):
         m.register_uri(
