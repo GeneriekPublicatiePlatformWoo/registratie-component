@@ -7,7 +7,7 @@ from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins
-from .manager import InformationCategoryManager
+from .manager import InformationCategoryManager, ThemeManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
@@ -83,9 +83,14 @@ class Theme(MP_Node):
 
     node_order_by = ("naam",)
 
+    objects = ThemeManager()
+
     class Meta:  # type: ignore
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
+
+    def natural_key(self):
+        return (self.identifier,)
 
     def __str__(self):
         return self.naam

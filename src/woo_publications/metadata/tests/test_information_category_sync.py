@@ -11,11 +11,11 @@ import requests_mock
 
 from woo_publications.utils.tests.vcr import VCRMixin
 
-from ..models import InformationCategory
-from ..waardenlijst_sync import (
+from ..information_category_sync import (
     InformatieCategoryWaardenlijstError,
     update_information_category,
 )
+from ..models import InformationCategory
 
 
 class UpdateInformatieCategoryTestCase(VCRMixin, TestCase):
