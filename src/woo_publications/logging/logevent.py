@@ -2,17 +2,29 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.contrib.admin import ModelAdmin
-from django.forms import BaseInlineFormSet
-
 if TYPE_CHECKING:
     from django.db import models
     from ..accounts.models import User
 
 from .constants import Events
 
+__all__ = [
+    # admin
+    "audit_admin_create",
+    "audit_admin_read",
+    "audit_admin_update",
+    "audit_admin_delete",
+    # api
+    "audit_api_create",
+    "audit_api_read",
+    "audit_api_update",
+    "audit_api_delete",
+]
 
-def audit_event(
+"""must contain either a django_user or user_id + user_display"""
+
+
+def _audit_event(
     content_object: models.Model,
     event: Events,
     user_id: str | None = None,
@@ -20,7 +32,6 @@ def audit_event(
     django_user: User | None = None,
     **kwargs: dict[str, any],
 ) -> None:
-    """must contain either a django_user or user_id + user_display"""
 
     from .models import TimelineLogProxy
 
@@ -29,8 +40,8 @@ def audit_event(
     extra_data = {
         "event": event,
         "acting_user": {
-            "identifier": user_id or django_user.email,
-            "display_name": user_display or django_user.get_display_name(),
+            "identifier": user_id or django_user.id,
+            "display_name": user_display or django_user.get_full_name(),
         },
         **kwargs,
     }
@@ -42,78 +53,91 @@ def audit_event(
     )
 
 
-class AdminAuditLogMixin(ModelAdmin):
-    def log_addition(self, request, obj, message):
-        object_data = {
-            field.name: str(getattr(obj, field.name))
-            for field in obj._meta.fields
-            if field.name not in ["id", "pk"]
-        }
-        audit_event(
-            obj, Events.create, django_user=request.user, object_data=object_data
-        )
-        return super().log_addition(request, obj, message)
-
-    def log_change(self, request, obj, message):
-        new_data = {
-            (field.name, str(getattr(obj, field.name))) for field in obj._meta.fields
-        }
-        changed_data = dict(new_data - self._old_model_data)
-        audit_event(
-            obj, Events.update, django_user=request.user, changed_data=changed_data
-        )
-
-        return super().log_change(request, obj, message)
-
-    def log_deletion(self, request, obj, object_repr):
-        audit_event(obj, Events.delete, django_user=request.user)
-        return super().log_deletion(request, obj, object_repr)
-
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        if object_id:
-            obj = self.model.objects.get(pk=object_id)
-            # keep record of old data to compare in change log
-            if request.method == "POST":
-                self._old_model_data = {
-                    (field.name, str(getattr(obj, field.name)))
-                    for field in obj._meta.fields
-                }
-
-            audit_event(obj, Events.read, django_user=request.user)
-        return super().change_view(request, object_id, form_url, extra_context)
-
-    def get_formset_kwargs(self, request, obj, inline, prefix):
-        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)
-        kwargs["_django_user"] = request.user
-        return kwargs
+# Admin tooling:
 
 
-class AuditLogInlineformset(BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        self.django_user = kwargs.pop("_django_user", None)
-        super().__init__(*args, **kwargs)
+def audit_admin_create(
+    content_object: models.Model,
+    django_user: User,
+    object_data: dict[str, any],
+):
+    _audit_event(
+        content_object, Events.create, django_user=django_user, object_data=object_data
+    )
 
-    def save_new(self, form, commit=True):
-        obj = super().save_new(form, commit)
-        object_data = {
-            field.name: str(getattr(obj, field.name))
-            for field in obj._meta.fields
-            if field.name not in ["id", "pk"]
-        }
-        audit_event(
-            obj, Events.create, django_user=self.django_user, object_data=object_data
-        )
-        return obj
 
-    def save_existing(self, form, instance, commit=True):
-        changed_fields = form.changed_data
-        changed_data = {
-            field_name: form.cleaned_data[field_name] for field_name in changed_fields
-        }
-        audit_event(
-            instance,
-            Events.update,
-            django_user=self.django_user,
-            changed_data=changed_data,
-        )
-        return super().save_existing(form, instance, commit)
+def audit_admin_read(
+    content_object: models.Model,
+    django_user: User,
+):
+    _audit_event(content_object, Events.read, django_user=django_user)
+
+
+def audit_admin_update(
+    content_object: models.Model,
+    django_user: User,
+    object_data: dict[str, any],
+):
+    _audit_event(
+        content_object, Events.update, django_user=django_user, object_data=object_data
+    )
+
+
+def audit_admin_delete(
+    content_object: models.Model,
+    django_user: User,
+):
+    _audit_event(content_object, Events.delete, django_user=django_user)
+
+
+# Api tooling:
+
+
+def audit_api_create(
+    content_object: models.Model,
+    user_id: str,
+    user_display: str,
+    object_data: dict[str, any],
+):
+    _audit_event(
+        content_object,
+        Events.create,
+        user_id=user_id,
+        user_display=user_display,
+        object_data=object_data,
+    )
+
+
+def audit_api_read(
+    content_object: models.Model,
+    user_id: str,
+    user_display: str,
+):
+    _audit_event(
+        content_object, Events.read, user_id=user_id, user_display=user_display
+    )
+
+
+def audit_api_update(
+    content_object: models.Model,
+    user_id: str,
+    user_display: str,
+    object_data: dict[str, any],
+):
+    _audit_event(
+        content_object,
+        Events.update,
+        user_id=user_id,
+        user_display=user_display,
+        object_data=object_data,
+    )
+
+
+def audit_api_delete(
+    content_object: models.Model,
+    user_id: str,
+    user_display: str,
+):
+    _audit_event(
+        content_object, Events.delete, user_id=user_id, user_display=user_display
+    )
