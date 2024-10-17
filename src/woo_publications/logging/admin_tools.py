@@ -36,7 +36,7 @@ class AdminAuditLogMixin(ModelAdmin):
         return super().log_deletion(request, obj, object_repr)
 
     def change_view(self, request, object_id, form_url="", extra_context=None):
-        if object_id:
+        if object_id and request.method == "GET":
             obj = self.model.objects.get(pk=object_id)
 
             audit_admin_read(obj, request.user)
