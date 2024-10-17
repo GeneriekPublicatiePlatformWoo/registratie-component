@@ -8,6 +8,14 @@ from .factories import InformationCategoryFactory
 
 
 class InformationCategoryTests(APITestCase):
+    def setUp(self):
+        super().setUp()
+        self.headers = {
+            "AUDIT_USER_REPRESENTATION": "username",
+            "AUDIT_USER_ID": "id",
+            "AUDIT_REMARKS": "remark",
+        }
+
     def test_list_informatie_categorie(self):
         information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
@@ -28,7 +36,7 @@ class InformationCategoryTests(APITestCase):
 
         list_url = reverse("api:informationcategory-list")
 
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -90,7 +98,9 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
-                list_url, {"identifier": "https://www.example.com/waardenlijsten/1"}
+                list_url,
+                {"identifier": "https://www.example.com/waardenlijsten/1"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -100,7 +110,9 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("with_none_existing_identifier"):
             response = self.client.get(
-                list_url, {"identifier": "https://www.example.com/waardenlijsten/999"}
+                list_url,
+                {"identifier": "https://www.example.com/waardenlijsten/999"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -147,7 +159,9 @@ class InformationCategoryTests(APITestCase):
         }
 
         with self.subTest("test_with_exact_match"):
-            response = self.client.get(list_url, {"naam": "item two"})
+            response = self.client.get(
+                list_url, {"naam": "item two"}, headers=self.headers
+            )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             data = response.json()
@@ -155,7 +169,7 @@ class InformationCategoryTests(APITestCase):
             self.assertEqual(data["results"][0], expected_item_two_data)
 
         with self.subTest("test_with_incomplete_match"):
-            response = self.client.get(list_url, {"naam": "item"})
+            response = self.client.get(list_url, {"naam": "item"}, headers=self.headers)
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             data = response.json()
@@ -164,7 +178,9 @@ class InformationCategoryTests(APITestCase):
             self.assertEqual(data["results"][1], expected_item_two_data)
 
         with self.subTest("with_none_existing_identifier"):
-            response = self.client.get(list_url, {"naam": "item three"})
+            response = self.client.get(
+                list_url, {"naam": "item three"}, headers=self.headers
+            )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             data = response.json()
@@ -184,7 +200,7 @@ class InformationCategoryTests(APITestCase):
             "api:informationcategory-detail",
             kwargs={"uuid": str(information_category.uuid)},
         )
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()

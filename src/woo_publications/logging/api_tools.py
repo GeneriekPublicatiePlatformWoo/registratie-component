@@ -77,8 +77,8 @@ class AuditTrailDestroyMixin(mixins.DestroyModelMixin):
             object,
             request.headers["AUDIT_USER_ID"],
             request.headers["AUDIT_USER_REPRESENTATION"],
-            request.headers["AUDIT_REMARKS"],
             response.status_code,
+            request.headers["AUDIT_REMARKS"],
         )
 
         return response
