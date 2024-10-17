@@ -9,6 +9,14 @@ from .factories import ThemeFactory
 
 
 class ThemeTests(APITestCase):
+    def setUp(self):
+        super().setUp()
+        self.headers = {
+            "AUDIT_USER_REPRESENTATION": "username",
+            "AUDIT_USER_ID": "id",
+            "AUDIT_REMARKS": "remark",
+        }
+
     def test_list_theme(self):
         parent_theme = ThemeFactory.create(
             identifier="https://www.example.com/thema/1",
@@ -21,7 +29,7 @@ class ThemeTests(APITestCase):
         )
         list_url = reverse("api:theme-list")
 
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -56,7 +64,7 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": str(theme.uuid)},
         )
 
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -76,7 +84,7 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": str(uuid.uuid4)},
         )
 
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -87,6 +95,6 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": "d6323f56-5331-4b43-8e8c-63509be1e"},
         )
 
-        response = self.client.get(list_url)
+        response = self.client.get(list_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
