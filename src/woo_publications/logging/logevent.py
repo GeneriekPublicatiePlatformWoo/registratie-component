@@ -40,13 +40,14 @@ def _audit_event(
     extra_data = {
         "event": event,
         "acting_user": {
-            "identifier": user_id or django_user.id,
-            "display_name": user_display or django_user.get_full_name(),
+            "identifier": user_id or django_user.id,  # type: ignore
+            # use unknown as a fallback option if get_full_name returns none isn't configured
+            "display_name": user_display or django_user.get_full_name() or "unknown",
         },
         **kwargs,
     }
 
-    return TimelineLogProxy.objects.create(
+    TimelineLogProxy.objects.create(
         content_object=content_object,
         extra_data=extra_data,
         user=django_user,
@@ -59,8 +60,8 @@ def _audit_event(
 def audit_admin_create(
     content_object: models.Model,
     django_user: User,
-    object_data: dict[str, any],
-):
+    object_data: dict[str, any],  # type: ignore
+) -> None:
     _audit_event(
         content_object, Events.create, django_user=django_user, object_data=object_data
     )
@@ -69,15 +70,15 @@ def audit_admin_create(
 def audit_admin_read(
     content_object: models.Model,
     django_user: User,
-):
+) -> None:
     _audit_event(content_object, Events.read, django_user=django_user)
 
 
 def audit_admin_update(
     content_object: models.Model,
     django_user: User,
-    object_data: dict[str, any],
-):
+    object_data: dict[str, any],  # type: ignore
+) -> None:
     _audit_event(
         content_object, Events.update, django_user=django_user, object_data=object_data
     )
@@ -86,7 +87,7 @@ def audit_admin_update(
 def audit_admin_delete(
     content_object: models.Model,
     django_user: User,
-):
+) -> None:
     _audit_event(content_object, Events.delete, django_user=django_user)
 
 
@@ -98,9 +99,9 @@ def audit_api_create(
     user_id: str,
     user_display: str,
     status_code: int,
-    object_data: dict[str, any],
+    object_data: dict[str, any],  # type: ignore
     remarks: str,
-):
+) -> None:
     _audit_event(
         content_object,
         Events.create,
@@ -118,7 +119,7 @@ def audit_api_read(
     user_display: str,
     status_code: int,
     remarks: str,
-):
+) -> None:
     _audit_event(
         content_object,
         Events.read,
@@ -136,7 +137,7 @@ def audit_api_update(
     status_code: int,
     object_data: dict[str, any],
     remarks: str,
-):
+) -> None:
     _audit_event(
         content_object,
         Events.update,
@@ -154,7 +155,7 @@ def audit_api_delete(
     user_display: str,
     status_code: int,
     remarks: str,
-):
+) -> None:
     _audit_event(
         content_object,
         Events.delete,
