@@ -278,3 +278,36 @@ class AuditLogAdminTests(WebTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertNumLogsDisplayed(response, 100)
+
+    def test_event_search(self):
+        publication = PublicationFactory.create(
+            officiele_titel="Publicatie voor logging test"
+        )
+        TimelineLogProxy.objects.create(
+            content_object=publication,
+            extra_data={
+                "event": Events.create,
+                "acting_user": {
+                    "identifier": "1",
+                    "display_name": "User One",
+                },
+            },
+        )
+        TimelineLogProxy.objects.create(
+            content_object=publication,
+            extra_data={
+                "event": Events.update,
+                "acting_user": {
+                    "identifier": "2",
+                    "display_name": "User Two",
+                },
+            },
+        )
+        response: DjangoWebtestResponse = self.app.get(
+            self.list_url, {"event": Events.create}, user=self.superuser
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "field-show_event", 1)
+        # The record + filter
+        self.assertContains(response, Events.update, 2)

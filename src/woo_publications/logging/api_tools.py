@@ -1,3 +1,5 @@
+from django.db.models import Model
+
 from rest_framework import mixins
 
 from .logevent import (
@@ -18,15 +20,15 @@ __all__ = [
 
 class AuditTrailCreateMixin(mixins.CreateModelMixin):
     def _get_object(self, response):
-        filter = {self.lookup_field: response.data[self.lookup_field]}
-        return self.get_queryset().get(**filter)
+        filter = {self.lookup_field: response.data[self.lookup_field]}  # type: ignore
+        return self.get_queryset().get(**filter)  # type: ignore
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        object = self._get_object(response)
+        obj: Model = self._get_object(response)
 
         audit_api_create(
-            object,
+            obj,
             request.headers["AUDIT_USER_ID"],
             request.headers["AUDIT_USER_REPRESENTATION"],
             response.status_code,
@@ -42,7 +44,7 @@ class AuditTrailRetrieveMixin(mixins.RetrieveModelMixin):
         response = super().retrieve(request, *args, **kwargs)
 
         audit_api_read(
-            self.get_object(),
+            self.get_object(),  # type: ignore
             request.headers["AUDIT_USER_ID"],
             request.headers["AUDIT_USER_REPRESENTATION"],
             response.status_code,
@@ -57,7 +59,7 @@ class AuditTrailUpdateMixin(mixins.UpdateModelMixin):
         response = super().update(request, *args, **kwargs)
 
         audit_api_update(
-            self.get_object(),
+            self.get_object(),  # type: ignore
             request.headers["AUDIT_USER_ID"],
             request.headers["AUDIT_USER_REPRESENTATION"],
             response.status_code,
@@ -70,7 +72,7 @@ class AuditTrailUpdateMixin(mixins.UpdateModelMixin):
 
 class AuditTrailDestroyMixin(mixins.DestroyModelMixin):
     def destroy(self, request, *args, **kwargs):
-        object = self.get_object()
+        object: Model = self.get_object()  # type: ignore
         response = super().destroy(request, *args, **kwargs)
 
         audit_api_delete(

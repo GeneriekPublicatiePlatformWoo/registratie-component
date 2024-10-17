@@ -51,8 +51,6 @@ paths:
         required: true
       tags:
       - Informatiecategorieën
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -89,8 +87,6 @@ paths:
         required: true
       tags:
       - Informatiecategorieën
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -151,8 +147,6 @@ paths:
         required: true
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -172,8 +166,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
-      security:
-      - {}
       responses:
         '201':
           content:
@@ -226,8 +218,6 @@ paths:
         required: true
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -269,8 +259,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -311,8 +299,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedPublication'
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -348,8 +334,6 @@ paths:
         required: true
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '204':
           description: No response body
@@ -382,8 +366,6 @@ paths:
         required: true
       tags:
       - Themas
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -420,8 +402,6 @@ paths:
         required: true
       tags:
       - Themas
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -462,8 +442,6 @@ paths:
         required: true
       tags:
       - Catalogi API
-      security:
-      - {}
       responses:
         '200':
           content:

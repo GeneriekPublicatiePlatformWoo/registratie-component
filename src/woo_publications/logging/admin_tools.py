@@ -20,26 +20,26 @@ def _serialize_field_data(obj):
 
 
 class AdminAuditLogMixin(ModelAdmin):
-    def log_addition(self, request, obj, message):
+    def log_addition(self, request, obj, message):  # type: ignore
         audit_admin_create(obj, request.user, _serialize_field_data(obj))
 
         return super().log_addition(request, obj, message)
 
-    def log_change(self, request, obj, message):
-        audit_admin_update(obj, request.user, _serialize_field_data(obj))
+    def log_change(self, request, obj, message):  # type: ignore
+        audit_admin_update(obj, request.user, _serialize_field_data(obj))  # type: ignore
 
         return super().log_change(request, obj, message)
 
-    def log_deletion(self, request, obj, object_repr):
-        audit_admin_delete(obj, request.user)
+    def log_deletion(self, request, obj, object_repr):  # type: ignore
+        audit_admin_delete(obj, request.user)  # type: ignore
 
         return super().log_deletion(request, obj, object_repr)
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):
+    def change_view(self, request, object_id, form_url="", extra_context=None):  # type: ignore
         if object_id and request.method == "GET":
             obj = self.model.objects.get(pk=object_id)
 
-            audit_admin_read(obj, request.user)
+            audit_admin_read(obj, request.user)  # type: ignore
 
         return super().change_view(request, object_id, form_url, extra_context)
 
@@ -57,11 +57,11 @@ class AuditLogInlineformset(BaseInlineFormSet):
     def save_new(self, form, commit=True):
         obj = super().save_new(form, commit)
 
-        audit_admin_create(obj, self.django_user, _serialize_field_data(obj))
+        audit_admin_create(obj, self.django_user, _serialize_field_data(obj))  # type: ignore
 
         return obj
 
-    def save_existing(self, form, instance, commit=True):
-        audit_admin_create(instance, self.django_user, _serialize_field_data(instance))
+    def save_existing(self, form, instance, commit=True):  # type: ignore
+        audit_admin_create(instance, self.django_user, _serialize_field_data(instance))  # type: ignore
 
         return super().save_existing(form, instance, commit)
