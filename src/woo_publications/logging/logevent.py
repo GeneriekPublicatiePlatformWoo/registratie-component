@@ -30,7 +30,7 @@ def _audit_event(
     user_id: str | None = None,
     user_display: str | None = None,
     django_user: User | None = None,
-    **kwargs: dict[str, any],
+    **kwargs: any,
 ) -> None:
 
     from .models import TimelineLogProxy
@@ -97,14 +97,18 @@ def audit_api_create(
     content_object: models.Model,
     user_id: str,
     user_display: str,
+    status_code: int,
     object_data: dict[str, any],
+    remarks: str,
 ):
     _audit_event(
         content_object,
         Events.create,
         user_id=user_id,
         user_display=user_display,
+        status_code=status_code,
         object_data=object_data,
+        remarks=remarks,
     )
 
 
@@ -112,9 +116,16 @@ def audit_api_read(
     content_object: models.Model,
     user_id: str,
     user_display: str,
+    status_code: int,
+    remarks: str,
 ):
     _audit_event(
-        content_object, Events.read, user_id=user_id, user_display=user_display
+        content_object,
+        Events.read,
+        user_id=user_id,
+        user_display=user_display,
+        status_code=status_code,
+        remarks=remarks,
     )
 
 
@@ -122,14 +133,18 @@ def audit_api_update(
     content_object: models.Model,
     user_id: str,
     user_display: str,
+    status_code: int,
     object_data: dict[str, any],
+    remarks: str,
 ):
     _audit_event(
         content_object,
         Events.update,
         user_id=user_id,
         user_display=user_display,
+        status_code=status_code,
         object_data=object_data,
+        remarks=remarks,
     )
 
 
@@ -137,7 +152,14 @@ def audit_api_delete(
     content_object: models.Model,
     user_id: str,
     user_display: str,
+    status_code: int,
+    remarks: str,
 ):
     _audit_event(
-        content_object, Events.delete, user_id=user_id, user_display=user_display
+        content_object,
+        Events.delete,
+        user_id=user_id,
+        user_display=user_display,
+        status_code=status_code,
+        remarks=remarks,
     )

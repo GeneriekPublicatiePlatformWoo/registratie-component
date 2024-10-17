@@ -3,6 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 
+from woo_publications.logging import AuditTrailViewsetMixin
+
 from ..models import Publication
 from .filters import PublicationFilterSet
 from .serializer import PublicationSerializer
@@ -35,7 +37,7 @@ from .serializer import PublicationSerializer
         description=_("Destroy a publication."),
     ),
 )
-class PublicationViewSet(viewsets.ModelViewSet):
+class PublicationViewSet(AuditTrailViewsetMixin, viewsets.ModelViewSet):
     queryset = Publication.objects.order_by("-registratiedatum")
     serializer_class = PublicationSerializer
     filterset_class = PublicationFilterSet
