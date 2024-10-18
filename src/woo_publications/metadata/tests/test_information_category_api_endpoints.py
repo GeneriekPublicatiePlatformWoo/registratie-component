@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
 
-from ..constants import InformationCategoryOrigins
+from ..constants import Origins
 from .factories import InformationCategoryFactory
 
 AUDIT_HEADERS = {
@@ -43,7 +43,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="first items",
             definitie="This is some information about the first item.",
             order=0,
-            oorsprong=InformationCategoryOrigins.value_list,
+            oorsprong=Origins.value_list,
         )
         information_category2 = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
@@ -51,7 +51,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="second items",
             definitie="This is some information about the second item.",
             order=1,
-            oorsprong=InformationCategoryOrigins.custom_entry,
+            oorsprong=Origins.custom_entry,
         )
 
         list_url = reverse("api:informationcategory-list")
@@ -70,7 +70,7 @@ class InformationCategoryTests(APITestCase):
                 "naamMeervoud": "first items",
                 "definitie": "This is some information about the first item.",
                 "order": 0,
-                "oorsprong": InformationCategoryOrigins.value_list,
+                "oorsprong": Origins.value_list,
             }
             self.assertEqual(data["results"][0], expected_first_item_data)
 
@@ -82,7 +82,7 @@ class InformationCategoryTests(APITestCase):
                 "naamMeervoud": "second items",
                 "definitie": "This is some information about the second item.",
                 "order": 1,
-                "oorsprong": InformationCategoryOrigins.custom_entry,
+                "oorsprong": Origins.custom_entry,
             }
             self.assertEqual(data["results"][1], expected_second_item_data)
 
@@ -93,7 +93,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="first items",
             definitie="This is some information about the first item.",
             order=0,
-            oorsprong=InformationCategoryOrigins.value_list,
+            oorsprong=Origins.value_list,
         )
         InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
@@ -101,7 +101,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="second items",
             definitie="This is some information about the second item.",
             order=1,
-            oorsprong=InformationCategoryOrigins.custom_entry,
+            oorsprong=Origins.custom_entry,
         )
 
         list_url = reverse("api:informationcategory-list")
@@ -113,7 +113,7 @@ class InformationCategoryTests(APITestCase):
             "naamMeervoud": "first items",
             "definitie": "This is some information about the first item.",
             "order": 0,
-            "oorsprong": InformationCategoryOrigins.value_list,
+            "oorsprong": Origins.value_list,
         }
 
         with self.subTest("test_with_exact_match"):
@@ -146,7 +146,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="item one (but plural?)",
             definitie="This is some information about the item one.",
             order=0,
-            oorsprong=InformationCategoryOrigins.value_list,
+            oorsprong=Origins.value_list,
         )
         information_category2 = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
@@ -154,7 +154,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="item two (but plural?)",
             definitie="This is some information about the item two.",
             order=1,
-            oorsprong=InformationCategoryOrigins.custom_entry,
+            oorsprong=Origins.custom_entry,
         )
 
         list_url = reverse("api:informationcategory-list")
@@ -166,7 +166,7 @@ class InformationCategoryTests(APITestCase):
             "naamMeervoud": "item one (but plural?)",
             "definitie": "This is some information about the item one.",
             "order": 0,
-            "oorsprong": InformationCategoryOrigins.value_list,
+            "oorsprong": Origins.value_list,
         }
         expected_item_two_data = {
             "uuid": str(information_category2.uuid),
@@ -175,7 +175,7 @@ class InformationCategoryTests(APITestCase):
             "naamMeervoud": "item two (but plural?)",
             "definitie": "This is some information about the item two.",
             "order": 1,
-            "oorsprong": InformationCategoryOrigins.custom_entry,
+            "oorsprong": Origins.custom_entry,
         }
 
         with self.subTest("test_with_exact_match"):
@@ -215,7 +215,7 @@ class InformationCategoryTests(APITestCase):
             naam_meervoud="first items",
             definitie="This is some information about the first item.",
             order=0,
-            oorsprong=InformationCategoryOrigins.value_list,
+            oorsprong=Origins.value_list,
         )
         detail_url = reverse(
             "api:informationcategory-detail",
@@ -234,6 +234,6 @@ class InformationCategoryTests(APITestCase):
             "naamMeervoud": "first items",
             "definitie": "This is some information about the first item.",
             "order": 0,
-            "oorsprong": InformationCategoryOrigins.value_list,
+            "oorsprong": Origins.value_list,
         }
         self.assertEqual(data, expected_data)

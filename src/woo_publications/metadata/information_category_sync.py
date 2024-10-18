@@ -6,7 +6,7 @@ from django.core.management import call_command
 import requests
 from glom import PathAccessError, T, glom
 
-from .constants import InformationCategoryOrigins
+from .constants import Origins
 from .models import InformationCategory
 
 WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/scw_woo_informatiecategorieen/3/json/scw_woo_informatiecategorieen_3.json"
@@ -59,11 +59,11 @@ def update_information_category(file_path: Path):
         fields = glom(waardenlijst, SPEC, skip_exc=PathAccessError)
         InformationCategory.objects.update_or_create(
             identifier=waardenlijst["@id"],
-            defaults={**fields, "oorsprong": InformationCategoryOrigins.value_list},
+            defaults={**fields, "oorsprong": Origins.value_list},
         )
 
     to_export = InformationCategory.objects.filter(
-        oorsprong=InformationCategoryOrigins.value_list
+        oorsprong=Origins.value_list
     ).values_list("pk", flat=True)
 
     call_command(
