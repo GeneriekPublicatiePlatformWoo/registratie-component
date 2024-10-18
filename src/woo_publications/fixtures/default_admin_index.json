@@ -66,12 +66,12 @@
                 "accesslog"
             ],
             [
-                "log_outgoing_requests",
-                "outgoingrequestslog"
-            ],
-            [
                 "logging",
                 "timelinelogproxy"
+            ],
+            [
+                "log_outgoing_requests",
+                "outgoingrequestslog"
             ]
         ]
     }
