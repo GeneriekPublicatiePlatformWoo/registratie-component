@@ -9,6 +9,14 @@ from .factories import PublicationFactory
 
 
 class PublicationApiTests(APITestCase):
+    def setUp(self):
+        super().setUp()
+        self.headers = {
+            "AUDIT_USER_REPRESENTATION": "username",
+            "AUDIT_USER_ID": "id",
+            "AUDIT_REMARKS": "remark",
+        }
+
     def test_list_publications(self):
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication = PublicationFactory.create(
@@ -23,7 +31,9 @@ class PublicationApiTests(APITestCase):
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
             )
 
-        response = self.client.get(reverse("api:publication-list"))
+        response = self.client.get(
+            reverse("api:publication-list"), headers=self.headers
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -82,7 +92,9 @@ class PublicationApiTests(APITestCase):
         # registratiedatum
         with self.subTest("registratiedatum_ascending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "registratiedatum"}
+                reverse("api:publication-list"),
+                {"sorteer": "registratiedatum"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -94,7 +106,9 @@ class PublicationApiTests(APITestCase):
 
         with self.subTest("registratiedatum_descending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "-registratiedatum"}
+                reverse("api:publication-list"),
+                {"sorteer": "-registratiedatum"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -107,7 +121,9 @@ class PublicationApiTests(APITestCase):
         # Officiele titel
         with self.subTest("officiele_title_ascending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "officiele_titel"}
+                reverse("api:publication-list"),
+                {"sorteer": "officiele_titel"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -119,7 +135,9 @@ class PublicationApiTests(APITestCase):
 
         with self.subTest("officiele_title_descending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "-officiele_titel"}
+                reverse("api:publication-list"),
+                {"sorteer": "-officiele_titel"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -132,7 +150,9 @@ class PublicationApiTests(APITestCase):
         # short titel
         with self.subTest("verkorte_titel_ascending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "verkorte_titel"}
+                reverse("api:publication-list"),
+                {"sorteer": "verkorte_titel"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -144,7 +164,9 @@ class PublicationApiTests(APITestCase):
 
         with self.subTest("verkorte_titel_descending"):
             response = self.client.get(
-                reverse("api:publication-list"), {"sorteer": "-verkorte_titel"}
+                reverse("api:publication-list"),
+                {"sorteer": "-verkorte_titel"},
+                headers=self.headers,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -166,7 +188,7 @@ class PublicationApiTests(APITestCase):
             kwargs={"uuid": str(publication.uuid)},
         )
 
-        response = self.client.get(detail_url)
+        response = self.client.get(detail_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -190,7 +212,7 @@ class PublicationApiTests(APITestCase):
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         }
 
-        response = self.client.post(url, data)
+        response = self.client.post(url, data, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -224,7 +246,7 @@ class PublicationApiTests(APITestCase):
             "omschrijving": "changed description",
         }
 
-        response = self.client.put(detail_url, data)
+        response = self.client.put(detail_url, data, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -256,7 +278,7 @@ class PublicationApiTests(APITestCase):
             "officieleTitel": "changed offical title",
         }
 
-        response = self.client.put(detail_url, data)
+        response = self.client.put(detail_url, data, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -285,7 +307,7 @@ class PublicationApiTests(APITestCase):
             kwargs={"uuid": str(publication.uuid)},
         )
 
-        response = self.client.delete(detail_url)
+        response = self.client.delete(detail_url, headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Publication.objects.filter(uuid=publication.uuid).exists())
