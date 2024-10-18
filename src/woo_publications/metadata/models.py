@@ -18,7 +18,6 @@ CUSTOM_ORGANIZATION_URL_PREFIX = "https://generiek-publicatieplatform.woo/organi
 CUSTOM_THEME_URL_PREFIX = "https://generiek-publicatieplatform.woo/thema/"
 
 
-
 def get_default_information_category_identifier():
     return f"{CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX}{uuid.uuid4()}"
 
