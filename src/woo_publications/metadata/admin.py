@@ -4,7 +4,7 @@ from ordered_model.admin import OrderedModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
-from .constants import InformationCategoryOrigins
+from .constants import Origins
 from .models import InformationCategory, Theme
 
 
@@ -22,7 +22,7 @@ class InformationCategoryAdmin(OrderedModelAdmin):
     list_filter = ("oorsprong",)
 
     def has_change_permission(self, request, obj=None):
-        if obj and obj.oorsprong == InformationCategoryOrigins.value_list:
+        if obj and obj.oorsprong == Origins.value_list:
             return False
         return True
 
