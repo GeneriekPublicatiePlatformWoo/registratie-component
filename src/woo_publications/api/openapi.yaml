@@ -70,6 +70,166 @@ paths:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
           description: ''
+  /api/v1/organisaties/:
+    get:
+      operationId: organisatiesList
+      description: Returns a paginated result list of existing organisations.
+      summary: All available organisations.
+      parameters:
+      - in: query
+        name: identifier
+        schema:
+          type: string
+          format: uri
+          title: Identificatie
+        description: Search the organisation based on the unique IRI that identifies
+          a specific organisation.
+      - in: query
+        name: is_actief
+        schema:
+          type: boolean
+          title: Is active
+          enum:
+          - alle
+          - 'false'
+          - 'true'
+        description: |-
+          Filter the organisations depending if they are active or not.
+
+          * `true` - Active organisations
+          * `false` - Inactive organisations
+          * `alle` - All organisations
+      - in: query
+        name: naam
+        schema:
+          type: string
+        description: Search the organisation based on the name of the organisation.
+      - in: query
+        name: oorsprong
+        schema:
+          type: string
+          enum:
+          - waardelijst
+          - zelf_toegevoegd
+        description: |-
+          Search the organisation based on the origin of the organisation.
+
+          * `waardelijst` - Waardelijst
+          * `zelf_toegevoegd` - Zelf-toegevoegd item
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Organisaties
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrganisationList'
+          description: ''
+    post:
+      operationId: organisatiesCreate
+      description: Create a organisation.
+      summary: Create a organisation.
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisation'
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+  /api/v1/organisaties/{uuid}/:
+    get:
+      operationId: organisatiesRetrieve
+      description: Retrieve a specific organisation.
+      summary: Retrieve a specific organisation.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+    put:
+      operationId: organisatiesUpdate
+      description: Update a organisation entirely.
+      summary: Update a organisation entirely.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisation'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+    patch:
+      operationId: organisatiesPartialUpdate
+      description: Update a organisation partially.
+      summary: Update a organisation partially.
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisation'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
   /api/v1/publicaties/:
     get:
       operationId: publicatiesList
@@ -425,6 +585,40 @@ components:
       description: |-
         * `waardelijst` - Waardelijst
         * `zelf_toegevoegd` - Zelf-toegevoegd item
+    Organisation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          title: Identificatie
+          description: De unieke IRI waarmee het thema in de overheid.nl waardenlijst
+            gedefinieerd is. Voor zelf-toegevoegde items wordt een identificatie gegenereerd.
+        naam:
+          type: string
+          maxLength: 80
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OorsprongEnum'
+          readOnly: true
+          description: |-
+            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+
+            * `waardelijst` - Waardelijst
+            * `zelf_toegevoegd` - Zelf-toegevoegd item
+        isActief:
+          type: boolean
+          title: Is active
+          description: Displays if the the organisation is currently active or not.
+      required:
+      - identifier
+      - oorsprong
+      - uuid
     PaginatedInformationCategoryList:
       type: object
       required:
@@ -448,6 +642,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InformationCategory'
+    PaginatedOrganisationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organisation'
     PaginatedPublicationList:
       type: object
       required:
@@ -494,6 +711,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Theme'
+    PatchedOrganisation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          title: Identificatie
+          description: De unieke IRI waarmee het thema in de overheid.nl waardenlijst
+            gedefinieerd is. Voor zelf-toegevoegde items wordt een identificatie gegenereerd.
+        naam:
+          type: string
+          maxLength: 80
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OorsprongEnum'
+          readOnly: true
+          description: |-
+            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+
+            * `waardelijst` - Waardelijst
+            * `zelf_toegevoegd` - Zelf-toegevoegd item
+        isActief:
+          type: boolean
+          title: Is active
+          description: Displays if the the organisation is currently active or not.
     PatchedPublication:
       type: object
       properties:

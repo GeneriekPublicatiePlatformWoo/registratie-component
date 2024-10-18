@@ -1,6 +1,6 @@
 import factory
 
-from ..models import InformationCategory, Theme
+from ..models import InformationCategory, Organisation, Theme
 
 
 class InformationCategoryFactory(factory.django.DjangoModelFactory):
@@ -8,6 +8,13 @@ class InformationCategoryFactory(factory.django.DjangoModelFactory):
 
     class Meta:  # type: ignore
         model = InformationCategory
+
+
+class OrganisationFactory(factory.django.DjangoModelFactory):
+    naam = factory.Faker("word")
+
+    class Meta:  # type: ignore
+        model = Organisation
 
 
 class ThemeFactory(factory.django.DjangoModelFactory):
