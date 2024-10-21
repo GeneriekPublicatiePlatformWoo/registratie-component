@@ -1,37 +1,49 @@
-from django.urls import reverse
+from rest_framework import views
+from rest_framework.test import APIRequestFactory, APISimpleTestCase
 
-from rest_framework import status
-from rest_framework.test import APITestCase
+from ..drf_spectacular.headers import ALL_AUDIT_PARAMETERS
+from ..permissions import AuditHeaderPermission
+
+request_factory = APIRequestFactory()
 
 
-class AuditHeadersTests(APITestCase):
-    def test_api_call_with_all_audit_headers_results_in_200(self):
-        list_url = reverse("api:theme-list")
+class AuditHeadersPermissionTests(APISimpleTestCase):
+    def test_api_call_with_all_audit_headers_passes(self):
+        request = request_factory.get(
+            "/irrelevant",
+            headers={
+                "Audit-User-Representation": "test",
+                "Audit-User-ID": "test",
+                "Audit-Remarks": "test",
+            },
+        )
+        view = views.APIView()
+        permission = AuditHeaderPermission()
 
-        audit_headers = {
-            "AUDIT_USER_REPRESENTATION": "test",
-            "AUDIT_USER_ID": "test",
-            "AUDIT_REMARKS": "test",
-        }
+        result = permission.has_permission(request, view)
 
-        response = self.client.get(list_url, headers=audit_headers)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(result)
 
     def test_api_call_with_one_audit_header_results_in_403(self):
-        list_url = reverse("api:theme-list")
+        for single_header in [
+            header["name"] for header in ALL_AUDIT_PARAMETERS if header["required"]
+        ]:
+            with self.subTest(header=single_header):
+                request = request_factory.get(
+                    "/irrelevant", headers={single_header: "test"}
+                )
+                view = views.APIView()
+                permission = AuditHeaderPermission()
 
-        audit_headers = {
-            "AUDIT_USER_REPRESENTATION": "test",
-        }
+                result = permission.has_permission(request, view)
 
-        response = self.client.get(list_url, headers=audit_headers)
-
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+                self.assertFalse(result)
 
     def test_api_call_with_no_audit_header_results_in_403(self):
-        list_url = reverse("api:theme-list")
+        request = request_factory.get("/irrelevant")
+        view = views.APIView()
+        permission = AuditHeaderPermission()
 
-        response = self.client.get(list_url)
+        result = permission.has_permission(request, view)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertFalse(result)
