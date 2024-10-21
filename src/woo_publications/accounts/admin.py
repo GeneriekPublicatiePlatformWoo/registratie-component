@@ -4,13 +4,17 @@ from django.contrib.auth.admin import UserAdmin as _UserAdmin
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.urls import reverse_lazy
 
+from hijack.contrib.admin import HijackUserAdminMixin
+
+from woo_publications.logging.service import AdminAuditLogMixin
+
 from .forms import PreventPrivilegeEscalationMixin, UserChangeForm
 from .models import User
 from .utils import validate_max_user_permissions
 
 
 @admin.register(User)
-class UserAdmin(_UserAdmin):
+class UserAdmin(AdminAuditLogMixin, HijackUserAdminMixin, _UserAdmin):
     hijack_success_url = reverse_lazy("root")
     form = UserChangeForm
 

@@ -278,3 +278,46 @@ class AuditLogAdminTests(WebTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertNumLogsDisplayed(response, 100)
+
+    def test_event_search(self):
+        self.app.set_user(self.superuser)
+        publication = PublicationFactory.create(
+            officiele_titel="Publicatie voor logging test"
+        )
+        TimelineLogProxy.objects.create(
+            content_object=publication,
+            extra_data={
+                "event": Events.create,
+                "acting_user": {
+                    "identifier": "1",
+                    "display_name": "User One",
+                },
+            },
+        )
+        TimelineLogProxy.objects.create(
+            content_object=publication,
+            extra_data={
+                "event": Events.update,
+                "acting_user": {
+                    "identifier": "2",
+                    "display_name": "User Two",
+                },
+            },
+        )
+        change_list_page = self.app.get(self.list_url)
+
+        with self.subTest("filter on create event"):
+            # simulate clicking the filter on events
+            filtered_response = change_list_page.click(description=_("Record created"))
+
+            self.assertEqual(filtered_response.status_code, 200)
+            self.assertNumLogsDisplayed(filtered_response, 1)
+            self.assertContains(filtered_response, "User One")
+
+        with self.subTest("filter on update event"):
+            # simulate clicking the filter on events
+            filtered_response = change_list_page.click(description=_("Record updated"))
+
+            self.assertEqual(filtered_response.status_code, 200)
+            self.assertNumLogsDisplayed(filtered_response, 1)
+            self.assertContains(filtered_response, "User Two")

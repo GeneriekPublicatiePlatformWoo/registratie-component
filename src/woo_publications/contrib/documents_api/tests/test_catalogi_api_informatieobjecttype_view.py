@@ -8,7 +8,6 @@ from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 
 class CatalogiAPIDocumentTypeViewTests(APITestCase):
-
     def test_information_category_exposed_as_documenttype(self):
         information_category = InformationCategoryFactory.create(
             identifier=(

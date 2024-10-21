@@ -6,16 +6,19 @@ from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
+from woo_publications.logging.service import AdminAuditLogMixin, AuditLogInlineformset
+
 from .models import Document, Publication
 
 
 class DocumentInlineAdmin(admin.StackedInline):
+    formset = AuditLogInlineformset
     model = Document
     extra = 0
 
 
 @admin.register(Publication)
-class PublicationAdmin(admin.ModelAdmin):
+class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     list_display = (
         "officiele_titel",
         "verkorte_titel",
@@ -54,7 +57,7 @@ class PublicationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Document)
-class DocumentAdmin(admin.ModelAdmin):
+class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     list_display = (
         "officiele_titel",
         "verkorte_titel",

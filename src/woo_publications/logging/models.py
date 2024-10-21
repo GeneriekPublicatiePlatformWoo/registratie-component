@@ -1,4 +1,4 @@
-from typing import Literal, NotRequired, TypedDict
+from typing import Literal
 
 from django.utils.translation import gettext_lazy as _
 
@@ -7,21 +7,7 @@ from timeline_logger.models import TimelineLog
 from woo_publications.accounts.models import User
 
 from .constants import Events
-
-
-class ActingUser(TypedDict):
-    identifier: int | str
-    display_name: str
-
-
-class MetadataDict(TypedDict):
-    """
-    Optimistic model for the metadata - unfortunately we can't add DB constraints.
-    """
-
-    event: str
-    acting_user: ActingUser
-    _cached_object_repr: NotRequired[str]
+from .typing import ActingUser, MetadataDict
 
 
 class TimelineLogProxy(TimelineLog):

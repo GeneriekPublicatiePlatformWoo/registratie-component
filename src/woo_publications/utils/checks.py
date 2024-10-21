@@ -2,10 +2,14 @@ import os
 import socket
 
 from django.conf import settings
+from django.contrib.admin import ModelAdmin
 from django.core.checks import Error, Warning, register
 from django.forms import ModelForm
 
 from treebeard.forms import MoveNodeForm
+
+from woo_publications.logging.admin import TimelineLogProxyAdmin
+from woo_publications.logging.service import AdminAuditLogMixin
 
 
 def get_subclasses(cls):
@@ -116,3 +120,31 @@ def check_docker_hostname_dns(app_configs, **kwargs):
             )
 
     return warnings
+
+
+@register
+def check_model_admin_includes_logging_mixin(app_configs, **kwargs):
+    errors: list[Error] = []
+
+    for admin_cls in get_subclasses(ModelAdmin):
+        # ignores outside libraries
+        if not admin_cls.__module__.startswith("woo_publications"):
+            continue
+        if issubclass(admin_cls, AdminAuditLogMixin):
+            continue
+
+        # ignore the timeline logger admin, no mutations are possible
+        if admin_cls is TimelineLogProxyAdmin:
+            continue
+
+        errors.append(
+            Error(
+                "AdminAuditLogMixin is missing on the admin class. This mixin is "
+                "required to enable audit logging.",
+                hint="Add AdminAuditLogMixin to the '%s' class in '%s'."
+                % (admin_cls.__qualname__, admin_cls.__module__),
+                obj=admin_cls,
+            )
+        )
+
+    return errors

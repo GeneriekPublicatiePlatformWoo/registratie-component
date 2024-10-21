@@ -17,6 +17,32 @@ paths:
         informatiecategorieën.
       summary: Alle beschikbare informatiecategorieën.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: query
         name: identifier
         schema:
@@ -38,8 +64,6 @@ paths:
           type: integer
       tags:
       - Informatiecategorieën
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -53,6 +77,32 @@ paths:
       description: Haal een specifiieke informatiecategorie op.
       summary: Haal een specifiieke informatiecategorie op.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -61,8 +111,6 @@ paths:
         required: true
       tags:
       - Informatiecategorieën
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -76,6 +124,32 @@ paths:
       description: Geeft een lijst (met paginering) terug van alle bestaande publicaties.
       summary: Alle beschikbare publicaties.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - name: page
         required: false
         in: query
@@ -108,8 +182,6 @@ paths:
         style: form
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -121,6 +193,33 @@ paths:
       operationId: publicatiesCreate
       description: Maak een publicatie aan.
       summary: Maak een publicatie aan.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       tags:
       - Publicaties
       requestBody:
@@ -129,8 +228,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
-      security:
-      - {}
       responses:
         '201':
           content:
@@ -144,6 +241,32 @@ paths:
       description: Haal een specifieke publicatie op.
       summary: Haal een specifieke publicatie op.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -152,8 +275,6 @@ paths:
         required: true
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -166,6 +287,32 @@ paths:
       description: Werk een publicatie (in zijn geheel) bij.
       summary: Werk een publicatie (in zijn geheel) bij.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -180,8 +327,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -194,6 +339,32 @@ paths:
       description: Werk een publicatie (gedeeltelijk) bij.
       summary: Werk een publicatie (gedeeltelijk) bij.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -207,8 +378,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedPublication'
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -221,6 +390,32 @@ paths:
       description: Vernietig een publicatie.
       summary: Vernietig een publicatie.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -229,8 +424,6 @@ paths:
         required: true
       tags:
       - Publicaties
-      security:
-      - {}
       responses:
         '204':
           description: No response body
@@ -241,6 +434,32 @@ paths:
         thema's.
       summary: Alle beschikbare thema's.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - name: page
         required: false
         in: query
@@ -249,8 +468,6 @@ paths:
           type: integer
       tags:
       - Themas
-      security:
-      - {}
       responses:
         '200':
           content:
@@ -264,6 +481,32 @@ paths:
       description: Haal een specifiek thema op.
       summary: Haal een specifiek thema op.
       parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
       - in: path
         name: uuid
         schema:
@@ -272,8 +515,6 @@ paths:
         required: true
       tags:
       - Themas
-      security:
-      - {}
       responses:
         '200':
           content:
