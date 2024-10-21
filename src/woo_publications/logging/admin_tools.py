@@ -4,6 +4,8 @@ from django.contrib.admin import ModelAdmin
 from django.core.serializers import serialize
 from django.forms import BaseInlineFormSet
 
+from woo_publications.accounts.models import User
+
 from .logevent import (
     audit_admin_create,
     audit_admin_delete,
@@ -20,26 +22,30 @@ def _serialize_field_data(obj):
 
 
 class AdminAuditLogMixin(ModelAdmin):
-    def log_addition(self, request, obj, message):  # type: ignore
-        audit_admin_create(obj, request.user, _serialize_field_data(obj))
+    def log_addition(self, request, object, message):
+        assert isinstance(request.user, User)
+        audit_admin_create(object, request.user, _serialize_field_data(object))
 
-        return super().log_addition(request, obj, message)
+        return super().log_addition(request, object, message)
 
-    def log_change(self, request, obj, message):  # type: ignore
-        audit_admin_update(obj, request.user, _serialize_field_data(obj))  # type: ignore
+    def log_change(self, request, object, message):
+        assert isinstance(request.user, User)
+        audit_admin_update(object, request.user, _serialize_field_data(object))
 
-        return super().log_change(request, obj, message)
+        return super().log_change(request, object, message)
 
-    def log_deletion(self, request, obj, object_repr):  # type: ignore
-        audit_admin_delete(obj, request.user)  # type: ignore
+    def log_deletion(self, request, object, object_repr):
+        assert isinstance(request.user, User)
+        audit_admin_delete(object, request.user)
 
-        return super().log_deletion(request, obj, object_repr)
+        return super().log_deletion(request, object, object_repr)
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):  # type: ignore
+    def change_view(self, request, object_id, form_url="", extra_context=None):
         if object_id and request.method == "GET":
-            obj = self.model.objects.get(pk=object_id)
+            object = self.model.objectects.get(pk=object_id)
 
-            audit_admin_read(obj, request.user)  # type: ignore
+            assert isinstance(request.user, User)
+            audit_admin_read(object, request.user)
 
         return super().change_view(request, object_id, form_url, extra_context)
 
@@ -57,11 +63,11 @@ class AuditLogInlineformset(BaseInlineFormSet):
     def save_new(self, form, commit=True):
         obj = super().save_new(form, commit)
 
-        audit_admin_create(obj, self.django_user, _serialize_field_data(obj))  # type: ignore
+        audit_admin_create(obj, self.django_user, _serialize_field_data(obj))
 
         return obj
 
-    def save_existing(self, form, instance, commit=True):  # type: ignore
-        audit_admin_create(instance, self.django_user, _serialize_field_data(instance))  # type: ignore
+    def save_existing(self, form, obj, commit=True):
+        audit_admin_create(obj, self.django_user, _serialize_field_data(obj))
 
-        return super().save_existing(form, instance, commit)
+        return super().save_existing(form, obj, commit)
