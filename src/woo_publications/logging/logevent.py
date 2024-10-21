@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeAlias, overload
+from django.db import models
 
-if TYPE_CHECKING:
-    from django.db import models
-    from ..accounts.models import User
+from woo_publications.accounts.models import User
+from woo_publications.typing import JSONObject
 
 from .constants import Events
+from .models import TimelineLogProxy
+from .typing import MetadataDict
 
 __all__ = [
     # admin
@@ -21,76 +22,48 @@ __all__ = [
     "audit_api_delete",
 ]
 
-"""must contain either a django_user or user_id + user_display"""
-
-
-JSONPrimitive: TypeAlias = str | int | float | bool | None
-
-JSONValue: TypeAlias = "JSONPrimitive | JSONObject | list[JSONValue]"
-
-JSONObject: TypeAlias = dict[str, JSONValue]
-
-
-@overload
-def _audit_event(
-    content_object: models.Model,
-    event: Events,
-    user_id: str,
-    user_display: str,
-    django_user: None,
-    **kwargs,
-) -> None:
-    pass
-
-
-@overload
-def _audit_event(
-    content_object: models.Model,
-    event: Events,
-    user_id: None,
-    user_display: None,
-    django_user: User,
-    **kwargs,
-) -> None:
-    pass
-
 
 def _audit_event(
+    *,
     content_object: models.Model,
     event: Events,
-    user_id=None,
-    user_display=None,
-    django_user=None,
+    user_id: str = "",
+    user_display: str = "",
+    django_user: User | None = None,
     **kwargs,
 ) -> None:
+    if django_user is None and not (user_id and user_display):
+        raise ValueError(
+            "Provide either a Django user, or non-empty 'user_id' and 'user_display' "
+            "parameters."
+        )
 
-    from .models import TimelineLogProxy
+    identifier: str | int
+    display_name: str
 
-    assert django_user or user_id and user_display
+    match django_user:
+        case None:
+            identifier = user_id
+            display_name = user_display
 
-    identifier = "Unknown"
-    display_name = "Unknown"
+        case User():
+            identifier = user_id or django_user.pk
+            display_name = user_display or django_user.get_full_name() or "unknown"
 
-    if django_user:
-        identifier = django_user.id
-        display_name = django_user.get_full_name() or "unknown"
-
-    if user_id and user_display:
-        identifier = user_id
-        display_name = user_display
-
-    extra_data = {
+    metadata: MetadataDict = {
         "event": event,
         "acting_user": {
             "identifier": identifier,
             "display_name": display_name,
         },
-        **kwargs,
     }
 
     TimelineLogProxy.objects.create(
         content_object=content_object,
-        extra_data=extra_data,
+        extra_data={
+            **metadata,
+            **kwargs,
+        },
         user=django_user,
     )
 
@@ -106,8 +79,6 @@ def audit_admin_create(
     _audit_event(
         content_object=content_object,
         event=Events.create,
-        user_id=None,
-        user_display=None,
         django_user=django_user,
         object_data=object_data,
     )
@@ -120,8 +91,6 @@ def audit_admin_read(
     _audit_event(
         content_object=content_object,
         event=Events.read,
-        user_id=None,
-        user_display=None,
         django_user=django_user,
     )
 
@@ -134,8 +103,6 @@ def audit_admin_update(
     _audit_event(
         content_object=content_object,
         event=Events.update,
-        user_id=None,
-        user_display=None,
         django_user=django_user,
         object_data=object_data,
     )
@@ -148,8 +115,6 @@ def audit_admin_delete(
     _audit_event(
         content_object=content_object,
         event=Events.delete,
-        user_id=None,
-        user_display=None,
         django_user=django_user,
     )
 
@@ -166,8 +131,8 @@ def audit_api_create(
     remarks: str,
 ) -> None:
     _audit_event(
-        content_object,
-        Events.create,
+        content_object=content_object,
+        event=Events.create,
         user_id=user_id,
         user_display=user_display,
         django_user=None,
@@ -185,8 +150,8 @@ def audit_api_read(
     remarks: str,
 ) -> None:
     _audit_event(
-        content_object,
-        Events.read,
+        content_object=content_object,
+        event=Events.read,
         user_id=user_id,
         user_display=user_display,
         django_user=None,
@@ -204,8 +169,8 @@ def audit_api_update(
     remarks: str,
 ) -> None:
     _audit_event(
-        content_object,
-        Events.update,
+        content_object=content_object,
+        event=Events.update,
         user_id=user_id,
         user_display=user_display,
         django_user=None,
@@ -223,8 +188,8 @@ def audit_api_delete(
     remarks: str,
 ) -> None:
     _audit_event(
-        content_object,
-        Events.delete,
+        content_object=content_object,
+        event=Events.delete,
         user_id=user_id,
         user_display=user_display,
         django_user=None,
