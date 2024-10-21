@@ -13,7 +13,7 @@ from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema
-from rest_framework import serializers, views
+from rest_framework import permissions, serializers, views
 from rest_framework.request import Request
 from rest_framework.response import Response
 from zgw_consumers.api_models.constants import VertrouwelijkheidsAanduidingen
@@ -84,6 +84,7 @@ class CatalogiAPIDocumentTypeSerializer(serializers.Serializer):
     responses={200: CatalogiAPIDocumentTypeSerializer},
 )
 class CatalogiAPIDocumentTypeView(views.APIView):
+    permission_classes = (permissions.AllowAny,)
 
     def get(self, request: Request, uuid: UUID, *args, **kwargs):
         """

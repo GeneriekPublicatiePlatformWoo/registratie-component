@@ -8,13 +8,6 @@ from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 
 class CatalogiAPIDocumentTypeViewTests(APITestCase):
-    def setUp(self):
-        self.headers = {
-            "AUDIT_USER_REPRESENTATION": "username",
-            "AUDIT_USER_ID": "id",
-            "AUDIT_REMARKS": "remark",
-        }
-
     def test_information_category_exposed_as_documenttype(self):
         information_category = InformationCategoryFactory.create(
             identifier=(
@@ -29,7 +22,7 @@ class CatalogiAPIDocumentTypeViewTests(APITestCase):
             kwargs={"uuid": information_category.uuid},
         )
 
-        response = self.client.get(endpoint, headers=self.headers)
+        response = self.client.get(endpoint)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         expected_data = {
@@ -51,6 +44,6 @@ class CatalogiAPIDocumentTypeViewTests(APITestCase):
             kwargs={"uuid": str(uuid4())},
         )
 
-        response = self.client.get(endpoint, headers=self.headers)
+        response = self.client.get(endpoint)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
