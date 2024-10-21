@@ -14,8 +14,6 @@ if TYPE_CHECKING:
 class AuditHeaderPermission(BasePermission):
     def has_permission(self, request: Request, view: APIView) -> bool:
         required_headers = [
-            parameter["name"]
-            for parameter in ALL_AUDIT_PARAMETERS
-            if parameter["required"]
+            parameter.name for parameter in ALL_AUDIT_PARAMETERS if parameter.required
         ]
         return all(header in request.headers for header in required_headers)

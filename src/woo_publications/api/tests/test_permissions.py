@@ -26,7 +26,7 @@ class AuditHeadersPermissionTests(APISimpleTestCase):
 
     def test_api_call_with_one_audit_header_results_in_403(self):
         for single_header in [
-            header["name"] for header in ALL_AUDIT_PARAMETERS if header["required"]
+            header.name for header in ALL_AUDIT_PARAMETERS if header.required
         ]:
             with self.subTest(header=single_header):
                 request = request_factory.get(

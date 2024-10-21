@@ -31,9 +31,9 @@ _MT_co = TypeVar("_MT_co", bound=Model, covariant=True)  # taken from DRF stubs
 
 
 def _extract_audit_parameters(request: Request) -> tuple[str, str, str]:
-    user_id = request.headers[AUDIT_USER_ID_PARAMETER["name"]]
-    user_repr = request.headers[AUDIT_USER_REPRESENTATION_PARAMETER["name"]]
-    remarks = request.headers[AUDIT_REMARKS_PARAMETER["name"]]
+    user_id = request.headers[AUDIT_USER_ID_PARAMETER.name]
+    user_repr = request.headers[AUDIT_USER_REPRESENTATION_PARAMETER.name]
+    remarks = request.headers[AUDIT_REMARKS_PARAMETER.name]
     return (user_id, user_repr, remarks)
 
 
