@@ -5,6 +5,7 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
@@ -54,7 +55,7 @@ class TestAdminAuditLogging(WebTest):
         assert log is not None
 
         expected_data = {
-            "event": "create",
+            "event": Events.create,
             "acting_user": {
                 "identifier": self.user.id,
                 "display_name": self.user.get_full_name(),
@@ -103,7 +104,7 @@ class TestAdminAuditLogging(WebTest):
 
         with self.subTest("read audit logging"):
             expected_data = {
-                "event": "read",
+                "event": Events.read,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
@@ -115,7 +116,7 @@ class TestAdminAuditLogging(WebTest):
 
         with self.subTest("update audit logging"):
             expected_data = {
-                "event": "update",
+                "event": Events.update,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
@@ -160,7 +161,7 @@ class TestAdminAuditLogging(WebTest):
         assert log is not None
 
         expected_data = {
-            "event": "delete",
+            "event": Events.delete,
             "acting_user": {
                 "identifier": self.user.id,
                 "display_name": self.user.get_full_name(),
@@ -201,7 +202,7 @@ class TestAdminAuditLogging(WebTest):
             log = TimelineLogProxy.objects.get()
 
             expected_data = {
-                "event": "read",
+                "event": Events.read,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
@@ -224,7 +225,7 @@ class TestAdminAuditLogging(WebTest):
             assert log is not None
 
             expected_data = {
-                "event": "create",
+                "event": Events.update,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
@@ -270,7 +271,7 @@ class TestAdminAuditLogging(WebTest):
             log = TimelineLogProxy.objects.get()
 
             expected_data = {
-                "event": "read",
+                "event": Events.read,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
@@ -300,7 +301,7 @@ class TestAdminAuditLogging(WebTest):
             log = TimelineLogProxy.objects.filter(object_id=document.pk).get()
 
             expected_data = {
-                "event": "create",
+                "event": Events.create,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),

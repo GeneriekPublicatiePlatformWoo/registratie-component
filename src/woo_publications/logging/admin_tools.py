@@ -79,7 +79,7 @@ class AuditLogInlineformset(BaseInlineFormSet):
         return obj
 
     def save_existing(self, form, obj, commit=True):
-        audit_admin_create(
+        audit_admin_update(
             content_object=obj,
             django_user=self.django_user,
             object_data=serialize_instance(obj),
