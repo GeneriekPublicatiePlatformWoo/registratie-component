@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 
-from woo_publications.logging import AuditTrailRetrieveMixin
+from woo_publications.logging.service import AuditTrailRetrieveMixin
 
 from ..models import InformationCategory, Theme
 from .filters import InformationCategoryFilterSet

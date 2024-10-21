@@ -123,10 +123,10 @@ def audit_admin_delete(
 
 
 def audit_api_create(
+    *,
     content_object: models.Model,
     user_id: str,
     user_display: str,
-    status_code: int,
     object_data: JSONObject,
     remarks: str,
 ) -> None:
@@ -136,17 +136,16 @@ def audit_api_create(
         user_id=user_id,
         user_display=user_display,
         django_user=None,
-        status_code=status_code,
         object_data=object_data,
         remarks=remarks,
     )
 
 
 def audit_api_read(
+    *,
     content_object: models.Model,
     user_id: str,
     user_display: str,
-    status_code: int,
     remarks: str,
 ) -> None:
     _audit_event(
@@ -155,16 +154,15 @@ def audit_api_read(
         user_id=user_id,
         user_display=user_display,
         django_user=None,
-        status_code=status_code,
         remarks=remarks,
     )
 
 
 def audit_api_update(
+    *,
     content_object: models.Model,
     user_id: str,
     user_display: str,
-    status_code: int,
     object_data: JSONObject,
     remarks: str,
 ) -> None:
@@ -174,17 +172,17 @@ def audit_api_update(
         user_id=user_id,
         user_display=user_display,
         django_user=None,
-        status_code=status_code,
         object_data=object_data,
         remarks=remarks,
     )
 
 
 def audit_api_delete(
+    *,
     content_object: models.Model,
     user_id: str,
     user_display: str,
-    status_code: int,
+    object_data: JSONObject,
     remarks: str,
 ) -> None:
     _audit_event(
@@ -193,6 +191,6 @@ def audit_api_delete(
         user_id=user_id,
         user_display=user_display,
         django_user=None,
-        status_code=status_code,
+        object_data=object_data,
         remarks=remarks,
     )

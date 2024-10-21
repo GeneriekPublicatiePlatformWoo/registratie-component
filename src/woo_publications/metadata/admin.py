@@ -4,7 +4,8 @@ from ordered_model.admin import OrderedModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
-from ..logging import AdminAuditLogMixin
+from woo_publications.logging.service import AdminAuditLogMixin
+
 from .constants import InformationCategoryOrigins
 from .models import InformationCategory, Theme
 

@@ -1,6 +1,15 @@
+from typing import Generic, TypeVar
+
 from django.db.models import Model
 
-from rest_framework import mixins
+from rest_framework import serializers
+from rest_framework.request import Request
+
+from woo_publications.api.drf_spectacular.headers import (
+    AUDIT_REMARKS_PARAMETER,
+    AUDIT_USER_ID_PARAMETER,
+    AUDIT_USER_REPRESENTATION_PARAMETER,
+)
 
 from .logevent import (
     audit_api_create,
@@ -8,6 +17,7 @@ from .logevent import (
     audit_api_read,
     audit_api_update,
 )
+from .serializing import serialize_instance
 
 __all__ = [
     "AuditTrailCreateMixin",
@@ -17,73 +27,105 @@ __all__ = [
     "AuditTrailViewsetMixin",
 ]
 
+_MT_co = TypeVar("_MT_co", bound=Model, covariant=True)  # taken from DRF stubs
 
-class AuditTrailCreateMixin(mixins.CreateModelMixin):
-    def _get_object(self, response):
-        filter = {self.lookup_field: response.data[self.lookup_field]}  # type: ignore
-        return self.get_queryset().get(**filter)  # type: ignore
 
-    def create(self, request, *args, **kwargs):
-        response = super().create(request, *args, **kwargs)
-        obj: Model = self._get_object(response)
+def _extract_audit_parameters(request: Request) -> tuple[str, str, str]:
+    user_id = request.headers[AUDIT_USER_ID_PARAMETER["name"]]
+    user_repr = request.headers[AUDIT_USER_REPRESENTATION_PARAMETER["name"]]
+    remarks = request.headers[AUDIT_REMARKS_PARAMETER["name"]]
+    return (user_id, user_repr, remarks)
 
+
+class AuditTrailCreateMixin:
+    """
+    Add support for audit trail to the rest_framework.mixins.CreateMixin.
+    """
+
+    request: Request
+
+    def perform_create(self, serializer: serializers.BaseSerializer):
+        super().perform_create(serializer)  # type: ignore - typing mixins is hard
+
+        instance = serializer.instance
+        assert instance is not None
+
+        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
+
+        # XXX: there *could* be a django user making this request, and that information
+        # is currently ignored
         audit_api_create(
-            obj,
-            request.headers["AUDIT_USER_ID"],
-            request.headers["AUDIT_USER_REPRESENTATION"],
-            response.status_code,
-            response.data,
-            request.headers["AUDIT_REMARKS"],
+            content_object=instance,
+            user_id=user_id,
+            user_display=user_repr,
+            object_data=serialize_instance(instance),
+            remarks=remarks,
         )
 
-        return response
 
+class AuditTrailRetrieveMixin(Generic[_MT_co]):
+    _cached_object: _MT_co
 
-class AuditTrailRetrieveMixin(mixins.RetrieveModelMixin):
-    def retrieve(self, request, *args, **kwargs):
-        response = super().retrieve(request, *args, **kwargs)
+    def get_object(self) -> _MT_co:
+        # Optimize multiple calls to get_object, since the default implementations
+        # performs the DB lookup and permission checks every time.
+        if not hasattr(self, "_cached_object"):
+            self._cached_object = super().get_object()  # type: ignore
+        return self._cached_object
 
+    def retrieve(self, request: Request, *args, **kwargs):
+        response = super().retrieve(request, *args, **kwargs)  # type: ignore
+
+        user_id, user_repr, remarks = _extract_audit_parameters(request)
         audit_api_read(
-            self.get_object(),  # type: ignore
-            request.headers["AUDIT_USER_ID"],
-            request.headers["AUDIT_USER_REPRESENTATION"],
-            response.status_code,
-            request.headers["AUDIT_REMARKS"],
+            content_object=self.get_object(),
+            user_id=user_id,
+            user_display=user_repr,
+            remarks=remarks,
         )
 
         return response
 
 
-class AuditTrailUpdateMixin(mixins.UpdateModelMixin):
-    def update(self, request, *args, **kwargs):
-        response = super().update(request, *args, **kwargs)
+class AuditTrailUpdateMixin:
 
+    request: Request
+
+    def perform_update(self, serializer: serializers.BaseSerializer):
+        super().perform_update(serializer)  # type: ignore - typing mixins is hard
+
+        instance = serializer.instance
+        assert instance is not None
+
+        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
         audit_api_update(
-            self.get_object(),  # type: ignore
-            request.headers["AUDIT_USER_ID"],
-            request.headers["AUDIT_USER_REPRESENTATION"],
-            response.status_code,
-            response.data,
-            request.headers["AUDIT_REMARKS"],
+            content_object=instance,
+            user_id=user_id,
+            user_display=user_repr,
+            object_data=serialize_instance(instance),
+            remarks=remarks,
         )
 
-        return response
 
+class AuditTrailDestroyMixin:
 
-class AuditTrailDestroyMixin(mixins.DestroyModelMixin):
-    def destroy(self, request, *args, **kwargs):
-        object: Model = self.get_object()  # type: ignore
-        response = super().destroy(request, *args, **kwargs)
+    request: Request
 
+    def perform_destroy(self, instance: Model):
+        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
+
+        # take a snapshot of the data before it's deleted by the super() method, that
+        # way we can investigate if unintended deletes happen and start a manual
+        # recovery procedure.
         audit_api_delete(
-            object,
-            request.headers["AUDIT_USER_ID"],
-            request.headers["AUDIT_USER_REPRESENTATION"],
-            response.status_code,
-            request.headers["AUDIT_REMARKS"],
+            content_object=instance,
+            user_id=user_id,
+            user_display=user_repr,
+            object_data=serialize_instance(instance),
+            remarks=remarks,
         )
 
-        return response
+        super().perform_destroy(instance)  # type: ignore - typing mixins is hard
 
 
 class AuditTrailViewsetMixin(

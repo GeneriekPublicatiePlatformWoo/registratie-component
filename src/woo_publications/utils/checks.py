@@ -8,7 +8,7 @@ from django.forms import ModelForm
 
 from treebeard.forms import MoveNodeForm
 
-from woo_publications.logging import AdminAuditLogMixin
+from woo_publications.logging.service import AdminAuditLogMixin
 
 
 def get_subclasses(cls):

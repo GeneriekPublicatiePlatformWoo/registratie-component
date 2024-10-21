@@ -20,10 +20,7 @@ class TestAdminAuditLogging(WebTest):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.user = UserFactory.create(
-            is_staff=True,
-            is_superuser=True,
-        )
+        cls.user = UserFactory.create(superuser=True)
 
     @freeze_time("2024-09-25T00:14:00-00:00")
     def test_admin_create(self):
@@ -57,6 +54,7 @@ class TestAdminAuditLogging(WebTest):
                 "display_name": self.user.get_full_name(),
             },
             "object_data": {
+                "id": added_item.pk,
                 "uuid": str(added_item.uuid),
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
                 "verkorte_titel": "The title",
@@ -123,6 +121,7 @@ class TestAdminAuditLogging(WebTest):
                     "display_name": self.user.get_full_name(),
                 },
                 "object_data": {
+                    "id": publication.pk,
                     "uuid": str(publication.uuid),
                     "omschrijving": "changed description",
                     "verkorte_titel": "changed short title",
@@ -225,6 +224,7 @@ class TestAdminAuditLogging(WebTest):
                     "display_name": self.user.get_full_name(),
                 },
                 "object_data": {
+                    "id": document.pk,
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",
@@ -297,6 +297,7 @@ class TestAdminAuditLogging(WebTest):
                     "display_name": self.user.get_full_name(),
                 },
                 "object_data": {
+                    "id": document.pk,
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",

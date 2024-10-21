@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
-from woo_publications.logging import AdminAuditLogMixin, AuditLogInlineformset
+from woo_publications.logging.service import AdminAuditLogMixin, AuditLogInlineformset
 
 from .models import Document, Publication
 
