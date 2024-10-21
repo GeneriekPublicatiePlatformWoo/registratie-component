@@ -5,12 +5,12 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.publications.admin import PublicationAdmin
 from woo_publications.publications.models import Document, Publication
 from woo_publications.publications.tests.factories import (
     DocumentFactory,
     PublicationFactory,
 )
+from woo_publications.utils.tests.webtest import add_dynamic_field
 
 from ..models import TimelineLogProxy
 
@@ -241,7 +241,6 @@ class TestAdminAuditLogging(WebTest):
             self.assertEqual(log.extra_data, expected_data)
 
     def test_admin_inline_create_admin(self):
-        PublicationAdmin.inlines[0].extra = 1
         assert not TimelineLogProxy.objects.exists()
         assert not Document.objects.exists()
 
@@ -275,9 +274,14 @@ class TestAdminAuditLogging(WebTest):
             self.assertEqual(log.extra_data, expected_data)
 
         form = response.forms["publication_form"]
-        form["document_set-0-identifier"] = "http://example.com/1"
-        form["document_set-0-officiele_titel"] = "title"
-        form["document_set-0-creatiedatum"] = "17-10-2024"
+
+        form["document_set-TOTAL_FORMS"] = "1"  # we're adding one, dynamically
+        add_dynamic_field(form, "document_set-0-identifier", "http://example.com/1")
+        add_dynamic_field(form, "document_set-0-officiele_titel", "title")
+        add_dynamic_field(form, "document_set-0-creatiedatum", "17-10-2024")
+        add_dynamic_field(form, "document_set-0-bestandsformaat", "application/pdf")
+        add_dynamic_field(form, "document_set-0-bestandsnaam", "foo.pdf")
+        add_dynamic_field(form, "document_set-0-bestandsomvang", "0")
 
         with freeze_time("2024-09-26T00:14:00-00:00"):
             response = form.submit(name="_save")
@@ -298,12 +302,12 @@ class TestAdminAuditLogging(WebTest):
                     "id": document.pk,
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
-                    "bestandsnaam": "unknown.bin",
+                    "bestandsnaam": "foo.pdf",
                     "creatiedatum": "2024-10-17",
                     "omschrijving": "",
                     "bestandsomvang": 0,
                     "verkorte_titel": "",
-                    "bestandsformaat": "unknown",
+                    "bestandsformaat": "application/pdf",
                     "officiele_titel": "title",
                     "registratiedatum": "2024-09-26T00:14:00Z",
                 },
