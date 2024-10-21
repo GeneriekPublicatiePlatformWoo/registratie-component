@@ -5,18 +5,25 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.publications.models import Document, Publication
-from woo_publications.publications.tests.factories import (
-    DocumentFactory,
-    PublicationFactory,
-)
+from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
-from ..models import TimelineLogProxy
+from ..models import Document, Publication
+from .factories import DocumentFactory, PublicationFactory
 
 
 @disable_admin_mfa()
 class TestAdminAuditLogging(WebTest):
+    """
+    Test that CRUD actions on publications are audit-logged.
+
+    We have a generic implementation in woo_publications.logging for this behaviour,
+    for which the code coverage is provided through this test class.
+
+    Additionally, there's a system check to ensure audit logging is added to our admin
+    classes, which should cover the rest of the apps/models.
+    """
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
