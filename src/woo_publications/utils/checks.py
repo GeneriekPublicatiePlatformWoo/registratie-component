@@ -8,6 +8,7 @@ from django.forms import ModelForm
 
 from treebeard.forms import MoveNodeForm
 
+from woo_publications.logging.admin import TimelineLogProxyAdmin
 from woo_publications.logging.service import AdminAuditLogMixin
 
 
@@ -123,30 +124,26 @@ def check_docker_hostname_dns(app_configs, **kwargs):
 
 @register
 def check_model_admin_includes_logging_mixin(app_configs, **kwargs):
-    errors = []
+    errors: list[Error] = []
 
-    for admin in get_subclasses(ModelAdmin):
+    for admin_cls in get_subclasses(ModelAdmin):
         # ignores outside libraries
-        if not admin.__module__.startswith("woo_publications"):
+        if not admin_cls.__module__.startswith("woo_publications"):
+            continue
+        if issubclass(admin_cls, AdminAuditLogMixin):
             continue
 
-        # ignores user model
-        if admin.__module__ == "woo_publications.accounts.admin":
-            continue
-
-        # ignores the timeline logger admin
-        if admin.__name__ == "TimelineLogProxyAdmin":
-            continue
-
-        if issubclass(admin, AdminAuditLogMixin):
+        # ignore the timeline logger admin, no mutations are possible
+        if admin_cls is TimelineLogProxyAdmin:
             continue
 
         errors.append(
             Error(
-                "AdminAuditLogMixin needs to be used for the logging.",
-                hint="Add AdminAuditLogMixin to the %s class in %s."
-                % (admin.__name__, admin.__module__),
-                obj=admin,
+                "AdminAuditLogMixin is missing on the admin class. This mixin is "
+                "required to enable audit logging.",
+                hint="Add AdminAuditLogMixin to the '%s' class in '%s'."
+                % (admin_cls.__qualname__, admin_cls.__module__),
+                obj=admin_cls,
             )
         )
 

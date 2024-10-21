@@ -1,4 +1,4 @@
-from django.contrib.admin import ModelAdmin
+from django.db import models
 from django.forms import BaseInlineFormSet
 
 from woo_publications.accounts.models import User
@@ -14,24 +14,26 @@ from .serializing import serialize_instance
 __all__ = ["AdminAuditLogMixin", "AuditLogInlineformset"]
 
 
-class AdminAuditLogMixin(ModelAdmin):
+class AdminAuditLogMixin:
+    model: type[models.Model]
+
     def log_addition(self, request, object, message):
         assert isinstance(request.user, User)
         audit_admin_create(object, request.user, serialize_instance(object))
 
-        return super().log_addition(request, object, message)
+        return super().log_addition(request, object, message)  # type: ignore reportAttributeAccessIssue
 
     def log_change(self, request, object, message):
         assert isinstance(request.user, User)
         audit_admin_update(object, request.user, serialize_instance(object))
 
-        return super().log_change(request, object, message)
+        return super().log_change(request, object, message)  # type: ignore reportAttributeAccessIssue
 
     def log_deletion(self, request, object, object_repr):
         assert isinstance(request.user, User)
         audit_admin_delete(object, request.user)
 
-        return super().log_deletion(request, object, object_repr)
+        return super().log_deletion(request, object, object_repr)  # type: ignore reportAttributeAccessIssue
 
     def change_view(self, request, object_id, form_url="", extra_context=None):
         if object_id and request.method == "GET":
@@ -40,10 +42,10 @@ class AdminAuditLogMixin(ModelAdmin):
             assert isinstance(request.user, User)
             audit_admin_read(object, request.user)
 
-        return super().change_view(request, object_id, form_url, extra_context)
+        return super().change_view(request, object_id, form_url, extra_context)  # type: ignore reportAttributeAccessIssue
 
     def get_formset_kwargs(self, request, obj, inline, prefix):
-        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)
+        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)  # type: ignore reportAttributeAccessIssue
         kwargs["_django_user"] = request.user
         return kwargs
 
