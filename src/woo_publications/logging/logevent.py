@@ -48,7 +48,9 @@ def _audit_event(
 
         case User():
             identifier = user_id or django_user.pk
-            display_name = user_display or django_user.get_full_name() or "unknown"
+            display_name = (
+                user_display or django_user.get_full_name() or django_user.username
+            )
 
     metadata: MetadataDict = {
         "event": event,
