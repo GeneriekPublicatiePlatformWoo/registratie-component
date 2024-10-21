@@ -4,10 +4,10 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.logging.models import TimelineLogProxy
+
 from ..models import Publication
 from .factories import PublicationFactory
-
-from woo_publications.logging.models import TimelineLogProxy
 
 AUDIT_HEADERS = {
     "AUDIT_USER_REPRESENTATION": "username",

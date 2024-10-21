@@ -217,12 +217,12 @@ class InformationCategoryTests(APITestCase):
             order=0,
             oorsprong=InformationCategoryOrigins.value_list,
         )
-
-        list_url = reverse(
+        detail_url = reverse(
             "api:informationcategory-detail",
             kwargs={"uuid": str(information_category.uuid)},
         )
-        response = self.client.get(list_url, headers=AUDIT_HEADERS)
+
+        response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
