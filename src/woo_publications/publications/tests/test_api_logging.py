@@ -4,10 +4,10 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from woo_publications.publications.models import Publication
-from woo_publications.publications.tests.factories import PublicationFactory
+from ..models import Publication
+from .factories import PublicationFactory
 
-from ..models import TimelineLogProxy
+from woo_publications.logging.models import TimelineLogProxy
 
 AUDIT_HEADERS = {
     "AUDIT_USER_REPRESENTATION": "username",
@@ -16,7 +16,7 @@ AUDIT_HEADERS = {
 }
 
 
-class PublicationApiTests(APITestCase):
+class PublicationLoggingTests(APITestCase):
 
     def test_detail_logging(self):
         assert not TimelineLogProxy.objects.exists()
