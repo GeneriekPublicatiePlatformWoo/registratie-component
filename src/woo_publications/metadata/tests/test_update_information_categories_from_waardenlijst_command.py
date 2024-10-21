@@ -1,5 +1,7 @@
-import tempfile
+from pathlib import Path
+from unittest.mock import MagicMock, patch
 
+from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import TestCase
@@ -12,25 +14,28 @@ from ..models import InformationCategory
 
 
 class TestUpdateInformationCategoriesFromWaardenlijstCommand(VCRMixin, TestCase):
-    def test_happy_flow(self):
-        assert not InformationCategory.objects.exists()
-
+    @patch(
+        "woo_publications.metadata.management.commands"
+        ".update_information_categories_from_waardenlijst.update_information_category",
+    )
+    def test_default_fixture_path(self, mock_update: MagicMock):
         call_command("update_information_categories_from_waardenlijst")
 
-        self.assertEqual(InformationCategory.objects.count(), 18)
+        mock_update.assert_called_once_with(
+            settings.DJANGO_PROJECT_DIR / "fixtures" / "information_categories.json"
+        )
 
-    def test_command_with_file_path_flag(self):
-        assert not InformationCategory.objects.exists()
+    @patch(
+        "woo_publications.metadata.management.commands"
+        ".update_information_categories_from_waardenlijst.update_information_category",
+    )
+    def test_command_with_file_path_flag(self, mock_update: MagicMock):
+        call_command(
+            "update_information_categories_from_waardenlijst",
+            file_path="/tmp/dummy.json",
+        )
 
-        with tempfile.NamedTemporaryFile(suffix=".json") as file:
-            file_path = file.name
-            assert isinstance(file_path, str)
-
-            call_command(
-                "update_information_categories_from_waardenlijst", file_path=file_path
-            )
-
-        self.assertEqual(InformationCategory.objects.count(), 18)
+        mock_update.assert_called_once_with(Path("/tmp/dummy.json"))
 
     @requests_mock.Mocker()
     def test_raise_command_error(self, m):
