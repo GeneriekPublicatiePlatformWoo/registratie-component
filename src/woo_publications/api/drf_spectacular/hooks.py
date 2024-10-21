@@ -1,32 +1,23 @@
-from drf_spectacular.plumbing import build_parameter_type
-from drf_spectacular.utils import OpenApiParameter
+from drf_spectacular.utils import _SchemaType
+from rest_framework.request import Request
+from rest_framework.schemas.generators import BaseSchemaGenerator
 
-AUDIT_USER_REPRESENTATION_PARAMETER = build_parameter_type(
-    name="Audit-User-Representation",
-    schema={"type": "string"},
-    location=OpenApiParameter.HEADER,
-    required=True,
-)
-AUDIT_USER_ID_PARAMETER = build_parameter_type(
-    name="Audit-User-ID",
-    schema={"type": "string"},
-    location=OpenApiParameter.HEADER,
-    required=True,
-)
-AUDIT_REMARKS_PARAMETER = build_parameter_type(
-    name="Audit-Remarks",
-    schema={"type": "string"},
-    location=OpenApiParameter.HEADER,
-    required=True,
-)
+from .headers import ALL_AUDIT_PARAMETERS
 
 
-def add_log_parameter(result, generator, request, public):
+def add_log_parameter(
+    result: _SchemaType,
+    generator: BaseSchemaGenerator,
+    request: Request | None,
+    public: bool,
+):
     for path in result["paths"].values():
-        for operation_method, operation in path.items():
+        for operation in path.values():
+            # the paths object may be extended with custom, non-standard extensions
+            if "responses" not in operation:  # pragma: no cover
+                continue
+
             operation.setdefault("parameters", [])
-            operation["parameters"].append(AUDIT_USER_REPRESENTATION_PARAMETER)
-            operation["parameters"].append(AUDIT_USER_ID_PARAMETER)
-            operation["parameters"].append(AUDIT_REMARKS_PARAMETER)
+            operation["parameters"] += ALL_AUDIT_PARAMETERS
 
     return result
