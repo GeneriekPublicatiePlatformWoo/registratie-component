@@ -5,17 +5,35 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.accounts.tests.factories import UserFactory
+
 from .factories import ThemeFactory
+
+AUDIT_HEADERS = {
+    "AUDIT_USER_REPRESENTATION": "username",
+    "AUDIT_USER_ID": "id",
+    "AUDIT_REMARKS": "remark",
+}
 
 
 class ThemeTests(APITestCase):
-    def setUp(self):
-        super().setUp()
-        self.headers = {
-            "AUDIT_USER_REPRESENTATION": "username",
-            "AUDIT_USER_ID": "id",
-            "AUDIT_REMARKS": "remark",
-        }
+    def test_403_when_audit_headers_are_missing(self):
+        user = UserFactory.create()
+        self.client.force_authenticate(user=user)
+        list_endpoint = reverse("api:theme-list")
+        detail_endpoint = reverse(
+            "api:theme-detail", kwargs={"uuid": str(uuid.uuid4())}
+        )
+
+        with self.subTest(action="list"):
+            response = self.client.get(list_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="retrieve"):
+            response = self.client.get(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_list_theme(self):
         parent_theme = ThemeFactory.create(
@@ -29,7 +47,7 @@ class ThemeTests(APITestCase):
         )
         list_url = reverse("api:theme-list")
 
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -64,7 +82,7 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": str(theme.uuid)},
         )
 
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -84,7 +102,7 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": str(uuid.uuid4)},
         )
 
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -95,6 +113,6 @@ class ThemeTests(APITestCase):
             kwargs={"uuid": "d6323f56-5331-4b43-8e8c-63509be1e"},
         )
 
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

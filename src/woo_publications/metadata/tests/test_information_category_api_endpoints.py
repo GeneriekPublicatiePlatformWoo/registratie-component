@@ -1,20 +1,40 @@
+import uuid
+
 from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.accounts.tests.factories import UserFactory
+
 from ..constants import InformationCategoryOrigins
 from .factories import InformationCategoryFactory
 
+AUDIT_HEADERS = {
+    "AUDIT_USER_REPRESENTATION": "username",
+    "AUDIT_USER_ID": "id",
+    "AUDIT_REMARKS": "remark",
+}
+
 
 class InformationCategoryTests(APITestCase):
-    def setUp(self):
-        super().setUp()
-        self.headers = {
-            "AUDIT_USER_REPRESENTATION": "username",
-            "AUDIT_USER_ID": "id",
-            "AUDIT_REMARKS": "remark",
-        }
+    def test_403_when_audit_headers_are_missing(self):
+        user = UserFactory.create()
+        self.client.force_authenticate(user=user)
+        list_endpoint = reverse("api:informationcategory-list")
+        detail_endpoint = reverse(
+            "api:informationcategory-detail", kwargs={"uuid": str(uuid.uuid4())}
+        )
+
+        with self.subTest(action="list"):
+            response = self.client.get(list_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="retrieve"):
+            response = self.client.get(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_list_informatie_categorie(self):
         information_category = InformationCategoryFactory.create(
@@ -36,7 +56,7 @@ class InformationCategoryTests(APITestCase):
 
         list_url = reverse("api:informationcategory-list")
 
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
@@ -100,7 +120,7 @@ class InformationCategoryTests(APITestCase):
             response = self.client.get(
                 list_url,
                 {"identifier": "https://www.example.com/waardenlijsten/1"},
-                headers=self.headers,
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -112,7 +132,7 @@ class InformationCategoryTests(APITestCase):
             response = self.client.get(
                 list_url,
                 {"identifier": "https://www.example.com/waardenlijsten/999"},
-                headers=self.headers,
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -160,7 +180,7 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
-                list_url, {"naam": "item two"}, headers=self.headers
+                list_url, {"naam": "item two"}, headers=AUDIT_HEADERS
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -169,7 +189,9 @@ class InformationCategoryTests(APITestCase):
             self.assertEqual(data["results"][0], expected_item_two_data)
 
         with self.subTest("test_with_incomplete_match"):
-            response = self.client.get(list_url, {"naam": "item"}, headers=self.headers)
+            response = self.client.get(
+                list_url, {"naam": "item"}, headers=AUDIT_HEADERS
+            )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             data = response.json()
@@ -179,7 +201,7 @@ class InformationCategoryTests(APITestCase):
 
         with self.subTest("with_none_existing_identifier"):
             response = self.client.get(
-                list_url, {"naam": "item three"}, headers=self.headers
+                list_url, {"naam": "item three"}, headers=AUDIT_HEADERS
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -200,7 +222,7 @@ class InformationCategoryTests(APITestCase):
             "api:informationcategory-detail",
             kwargs={"uuid": str(information_category.uuid)},
         )
-        response = self.client.get(list_url, headers=self.headers)
+        response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
