@@ -24,7 +24,7 @@ __all__ = [
     "AuditTrailRetrieveMixin",
     "AuditTrailUpdateMixin",
     "AuditTrailDestroyMixin",
-    "AuditTrailViewsetMixin",
+    "AuditTrailViewSetMixin",
 ]
 
 _MT_co = TypeVar("_MT_co", bound=Model, covariant=True)  # taken from DRF stubs
@@ -39,7 +39,7 @@ def _extract_audit_parameters(request: Request) -> tuple[str, str, str]:
 
 class AuditTrailCreateMixin:
     """
-    Add support for audit trail to the rest_framework.mixins.CreateMixin.
+    Add support for audit trails to the :class:`rest_framework.mixins.CreateModelMixin`.
     """
 
     request: Request
@@ -64,6 +64,10 @@ class AuditTrailCreateMixin:
 
 
 class AuditTrailRetrieveMixin(Generic[_MT_co]):
+    """
+    Add support for audit trails to the :class:`rest_framework.mixins.RetrieveModelMixin`.
+    """
+
     _cached_object: _MT_co
 
     def get_object(self) -> _MT_co:
@@ -88,6 +92,9 @@ class AuditTrailRetrieveMixin(Generic[_MT_co]):
 
 
 class AuditTrailUpdateMixin:
+    """
+    Add support for audit trails to the :class:`rest_framework.mixins.UpdateModelMixin`.
+    """
 
     request: Request
 
@@ -108,6 +115,9 @@ class AuditTrailUpdateMixin:
 
 
 class AuditTrailDestroyMixin:
+    """
+    Add support for audit trails to the :class:`rest_framework.mixins.DestroyModelMixin`.
+    """
 
     request: Request
 
@@ -128,10 +138,14 @@ class AuditTrailDestroyMixin:
         super().perform_destroy(instance)  # type: ignore - typing mixins is hard
 
 
-class AuditTrailViewsetMixin(
+class AuditTrailViewSetMixin(
     AuditTrailCreateMixin,
     AuditTrailRetrieveMixin,
     AuditTrailUpdateMixin,
     AuditTrailDestroyMixin,
 ):
-    pass
+    """
+    Add support for audit trails.
+
+    This includes all the CRUD operations.
+    """

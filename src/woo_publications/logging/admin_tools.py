@@ -15,6 +15,12 @@ __all__ = ["AdminAuditLogMixin", "AuditLogInlineformset"]
 
 
 class AdminAuditLogMixin:
+    """
+    Enable audit logging in the admin.
+
+    Add, change, delete and view action will be logged.
+    """
+
     model: type[models.Model]
 
     def log_addition(self, request, object, message):
@@ -63,6 +69,12 @@ class AdminAuditLogMixin:
 
 
 class AuditLogInlineformset(BaseInlineFormSet):
+    """
+    Custom formset class for admin inlines to enable audit logging.
+
+    Add and update actions on related objects are logged.
+    """
+
     def __init__(self, *args, **kwargs):
         self.django_user = kwargs.pop("_django_user", None)
         super().__init__(*args, **kwargs)
