@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.db import models
 from django.http import HttpRequest
 from django.urls import NoReverseMatch, reverse
 from django.utils.html import format_html, strip_tags
@@ -15,13 +16,15 @@ admin.site.unregister(TimelineLog)
 
 
 class EventListFilter(SimpleListFilter):
-    title = "Event"
+    title = _("event")
     parameter_name = "event"
 
-    def lookups(self, request, model_admin):
+    def lookups(self, request: HttpRequest, model_admin: admin.ModelAdmin):
         return Events.choices
 
-    def queryset(self, request, queryset):
+    def queryset(
+        self, request: HttpRequest, queryset: models.QuerySet[TimelineLogProxy]
+    ):
         if value := self.value():
             return queryset.filter(extra_data__event=value)
         return queryset
@@ -36,7 +39,6 @@ class TimelineLogProxyAdmin(admin.ModelAdmin):
         "show_acting_user",
         "content_admin_link",
     )
-    # TODO: add filters/search on event and acting user
     list_filter = ("timestamp", EventListFilter)
     ordering = ("-timestamp",)
     search_fields = (

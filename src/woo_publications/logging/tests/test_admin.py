@@ -280,6 +280,7 @@ class AuditLogAdminTests(WebTest):
         self.assertNumLogsDisplayed(response, 100)
 
     def test_event_search(self):
+        self.app.set_user(self.superuser)
         publication = PublicationFactory.create(
             officiele_titel="Publicatie voor logging test"
         )
@@ -303,11 +304,20 @@ class AuditLogAdminTests(WebTest):
                 },
             },
         )
-        response: DjangoWebtestResponse = self.app.get(
-            self.list_url, {"event": Events.create}, user=self.superuser
-        )
+        change_list_page = self.app.get(self.list_url)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "field-show_event", 1)
-        # The record + filter
-        self.assertContains(response, Events.update, 2)
+        with self.subTest("filter on create event"):
+            # simulate clicking the filter on events
+            filtered_response = change_list_page.click(description=_("Record created"))
+
+            self.assertEqual(filtered_response.status_code, 200)
+            self.assertNumLogsDisplayed(filtered_response, 1)
+            self.assertContains(filtered_response, "User One")
+
+        with self.subTest("filter on update event"):
+            # simulate clicking the filter on events
+            filtered_response = change_list_page.click(description=_("Record updated"))
+
+            self.assertEqual(filtered_response.status_code, 200)
+            self.assertNumLogsDisplayed(filtered_response, 1)
+            self.assertContains(filtered_response, "User Two")
