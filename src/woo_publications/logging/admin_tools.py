@@ -19,19 +19,31 @@ class AdminAuditLogMixin:
 
     def log_addition(self, request, object, message):
         assert isinstance(request.user, User)
-        audit_admin_create(object, request.user, serialize_instance(object))
+        audit_admin_create(
+            content_object=object,
+            django_user=request.user,
+            object_data=serialize_instance(object),
+        )
 
         return super().log_addition(request, object, message)  # type: ignore reportAttributeAccessIssue
 
     def log_change(self, request, object, message):
         assert isinstance(request.user, User)
-        audit_admin_update(object, request.user, serialize_instance(object))
+        audit_admin_update(
+            content_object=object,
+            django_user=request.user,
+            object_data=serialize_instance(object),
+        )
 
         return super().log_change(request, object, message)  # type: ignore reportAttributeAccessIssue
 
     def log_deletion(self, request, object, object_repr):
         assert isinstance(request.user, User)
-        audit_admin_delete(object, request.user)
+        audit_admin_delete(
+            content_object=object,
+            django_user=request.user,
+            object_data=serialize_instance(object),
+        )
 
         return super().log_deletion(request, object, object_repr)  # type: ignore reportAttributeAccessIssue
 
@@ -40,7 +52,7 @@ class AdminAuditLogMixin:
             object = self.model.objects.get(pk=object_id)
 
             assert isinstance(request.user, User)
-            audit_admin_read(object, request.user)
+            audit_admin_read(content_object=object, django_user=request.user)
 
         return super().change_view(request, object_id, form_url, extra_context)  # type: ignore reportAttributeAccessIssue
 
@@ -58,11 +70,19 @@ class AuditLogInlineformset(BaseInlineFormSet):
     def save_new(self, form, commit=True):
         obj = super().save_new(form, commit)
 
-        audit_admin_create(obj, self.django_user, serialize_instance(obj))
+        audit_admin_create(
+            content_object=obj,
+            django_user=self.django_user,
+            object_data=serialize_instance(obj),
+        )
 
         return obj
 
     def save_existing(self, form, obj, commit=True):
-        audit_admin_create(obj, self.django_user, serialize_instance(obj))
+        audit_admin_create(
+            content_object=obj,
+            django_user=self.django_user,
+            object_data=serialize_instance(obj),
+        )
 
         return super().save_existing(form, obj, commit)

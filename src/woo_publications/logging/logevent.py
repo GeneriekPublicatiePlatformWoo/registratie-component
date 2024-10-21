@@ -72,6 +72,7 @@ def _audit_event(
 
 
 def audit_admin_create(
+    *,
     content_object: models.Model,
     django_user: User,
     object_data: JSONObject,
@@ -85,6 +86,7 @@ def audit_admin_create(
 
 
 def audit_admin_read(
+    *,
     content_object: models.Model,
     django_user: User,
 ) -> None:
@@ -96,9 +98,10 @@ def audit_admin_read(
 
 
 def audit_admin_update(
+    *,
     content_object: models.Model,
     django_user: User,
-    object_data: dict[str, any],  # type: ignore
+    object_data: JSONObject,
 ) -> None:
     _audit_event(
         content_object=content_object,
@@ -109,13 +112,16 @@ def audit_admin_update(
 
 
 def audit_admin_delete(
+    *,
     content_object: models.Model,
     django_user: User,
+    object_data: JSONObject,
 ) -> None:
     _audit_event(
         content_object=content_object,
         event=Events.delete,
         django_user=django_user,
+        object_data=object_data,
     )
 
 
