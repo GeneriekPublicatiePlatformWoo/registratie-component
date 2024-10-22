@@ -1,5 +1,10 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms import BaseInlineFormSet
+from django.urls import reverse
+from django.utils.translation import gettext
+
+from furl import furl
 
 from woo_publications.accounts.models import User
 
@@ -98,3 +103,17 @@ class AuditLogInlineformset(BaseInlineFormSet):
         )
 
         return super().save_existing(form, obj, commit)
+
+
+def get_logs_link(obj: models.Model) -> tuple[str, str]:
+    """
+    Return a tuple of ``url`` and ``label`` to display logs related to ``obj``.
+    """
+    path = reverse("admin:logging_timelinelogproxy_changelist")
+    url = furl(path).add(
+        {
+            "content_type__exact": ContentType.objects.get_for_model(obj).pk,
+            "object_id": obj.pk,
+        }
+    )
+    return str(url), gettext("Show logs")
