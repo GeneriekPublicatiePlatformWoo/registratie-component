@@ -321,3 +321,27 @@ class AuditLogAdminTests(WebTest):
             self.assertEqual(filtered_response.status_code, 200)
             self.assertNumLogsDisplayed(filtered_response, 1)
             self.assertContains(filtered_response, "User Two")
+
+    def test_admin_change_view_audit_log_button(self):
+        self.app.set_user(self.superuser)
+        TimelineLog.objects.create(extra_data=None)
+        TimelineLog.objects.create(extra_data={})
+        TimelineLog.objects.create(extra_data=[])
+
+        with self.subTest("publications has 'show logs' button and filters correctly"):
+            publication = PublicationFactory.create(
+                officiele_titel="title one",
+            )
+            reverse_url = reverse(
+                "admin:publications_publication_change",
+                kwargs={"object_id": publication.id},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
