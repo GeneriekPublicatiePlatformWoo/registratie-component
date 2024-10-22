@@ -345,3 +345,18 @@ class AuditLogAdminTests(WebTest):
 
             self.assertEqual(response.status_code, 200)
             self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("user has 'show logs' button and filters correctly"):
+            reverse_url = reverse(
+                "admin:accounts_user_change",
+                kwargs={"object_id": self.superuser.pk},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
