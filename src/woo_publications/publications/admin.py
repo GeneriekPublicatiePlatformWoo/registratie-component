@@ -6,7 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
-from woo_publications.logging.service import AdminAuditLogMixin, AuditLogInlineformset
+from woo_publications.logging.service import (
+    AdminAuditLogMixin,
+    AuditLogInlineformset,
+    get_logs_link,
+)
 
 from .models import Document, Publication
 
@@ -47,7 +51,8 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
                     {"publicatie__exact": obj.pk}
                 ),
                 _("Show documents"),
-            )
+            ),
+            get_logs_link(obj),
         ]
         return format_html_join(
             " | ",
@@ -65,6 +70,7 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "show_filesize",
         "identifier",
         "registratiedatum",
+        "show_actions",
     )
     search_fields = (
         "identifier",
@@ -79,3 +85,14 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     @admin.display(description=_("file size"), ordering="bestandsomvang")
     def show_filesize(self, obj: Document) -> str:
         return filesizeformat(obj.bestandsomvang)
+
+    @admin.display(description=_("actions"))
+    def show_actions(self, obj: Document) -> str:
+        actions = [
+            get_logs_link(obj),
+        ]
+        return format_html_join(
+            " | ",
+            '<a href="{}">{}</a>',
+            actions,
+        )

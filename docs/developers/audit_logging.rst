@@ -19,6 +19,8 @@ Mixins/helper classes for :class:`django.contrib.admin.ModelAdmin` and related c
 .. autoclass:: woo_publications.logging.service.AuditLogInlineformset
     :members:
 
+.. autofunction:: woo_publications.logging.service.get_logs_link
+
 DRF integration
 ---------------
 

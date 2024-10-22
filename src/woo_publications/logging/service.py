@@ -1,4 +1,4 @@
-from .admin_tools import AdminAuditLogMixin, AuditLogInlineformset
+from .admin_tools import AdminAuditLogMixin, AuditLogInlineformset, get_logs_link
 from .api_tools import (
     AuditTrailCreateMixin,
     AuditTrailDestroyMixin,
@@ -21,6 +21,7 @@ __all__ = [
     # Admin
     "AdminAuditLogMixin",
     "AuditLogInlineformset",
+    "get_logs_link",
     # API
     "AuditTrailCreateMixin",
     "AuditTrailRetrieveMixin",

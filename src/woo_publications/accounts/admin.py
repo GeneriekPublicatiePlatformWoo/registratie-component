@@ -3,10 +3,12 @@ from django.contrib.admin.utils import unquote
 from django.contrib.auth.admin import UserAdmin as _UserAdmin
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.urls import reverse_lazy
+from django.utils.html import format_html_join
+from django.utils.translation import gettext_lazy as _
 
 from hijack.contrib.admin import HijackUserAdminMixin
 
-from woo_publications.logging.service import AdminAuditLogMixin
+from woo_publications.logging.service import AdminAuditLogMixin, get_logs_link
 
 from .forms import PreventPrivilegeEscalationMixin, UserChangeForm
 from .models import User
@@ -15,6 +17,14 @@ from .utils import validate_max_user_permissions
 
 @admin.register(User)
 class UserAdmin(AdminAuditLogMixin, HijackUserAdminMixin, _UserAdmin):
+    list_display = (
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "is_staff",
+        "show_actions",
+    )
     hijack_success_url = reverse_lazy("root")
     form = UserChangeForm
 
@@ -37,3 +47,14 @@ class UserAdmin(AdminAuditLogMixin, HijackUserAdminMixin, _UserAdmin):
             raise PermissionDenied from exc
 
         return super().user_change_password(request, id, form_url)
+
+    @admin.display(description=_("actions"))
+    def show_actions(self, obj: User) -> str:
+        actions = [
+            get_logs_link(obj),
+        ]
+        return format_html_join(
+            " | ",
+            '<a href="{}">{}</a>',
+            actions,
+        )
