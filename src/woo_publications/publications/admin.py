@@ -65,6 +65,8 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
+    change_form_template = "admin/audit_log_change_view.html"
+
     list_display = (
         "officiele_titel",
         "verkorte_titel",

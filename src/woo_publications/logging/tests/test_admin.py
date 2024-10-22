@@ -9,7 +9,10 @@ from maykin_2fa.test import disable_admin_mfa
 from timeline_logger.models import TimelineLog
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.publications.tests.factories import PublicationFactory
+from woo_publications.publications.tests.factories import (
+    DocumentFactory,
+    PublicationFactory,
+)
 
 from ..constants import Events
 from ..models import TimelineLogProxy
@@ -335,6 +338,22 @@ class AuditLogAdminTests(WebTest):
             reverse_url = reverse(
                 "admin:publications_publication_change",
                 kwargs={"object_id": publication.id},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("documents has 'show logs' button and filters correctly"):
+            document = DocumentFactory.create(officiele_titel="title one")
+            reverse_url = reverse(
+                "admin:publications_document_change",
+                kwargs={"object_id": document.id},
             )
 
             response = self.app.get(reverse_url)
