@@ -37,6 +37,10 @@ MIDDLEWARE = MIDDLEWARE + [
     "hijack.middleware.HijackUserMiddleware",
 ]
 
+# Remove unused/irrelevant middleware added by OAF
+MIDDLEWARE.remove("corsheaders.middleware.CorsMiddleware")
+MIDDLEWARE.remove("csp.contrib.rate_limiting.RateLimitedCSPMiddleware")
+
 #
 # SECURITY settings
 #
