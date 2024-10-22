@@ -22,15 +22,16 @@ class DocumentFactory(factory.django.DjangoModelFactory):
         model = Document
 
     class Params:
-        document_service_configured = factory.Trait(
+        with_registered_document = factory.Trait(
+            # Configured against the Open Zaak in our docker-compose.yml.
+            # See the fixtures in docker/open-zaak.
             document_service=factory.SubFactory(
                 ServiceFactory,
-                api_root="https://example.com/",
+                api_root="http://openzaak.docker.internal:8001/documenten/api/v1/",
                 api_type=APITypes.drc,
-                oas="https://example.com/api/v1/oas",
-                header_key="Authorization",
-                header_value="Token 0cbccf9e-f9cd-4f9c-9516-7481e79989df",
-                auth_type=AuthTypes.api_key,
+                client_id="woo-publications-dev",
+                Secret="insecure-yQL9Rzh4eHGVmYx5w3J2gu",
+                auth_type=AuthTypes.zgw,
             ),
             document_uuid=factory.Faker("uuid4"),
         )

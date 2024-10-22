@@ -68,7 +68,8 @@ class Document(models.Model):
         blank=True,
     )
     document_uuid = models.UUIDField(
-        _("Document UUID"),
+        _("document UUID"),
+        help_text=_("The UUID of the API resource recorded in the Documenten API."),
         unique=False,
         editable=True,
         null=True,
@@ -135,9 +136,9 @@ class Document(models.Model):
         constraints = [
             models.CheckConstraint(
                 check=(_DOCUMENT_NOT_SET | _DOCUMENT_SET),
-                name="document_api_conposite",
+                name="documents_api_reference",
                 violation_error_message=_(
-                    "You must specify both the Document API Service and Document UUID to identify a "
+                    "You must specify both the Documents API service and document UUID to identify a "
                     "document.",
                 ),
             )
