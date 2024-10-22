@@ -3,6 +3,13 @@ import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from zgw_consumers.constants import APITypes
+
+# when the document isn't specified both the service and uuid needs to be unset
+_DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
+# when the document is specified both the service and uuid needs to be set
+_DOCUMENT_SET = ~models.Q(document_service=None) & ~models.Q(document_uuid=None)
+
 
 class Publication(models.Model):
     uuid = models.UUIDField(
@@ -49,6 +56,23 @@ class Document(models.Model):
             "zero or more documents."
         ),
         on_delete=models.CASCADE,
+    )
+    document_service = models.ForeignKey(
+        "zgw_consumers.Service",
+        verbose_name=_("Documents API Service"),
+        on_delete=models.PROTECT,
+        limit_choices_to={
+            "api_type": APITypes.drc,
+        },
+        null=True,
+        blank=True,
+    )
+    document_uuid = models.UUIDField(
+        _("Document UUID"),
+        unique=False,
+        editable=True,
+        null=True,
+        blank=True,
     )
     identifier = models.CharField(
         _("identifier"),
@@ -108,6 +132,16 @@ class Document(models.Model):
     class Meta:  # type: ignore
         verbose_name = _("document")
         verbose_name_plural = _("documents")
+        constraints = [
+            models.CheckConstraint(
+                check=(_DOCUMENT_NOT_SET | _DOCUMENT_SET),
+                name="document_api_conposite",
+                violation_error_message=_(
+                    "You must specify both the Document API Service and Document UUID to identify a "
+                    "document.",
+                ),
+            )
+        ]
 
     def __str__(self):
         return self.officiele_titel
