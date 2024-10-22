@@ -8,8 +8,8 @@ from treebeard.forms import movenodeform_factory
 
 from woo_publications.logging.service import AdminAuditLogMixin, get_logs_link
 
-from .constants import InformationCategoryOrigins
-from .models import InformationCategory, Theme
+from .constants import InformationCategoryOrigins, OrganisationOrigins
+from .models import InformationCategory, Organisation, Theme
 
 
 @admin.register(InformationCategory)
@@ -62,6 +62,41 @@ class ThemeAdmin(AdminAuditLogMixin, TreeAdmin):
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: Theme) -> str:
+        actions = [
+            get_logs_link(obj),
+        ]
+        return format_html_join(
+            " | ",
+            '<a href="{}">{}</a>',
+            actions,
+        )
+
+
+@admin.register(Organisation)
+class OrganisationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
+    list_display = (
+        "naam",
+        "identifier",
+        "oorsprong",
+        "show_actions",
+    )
+    readonly_fields = (
+        "uuid",
+        "oorsprong",
+    )
+    search_fields = (
+        "identifier",
+        "naam",
+    )
+    list_filter = ("oorsprong", "is_actief")
+
+    def has_change_permission(self, request, obj=None):
+        if obj and obj.oorsprong != OrganisationOrigins.custom_entry:
+            return False
+        return True
+
+    @admin.display(description=_("actions"))
+    def show_actions(self, obj: Organisation) -> str:
         actions = [
             get_logs_link(obj),
         ]

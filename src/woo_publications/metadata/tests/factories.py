@@ -1,6 +1,6 @@
 import factory
 
-from ..models import InformationCategory, Theme
+from ..models import InformationCategory, Organisation, Theme
 
 
 class InformationCategoryFactory(factory.django.DjangoModelFactory):
@@ -23,3 +23,10 @@ class ThemeFactory(factory.django.DjangoModelFactory):
         if parent is not None:
             return parent.add_child(**kwargs)  # noqa
         return model_class.add_root(**kwargs)  # noqa
+
+
+class OrganisationFactory(factory.django.DjangoModelFactory):
+    naam = factory.Faker("word")
+
+    class Meta:  # type: ignore
+        model = Organisation
