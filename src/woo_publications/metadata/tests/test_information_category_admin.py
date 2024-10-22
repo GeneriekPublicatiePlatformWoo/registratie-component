@@ -5,7 +5,7 @@ from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
 
-from ..constants import Origins
+from ..constants import InformationCategoryOrigins
 from ..models import CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX, InformationCategory
 from .factories import InformationCategoryFactory
 
@@ -23,11 +23,11 @@ class TestInformationCategoryAdmin(WebTest):
     def test_information_category_admin_show_items(self):
         InformationCategoryFactory.create(
             naam="first item",
-            oorsprong=Origins.value_list,
+            oorsprong=InformationCategoryOrigins.value_list,
         )
         InformationCategoryFactory.create(
             naam="second item",
-            oorsprong=Origins.custom_entry,
+            oorsprong=InformationCategoryOrigins.custom_entry,
         )
         response = self.app.get(
             reverse(
@@ -45,12 +45,12 @@ class TestInformationCategoryAdmin(WebTest):
         information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="first item",
-            oorsprong=Origins.value_list,
+            oorsprong=InformationCategoryOrigins.value_list,
         )
         information_category2 = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
             naam="second item",
-            oorsprong=Origins.custom_entry,
+            oorsprong=InformationCategoryOrigins.custom_entry,
         )
         url = reverse("admin:metadata_informationcategory_changelist")
 
@@ -81,7 +81,7 @@ class TestInformationCategoryAdmin(WebTest):
         with self.subTest("filter_on_oorsprong"):
             search_response = self.app.get(
                 url,
-                {"oorsprong__exact": Origins.value_list},
+                {"oorsprong__exact": InformationCategoryOrigins.value_list},
                 user=self.user,
             )
 
@@ -97,7 +97,7 @@ class TestInformationCategoryAdmin(WebTest):
         information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",
             naam="first item",
-            oorsprong=Origins.value_list,
+            oorsprong=InformationCategoryOrigins.value_list,
         )
         url = reverse(
             "admin:metadata_informationcategory_change",
@@ -116,7 +116,7 @@ class TestInformationCategoryAdmin(WebTest):
         information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/2",
             naam="second item",
-            oorsprong=Origins.custom_entry,
+            oorsprong=InformationCategoryOrigins.custom_entry,
         )
         url = reverse(
             "admin:metadata_informationcategory_change",

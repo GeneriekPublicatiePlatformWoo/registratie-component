@@ -8,7 +8,7 @@ from treebeard.forms import movenodeform_factory
 
 from woo_publications.logging.service import AdminAuditLogMixin, get_logs_link
 
-from .constants import Origins
+from .constants import InformationCategoryOrigins
 from .models import InformationCategory, Theme
 
 
@@ -32,7 +32,7 @@ class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
     list_filter = ("oorsprong",)
 
     def has_change_permission(self, request, obj=None):
-        if obj and obj.oorsprong == Origins.value_list:
+        if obj and obj.oorsprong == InformationCategoryOrigins.value_list:
             return False
         return True
 

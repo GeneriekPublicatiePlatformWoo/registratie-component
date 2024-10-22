@@ -6,14 +6,14 @@ from django.utils.translation import gettext_lazy as _
 from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
-from .constants import Origins
+from .constants import InformationCategoryOrigins, OrganisationOrigins
 from .manager import InformationCategoryManager, ThemeManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
 )
 
-CUSTOM_ORGANIZATION_URL_PREFIX = "https://generiek-publicatieplatform.woo/organization/"
+CUSTOM_ORGANISATION_URL_PREFIX = "https://generiek-publicatieplatform.woo/organisation/"
 
 CUSTOM_THEME_URL_PREFIX = "https://generiek-publicatieplatform.woo/thema/"
 
@@ -22,8 +22,8 @@ def get_default_information_category_identifier():
     return f"{CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX}{uuid.uuid4()}"
 
 
-def get_default_organization_identifier():
-    return f"{CUSTOM_ORGANIZATION_URL_PREFIX}{uuid.uuid4()}"
+def get_default_organisation_identifier():
+    return f"{CUSTOM_ORGANISATION_URL_PREFIX}{uuid.uuid4()}"
 
 
 def get_default_theme_identifier():
@@ -53,10 +53,10 @@ class InformationCategory(OrderedModel):
             "the identifier should be interpreted. If the value list is the origin, the "
             "category can not be modified or deleted."
         ),
-        choices=Origins.choices,
+        choices=InformationCategoryOrigins.choices,
         blank=False,
         max_length=15,
-        default=Origins.custom_entry,
+        default=InformationCategoryOrigins.custom_entry,
     )
 
     objects = InformationCategoryManager()
@@ -113,7 +113,7 @@ class Organisation(models.Model):
         max_length=255,
         unique=True,
         editable=False,
-        default=get_default_organization_identifier,
+        default=get_default_organisation_identifier,
     )
     naam = models.CharField(_("name"), max_length=80)
     oorsprong = models.CharField(
@@ -123,10 +123,10 @@ class Organisation(models.Model):
             "the identifier should be interpreted. If the value list is the origin, the "
             "organisation can not be modified or deleted."
         ),
-        choices=Origins.choices,
+        choices=OrganisationOrigins.choices,
         blank=False,
         max_length=15,
-        default=Origins.custom_entry,
+        default=OrganisationOrigins.custom_entry,
     )
     is_actief = models.BooleanField(
         _("is active"),
