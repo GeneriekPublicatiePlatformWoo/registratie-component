@@ -11,6 +11,7 @@ from timeline_logger.models import TimelineLog
 from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.publications.tests.factories import PublicationFactory
 
+from ...metadata.tests.factories import InformationCategoryFactory, ThemeFactory
 from ..constants import Events
 from ..models import TimelineLogProxy
 
@@ -335,6 +336,40 @@ class AuditLogAdminTests(WebTest):
             reverse_url = reverse(
                 "admin:publications_publication_change",
                 kwargs={"object_id": publication.id},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("theme has 'show logs' button and filters correctly"):
+            theme = ThemeFactory.create(naam="first item")
+            reverse_url = reverse(
+                "admin:metadata_theme_change",
+                kwargs={"object_id": theme.id},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("theme has 'show logs' button and filters correctly"):
+            information_category = InformationCategoryFactory.create(
+                naam="first item",
+            )
+            reverse_url = reverse(
+                "admin:metadata_informationcategory_change",
+                kwargs={"object_id": information_category.id},
             )
 
             response = self.app.get(reverse_url)
