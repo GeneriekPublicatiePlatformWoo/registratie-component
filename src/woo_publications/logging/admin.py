@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.http import HttpRequest
 from django.urls import NoReverseMatch, reverse
@@ -35,6 +36,7 @@ class TimelineLogProxyAdmin(admin.ModelAdmin):
     list_display = (
         "message",
         "show_event",
+        "show_content_type",
         "timestamp",
         "show_acting_user",
         "content_admin_link",
@@ -79,6 +81,13 @@ class TimelineLogProxyAdmin(admin.ModelAdmin):
         if (event := obj.event) == "unknown":
             return gettext("Unknown")
         return Events(event).label
+
+    @admin.display(description=_("kind"), ordering="content_type")
+    def show_content_type(self, obj: TimelineLogProxy) -> str | None:
+        ct: ContentType | None = obj.content_type
+        if ct is None:
+            return None
+        return ct.name
 
     @admin.display(description=_("acting user"))
     def show_acting_user(self, obj: TimelineLogProxy) -> str:
