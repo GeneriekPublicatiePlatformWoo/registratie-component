@@ -58,9 +58,14 @@ class AdminAuditLogMixin:
 
         return super().log_deletion(request, object, object_repr)  # type: ignore reportAttributeAccessIssue
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):
+    def change_view(self, request, object_id, form_url="", extra_context={}):
         if object_id and request.method == "GET":
             object = self.model.objects.get(pk=object_id)
+
+            # extra context to render show logs button next to history button in change form
+            extra_context["audit_log_url"], extra_context["audit_log_label"] = (
+                get_logs_link(object)
+            )
 
             assert isinstance(request.user, User)
             audit_admin_read(content_object=object, django_user=request.user)
