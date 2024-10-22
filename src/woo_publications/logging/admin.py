@@ -44,6 +44,7 @@ class TimelineLogProxyAdmin(admin.ModelAdmin):
     search_fields = (
         "extra_data__acting_user__identifier",
         "extra_data__acting_user__display_name",
+        "extra_data___cached_object_repr",
     )
     list_select_related = ("content_type", "user")
     date_hierarchy = "timestamp"

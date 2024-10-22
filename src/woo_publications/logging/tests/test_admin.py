@@ -222,6 +222,18 @@ class AuditLogAdminTests(WebTest):
                     "identifier": "testsuite",
                     "display_name": "Automated tests",
                 },
+                "_cached_object_repr": "foobar",
+            },
+        )
+        # broken audit log entry
+        TimelineLogProxy.objects.create(
+            extra_data={
+                "event": Events.read,
+                "acting_user": {
+                    "identifier": None,
+                    "display_name": None,
+                },
+                "_cached_object_repr": None,
             },
         )
 
@@ -240,6 +252,13 @@ class AuditLogAdminTests(WebTest):
             self.assertNumLogsDisplayed(response, 1)
             self.assertNotContains(response, "1234")
             self.assertContains(response, "testsuite")
+
+        with self.subTest("search on cached_object_repr"):
+            response = self.app.get(self.list_url, {"q": "foobar"})
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+            self.assertContains(response, "foobar")
 
     def test_no_excessive_queries_for_content_object(self):
         # create a 100 records to fill the admin - can't use bulk create because that
