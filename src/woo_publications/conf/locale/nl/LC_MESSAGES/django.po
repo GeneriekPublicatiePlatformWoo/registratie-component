@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-03 12:06+0200\n"
+"POT-Creation-Date: 2024-10-23 01:52+0200\n"
 "PO-Revision-Date: 2024-10-03 12:28+0200\n"
 "Last-Translator:   <sergei.maertens@maykinmedia.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: woo_publications/accounts/admin.py:51 woo_publications/metadata/admin.py:39
+#: woo_publications/metadata/admin.py:63 woo_publications/metadata/admin.py:98
+#: woo_publications/publications/admin.py:46
+#: woo_publications/publications/admin.py:89
+#, fuzzy
+#| msgid "publications"
+msgid "actions"
+msgstr "publicaties"
 
 #: woo_publications/accounts/models.py:19
 msgid "username"
@@ -83,15 +92,96 @@ msgstr ""
 "U dient een supergebruiker te zijn om andere supergebruikers aan te maken."
 
 #: woo_publications/accounts/utils.py:49
-msgid ""
-"You cannot create or update a user with more permissions than yourself."
+msgid "You cannot create or update a user with more permissions than yourself."
 msgstr "U kunt een gebruiker niet meer rechten geven dan u zelf heeft."
 
-#: woo_publications/contrib/documents_api/api.py:78
+#: woo_publications/contrib/documents_api/api.py:82
 msgid "Retrieve a document type"
 msgstr "Haal een documenttype op"
 
-#: woo_publications/metadata/api/filters.py:14
+#: woo_publications/logging/admin.py:19 woo_publications/logging/admin.py:77
+msgid "event"
+msgstr ""
+
+#: woo_publications/logging/admin.py:68
+msgid "full log message"
+msgstr ""
+
+#: woo_publications/logging/admin.py:72
+msgid "message"
+msgstr ""
+
+#: woo_publications/logging/admin.py:75
+msgid "(no message)"
+msgstr ""
+
+#: woo_publications/logging/admin.py:80
+msgid "Unknown"
+msgstr ""
+
+#: woo_publications/logging/admin.py:83
+msgid "acting user"
+msgstr ""
+
+#: woo_publications/logging/admin.py:87
+#, fuzzy, python-brace-format
+#| msgid "identifier"
+msgid "{name} ({identifier})"
+msgstr "identificatie"
+
+#: woo_publications/logging/admin.py:89
+#, python-brace-format
+msgid "{name} ({identifier}, local user ID: {django_id})"
+msgstr ""
+
+#: woo_publications/logging/admin.py:97
+msgid "affected object"
+msgstr ""
+
+#: woo_publications/logging/admin_tools.py:119
+msgid "Show logs"
+msgstr ""
+
+#: woo_publications/logging/constants.py:7
+msgid "Record created"
+msgstr ""
+
+#: woo_publications/logging/constants.py:8
+msgid "Record read"
+msgstr ""
+
+#: woo_publications/logging/constants.py:9
+msgid "Record updated"
+msgstr ""
+
+#: woo_publications/logging/constants.py:10
+msgid "Record deleted"
+msgstr ""
+
+#: woo_publications/logging/models.py:27
+#, fuzzy
+#| msgid "Custom entry"
+msgid "(audit) log entry"
+msgstr "Zelf-toegevoegd item"
+
+#: woo_publications/logging/models.py:28
+msgid "(audit) log entries"
+msgstr ""
+
+#: woo_publications/logging/templates/logging/message.txt:1
+msgid "Anonymous user"
+msgstr ""
+
+#: woo_publications/logging/templates/logging/message.txt:1
+msgid "(object not set)"
+msgstr ""
+
+#: woo_publications/logging/templates/logging/message.txt:1
+#, python-format
+msgid "%(timestamp)s | %(user)s | <code>%(event)s</code>: %(object)s."
+msgstr ""
+
+#: woo_publications/metadata/api/filters.py:15
 msgid ""
 "Search the information category based on the unique IRI that identifies a "
 "specific category."
@@ -99,51 +189,117 @@ msgstr ""
 "Zoek een informatiecategorie op basis van de unieke IRI die een specifieke "
 "categorie identificeert."
 
-#: woo_publications/metadata/api/filters.py:20
+#: woo_publications/metadata/api/filters.py:21
 msgid "Search the information category based on the name of the category."
 msgstr "Zoek informatiecategorieën op basis van de categorienaam."
 
-#: woo_publications/metadata/api/serializer.py:23
+#: woo_publications/metadata/api/filters.py:37
+#, fuzzy
+#| msgid ""
+#| "Search the information category based on the unique IRI that identifies a "
+#| "specific category."
+msgid ""
+"Search the organisation based on the unique IRI that identifies a specific "
+"organisation."
+msgstr ""
+"Zoek een informatiecategorie op basis van de unieke IRI die een specifieke "
+"categorie identificeert."
+
+#: woo_publications/metadata/api/filters.py:42
+#, fuzzy
+#| msgid "Search the information category based on the name of the category."
+msgid "Search the organisation based on the name of the organisation."
+msgstr "Zoek informatiecategorieën op basis van de categorienaam."
+
+#: woo_publications/metadata/api/filters.py:46
+#, fuzzy
+#| msgid "Search the information category based on the name of the category."
+msgid "Search the organisation based on the origin of the organisation."
+msgstr "Zoek informatiecategorieën op basis van de categorienaam."
+
+#: woo_publications/metadata/api/filters.py:51
+msgid "Filter the organisations depending on their activity status:"
+msgstr ""
+
+#: woo_publications/metadata/api/serializer.py:25
 msgid "Controls the (default) ordering of categories in result lists."
 msgstr ""
 "Heeft invloed op de (standaard-)sortering van categorieën in de resultaten."
 
-#: woo_publications/metadata/api/serializer.py:41
-msgid ""
-"Indicates how deeply the theme is nested within its parents. A value of one "
-"means it's a root node, a value of 2 is a child, a value of three is a "
-"grandchild etc."
+#: woo_publications/metadata/api/serializer.py:54
+msgid "Only an organisation with the origin `{}` can update the `naam` field."
 msgstr ""
-"Indicates how deeply the theme is nested within its parents. A value of one "
-"means it's a root node, a value of 2 is a child, a value of three is a "
-"grandchild etc."
 
-#: woo_publications/metadata/api/viewsets.py:14
+#: woo_publications/metadata/api/serializer.py:68
+msgid "The nested themes attached to this current theme."
+msgstr ""
+
+#: woo_publications/metadata/api/viewsets.py:19
 msgid "All available information categories."
 msgstr "Alle beschikbare informatiecategorieën."
 
-#: woo_publications/metadata/api/viewsets.py:16
+#: woo_publications/metadata/api/viewsets.py:21
 msgid "Returns a paginated result list of existing information categories."
 msgstr ""
 "Geeft een resultatenlijst (met paginering) terug van de bestaande "
 "informatiecategorieën."
 
-#: woo_publications/metadata/api/viewsets.py:20
-#: woo_publications/metadata/api/viewsets.py:21
+#: woo_publications/metadata/api/viewsets.py:25
+#: woo_publications/metadata/api/viewsets.py:26
 msgid "Retrieve a specific information category."
 msgstr "Haal een specifiieke informatiecategorie op."
 
-#: woo_publications/metadata/api/viewsets.py:35
+#: woo_publications/metadata/api/viewsets.py:41
+#, fuzzy
+#| msgid "All available publications."
+msgid "All available organisations."
+msgstr "Alle beschikbare publicaties."
+
+#: woo_publications/metadata/api/viewsets.py:42
+#, fuzzy
+#| msgid "Returns a paginated result list of existing publications."
+msgid "Returns a paginated result list of existing organisations."
+msgstr "Geeft een lijst (met paginering) terug van alle bestaande publicaties."
+
+#: woo_publications/metadata/api/viewsets.py:45
+#: woo_publications/metadata/api/viewsets.py:46
+#, fuzzy
+#| msgid "Retrieve a specific publication."
+msgid "Retrieve a specific organisation."
+msgstr "Haal een specifieke publicatie op."
+
+#: woo_publications/metadata/api/viewsets.py:49
+#: woo_publications/metadata/api/viewsets.py:50
+#, fuzzy
+#| msgid "Create a publication."
+msgid "Create a organisation."
+msgstr "Maak een publicatie aan."
+
+#: woo_publications/metadata/api/viewsets.py:53
+#: woo_publications/metadata/api/viewsets.py:54
+#, fuzzy
+#| msgid "Update a publication partially."
+msgid "Update a organisation partially."
+msgstr "Werk een publicatie (gedeeltelijk) bij."
+
+#: woo_publications/metadata/api/viewsets.py:57
+#: woo_publications/metadata/api/viewsets.py:58
+#, fuzzy
+#| msgid "Update a publication entirely."
+msgid "Update a organisation entirely."
+msgstr "Werk een publicatie (in zijn geheel) bij."
+
+#: woo_publications/metadata/api/viewsets.py:93
 msgid "All available themes."
 msgstr "Alle beschikbare thema's."
 
-#: woo_publications/metadata/api/viewsets.py:36
+#: woo_publications/metadata/api/viewsets.py:94
 msgid "Returns a paginated result list of existing themes."
 msgstr ""
 "Geeft een resultatenlijst (met paginering) terug van de bestaande thema's."
 
-#: woo_publications/metadata/api/viewsets.py:39
-#: woo_publications/metadata/api/viewsets.py:40
+#: woo_publications/metadata/api/viewsets.py:97
+#: woo_publications/metadata/api/viewsets.py:98
 msgid "Retrieve a specific theme."
 msgstr "Haal een specifiek thema op."
 
@@ -152,50 +308,76 @@ msgid "Value list"
 msgstr "Waardelijst"
 
 #: woo_publications/metadata/constants.py:7
+#: woo_publications/metadata/constants.py:20
 msgid "Custom entry"
 msgstr "Zelf-toegevoegd item"
 
-#: woo_publications/metadata/models.py:27
-#: woo_publications/metadata/models.py:64
+#: woo_publications/metadata/constants.py:11
+msgid "Retrieves all the active organisations (default)"
+msgstr ""
+
+#: woo_publications/metadata/constants.py:12
+msgid "Retrieves all the inactive organisations"
+msgstr ""
+
+#: woo_publications/metadata/constants.py:13
+msgid "Retrieve every organisation regardless if active or inactive."
+msgstr ""
+
+#: woo_publications/metadata/constants.py:17
+msgid "Municipality list"
+msgstr ""
+
+#: woo_publications/metadata/constants.py:18
+msgid "Collaborative organisations list"
+msgstr ""
+
+#: woo_publications/metadata/constants.py:19
+msgid "Alternative government organisations"
+msgstr ""
+
+#: woo_publications/metadata/models.py:34
+#: woo_publications/metadata/models.py:76
+#: woo_publications/metadata/models.py:106
 #: woo_publications/publications/models.py:9
 msgid "UUID"
 msgstr "UUID"
 
-#: woo_publications/metadata/models.py:29
-#: woo_publications/metadata/models.py:66
+#: woo_publications/metadata/models.py:36
+#: woo_publications/metadata/models.py:78
+#: woo_publications/metadata/models.py:108
 #: woo_publications/publications/models.py:54
 msgid "identifier"
 msgstr "identificatie"
 
-#: woo_publications/metadata/models.py:31
+#: woo_publications/metadata/models.py:38
 msgid ""
 "The unique IRI that identifies this category in the overheid.nl value list. "
 "For entries that have been added manually, an identifier is generated."
 msgstr ""
 "De unieke IRI waarmee deze categorie gedefinieerd is in de overheid.nl "
-"waardelijst. Voor zelf-toegevoegde items wordt een identificatie "
-"gegenereerd."
+"waardelijst. Voor zelf-toegevoegde items wordt een identificatie gegenereerd."
 
-#: woo_publications/metadata/models.py:39
-#: woo_publications/metadata/models.py:76
-#| msgid "username"
+#: woo_publications/metadata/models.py:46
+#: woo_publications/metadata/models.py:88
+#: woo_publications/metadata/models.py:118
 msgid "name"
 msgstr "naam"
 
-#: woo_publications/metadata/models.py:40
+#: woo_publications/metadata/models.py:47
 msgid "name plural"
 msgstr "naam meervoud"
 
-#: woo_publications/metadata/models.py:41
-#| msgid "Administration"
+#: woo_publications/metadata/models.py:48
 msgid "definition"
 msgstr "definitie"
 
-#: woo_publications/metadata/models.py:43
+#: woo_publications/metadata/models.py:50
+#: woo_publications/metadata/models.py:120
 msgid "origin"
 msgstr "oorsprong"
 
-#: woo_publications/metadata/models.py:45
+#: woo_publications/metadata/models.py:52
 msgid ""
 "Determines where the category is defined and sourced from, and how the "
 "identifier should be interpreted. If the value list is the origin, the "
@@ -206,65 +388,126 @@ msgstr ""
 "waardelijst als oorsprong gebruikt wordt, dan kan de categorie niet bewerkt "
 "of verwijderd worden."
 
-#: woo_publications/metadata/models.py:56
+#: woo_publications/metadata/models.py:65
 msgid "information category"
 msgstr "informatiecategorie"
 
-#: woo_publications/metadata/models.py:57
+#: woo_publications/metadata/models.py:66
 msgid "information categories"
 msgstr "informatiecategorieën"
 
-#: woo_publications/metadata/models.py:68
+#: woo_publications/metadata/models.py:80
 msgid ""
-"The unique IRI that identifies this theme in the overheid.nl value list. For"
-" entries that have been added manually, an identifier is generated."
+"The unique IRI that identifies this theme in the overheid.nl value list. For "
+"entries that have been added manually, an identifier is generated."
 msgstr ""
 "De unieke IRI waarmee het thema in de overheid.nl waardenlijst gedefinieerd "
 "is. Voor zelf-toegevoegde items wordt een identificatie gegenereerd."
 
-#: woo_publications/metadata/models.py:81
+#: woo_publications/metadata/models.py:95
 msgid "theme"
 msgstr "thema"
 
-#: woo_publications/metadata/models.py:82
+#: woo_publications/metadata/models.py:96
 msgid "themes"
 msgstr "thema's"
+
+#: woo_publications/metadata/models.py:110
+#, fuzzy
+#| msgid ""
+#| "The unique IRI that identifies this category in the overheid.nl value "
+#| "list. For entries that have been added manually, an identifier is "
+#| "generated."
+msgid ""
+"The unique IRI that identifies this organisation in the overheid.nl value "
+"list. For entries that have been added manually, an identifier is generated."
+msgstr ""
+"De unieke IRI waarmee deze categorie gedefinieerd is in de overheid.nl "
+"waardelijst. Voor zelf-toegevoegde items wordt een identificatie gegenereerd."
+
+#: woo_publications/metadata/models.py:122
+#, fuzzy
+#| msgid ""
+#| "Determines where the category is defined and sourced from, and how the "
+#| "identifier should be interpreted. If the value list is the origin, the "
+#| "category can not be modified or deleted."
+msgid ""
+"Determines where the organisation is defined and sourced from, and how the "
+"identifier should be interpreted. If the value list is the origin, the "
+"organisation can not be modified or deleted."
+msgstr ""
+"Geeft aan waar de categorie gedefinieerd is, waar de gegevens opgehaald "
+"worden en hoe de identificatie dient geïnterpreteerd te worden. Als een "
+"waardelijst als oorsprong gebruikt wordt, dan kan de categorie niet bewerkt "
+"of verwijderd worden."
+
+#: woo_publications/metadata/models.py:132
+#, fuzzy
+#| msgid "active"
+msgid "is active"
+msgstr "actief"
+
+#: woo_publications/metadata/models.py:133
+msgid "Displays if the the organisation is currently active or not."
+msgstr ""
+
+#: woo_publications/metadata/models.py:139
+#, fuzzy
+#| msgid "administration"
+msgid "organisation"
+msgstr "beheer"
+
+#: woo_publications/metadata/models.py:140
+#, fuzzy
+#| msgid "administration"
+msgid "organisations"
+msgstr "beheer"
+
+#: woo_publications/publications/admin.py:53
+#, fuzzy
+#| msgid "documents"
+msgid "Show documents"
+msgstr "documenten"
+
+#: woo_publications/publications/admin.py:85
+#: woo_publications/publications/models.py:93
+msgid "file size"
+msgstr "bestandsomvang"
 
 #: woo_publications/publications/api/filters.py:10
 msgid "Order on."
 msgstr "Sorteren op."
 
-#: woo_publications/publications/api/viewsets.py:14
+#: woo_publications/publications/api/viewsets.py:16
 msgid "All available publications."
 msgstr "Alle beschikbare publicaties."
 
-#: woo_publications/publications/api/viewsets.py:15
+#: woo_publications/publications/api/viewsets.py:17
 msgid "Returns a paginated result list of existing publications."
-msgstr ""
-"Geeft een lijst (met paginering) terug van alle bestaande publicaties."
+msgstr "Geeft een lijst (met paginering) terug van alle bestaande publicaties."
 
-#: woo_publications/publications/api/viewsets.py:18
-#: woo_publications/publications/api/viewsets.py:19
+#: woo_publications/publications/api/viewsets.py:20
+#: woo_publications/publications/api/viewsets.py:21
 msgid "Retrieve a specific publication."
 msgstr "Haal een specifieke publicatie op."
 
-#: woo_publications/publications/api/viewsets.py:22
-#: woo_publications/publications/api/viewsets.py:23
+#: woo_publications/publications/api/viewsets.py:24
+#: woo_publications/publications/api/viewsets.py:25
 msgid "Create a publication."
 msgstr "Maak een publicatie aan."
 
-#: woo_publications/publications/api/viewsets.py:26
-#: woo_publications/publications/api/viewsets.py:27
+#: woo_publications/publications/api/viewsets.py:28
+#: woo_publications/publications/api/viewsets.py:29
 msgid "Update a publication partially."
 msgstr "Werk een publicatie (gedeeltelijk) bij."
 
-#: woo_publications/publications/api/viewsets.py:30
-#: woo_publications/publications/api/viewsets.py:31
+#: woo_publications/publications/api/viewsets.py:32
+#: woo_publications/publications/api/viewsets.py:33
 msgid "Update a publication entirely."
 msgstr "Werk een publicatie (in zijn geheel) bij."
 
-#: woo_publications/publications/api/viewsets.py:34
-#: woo_publications/publications/api/viewsets.py:35
+#: woo_publications/publications/api/viewsets.py:36
+#: woo_publications/publications/api/viewsets.py:37
 msgid "Destroy a publication."
 msgstr "Vernietig een publicatie."
 
@@ -346,7 +589,6 @@ msgstr ""
 "against a reference value list."
 
 #: woo_publications/publications/models.py:87
-#| msgid "first name"
 msgid "file name"
 msgstr "bestandsnaam"
 
@@ -355,10 +597,6 @@ msgid "File name 'on disk' of the document, e.g. 'gelakt-verslag.pdf'."
 msgstr ""
 "Bestandsnaam 'op de harde schijf' van het document, bijvoorbeeld 'gelakt-"
 "verslag.pdf'."
-
-#: woo_publications/publications/models.py:93
-msgid "file size"
-msgstr "bestandsomvang"
 
 #: woo_publications/publications/models.py:95
 msgid "Size of the file on disk, in bytes."
@@ -406,8 +644,7 @@ msgstr "Inloggen als %(username)s"
 #: woo_publications/templates/includes/footer.html:14
 #, python-format
 msgid ""
-"Developed by %(website_link)s<br> within the %(opengem_link)s &copy; "
-"2024<br>"
+"Developed by %(website_link)s<br> within the %(opengem_link)s &copy; 2024<br>"
 msgstr ""
 "Ontwikkeld door %(website_link)s<br> onder het %(opengem_link)s &copy; "
 "2024<br>"
@@ -488,17 +725,23 @@ msgstr "versie %(RELEASE)s"
 msgid "GIT SHA: %(GIT_SHA)s"
 msgstr "GIT SHA: %(GIT_SHA)s"
 
-#: woo_publications/conf/base.py:47
+#: woo_publications/conf/base.py:49
 msgid "WOO Publications"
 msgstr "WOO-Publicatiebank"
+
+#~ msgid ""
+#~ "Indicates how deeply the theme is nested within its parents. A value of "
+#~ "one means it's a root node, a value of 2 is a child, a value of three is "
+#~ "a grandchild etc."
+#~ msgstr ""
+#~ "Indicates how deeply the theme is nested within its parents. A value of "
+#~ "one means it's a root node, a value of 2 is a child, a value of three is "
+#~ "a grandchild etc."
 
 #~ msgid "View 2fa profile"
 #~ msgstr "Tweestapsauthenticatie beheren"
 
 #~ msgid "admin"
-#~ msgstr "beheer"
-
-#~ msgid "administration"
 #~ msgstr "beheer"
 
 #~ msgid "Previous"

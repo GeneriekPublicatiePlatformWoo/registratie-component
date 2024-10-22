@@ -1,0 +1,416 @@
+from django.urls import reverse
+
+from rest_framework import status
+from rest_framework.test import APITestCase
+
+from ..constants import OrganisationActive, OrganisationOrigins
+from .factories import OrganisationFactory
+
+
+class OrganisationApiTests(APITestCase):
+    def test_list_organisations(self):
+        organisation = OrganisationFactory.create(
+            naam="one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        organisation2 = OrganisationFactory.create(
+            naam="two",
+            identifier="https://www.example.com/organisaties/2",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+        expected_first_item_data = {
+            "uuid": str(organisation.uuid),
+            "identifier": "https://www.example.com/organisaties/1",
+            "naam": "one",
+            "oorsprong": OrganisationOrigins.custom_entry,
+            "isActief": True,
+        }
+        expected_second_item_data = {
+            "uuid": str(organisation2.uuid),
+            "identifier": "https://www.example.com/organisaties/2",
+            "naam": "two",
+            "oorsprong": OrganisationOrigins.municipality_list,
+            "isActief": True,
+        }
+
+        response = self.client.get(reverse("api:organisation-list"))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.json()
+
+        self.assertEqual(data["count"], 2)
+        self.assertEqual(data["results"][0], expected_first_item_data)
+        self.assertEqual(data["results"][1], expected_second_item_data)
+
+    def test_list_organisations_filter_active(self):
+        organisation = OrganisationFactory.create(
+            naam="one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        organisation2 = OrganisationFactory.create(
+            naam="two",
+            identifier="https://www.example.com/organisaties/2",
+            is_actief=False,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+
+        expected_first_item_data = {
+            "uuid": str(organisation.uuid),
+            "identifier": "https://www.example.com/organisaties/1",
+            "naam": "one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": True,
+        }
+        expected_second_item_data = {
+            "uuid": str(organisation2.uuid),
+            "identifier": "https://www.example.com/organisaties/2",
+            "naam": "two",
+            "oorsprong": OrganisationOrigins.municipality_list.value,
+            "isActief": False,
+        }
+
+        with self.subTest("default filter on active true"):
+            response = self.client.get(reverse("api:organisation-list"))
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+
+        with self.subTest("filter on active true"):
+            response = self.client.get(
+                reverse("api:organisation-list"),
+                {"is_actief": OrganisationActive.active},
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+
+        with self.subTest("filter on active false"):
+            response = self.client.get(
+                reverse("api:organisation-list"),
+                {"is_actief": OrganisationActive.inactive},
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_second_item_data)
+
+        with self.subTest("filter on active every"):
+            response = self.client.get(
+                reverse("api:organisation-list"), {"is_actief": OrganisationActive.all}
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 2)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+            self.assertEqual(data["results"][1], expected_second_item_data)
+
+    def test_list_organisations_filter_indentifier(self):
+        organisation = OrganisationFactory.create(
+            naam="one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        OrganisationFactory.create(
+            naam="one",
+            identifier="https://www.example.com/organisaties/2",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+
+        expected_first_item_data = {
+            "uuid": str(organisation.uuid),
+            "identifier": "https://www.example.com/organisaties/1",
+            "naam": "one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": True,
+        }
+
+        with self.subTest("test_with_exact_match"):
+            response = self.client.get(
+                reverse("api:organisation-list"),
+                {"identifier": "https://www.example.com/organisaties/1"},
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+
+        with self.subTest("with_none_existing_identifier"):
+            response = self.client.get(
+                reverse("api:organisation-list"),
+                {"identifier": "https://www.example.com/organisaties/999"},
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 0)
+
+    def test_list_organisations_filter_naam(self):
+        organisation = OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        organisation2 = OrganisationFactory.create(
+            naam="object two",
+            identifier="https://www.example.com/organisaties/2",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+
+        expected_first_item_data = {
+            "uuid": str(organisation.uuid),
+            "identifier": "https://www.example.com/organisaties/1",
+            "naam": "object one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": True,
+        }
+        expected_second_item_data = {
+            "uuid": str(organisation2.uuid),
+            "identifier": "https://www.example.com/organisaties/2",
+            "naam": "object two",
+            "oorsprong": OrganisationOrigins.municipality_list.value,
+            "isActief": True,
+        }
+
+        with self.subTest("test_with_exact_match"):
+            response = self.client.get(
+                reverse("api:organisation-list"), {"naam": "object two"}
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_second_item_data)
+
+        with self.subTest("test_with_incomplete_match"):
+            response = self.client.get(
+                reverse("api:organisation-list"), {"naam": "object"}
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 2)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+            self.assertEqual(data["results"][1], expected_second_item_data)
+
+        with self.subTest("with_none_existing_identifier"):
+            response = self.client.get(
+                reverse("api:organisation-list"), {"naam": "object three"}
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 0)
+
+    def test_list_organisations_filter_oorsprong(self):
+        OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        organisation2 = OrganisationFactory.create(
+            naam="object two",
+            identifier="https://www.example.com/organisaties/2",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+
+        expected_data = {
+            "uuid": str(organisation2.uuid),
+            "identifier": "https://www.example.com/organisaties/2",
+            "naam": "object two",
+            "oorsprong": OrganisationOrigins.municipality_list.value,
+            "isActief": True,
+        }
+
+        with self.subTest("test_with_exact_match"):
+            response = self.client.get(
+                reverse("api:organisation-list"),
+                {"oorsprong": OrganisationOrigins.municipality_list},
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_data)
+
+        with self.subTest("test_with_incorrect_match"):
+            response = self.client.get(
+                reverse("api:organisation-list"), {"oorsprong": "test"}
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_detail_organisation(self):
+        organisation = OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+
+        response = self.client.get(detail_url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.json()
+        expected_data = {
+            "uuid": str(organisation.uuid),
+            "identifier": "https://www.example.com/organisaties/1",
+            "naam": "object one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": True,
+        }
+
+        self.assertEqual(data, expected_data)
+
+    def test_create_organisation(self):
+        url = reverse("api:organisation-list")
+        data = {
+            "naam": "object one",
+            "isActief": True,
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response_data = response.json()
+        expected_data = {
+            # uuid and identifier gets generated so we are just testing that its there
+            "uuid": response_data["uuid"],
+            "identifier": response_data["identifier"],
+            "naam": "object one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": True,
+        }
+
+        self.assertEqual(response_data, expected_data)
+
+    def test_update_organisation(self):
+        organisation = OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+        data = {
+            "naam": "Changed",
+            "isActief": False,
+        }
+
+        response = self.client.put(detail_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response_data = response.json()
+        expected_data = {
+            # uuid and identifier gets generated so we are just testing that its there
+            "uuid": response_data["uuid"],
+            "identifier": response_data["identifier"],
+            "naam": "Changed",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": False,
+        }
+
+        self.assertEqual(response_data, expected_data)
+
+    def test_update_organisation_municipality_list_can_only_change_active(self):
+        organisation = OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.municipality_list,
+        )
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+
+        with self.subTest("test update is actief"):
+            response = self.client.put(detail_url, {"isActief": False})
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            response_data = response.json()
+            expected_data = {
+                # uuid and identifier gets generated so we are just testing that its there
+                "uuid": response_data["uuid"],
+                "identifier": response_data["identifier"],
+                "naam": "object one",
+                "oorsprong": OrganisationOrigins.municipality_list.value,
+                "isActief": False,
+            }
+
+            self.assertEqual(response_data, expected_data)
+
+        with self.subTest("test update name results in 400"):
+            response = self.client.put(detail_url, {"naam": "error"})
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+            self.assertEqual(
+                response_data["naam"],
+                "Only an organisation with the origin `zelf_toegevoegd` can update the `naam` field.",
+            )
+
+    def test_partial_update_organisation(self):
+        organisation = OrganisationFactory.create(
+            naam="object one",
+            identifier="https://www.example.com/organisaties/1",
+            is_actief=True,
+            oorsprong=OrganisationOrigins.custom_entry,
+        )
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+        data = {
+            "isActief": False,
+        }
+
+        response = self.client.patch(detail_url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response_data = response.json()
+        expected_data = {
+            # uuid and identifier gets generated so we are just testing that its there
+            "uuid": response_data["uuid"],
+            "identifier": response_data["identifier"],
+            "naam": "object one",
+            "oorsprong": OrganisationOrigins.custom_entry.value,
+            "isActief": False,
+        }
+
+        self.assertEqual(response_data, expected_data)
