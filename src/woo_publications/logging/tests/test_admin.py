@@ -9,7 +9,14 @@ from maykin_2fa.test import disable_admin_mfa
 from timeline_logger.models import TimelineLog
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.publications.tests.factories import PublicationFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    ThemeFactory,
+)
+from woo_publications.publications.tests.factories import (
+    DocumentFactory,
+    PublicationFactory,
+)
 
 from ..constants import Events
 from ..models import TimelineLogProxy
@@ -329,12 +336,75 @@ class AuditLogAdminTests(WebTest):
         TimelineLog.objects.create(extra_data=[])
 
         with self.subTest("publications has 'show logs' button and filters correctly"):
-            publication = PublicationFactory.create(
-                officiele_titel="title one",
-            )
+            publication = PublicationFactory.create()
             reverse_url = reverse(
                 "admin:publications_publication_change",
                 kwargs={"object_id": publication.id},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("documents has 'show logs' button and filters correctly"):
+            document = DocumentFactory.create()
+            reverse_url = reverse(
+                "admin:publications_document_change",
+                kwargs={"object_id": document.pk},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("themes has 'show logs' button and filters correctly"):
+            theme = ThemeFactory.create()
+            reverse_url = reverse(
+                "admin:metadata_theme_change",
+                kwargs={"object_id": theme.pk},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest(
+            "information category has 'show logs' button and filters correctly"
+        ):
+            information_category = InformationCategoryFactory.create()
+            reverse_url = reverse(
+                "admin:metadata_informationcategory_change",
+                kwargs={"object_id": information_category.pk},
+            )
+
+            response = self.app.get(reverse_url)
+
+            self.assertEqual(response.status_code, 200)
+
+            response = response.click("Show logs")
+
+            self.assertEqual(response.status_code, 200)
+            self.assertNumLogsDisplayed(response, 1)
+
+        with self.subTest("user has 'show logs' button and filters correctly"):
+            reverse_url = reverse(
+                "admin:accounts_user_change",
+                kwargs={"object_id": self.superuser.pk},
             )
 
             response = self.app.get(reverse_url)
