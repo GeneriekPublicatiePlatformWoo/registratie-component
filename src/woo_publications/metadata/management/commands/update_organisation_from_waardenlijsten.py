@@ -3,7 +3,7 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from ...organisation_sync import OrganisatieWaardenlijstError, organisation_update
+from ...organisation_sync import OrganisatieWaardenlijstError, update_organisation
 
 
 class Command(BaseCommand):
@@ -25,6 +25,6 @@ class Command(BaseCommand):
             file_path = Path(file_path)
 
         try:
-            organisation_update(file_path)
+            update_organisation(file_path)
         except OrganisatieWaardenlijstError as err:
             raise CommandError(err.message) from err

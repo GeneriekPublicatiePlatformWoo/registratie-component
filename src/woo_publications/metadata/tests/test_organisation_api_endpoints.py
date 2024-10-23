@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from ..constants import OrganisationOrigins, OrganisationActive
+from ..constants import OrganisationActive, OrganisationOrigins
 from .factories import OrganisationFactory
 
 

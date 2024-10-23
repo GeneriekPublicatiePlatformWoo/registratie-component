@@ -14,16 +14,24 @@ SO_WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waar
 OORG_WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/rwc_overige_overheidsorganisaties_compleet/8/json/rwc_overige_overheidsorganisaties_compleet_8.json"
 
 MUNICIPALITY_WAARDENLIJST_TYPE = "https://identifier.overheid.nl/tooi/def/ont/Gemeente"
-SO_WAARDENLIJST_TYPE = "https://identifier.overheid.nl/tooi/def/ont/Samenwerkingsorganisatie"
-OORG_WAARDENLIJST_TYPE = "https://identifier.overheid.nl/tooi/def/ont/Overheidsorganisatie"
+SO_WAARDENLIJST_TYPE = (
+    "https://identifier.overheid.nl/tooi/def/ont/Samenwerkingsorganisatie"
+)
+OORG_WAARDENLIJST_TYPE = (
+    "https://identifier.overheid.nl/tooi/def/ont/Overheidsorganisatie"
+)
 WAARDENLIJST_URLS = [
     MUNICIPALITY_WAARDENLIJST_URL,
     SO_WAARDENLIJST_URL,
-    OORG_WAARDENLIJST_URL
+    OORG_WAARDENLIJST_URL,
 ]
 
 TYPE_MAPPING = [
-    (MUNICIPALITY_WAARDENLIJST_URL, MUNICIPALITY_WAARDENLIJST_TYPE, OrganisationOrigins.municipality_list),
+    (
+        MUNICIPALITY_WAARDENLIJST_URL,
+        MUNICIPALITY_WAARDENLIJST_TYPE,
+        OrganisationOrigins.municipality_list,
+    ),
     (SO_WAARDENLIJST_URL, SO_WAARDENLIJST_TYPE, OrganisationOrigins.so_list),
     (OORG_WAARDENLIJST_URL, OORG_WAARDENLIJST_TYPE, OrganisationOrigins.oorg_list),
 ]
@@ -40,23 +48,29 @@ class OrganisatieWaardenlijstError(Exception):
         super().__init__(message)
 
 
-def organisation_update(file_path: Path):
+def update_organisation(file_path: Path):
     for waardenlijst_url, waardenlijst_type, oorsprong in TYPE_MAPPING:
         try:
             response = requests.get(waardenlijst_url)
         except requests.RequestException as err:
-            raise OrganisatieWaardenlijstError("Could not retrieve the value list data.") from err
+            raise OrganisatieWaardenlijstError(
+                "Could not retrieve the value list data from url `{}`.".format(
+                    waardenlijst_url
+                )
+            ) from err
 
         try:
             response.raise_for_status()
         except requests.RequestException as err:
             raise OrganisatieWaardenlijstError(
-                f"Got an unexpected response status code when retrieving the value list data: {response.status_code}."
+                f"Got an unexpected response status code when retrieving the value list data from url `{waardenlijst_url}`: {response.status_code}."
             ) from err
 
         data = response.json()
         if not data:
-            raise OrganisatieWaardenlijstError("Received empty data from value list.")
+            raise OrganisatieWaardenlijstError(
+                f"Received empty data from value list `{waardenlijst_url}`."
+            )
 
         for waardenlijst in data:
             # filter out all ids that aren't waardenlijsten
