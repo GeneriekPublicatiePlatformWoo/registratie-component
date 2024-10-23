@@ -72,6 +72,8 @@ class OrganisationFilterSet(FilterSet):
         )
 
     def filter_is_actief(self, queryset, name: str, value: str):
+        # NOTE: this method does not get called if no filter param is used. The
+        # default filtering case is implemented in the respective viewset method.
         match (value):
             case OrganisationActive.inactive:
                 return queryset.filter(is_actief=False)

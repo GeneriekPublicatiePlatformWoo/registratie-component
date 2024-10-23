@@ -1,3 +1,4 @@
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
@@ -76,10 +77,21 @@ class OrganisationViewSet(
     # Viewset
     viewsets.GenericViewSet,
 ):
-    queryset = Organisation.objects.all()
+    queryset = Organisation.objects.order_by("pk")
     serializer_class = OrganisationSerializer
     filterset_class = OrganisationFilterSet
     lookup_field = "uuid"
+
+    def filter_queryset(
+        self, queryset: models.QuerySet[Organisation]
+    ) -> models.QuerySet[Organisation]:
+        # let the default filter backends do their work first
+        qs = super().filter_queryset(queryset)
+        # TODO: this will become isActief at some point - need to check when the
+        # camelCase -> snake_case conversion happens.
+        if self.action == "list" and "is_actief" not in self.request.query_params:
+            qs = qs.filter(is_actief=True)
+        return qs
 
 
 @extend_schema(tags=["Themas"])
