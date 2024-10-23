@@ -1,0 +1,5362 @@
+[
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
+        "identifier": "https://generiek-publicatieplatform.woo/organization/b34ed682-cd7c-49aa-92ac-8115d4a193fb",
+        "naam": "changed",
+        "oorsprong": "waardelijst",
+        "is_actief": false
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "babaef34-a977-4b4a-af53-6f985b930846",
+        "identifier": "https://generiek-publicatieplatform.woo/organization/f1023bb2-20a5-402e-bcde-9b74310e6b0d",
+        "naam": "changed",
+        "oorsprong": "zelf_toegevoegd",
+        "is_actief": false
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "280d9b4c-123a-408a-8cee-1dd9c0e2d0d8",
+        "identifier": "https://generiek-publicatieplatform.woo/organization/c841e4e7-14fb-47eb-9787-2d1641ba3a0d",
+        "naam": "test",
+        "oorsprong": "zelf_toegevoegd",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "42def92a-b15c-4f38-94c8-4e11b7b3b25f",
+        "identifier": "https://generiek-publicatieplatform.woo/organization/8b7b60b6-2c5d-4555-bbae-511e89ea4de7",
+        "naam": "test2",
+        "oorsprong": "zelf_toegevoegd",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d8e0f1d1-d546-4268-95b7-3cf2cc7c9a90",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0001",
+        "naam": "Vervoerregio Amsterdam",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0e19f358-1614-46ea-8cd8-8b83715d998b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0003",
+        "naam": "Veiligheidsregio IJsselland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cd3ec6a3-1d64-4d13-b093-74bdb06a5731",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0004",
+        "naam": "Regio Achterhoek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "636fec7b-3a54-4bdc-8619-443ad299c0b6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0005",
+        "naam": "SamenTwente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d74932b6-63ae-488f-97d1-63b176f61ad4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0006",
+        "naam": "Regio Gooi en Vechtstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2010f12e-31c1-4a3d-81fb-03e0e7f21989",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0011",
+        "naam": "Regio Midden-Holland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "38689e9d-e732-4469-ba51-5c736b7f7d24",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0013",
+        "naam": "Stadsgewest 's-Hertogenbosch",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "48c01b9b-fb4c-4e93-ab3e-7a0f99a3cc18",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0026",
+        "naam": "Regio Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a72c8602-8027-444e-9ea3-25a39fa4ddea",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0030",
+        "naam": "Dienst Gezondheid & Jeugd Zuid-Holland Zuid",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f717f4a6-0b8a-4f67-b177-3353eb77c6eb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0035",
+        "naam": "Stadsregio Parkstad Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "54f3a6a9-22d8-4586-886f-3852fdd9a1bd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0043",
+        "naam": "Regio De Vallei",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cec5d7e6-6a98-4167-8584-06d7759af611",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0044",
+        "naam": "Veiligheidsregio Haaglanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0e7f6541-a382-4a71-b583-a749def55430",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0066",
+        "naam": "Veiligheidsregio Brabant-Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4e059afd-8774-42a2-bd78-25a9733542d8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0081",
+        "naam": "Wegschap Tunnel Dordtse Kil",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "bc03253c-9b8f-4d76-bf31-bef301d15341",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0084",
+        "naam": "Havenschap Groningen Seaports",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "55a1e435-5b26-46c0-b948-fbdb312921be",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0087",
+        "naam": "Stadsbank Oost Nederland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fe406393-d872-4f38-ad3d-2a754c6d7b7c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0089",
+        "naam": "Volkskredietbank Noord-Oost Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "638c7f20-18a6-4c1f-88ed-78fdc2fc845f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0090",
+        "naam": "Gemeentelijke Kredietbank Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d3046bd9-5302-4726-8aba-f3ecd59f7e64",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0098",
+        "naam": "Havenschap Moerdijk",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "04d825e3-9703-45c2-8ec0-aa035aafa067",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0100",
+        "naam": "Het Industrieschap \"De Plaspoelpolder\"",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4d20428b-8953-4c0f-aa66-bbb9c7c4ff31",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0103",
+        "naam": "Ontwikkelingsmaatschappij Bedrijvenparken A7 Heerenveen-Joure",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "03faafce-84c2-441b-bc93-0a0b35d5ca8c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0137",
+        "naam": "Samenwerkingsverband Welzijnszorg Oosterschelderegio",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "889a9a22-ae08-4e68-bf78-ef98044372b6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0170",
+        "naam": "de Zeeuwse Muziekschool",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "57177cbc-24d4-4d38-bb23-d7d8d7c577bc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0175",
+        "naam": "Sportpark Souburgh",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6b69924f-3331-4991-b0e8-abac823d375c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0186",
+        "naam": "Streekarchief Langstraat Heusden Altena",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5eb849e8-6431-4dbe-8e0c-c63fa7904e09",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0188",
+        "naam": "Regionaal Archief Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dba42a5e-3041-4664-9bae-66855746561d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0190",
+        "naam": "Streekarchief Voorne-Putten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "44922f31-f7d8-4e6c-8b06-bcb42bb757d2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0191",
+        "naam": "Meerschap Paterswolde",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "29d55ba5-48d2-4761-aabd-28b585a57da9",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0192",
+        "naam": "Recreatieschap voor het Friese water en land de Marrekrite",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6b30d4ff-e19d-438d-8937-9b4b4ed50f83",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0200",
+        "naam": "Recreatieschap Stichtse Groenlanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b84cc96-88e0-4c4f-8b89-b67582cc2b8a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0201",
+        "naam": "Recreatieschap Westfriesland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "819a0e20-f189-4164-9034-cc5daf026885",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0202",
+        "naam": "Recreatieschap Alkmaarder- en Uitgeestermeer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "eae98b2d-1705-41ca-be54-86f82ec52f5b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0204",
+        "naam": "Natuur- en recreatieschap IJsselmonde",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "05a3b20a-ccec-4787-a5e6-f3125e8a0bca",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0205",
+        "naam": "Recreatieschap Rottemeren",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3464c35e-e2b4-4868-976b-bf436146dc14",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0206",
+        "naam": "Recreatieschap Hitland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5c8756fb-3970-44a9-b660-4c20ec06c67a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0212",
+        "naam": "Recreatieschap Geestmerambacht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5369a609-5247-48c9-b733-8ef1db74d477",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0214",
+        "naam": "Groengebied Amstelland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7f68544a-676a-45fa-b87e-62109b3923ec",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0222",
+        "naam": "Recreatieschap Voorne-Putten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a889f146-73de-4df9-a18d-684c978985aa",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0233",
+        "naam": "Wedeka Bedrijven",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f4df08b5-59f8-4495-a3f4-c80b0ba0e607",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0241",
+        "naam": "Reestmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fd0add86-4e8d-4a5b-8979-0204d760ca4b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0244",
+        "naam": "Sallcon",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a5c1f382-1811-4dd9-9ea0-b0f12646fb69",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0245",
+        "naam": "SWB Midden Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "20336aa6-48dc-4536-89c1-643951f8eebd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0246",
+        "naam": "Werkvoorzieningschap lJsselmeergroep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "248d8871-b3db-4e2a-a08f-17b3b5793bcc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0258",
+        "naam": "Regionaal Sociaal Werkvoorzieningschap Amersfoort en omgeving RWA",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ad379ccc-f2e9-4ee6-8d71-4e9ac49a5f41",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0261",
+        "naam": "Amstelland en Meerlanden Werkorganisatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "52122fe2-62c3-490d-b927-0347aa11ec0d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0262",
+        "naam": "Werkvoorzieningsschap Tomingroep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c69c1de9-a761-4358-bee5-cfe1ce6c70d1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0263",
+        "naam": "Zaffier",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "43212734-9e56-4ec2-bca9-1d4d735fda66",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0264",
+        "naam": "IJmond Werkt!",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "210f4c85-2538-4384-9f25-5e7f162149e2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0266",
+        "naam": "WerkSaam Westfriesland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "af9f4cda-75e6-4a98-9446-94e39f47e310",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0267",
+        "naam": "Participatiebedrijf Zuid-Kennemerland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2e0a56cb-87f4-41ba-b18e-01747ed869b8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0269",
+        "naam": "Gemeenschappelijke regeling werkbedrijven Kust-, Duin- en Bollenstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ee36a86b-661e-4c33-a2b5-ffd797c6fc55",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0282",
+        "naam": "Sociaal Werkvoorzieningsschap DETHON",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1f5b0984-459d-4ce2-8a28-3438fa5e4d2f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0284",
+        "naam": "WVS-groep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b27f904d-385e-48c9-bfc7-9532210f2252",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0285",
+        "naam": "Werkvoorzieningschap Venlo en omstreken",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "69b7737c-61f2-410e-9d76-deaccffb6cad",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0287",
+        "naam": "Werkvoorzieningschap Noord-Limburg West",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "761e55a7-8e76-48cc-94ac-1ced641f291e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0288",
+        "naam": "Werkvoorzieningschap Risse Groep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f28c7774-9e8f-4b11-8f71-aed9f9ee15fb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0289",
+        "naam": "Werkbedrijf Arbeid Voor Allen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cab0e92a-d28c-4e81-a2b1-dd13802a8138",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0292",
+        "naam": "WSD",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "19e25b9a-81a7-4366-af03-864b0006ee8b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0293",
+        "naam": "EMCO-groep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7bfdb881-5c9a-42c3-939e-229d91a4eaee",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0296",
+        "naam": "Sociale werkvoorziening Fryslân",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "11cd6851-5fd7-49d2-9766-d9358f9a6f61",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0298",
+        "naam": "Sociale Werkvoorziening Drechtwerk",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "43b19350-dced-4d4f-8229-120994e14d25",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0309",
+        "naam": "Afvalbeheer Westfriesland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2bd08180-6a5b-422d-bbe7-9938f8c5da49",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0310",
+        "naam": "Vuilafvoerbedrijf Duin- en Bollenstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "eb4bece4-45f9-4985-b4b8-f9cf8340b26e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0315",
+        "naam": "Reinigingsdienst Maasland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "75d170cf-1ad3-442b-b0cd-1b34909b2565",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0316",
+        "naam": "Afvalbeheer Regio Centraal Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "73810f57-d070-477f-8e4b-0dc8e5f3f921",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0328",
+        "naam": "Openbaar Lichaam Afvalstoffenverwijdering Zeeland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5bd451ca-0af2-4006-99e4-73e7d0ea59d1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0329",
+        "naam": "Afvalverwijdering Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "37cc5527-df0e-4731-a506-42dcb9851ee2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0330",
+        "naam": "Milieusamenwerking en Afvalverwerking Regio Nijmegen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "46e52501-fc95-4bfa-9898-aef4e33ab91c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0332",
+        "naam": "Afvalschap IJmond-Zaanstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f775cb8f-3ed9-4eca-b583-6a88c8b4c81b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0333",
+        "naam": "Reinigingsdienst Waardlanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "39f35a62-b7bb-4992-9f7c-1ff00102deaa",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0335",
+        "naam": "DCMR Milieudienst Rijnmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2400d446-33ba-4662-87de-724fb14a2c8d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0336",
+        "naam": "Openbaar Lichaam Crematoria Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1c19e495-00e4-484c-8ba2-78fe59f3ced1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0340",
+        "naam": "Gemeentelijke Gezondheidsdienst Hollands Noorden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6a9c7fe4-fd41-4b33-94bd-72692a3c475a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0346",
+        "naam": "Gemeenschappelijke Gezondheidsdienst Zeeland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b9c0d230-411f-479d-bb37-86e814f22773",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0358",
+        "naam": "GGD Brabant-Zuidoost",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "daed4856-a628-477e-a724-765f6f9726a6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0412",
+        "naam": "Reinigingsdiensten Rd4",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "af20bdef-95e6-43f6-a6ca-66fa007f1164",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0415",
+        "naam": "regio Stedendriehoek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d268795e-fd91-42ef-bebc-76bc2e43e95f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0422",
+        "naam": "Recreatieschap Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0e179bbd-13b6-4569-9e9f-dd8173d91e27",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0425",
+        "naam": "Samenwerkingsverband Noord-Nederland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7f1912a2-3487-4e7d-acc5-26b62b5947ee",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0433",
+        "naam": "Het Utrechts Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a3c271e0-d7d5-4576-9c03-88094055f579",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0435",
+        "naam": "Dienst Sociale Zaken en Werkgelegenheid Noardwest Fryslân",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "861407e0-e2e7-41a0-9394-d35cfe53e432",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0436",
+        "naam": "Gemeenschappelijke Gezondheidsdienst Zaanstreek-Waterland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c7f62b82-78ef-48ff-8b38-646e45152186",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0439",
+        "naam": "Omgevingsdienst Brabant Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "287dd1f9-7682-4379-97e0-128bb879ae09",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0442",
+        "naam": "GGD Hart voor Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ff0992f9-cc97-4040-a209-cf52c1b4ccf7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0444",
+        "naam": "Gemeentelijke Gezondheidsdienst Regio Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "edcb3909-53b5-4e82-b884-827e22649d16",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0446",
+        "naam": "Het werkvoorzieningschap Fryslân-West",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "de9ef463-567c-45e0-b6b6-fe8b1dfeb9e7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0447",
+        "naam": "Avalex",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "58103627-f01d-4841-a688-fe19d3bfc861",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0449",
+        "naam": "Recreatieschap Spaarnwoude",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8b4fe8c8-d8ea-491b-ab85-b8e392988220",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0451",
+        "naam": "Kompas, Gemeentelijk collectief voor werk, inkomen & zorg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "81025c9e-92e5-4738-8ae0-3df65676158c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0455",
+        "naam": "Omgevingsdienst West-Holland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "54f7ddfc-4368-4096-8fec-e689b1b07d6c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0456",
+        "naam": "Bedrijvenschap Hoefweg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "bcd68892-94e0-4119-a100-88f414823a90",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0457",
+        "naam": "Bedrijvenschap Regio Gouda",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2a00c8c2-315a-44aa-87ce-62f611be2a1d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0459",
+        "naam": "Exploitatiemaatschappij Bedrijvenpark Drachten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "564ced74-9128-4fe0-b433-f502d2b1384a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0460",
+        "naam": "Veiligheidsregio Fryslân",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a5144901-201d-4ea7-9bf5-e14a2cda88e0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0461",
+        "naam": "Intergemeentelijke Sociale Dienst (ISD) Bollenstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "339dc4a5-2c67-4f07-ad5c-5530d16f7f36",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0469",
+        "naam": "Plassenschap Loosdrecht e.o.",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7b14ec7f-8137-45c2-b4f7-6090195a6f77",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0470",
+        "naam": "Tresoar",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "76881492-f146-475b-9015-69f719cc8d5b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0472",
+        "naam": "Westrom",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "86663b2f-1b9c-4431-8cfd-e1e0a219ffe7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0474",
+        "naam": "GGD Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4677345e-4c0d-4559-9cde-86b4f8e3e19f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0476",
+        "naam": "Veiligheids- en Gezondheidsregio Gelderland-Midden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0e184e83-7023-4fe1-8fb0-b45433d4c1f0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0478",
+        "naam": "Regionaal Historisch Centrum Alkmaar",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2ccfc875-de69-4f6f-972a-b4411d001892",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0480",
+        "naam": "Het Flevolands Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f9566d4c-9b4b-455a-a5ab-2b3b267ff66d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0485",
+        "naam": "GGD West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "203dbc09-a9c3-495a-8ac9-380c16ad6e82",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0486",
+        "naam": "Gemeenschappelijke Regeling Waterschapsbedrijf Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "626c7c0f-cd13-42b1-ab74-04cf8df18d76",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0494",
+        "naam": "Veiligheidsregio Noord-Holland Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8079777a-c5d6-4c16-a011-6c08506b1373",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0496",
+        "naam": "Ferm Werk",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "647e83d0-54a2-4c3e-ab00-6f99afb5b92f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0497",
+        "naam": "Veiligheidsregio Midden- en West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f2ce5a0d-9ce7-4eca-917d-71576275fbe5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0498",
+        "naam": "Samenwerkingsverband vastgoedinformatie, heffing en waardebepaling",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "36d81ff2-d567-46fc-a325-3a75e6f9edf8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0504",
+        "naam": "Omgevingsdienst IJmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fe57eb09-7fe3-445a-a9a9-b2b43052b916",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0505",
+        "naam": "Reinigingsbedrijf Midden Nederland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2bdfe1c4-482a-4f25-9abd-d845b6f8a391",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0506",
+        "naam": "Diamant-groep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2aa4cb8b-cf19-457c-ad98-5c0adcc03a8c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0507",
+        "naam": "Samenwerkingsorgaan Holland Rijnland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5d27461a-fa76-4a99-aaa1-e76a5c3e3316",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0510",
+        "naam": "Werkvoorzieningschap regio Eindhoven",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "360253a2-5cdc-42b5-a0d1-7fc76b3cac0f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0511",
+        "naam": "Werkvoorzieningschap Noordoost-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "83799abb-58cb-4295-a71c-4ec46e963694",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0515",
+        "naam": "Samenwerkingsverband collectief vervoer Zeeuwsch-Vlaanderen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ce784e31-41af-4d1f-9ba7-42496d5c17f2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0518",
+        "naam": "Veiligheidsregio Gelderland-Zuid",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6a7ea848-4546-4b15-970a-95cd138af43b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0520",
+        "naam": "Geneeskundige Gezondheidsdienst Zuid-Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2624a7da-44ba-42da-90ce-08d54e12a874",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0521",
+        "naam": "Omnibuzz",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d4e7aad8-03b9-4c0c-b985-45867f608d88",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0522",
+        "naam": "Regionale dienst openbare gezondheidszorg Hollands Midden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "124d718e-b35a-4491-a39d-284f4351869a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0525",
+        "naam": "Veiligheidsregio Noord- en Oost-Gelderland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e1d3a2ba-98e4-46a2-a725-5b31277763f5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0526",
+        "naam": "Grondbank RZG Zuidplas",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "237d8871-d834-4cba-aa86-a01d0fcf9dfd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0529",
+        "naam": "Natuur- en Recreatieschap Lingegebied",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "330dad02-94bc-451e-874d-722b9ffde591",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0530",
+        "naam": "Recreatieschap Over-Betuwe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9b21463d-c1e6-4c0c-b2c2-e1df526c88d6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0531",
+        "naam": "Recreatieschap Nederrijn, Lek en Waal",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dbdc288c-90f8-43fd-aaa7-962c9faf6e0a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0532",
+        "naam": "Kredietbank Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d85db9e9-7f5d-4b41-b5b7-c9065ae05d68",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0533",
+        "naam": "SOWECO",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "bcb781de-a330-49b6-8383-2db896bc4a6a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0534",
+        "naam": "Werkvoorzieningschap Kampen & Dronten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "13129864-db61-4a53-bcbc-ea79ac476fac",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0536",
+        "naam": "Instituut voor Sociale Werkvoorziening Zuid-Oost Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3da05952-72d2-42bb-a5e5-5750cb30d40e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0538",
+        "naam": "Openbaar lichaam Gesubsidieerde Arbeid Kop van Noord-Holland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0960a859-4640-4d0d-9d10-bac0307226ee",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0539",
+        "naam": "Promen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ab43ff10-3aa3-4d29-9ab0-0bc7c3807fa9",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0540",
+        "naam": "De Betho",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "861da9cf-44bd-42ae-8d37-e52ba28a0e89",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0542",
+        "naam": "het Werkvoorzieningschap Oostelijk Zuid Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d72f3841-ee6d-477c-99e8-9115ab617201",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0545",
+        "naam": "Bedrijvenschap Harnaschpolder",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a99f32e9-db13-4008-ac13-e9185ecdd2e0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0547",
+        "naam": "Streekarchief Midden-Holland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0c6c1f96-cb43-42e0-ba4a-668a294614e7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0551",
+        "naam": "Rogplus",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "07dab1ed-7045-414f-9790-295388dd5ccb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0552",
+        "naam": "Openbaar Lichaam Gezamenlijke Brandweer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3f8a49d0-ed67-4e1d-86f6-ae07588842c1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0558",
+        "naam": "Gemeentelijke Gezondheidsdienst Noord- en Oost-Gelderland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "55ab27f5-a354-4b4d-8334-b08a946afdeb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0559",
+        "naam": "GR Industrieschap Medel",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2072cb3d-5c51-4d8f-b8ed-64d516759f45",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0567",
+        "naam": "Zeeuws archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2cd1d817-6a9c-4cbe-979c-999a20c4a190",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0570",
+        "naam": "Regionaal Historisch Centrum ‘Groninger Archieven’",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2ae23d9e-e9dd-4d27-83e8-12178d89878e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0571",
+        "naam": "Historisch Centrum Overijssel",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ba97ba28-d7f5-4c76-985f-7d5bc9ffe768",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0587",
+        "naam": "Openbaar Lichaam OV-bureau van de gemeente Groningen en de provincies Groningen en Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "21a97322-3775-4d56-a16a-2640a53bbd7d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0588",
+        "naam": "Veiligheidsregio Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4f9526ce-745c-4495-a6b0-6d1910f1da92",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0589",
+        "naam": "Openbaar Lichaam Eurode",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a10fbc60-0e95-4c69-96fd-099d6441299b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0592",
+        "naam": "Intergemeentelijke Werkvoorziening Gennep, Mook en Middelaar",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "46d2f016-547a-4138-89f6-d2375619999d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0595",
+        "naam": "Samenwerkingsverband kleinschalig collectief vervoer Brabant-Noordoost",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a11d7209-6fa0-4551-8fe6-ef2eff903319",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0596",
+        "naam": "Zuidelijke Rekenkamer Noord-Brabant en Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "acd017b9-e576-436b-9c67-7ce49228c954",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0597",
+        "naam": "Randstedelijke Rekenkamer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "620a5cfb-5298-4fa9-8c9a-a15f6039f832",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0598",
+        "naam": "de Noordelijke Rekenkamer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "78e89d78-1654-4366-a4f2-7abdc18c3342",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0599",
+        "naam": "Rekenkamer Oost-Nederland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b8acf9af-cf82-499d-8949-6bb9c5fedb3e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0608",
+        "naam": "Brabants Historisch Informatie Centrum",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8f49abc0-4468-47f5-907a-f33848af973a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0615",
+        "naam": "ISD BOL",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1e2ba604-a4b6-4fb2-902d-3a7d7a26c5f1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0616",
+        "naam": "Veiligheidsregio Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "79c991f6-e3a9-4cab-8337-3d41bddea169",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0617",
+        "naam": "Veiligheidsregio Rotterdam-Rijnmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b85dba47-7dde-48f5-b6a2-6c73f6333d79",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0619",
+        "naam": "Veiligheidsregio Zeeland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "237d3b62-583d-4b72-9b41-7b260e2aa6ac",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0620",
+        "naam": "Werkplein Drentsche Aa",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fc65f268-e08d-4a62-9b27-2739019f03a6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0621",
+        "naam": "Sociaal",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8e7ef831-2912-49f9-9132-70011e2b01f5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0624",
+        "naam": "Veiligheidsregio Zaanstreek-Waterland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "350ee681-dd69-4ac9-bc51-a8a47169361a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0629",
+        "naam": "Gemeenschappelijke Regeling Belastingsamenwerking SaBeWa Zeeland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "465a79ab-49f4-4cc9-8aae-0a6cf0084f9d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0631",
+        "naam": "Kempisch Bedrijvenpark",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0636",
+        "naam": "Veiligheidsregio Amsterdam-Amstelland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2a90554c-76c2-4967-a961-93bb8ce95d6f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0637",
+        "naam": "Veiligheidsregio Gooi en Vechtstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f3bd2db9-920b-4fdd-8aa3-6793166754a2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0638",
+        "naam": "Veiligheidsregio Flevoland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "012df8a6-67d9-4949-a59e-7bf7a17325ff",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0639",
+        "naam": "Veiligheidsregio Brabant-Zuidoost",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6568af3e-1f9e-4dee-ae35-fadbb7c35acb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0640",
+        "naam": "Veiligheidsregio Kennemerland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b4a2b85-1e3a-493f-a48b-b05def9cb879",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0641",
+        "naam": "Regio-AV",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "19b9a07c-25a8-4fe5-b634-7e081f6b098d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0642",
+        "naam": "Westfries Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c2b17bfe-d4a6-4efa-8354-4afbde5bf438",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0645",
+        "naam": "Fijnder",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "628ad21a-d109-4ac3-9b50-fbf557fe776c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0646",
+        "naam": "GR Bleizo",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2dc32515-549b-453c-b29e-58dbc0004704",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0648",
+        "naam": "Belastingsamenwerking Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f52038b3-f934-4e51-b020-f8a09db477ad",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0651",
+        "naam": "Gemeenschappelijke Regeling Gemeentelijk Belastingkantoor Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "64acec46-d4fc-4ba9-8679-7347563a8f8e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0652",
+        "naam": "Het Waterschapshuis",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "85876fe0-de19-4172-afbd-83b0b0fd8847",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0660",
+        "naam": "Veiligheidsregio Zuid-Holland Zuid",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "58444889-a65c-419d-b042-354c013d460e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0665",
+        "naam": "Samenwerking Kempengemeenten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b3c2f394-dd9c-44e6-97d7-78eab101aeb0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0669",
+        "naam": "Omgevingsdienst Zuid-Holland Zuid",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b332f095-211f-48f3-982d-8e88e5e9c7dc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0670",
+        "naam": "GGD IJsselland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "84cb89bf-9106-4426-a035-b734924b4e53",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0676",
+        "naam": "Veiligheidsregio Hollands Midden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e594abf1-c65b-482f-a7e7-562cb25c943f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0679",
+        "naam": "Veiligheidsregio Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b0bdafb-f989-4127-8e8d-967f223b1a9b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0680",
+        "naam": "Belastingsamenwerking Gouwe-Rijnland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2b251fe9-d8d3-4cc2-a8e6-2de997ac3f11",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0681",
+        "naam": "Werk-/Leerbedrijf NoardEast Fryslân",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dc857c94-c4a3-496e-9b35-186adda6939c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0682",
+        "naam": "Samenwerking De Liemers",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "053165da-42bc-47bb-954b-08510fc0f579",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0684",
+        "naam": "Regio West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "37e30691-0f20-450e-96f0-90f24486390e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0685",
+        "naam": "Regionaal Bedrijventerrein Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "aef62d61-9d87-42d5-a4c4-4a869fa59d7a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0688",
+        "naam": "Regio FoodValley",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3f6592a3-cf06-410f-a18f-622110baf9fd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0695",
+        "naam": "Uitvoeringsorganisatie Baanbrekers",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "bebcdba2-f0ba-485a-8930-b2bdb22d9287",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0696",
+        "naam": "Omgevingsdienst Flevoland & Gooi en Vechtstreek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c90f289a-766b-45d1-a7d8-ffdbb5e211af",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0697",
+        "naam": "Omgevingsdienst regio Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c327d150-8518-4c84-bed8-a15f7c056841",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0698",
+        "naam": "AQUON",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "708c6d84-1b00-42c1-917e-998afd1cc267",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0699",
+        "naam": "Centraal Nautisch Beheer Noordzeekanaalgebied",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a383239b-72d3-4f3e-9d34-60b373d145fd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0700",
+        "naam": "Omgevingsdienst Haaglanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "16057a4e-a342-4084-9a79-84a8e245c2b8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0702",
+        "naam": "Waddenfonds",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5d792bcc-49d9-4b20-832f-528c241aa96c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0703",
+        "naam": "Orionis Walcheren",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5e25f580-11fd-47a5-a472-d16010cd3850",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0705",
+        "naam": "Noaberkracht Dinkelland Tubbergen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a9eda262-78bb-47a5-8cb1-bf922c220ebe",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0706",
+        "naam": "Veiligheidsregio Zuid-Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1496359c-a489-4bf9-9256-49c0df67af2c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0708",
+        "naam": "Regionale Ambulancevoorziening Brabant Midden-West-Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b8fcab2-a132-4539-a832-afb0a3dadeab",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0710",
+        "naam": "Regionale Dienst Werk en Inkomen Kromme Rijn Heuvelrug",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9d255593-f140-4692-a827-da9365a43db5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0711",
+        "naam": "Syntrophos",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "36e31b35-0df3-4f31-8ec6-01228f7fc803",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0712",
+        "naam": "Omgevingsdienst Midden- en West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8d829c9c-f4c0-45c9-9536-835b5ba05b84",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0713",
+        "naam": "Omgevingsdienst Midden-Holland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2238700a-4405-43d1-af1d-a6aced22fdd6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0715",
+        "naam": "Belastingsamenwerking Gemeenten en Waterschappen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "90eea944-591b-4d70-a306-24cf213e64fc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0716",
+        "naam": "RID",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ab9084ad-46f3-48ea-80b3-aa3f76bc6a37",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0717",
+        "naam": "GBLT",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ce9f527f-4dde-45e4-9ec4-f05e23f78e30",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0718",
+        "naam": "Omgevingsdienst Achterhoek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5ddffa04-5eaa-45e3-924f-52a2328fcd88",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0719",
+        "naam": "Werk en Inkomen Lekstroom",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b90ecb28-c7fc-4413-b2ad-0886d63e5a7d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0720",
+        "naam": "Gemeentelijke Gezondheidsdienst Gelderland-Zuid",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a381dbcf-6b5d-44ad-b4f7-2d967ebb1e1a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0721",
+        "naam": "Omgevingsdienst Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "626ab6fa-3807-45f6-a3a5-a0023ebbb73d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0723",
+        "naam": "Dienst Dommelvallei",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2e748a9d-c3b0-4ac8-a09b-7a6f91bb59a6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0726",
+        "naam": "Benelux Groepering voor Territoriale Samenwerking aan-z",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "386be485-650e-4643-89f4-dae3bac09498",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0730",
+        "naam": "Stadsgewestelijke brandweer Vlissingen-Middelburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "23f290e7-2b85-4df0-a5bd-09efa7e28f34",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0731",
+        "naam": "Gelders Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a90fa9ad-02ee-4a8b-98c5-74ae544fafd8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0732",
+        "naam": "Openbaar Lichaam Duits-Nederlands Grenspark Maas-Swalm-Nette",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d32f1cb5-c5a5-40a0-906e-ab3b3ad1c757",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0734",
+        "naam": "Historisch Centrum Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "775a71e6-07e3-4cad-bc18-09b0e5d7174e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0735",
+        "naam": "Noord-Hollands Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "311f32fd-38e4-49e6-8001-030d0b156f7c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0740",
+        "naam": "Blink",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a407adb4-6e2c-4f30-9d2f-fb2fe04295a0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0747",
+        "naam": "Reinigingsdienst De Liemers",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d6d95689-44ca-479d-9087-b9f2cf71fd88",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0753",
+        "naam": "Cocensus",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0fdddc34-643e-47a4-b794-76984f6d8e79",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0754",
+        "naam": "OVER-gemeenten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4389b7eb-dc1c-4582-8654-ccc9ad03fbe2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0755",
+        "naam": "Regionale Belasting Groep",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c145e8a1-54ec-460c-b025-22ff37945854",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0756",
+        "naam": "BEL Combinatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "90b7358d-badc-430a-a783-ccc03f6d2c3b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0760",
+        "naam": "Belastingsamenwerking West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "912b3e8e-e8af-4f22-8694-fffe44c71abd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0761",
+        "naam": "Regionaal Archief Zuid-Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b4222df8-7021-4084-9b87-ff30aa8c1c45",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0762",
+        "naam": "Parkorganisatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3a00f980-bb43-4ca2-8c56-2d15fe92b790",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0763",
+        "naam": "Samenwerkingsverband afvalstoffenverwijdering Oost- en Zuidoost Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "56ca7359-d71c-4ea6-9ee7-a5068d5cfae8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0766",
+        "naam": "Projectbureau Herstructurering Tuinbouw Bommelerwaard",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a4445309-d0a1-4f2d-9532-48b548cd908e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0768",
+        "naam": "RHC Drents Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f7420b89-1127-4d19-ac40-72daa7860ec5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0771",
+        "naam": "Erfgoedcentrum Achterhoek en Liemers",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "919171d6-6438-4743-b066-42c13503aa7d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0772",
+        "naam": "Belastingsamenwerking Oost-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a27f0209-1fb5-4cb0-8544-98de1fb5ef0e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0773",
+        "naam": "Nazorg gesloten stortplaatsen Bavel-Dorst en Zevenbergen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7a81faa5-0f75-4db5-aa47-f234c1975a97",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0775",
+        "naam": "Bureau Openbare Verlichting",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "42bfe92c-7cb0-4404-aba6-ea3c17b9fd7b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0776",
+        "naam": "GR Nieuw Reijerwaard",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6431f46c-e29b-4575-9a32-c78953cb3f9e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0777",
+        "naam": "Meldkamer Oost Nederland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8f735c50-3916-4b81-b8b2-d4ee4a5dc55d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0778",
+        "naam": "Samenwerking A2-gemeenten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6f7951b0-a1df-4c05-b14b-79502df7696b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0779",
+        "naam": "Reflexis Openbaar Basisonderwijs",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f7a14457-4f03-4122-bf93-c9bbad9560ac",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0780",
+        "naam": "Omgevingsdienst Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9f89463f-7941-44b9-ad18-7cd40e6cfb9c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0781",
+        "naam": "Omgevingsdienst Noord-Veluwe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "79824a13-2515-4139-a655-fbb2806589b6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0783",
+        "naam": "Omgevingsdienst Regio Nijmegen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c9b54dbb-1208-4ea0-9994-39bea484fd6b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0784",
+        "naam": "Servicecentrum MER",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "29af4156-da62-4b8c-9de0-f143d0667278",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0786",
+        "naam": "Omgevingsdienst Veluwe IJssel",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "52b25698-d9ca-4a9f-ba41-7e6b2d4282a2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0787",
+        "naam": "Omgevingsdienst de Vallei",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "93addbe6-7baf-4b54-ad7b-760a68fe841f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0788",
+        "naam": "RUD Zuid-Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b84b6b9c-2ede-40a3-b2ec-f3d98ad64347",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0789",
+        "naam": "Omgevingsdienst Noordzeekanaalgebied",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "90d96d4b-335b-411b-a444-e7a42f04b212",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0790",
+        "naam": "Omgevingsdienst Zuidoost-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fb233b77-3e2c-4903-ba22-49e376759283",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0791",
+        "naam": "Gemeenschappelijke regeling Cure",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6f73e9de-d7d5-4a8f-bf9f-65d229f4fd8d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0794",
+        "naam": "Fryske Utfieringstsjinst Miljeu en Omjouwing",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b0577296-1b66-48fc-b96a-73103b645923",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0796",
+        "naam": "Belastingsamenwerking gemeenten en hoogheemraadschap Utrecht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "52cd1193-acc4-4de5-a150-0972464e3606",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0797",
+        "naam": "Gemeenschappelijke Rekenkamer Metropool Amsterdam",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "706f8e81-31c3-461f-8c51-44e45af3c945",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0798",
+        "naam": "Rioolwaterzuiveringsinstallatie Gooiergracht en vijzelgemaal Eemmeer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b9c9fa4-aac3-48eb-bded-5eb5ba8ec538",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0815",
+        "naam": "Aqualysis",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3f5eedc3-8af4-4ee8-934c-092c36957118",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0820",
+        "naam": "Regionale uitvoeringsdienst Zeeland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e8888f3b-89cf-418a-95b1-ba6d2b845326",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0821",
+        "naam": "Regionale Uitvoeringsdienst Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e069a4c2-005d-4dab-86e8-9ad22e4be7eb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0822",
+        "naam": "Meerinzicht",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b3dc6ebb-8cd3-4877-a750-9d31b2eb6636",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0823",
+        "naam": "Veiligheidsregio Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ea52cb3c-4764-4c57-a699-2885bd0a994d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0824",
+        "naam": "GGD Groningen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4a4712ff-528e-431a-bd21-1f262b068bff",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0826",
+        "naam": "Omgevingsdienst Regio Arnhem",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d82fd208-9e74-4c82-9772-cf4cc203cff3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0827",
+        "naam": "Omgevingsdienst Noord-Holland Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ad44cbc2-99e8-4637-9a57-beb3c99a1dcb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0828",
+        "naam": "BAR-organisatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d040e7a1-e659-46f7-a1fc-b459d42d2de3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0829",
+        "naam": "IJSSELgemeenten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a762c6cb-c09c-426d-8dd0-1395ee9cba60",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0830",
+        "naam": "Metropoolregio Rotterdam Den Haag",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2ff225c8-ac8d-4a1d-a0c5-e40393212690",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0831",
+        "naam": "Metropoolregio Eindhoven",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1dd4c742-7d83-48b6-8971-ac11e390793a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0832",
+        "naam": "Samenwerkingsorganisatie De Wolden Hoogeveen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9da4149b-443e-4e54-bd79-21860d26c6f7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0833",
+        "naam": "SED organisatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "380935c1-3403-4fd1-a28e-0b46e75bd3c6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0835",
+        "naam": "Regio Hart van Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8427058a-d7e5-4fd2-823b-bc51456c2aa3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0836",
+        "naam": "Heesch West",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "89a8cfec-17f4-48c0-ae7c-0de16ba28258",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0839",
+        "naam": "Groenalliantie Midden-Holland en omstreken",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8aa85299-c113-4fd3-8e33-a963b5369199",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0840",
+        "naam": "Modulaire gemeenschappelijke regeling Rijk van Nijmegen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "26d10fde-660c-40b3-b13e-be05c998c1f1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0841",
+        "naam": "Modulaire gemeenschappelijke regeling sociaal domein Limburg-Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "17881d9d-d33c-496e-a951-fdcf99de6077",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0842",
+        "naam": "Openbaar Lichaam Jeugdhulp Rijnmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6621eec0-00f3-47b3-aacf-877205a9be24",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0843",
+        "naam": "Regionale uitvoeringsdienst Utrecht 2.0",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "903f189e-5130-42c6-9cc3-a0e40a86e63f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0844",
+        "naam": "Shared Service Center DeSom",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "97277691-e223-4ac8-a72d-3a8b10592f43",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0845",
+        "naam": "Werkmaatschappij 8KTD",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e4490eeb-43f8-40b0-b4dc-4f9c06020b73",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0846",
+        "naam": "Werkplein Hart van West-Brabant",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "78d117be-1d37-414d-8ca6-48a426e7f100",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0847",
+        "naam": "HALte werk",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3fb30ca1-8784-4286-80e6-75e7ec2a0021",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0849",
+        "naam": "Plusteam",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "30304b74-534e-4806-bcd4-8e85c0904252",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0851",
+        "naam": "Stroomopwaarts MVS",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b2e91291-1a34-46df-8cbd-3aa7ca38cd52",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0853",
+        "naam": "MijnGemeenteDichtbij",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "38e642f3-ad52-42d7-9f14-d95a40a2bb51",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0854",
+        "naam": "ABG-organisatie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4b997891-ec3e-46f4-9a97-151c1fcecd10",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0855",
+        "naam": "Werkzaak Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "79abf56b-ad65-4c72-a2cc-088ee27efa4e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0856",
+        "naam": "Bedrijfsvoeringsorganisatie West Betuwe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "acdacc40-7ecf-4420-b973-84338f15641c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0857",
+        "naam": "Avres",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c4df7fc9-5406-4b54-92cc-ab49e09eb647",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0858",
+        "naam": "Samenwerking De Bevelanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "143655df-01fc-4bcb-bb54-086ae5ae7220",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0860",
+        "naam": "Tribuut belastingsamenwerking",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5e047ad0-958b-4341-883f-28de7d62a9e0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0861",
+        "naam": "Avri",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4cd40f09-69af-4148-ba95-ed6c0c59ae71",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0862",
+        "naam": "Uitvoeringsorganisatie Laborijn",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a3e69bf9-c0db-4a50-8bf1-96be6a4076a3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0863",
+        "naam": "Senzer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "af96f345-d147-49d3-9bb8-44dc59466af8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0864",
+        "naam": "ICT samenwerking West-Brabant-West",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "42b45ceb-64a1-4fd5-a85c-e1602e0fca7a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0866",
+        "naam": "Werkorganisatie HLT Samen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cb7d675b-cd49-4539-8105-f5df910f7449",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0868",
+        "naam": "Duo+",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "27c377f0-91ba-4902-95fc-8e830647645d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0869",
+        "naam": "Recreatieschap Twiske-Waterland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0f7b6bbd-e10e-4e01-ab50-49e1c9882eb5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0871",
+        "naam": "Prolander",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8c86e52a-71fd-46f3-b718-027d218273a7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0872",
+        "naam": "Vervoerscentrale Stedendriehoek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ee03cfc6-7907-4a72-b0f9-d28f6f650b93",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0873",
+        "naam": "Bedrijfsvoeringseenheid Bommelerwaard",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9e41ec44-b5f0-4b55-a822-8013ff4b5fa6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0874",
+        "naam": "Werkorganisatie BUCH",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "29c508e1-72fd-47b8-9e91-e3995662f80b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0876",
+        "naam": "West-Brabants Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e35f2620-4b98-49e3-8451-9d155b8846aa",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0877",
+        "naam": "Peelgemeenten",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9af3ef92-7a56-4040-b743-4ae3fa0ab6bd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0881",
+        "naam": "Omgevingsdienst IJsselland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "59783e01-21c0-4a5d-9409-6592b647cf9a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0882",
+        "naam": "Modulaire gemeenschappelijke regeling sociaal domein centraal Gelderland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0c953889-117a-4a5a-835e-8ebd68dbcb7d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0884",
+        "naam": "Bedrijfsvoeringsorganisatie Delft-Rijswijk",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b2fd5ec2-28c8-4cbf-a7ec-4577bf70e1ca",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0885",
+        "naam": "Het Gegevenshuis",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b09e8e07-584c-4d46-9e3e-701e2b787de6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0887",
+        "naam": "Gemeentelijke gezondheidsdienst Amsterdam-Amstelland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "603d5ca9-0d98-4d12-90bd-57630c6ca319",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0889",
+        "naam": "IGUO",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "27c425ef-3b72-4127-b1dd-75d0c32a185f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0890",
+        "naam": "hûs en hiem, welstandsadvisering en monumentenzorg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "82e8dadb-3df5-4ffd-aa64-6699701c110f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0892",
+        "naam": "Omgevingsdienst Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fa56f8e2-117d-4092-923d-2a16127081e9",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0893",
+        "naam": "Gemeenschappelijke regeling samenwerking sociaal domein Baarn, Bunschoten en Soest",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c5193682-3dbc-4cdc-9e47-5efab3b6c8d1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0894",
+        "naam": "Mobiliteitsbureau Noordoost Fryslân",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e1389eec-2e41-4538-8faa-5e28a9267b48",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0895",
+        "naam": "het participatiebedrijf",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8064c676-0201-479e-a296-68c48f0d99e9",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0896",
+        "naam": "1Stroom",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d138b215-8315-4fd4-9797-4f2352a488f5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0897",
+        "naam": "Werkorganisatie Druten Wijchen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "161b9a07-2cd6-4308-913d-959a0bd610c8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0899",
+        "naam": "Lucrato",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "599c4c30-54b7-4cf8-a254-07fc5a8f9734",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0900",
+        "naam": "het Werkgeversservicepunt Parkstad",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "37499988-ba7a-4077-96f1-bb53d5c59604",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0901",
+        "naam": "Regionale Uitvoeringsdienst Limburg-Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "74368102-4dde-46f0-b142-5bbbf6f2f054",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0902",
+        "naam": "Samenwerkingsorganisatie Publiek Vervoer Groningen Drenthe",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dc79d54e-62ab-4257-827b-1a6855245c68",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0903",
+        "naam": "Gemeentelijke Gezondheidsdienst en Veilig Thuis Haaglanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7b818222-f9e8-435a-ba58-bf40230c2701",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0904",
+        "naam": "Shared Service Centrum ONS",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0cddb75b-8af0-427e-a827-f77506700a47",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0905",
+        "naam": "Bedrijfsvoeringsorganisatie doelgroepenvervoer regio Arnhem Nijmegen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f2698cd3-9f28-4d71-bcea-c15cec1d93f1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0906",
+        "naam": "Ingenieursbureau Krimpenerwaard",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "37eb0904-395c-4154-b567-cc1a6d4a2c99",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0907",
+        "naam": "Veiligheidsregio en Gemeentelijke Gezondheidsdienst Limburg-Noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b1cdcd58-7df8-4007-ac04-7e39fc697440",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0908",
+        "naam": "Openbare gezondheidszorg Amstelland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6f960c1a-8bab-4c1a-9da8-c94f1e93ffbb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0910",
+        "naam": "Gemeentelijke Gezondheidsdienst Flevoland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "96140ae3-1162-470f-b586-73acae45d929",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1004",
+        "naam": "Eems Dollard Regio",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "76acb7e9-b131-4a21-ae1a-eb060eb8441d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1005",
+        "naam": "EUREGIO",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cee501ea-ae29-4dab-87bf-ef5bcdd20094",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1006",
+        "naam": "Euregio Maas-Rijn",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7901a363-8433-431b-827a-c6c6abf06ecd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1007",
+        "naam": "Euregio Rijn-Waal",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "599c0b00-649f-4e17-9f08-337150daff3b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1013",
+        "naam": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e912b121-60fe-42e2-b8a8-228a6a759543",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1022",
+        "naam": "Noordelijk Belastingkantoor",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cc242fa4-b3e7-42c9-b03e-c5d3d82492ee",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1030",
+        "naam": "Openbaar lichaam Slibverwerking",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fb0407e3-ec50-48e5-9ff7-3e43db53a353",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1034",
+        "naam": "De Waddeneilanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ab766a00-5272-4ec9-9bf2-2e700654b14a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1037",
+        "naam": "Vuilverbrandingsinstallatie Alkmaar en Omstreken",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ad2051e7-aa6b-46f7-80bd-18ee44ba4ef8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1039",
+        "naam": "Amstelland-en Meerlandenoverleg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4cf16e05-d62f-4482-9302-dfc5d27f49be",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1041",
+        "naam": "Stark",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8fa05a42-7dc0-4d36-9deb-62a516a5df70",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1042",
+        "naam": "ICT Noord- en Midden-Limburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5d976c5d-093f-4401-b586-b3e7f7aa46d7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1043",
+        "naam": "Bedrijfsvoeringsorganisatie H2O",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6e236c6f-4998-4c11-bfd2-41fa73d6314c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1044",
+        "naam": "Bedrijfsvoeringsorganisatie Rijn en Braassem",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ce7506bf-b090-4ab6-886d-3fc76298a22b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1045",
+        "naam": "Ombudsman Metropool Amsterdam",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8644b684-5bd8-4f88-b1dd-cc482de91f20",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1046",
+        "naam": "Grensoverschrijdend Openbaar Lichaam Natuurgrenspark De Groote Heide",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "756186d1-0d03-4667-8d6b-9e4b40f59d48",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1048",
+        "naam": "Afeer",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "40ead5f1-8393-4d0f-9b9e-b6953f03eb38",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1049",
+        "naam": "Gemeenschappelijk Orgaan schoolverzuim en voortijdig schoolverlaten West-Kennemerland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "060fd213-4d98-45e6-b063-81a59cfe35f8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1051",
+        "naam": "Waterlands Archief",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "13a6d199-5b68-4de6-acea-339d7a944d72",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1052",
+        "naam": "Orgaan Bereikbaarheid Zuid-Kennemerland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3519512e-79b3-4c8c-ac37-6da4308327dd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1053",
+        "naam": "Gasdistributie Zeist en Omstreken",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "849f23d0-1a3c-4c8b-9c8d-219aeef879e5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1054",
+        "naam": "ReinUnie",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c481d9aa-0cea-4f91-9ae4-1ef706e8c415",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1055",
+        "naam": "Participatiebedrijf KempenPlus",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cf416fac-e420-4af6-b0c6-77279c654860",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1057",
+        "naam": "Uitvoeringsorganisatie Breedbandnetwerk Rivierenland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4846cbf7-4e97-4998-825a-7840a861dfae",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1058",
+        "naam": "CJG Drimmelen Geertruidenberg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e8e00129-4efd-4f52-87b2-cdbee37023c9",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1060",
+        "naam": "Gemeenschappelijke Regeling Vidar Wsw",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "816e2541-a29d-4c2b-9507-56baac38afc8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1062",
+        "naam": "euregio rijn-maas-noord",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1e2a507d-5b00-4f83-a893-7cef7c5fbb10",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1063",
+        "naam": "Servicebureau Jeugdhulp Haaglanden",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d4f6cb74-b778-46ba-b499-87879ebaa31a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1064",
+        "naam": "Europese Gemeenschap voor Territoriale Samenwerking",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "630a8c62-71a5-4391-9d45-fefa8abf229c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1065",
+        "naam": "Schadevergoedingsschap HSL-Zuid, A 16 en A 4",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1f73fd6b-cf1a-483e-8526-b73357016d33",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1066",
+        "naam": "Regionaal Serviceteam Jeugd IJsselland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "bd852f64-ced0-407d-98ea-8cd8390c0a38",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1067",
+        "naam": "Technology Base",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "cf58f679-8811-453b-9783-4db9ba8ad25c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1070",
+        "naam": "Bedrijfsvoeringsorganisatie Valleihopper",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f27a2f86-9c8a-4424-98f0-0d47c7fab3e5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1071",
+        "naam": "Gemeenschappelijke Vuilverwerking Dordrecht en Omstreken",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "266cae6c-d8c5-4737-b197-aa03eb204272",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1072",
+        "naam": "BENEGO",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a6b279ff-41fd-4a42-a5a9-1f5e86fd7385",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1073",
+        "naam": "Groene Metropoolregio Arnhem-Nijmegen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c58dbe37-cc24-4c2b-8609-d60222159266",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1074",
+        "naam": "Intergemeentelijke Sociale Dienst Brabantse Wal",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c2f7ff78-010d-4d0b-99a6-6121d161b695",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1075",
+        "naam": "Regionaal samenwerkingsorgaan openbaar basisonderwijs De Kempen",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "87939885-9103-40a6-a077-3b9e04fb0698",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1076",
+        "naam": "SPOOR-raad",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b4059707-c64d-4956-b390-c9fdd8568697",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1077",
+        "naam": "Toezichthoudend orgaan openbaar primair onderwijs Olst-Wijhe en Raalte",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0dca518d-ae6b-4a5d-9c0a-0581d6c5d3a8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1079",
+        "naam": "Recreatieschap Twente",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0fee7f6f-bad4-47d3-b545-1d746e488cc3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1080",
+        "naam": "Openbaar Lichaam Vuilverwerking Noord Oost Achterhoek",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "87f2e498-79aa-4552-b858-4f444ed0fd43",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1081",
+        "naam": "Serviceorganisatie Zorg Holland Rijnland",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9c352e41-7780-4984-9e94-08ff75531059",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1082",
+        "naam": "Streekarchivariaat de Liemers en Doesburg",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "09093e76-6ee6-4e5c-aa1c-2bd3a62e0c9e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1083",
+        "naam": "Gemeenschappelijk orgaan siteholderschap werelderfgoed Hollandse Waterlinies",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2fda6552-8d1f-43ad-913a-3a641aa7787d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so1084",
+        "naam": "Gemeenschappelijke regeling Geul en Maas",
+        "oorsprong": "solijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1c7cd98e-7991-42e0-9f31-358c08793b72",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10000",
+        "naam": "Verenigde Vergadering",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1b023cec-b5f7-494d-b83c-c2fb310ff958",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10001",
+        "naam": "Eerste Kamer",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "938b563d-0234-455b-a8cd-269b56a1e69c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10002",
+        "naam": "Tweede Kamer",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e76f8240-49e3-4a0e-b331-d976721e1ca1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10003",
+        "naam": "Rijksdienst voor het Cultureel Erfgoed",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "650a418f-5587-40c3-9fcf-da08398333d6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10004",
+        "naam": "Rijkswaterstaat",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "57372c02-6a34-410a-b526-32d6a8a8a8ae",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10005",
+        "naam": "Rijksdienst voor Ondernemend Nederland",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b9bc170c-d5da-4339-8664-8a4454004b60",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10006",
+        "naam": "Inspectie Leefomgeving en Transport",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4e6e4cec-1cd7-400c-abe7-d09e61cad90d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10007",
+        "naam": "ProRail",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f144d02d-13a2-414e-8a61-46abf19d9e0b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10008",
+        "naam": "Raad van State",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "43041aa0-089b-4f7e-8746-6c557b90ff0e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10009",
+        "naam": "Koninklijke Beroepsorganisatie van Gerechtsdeurwaarders",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d4acde7f-4a4c-46d5-affa-a4c46b1de8bc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10010",
+        "naam": "Koninklijke Notariële Beroepsorganisatie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b0512c55-75ea-46ce-80a2-2309258bc7c0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10011",
+        "naam": "Nederlandse beroepsorganisatie van accountants",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "317c1f0a-5ff1-4c9b-a186-5308a434b053",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10012",
+        "naam": "Nederlandse orde van advocaten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6a6a0e0c-1e17-43b0-88e6-4d3ae74037f4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10013",
+        "naam": "Orde van Octrooigemachtigden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3e3a3831-ea39-4ca1-b1d0-d9e6657d51a2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10014",
+        "naam": "Gerechtshof Amsterdam",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8a40bc70-2d7d-406c-a075-a8303c00cf6c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10015",
+        "naam": "Gerechtshof Arnhem-Leeuwarden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7d1dc303-718a-4f21-9128-c15b5e98f3c2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10016",
+        "naam": "Gerechtshof Den Haag",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "51844f12-5af4-4944-aaee-e925755c52f4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10017",
+        "naam": "Gerechtshof 's-Hertogenbosch",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "577152d5-dd60-4405-8815-8fa067efb043",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10018",
+        "naam": "Rechtbank Amsterdam",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b7d55ba0-b239-4f90-b0e3-626ce57aec0d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10019",
+        "naam": "Rechtbank Den Haag",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a7ef802b-3986-46d9-b21f-10c2ffc04ddf",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10020",
+        "naam": "Rechtbank Gelderland",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9c2dbc2b-eb83-48f5-9408-3b927ff30f6b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10021",
+        "naam": "Rechtbank Limburg",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "851dc9fb-9089-4cef-a639-76205d8214bd",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10022",
+        "naam": "Rechtbank Midden-Nederland",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "85a91082-ba51-4edf-b0a0-ac8ac69a720c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10023",
+        "naam": "Rechtbank Noord-Holland",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "631cedeb-33b4-4136-af82-a9cbeefc431c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10024",
+        "naam": "Rechtbank Noord-Nederland",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5f5e27f9-3dfc-4290-8f76-cd6de004808c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10025",
+        "naam": "Rechtbank Oost-Brabant",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d80a9a70-132c-4d39-90a2-bccb6f255855",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10026",
+        "naam": "Rechtbank Overijssel",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "83102877-d333-431d-8bac-b2dd6a7dfe73",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10027",
+        "naam": "Rechtbank Rotterdam",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f7807697-c727-40ab-9954-1a08266a3583",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10028",
+        "naam": "Rechtbank Zeeland-West-Brabant",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b27fa73f-525f-4e25-9f94-a6f515a54c1e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10029",
+        "naam": "Gemeenschappelijk Hof van Justitie van Aruba, Curaçao, Sint Maarten en van Bonaire, Sint Eustatius en Saba",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a2659330-892b-4f75-9acb-d3108eef73f6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10030",
+        "naam": "Gerecht in Ambtenarenzaken van Aruba, Curaçao, Sint Maarten en van Bonaire, Sint Eustatius en Saba",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7f1c71a8-3eb2-4164-8fef-6bfff284116c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10031",
+        "naam": "Raad van Beroep in Ambtenarenzaken van Aruba, Curaçao, Sint Maarten en van Bonaire, Sint Eustatius en Saba",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "051c28d5-7904-458b-965c-1948c703189b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10032",
+        "naam": "Raad van Beroep voor Belastingzaken van Aruba, Curaçao, Sint Maarten en van Bonaire, Sint Eustatius en Saba",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "54221a67-5a3a-40bb-8db7-14af6cd1ad08",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10033",
+        "naam": "Centrale Raad van Beroep",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "17ca1e41-00b6-4eb5-ba02-48de4b36af15",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10034",
+        "naam": "College van Afgevaardigden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4673fafe-ae5b-40f4-860c-96fd03bbac17",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10035",
+        "naam": "College van Beroep voor het bedrijfsleven",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9457fa24-7cc0-478a-b4e3-351966ea476f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10036",
+        "naam": "Hoge Raad der Nederlanden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "feb2397c-4b53-4550-a84c-c5a5b527be95",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10037",
+        "naam": "Parket bij de Hoge Raad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4bf17ae3-b52c-4892-8585-17e41dec1dca",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10038",
+        "naam": "Raad voor de rechtspraak",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b2ea7cb0-ee1f-4a47-a073-a2a1ee23c780",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10039",
+        "naam": "Afdeling bestuursrechtspraak van de Raad van State",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b99b2720-43ac-47c8-838f-bbaf20efad95",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10040",
+        "naam": "FMHaaglanden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b1d7c416-a2f4-49a4-9ea1-b895fc23ecc5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10041",
+        "naam": "Rijksorganisatie Beveiliging en Logistiek",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7876e6b5-406e-4c08-bda1-d0495e443e0b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10100",
+        "naam": "Hoge Raad van Adel",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d0f5650e-c4a8-42b2-a303-2ee7898033d8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10101",
+        "naam": "Nederlands Forensisch Instituut",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3763ab34-c2c5-4b46-bbff-a5a2315a7366",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10102",
+        "naam": "Nederlandse Voedsel- en Warenautoriteit",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "62f51b86-b5b6-4eaa-961f-f9d929c28594",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10103",
+        "naam": "Rijksdienst voor Identiteitsgegevens",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "104e5749-c04d-4ecc-858d-278eee4dc618",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10104",
+        "naam": "Justis",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d6ad37fa-9a8a-4915-8e5c-b7e04c0aec52",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10105",
+        "naam": "Wetenschappelijke Raad voor het Regeringsbeleid",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c9ebca3c-a486-4b66-b0da-382d47009924",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10106",
+        "naam": "Adviescollege levenslanggestraften",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ffcaecac-4995-4045-a0b6-cfef47948122",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10107",
+        "naam": "Adviescollege Verloftoetsing tbs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7dcbe931-5060-45b6-9442-f8bd1d4e34e0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10108",
+        "naam": "Adviescommissie ongeschiktheidsontslag rechterlijke ambtenaren",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fbb3031e-19af-40a1-9f22-4d48bfc24e77",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10109",
+        "naam": "Commissie beëdigde tolken en vertalers",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "47446679-e47d-4222-9408-43c4029c3b05",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10110",
+        "naam": "College ter Beoordeling van Geneesmiddelen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9c69885b-26b3-4771-ad69-ebf64c7f15b3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10111",
+        "naam": "Centraal Justitieel Incassobureau",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2cf4d23b-73ed-4fd0-aff8-ee266814227f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10112",
+        "naam": "Centraal Informatiepunt Beroepen Gezondheidszorg",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "834146e3-7536-4c69-81e0-ac42aa9c0b8d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10113",
+        "naam": "Dienst ICT Uitvoering",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "83fa4fd9-5574-4453-b13f-9c64484bb398",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10114",
+        "naam": "Dienst Justitiële Inrichtingen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "babd73b4-0895-45cd-8b14-10e64efec009",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10115",
+        "naam": "Dienst Publiek en Communicatie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4d303d15-8f0f-4160-a032-338b8029d1c7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10116",
+        "naam": "Koninklijk Nederlands Meteorologisch Instituut",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "73c25404-72a3-4d91-80ce-e8afa6599c09",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10117",
+        "naam": "Logius",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8e44788f-d502-4005-b812-685e1d5bd50d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10118",
+        "naam": "Nationaal Archief",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "902dc63b-aa50-4e1e-ab1f-6cb27866267a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10120",
+        "naam": "Organisatie en Personeel Rijk",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "009b2a45-74c4-4900-9a1f-84f790b1b1a4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10121",
+        "naam": "Paresto",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "aa273c9c-89b1-48a9-aa54-da6f8345bd4b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10123",
+        "naam": "Rijksinstituut voor Volksgezondheid en Milieu",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0b6fdab8-ab71-4bcf-8a4a-e8da3a66344c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10124",
+        "naam": "Rijksvastgoedbedrijf",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e4a42f3d-78e6-409b-823a-deafa57d02b7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10128",
+        "naam": "Commissie Feiten en Tarieven",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8408c815-22d7-43c9-b2f4-8173ae7b0072",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10130",
+        "naam": "Cyber Security Raad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c4917dce-c7e3-4b20-be3e-89a6b9690769",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10131",
+        "naam": "Klachtencommissie beëdigde tolken en vertalers",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "904162c7-1359-41e5-8041-865bf9146686",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10132",
+        "naam": "Kwaliteitscommissie Bibob",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1b1545de-afa1-4016-a731-e2e2a0f507c2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10133",
+        "naam": "Kwaliteitsinstituut beëdigde tolken en vertalers",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1e18daaf-32d1-45a3-9db6-7248b3f22de8",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10134",
+        "naam": "Landelijke adviescommissie plaatsing longstay forensische zorg",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "96a84898-39ab-4fa7-9cf0-20baacbcfcc1",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10135",
+        "naam": "Politieonderwijsraad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e8aed0b4-2917-4144-97eb-55c96e33e821",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10136",
+        "naam": "Raad voor strafrechtstoepassing en jeugdbescherming",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4d0ec5ad-b395-4900-9c38-2c0eb002f0fe",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10137",
+        "naam": "Adviescommissie participatie en emancipatie Sinti en Roma",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9c116084-1d04-42e8-9109-6e2637ea6743",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10138",
+        "naam": "Adviescommissie tot benoeming leden Adviescommissie restitutieverzoeken cultuurgoederen en Tweede Wereldoorlog",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "983cccc3-cb80-4092-a4a1-351673da4072",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10139",
+        "naam": "Adviescommissie restitutieverzoeken cultuurgoederen en Tweede Wereldoorlog",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a5c5065c-6c47-4da4-bf4b-8f6d21341936",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10141",
+        "naam": "Commissie Associate degree",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "484d5caa-8de3-4970-abba-7eca78d98842",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10142",
+        "naam": "Commissie beoordeling uitingen maatschappelijk verantwoordelijkheidsbesef",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c8b37caa-5715-4f4c-bb07-0876152ac35b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10143",
+        "naam": "Commissie Doelmatigheid Hoger Onderwijs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6dfb1111-77ce-488a-8d06-05802c587b4b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10144",
+        "naam": "Expertgroep toetsen PO",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "25edc021-c645-4f29-a334-c42ec189c1cb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10145",
+        "naam": "Jury Joke Smitprijs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d64c20e9-8b86-49a3-9ec6-5b742164862b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10146",
+        "naam": "Jury Jos Brinkprijs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9e67e9ad-edf7-4c97-8669-14b329e6fd06",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10147",
+        "naam": "Nationale Unesco Commissie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c73bf3f7-c734-4830-86da-8996bdae6f3f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10148",
+        "naam": "Dienst Uitvoering Onderwijs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "561fa3b4-5bac-43a6-86d6-a1d14730a531",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10149",
+        "naam": "Adviescommissie Borgstelling MKB-kredieten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "fc2e54e6-9f50-4ec0-b4dd-f49a0537997c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10150",
+        "naam": "Adviescommissie seed capital technostarters",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "35fb9dc7-3ead-476f-b322-ed341143b458",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10151",
+        "naam": "Adviescommissie Internationaal Innoveren",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "52097ec2-fff8-4d3d-8bfa-8cc1b3654db7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10152",
+        "naam": "Adviescommissie Groeifaciliteit",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "05cca2b5-b7b9-49bd-a208-fe6b2a735fbe",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10153",
+        "naam": "Adviescommissie Kredietcommissie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a849a784-2c43-474c-a28b-738d480b8df6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10154",
+        "naam": "Adviescommissie vroegefasefinanciering MKB-ondernemers en innovatieve starters",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "933b0640-879b-494b-9fa2-21b61029571c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10155",
+        "naam": "Adviescommissie vroegefasefinanciering academische innovatieve starters, hbo-innovatieve starters en TO2-innovatieve starters",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d09e12b3-86b0-4c64-bf70-69ff04621122",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10156",
+        "naam": "Adviescommissie Gids proportionaliteit",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "311f683e-b42b-44c6-a1e0-880da4c64079",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10157",
+        "naam": "Topteams",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "eb922ab8-611e-4a94-8609-aabe15edb9cb",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10158",
+        "naam": "Mijnraad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "70c9857a-85ac-427e-ae80-4102ab59f41a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10159",
+        "naam": "Nederlands Comité voor Ondernemerschap",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8f2baebb-1ba9-42da-9792-e10df14874b7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10160",
+        "naam": "Beoordelingscommissie Small Business Innovation Research programma",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c360d435-95d7-4f72-b46e-aa95858a3870",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10161",
+        "naam": "College financieel toezicht Curaçao en Sint Maarten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "88cf0841-b0ba-470b-bb29-383d95a629e7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10162",
+        "naam": "College financieel toezicht Bonaire, Sint Eustatius en Saba",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "54b71bb4-c903-4e80-865a-357bac266d69",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10163",
+        "naam": "Commissie van toezicht op de inlichtingen- en veiligheidsdiensten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5501f80f-48a2-4794-9def-9301e6500af3",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10164",
+        "naam": "Orgaan voor de Friese taal",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5e4b8f98-43f9-4398-a16f-9659b20bee39",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10165",
+        "naam": "Adviescollege ICT-toetsing",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "954cda2f-70a9-4813-abc2-7537c3cc2442",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10166",
+        "naam": "Raad voor het Openbaar Bestuur",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c39a38bb-842c-45c2-a9a9-40049e2e346e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10167",
+        "naam": "Curriculumcommissie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "170786c0-5b16-45d0-bc25-69ea1eba2c4b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10168",
+        "naam": "Adviescommissie beroepsgerichte keuzevakken vmbo",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "eea014db-0124-43e9-8a78-addf720a0d9c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10169",
+        "naam": "Beoordelingscommissie sterk techniekonderwijs",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "aefa856f-d951-4332-bd41-3cf362d048d2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10170",
+        "naam": "Commissie sectorplan Béta en Techniek",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a5c27a9f-33b6-40e1-b15e-b775d6c5ff09",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10171",
+        "naam": "Commissie sectorplan Social Sciences and Humanities",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c9d8bfaa-8bf8-4554-80af-a1e4f2ba556c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10172",
+        "naam": "Commissie macrodoelmatigheid mbo",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "04cc6680-0d6c-47b5-898b-4b88c6f64e4e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10173",
+        "naam": "Tijdelijke adviescommissie regionaal investeringsfonds mbo 2019-2022",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8535cd43-db58-4969-acdc-79aa913ca90c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10176",
+        "naam": "Centrale Adviescommissie Draaginsigne Gewonden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "98f0fc1a-dfc0-48bf-ab90-8e4498ece29b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10178",
+        "naam": "Commissie Gewetensbezwaren Immunisatie Militairen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2491312f-a147-40e7-a550-fe1c8dbfff68",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10179",
+        "naam": "Commissie van onderzoek naar de Nederlandse wapeninzet in Hawija",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "7b8be58d-9d20-46eb-92e0-8b081c386f4f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10180",
+        "naam": "Adviescommissie Nationaal Groeifonds",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "09aa0b56-889f-48ea-aed0-24e1f58d703f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10182",
+        "naam": "Adviescommissie cyberweerbaarheid",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "aca0775b-d726-44c6-8ef6-d0d79956d666",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10183",
+        "naam": "Adviescommissie duurzame scheepsbouw",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d029e234-7975-402f-939d-8d76794b0891",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10184",
+        "naam": "Adviescommissie Duurzaamheid Biomassa voor Energietoepassingen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "57a11d59-9419-4680-91fa-5bb602e0d211",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10185",
+        "naam": "Auditteam Voetbal en Veiligheid",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "21473a41-0342-4df2-8ac2-2ff580a4e60a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10186",
+        "naam": "Adviescommissie SDGP Partnerschapfaciliteit",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "32cfb036-41d1-4110-82dc-4082d242abb7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10188",
+        "naam": "Raad voor dierenaangelegenheden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "61e16346-04bc-4e9d-82ef-ea467b6532b6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10189",
+        "naam": "Welzijnscommissie Dierziekten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "983e924f-191d-4263-b0fc-4fb9264918ea",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10190",
+        "naam": "Visserijcommissie BES",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dc1c90f0-ed40-4313-badf-02ef6a54dc35",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10191",
+        "naam": "Wetenschappelijke Adviescommissie Convenant Onbedwelmd Ritueel Slachten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8da28d5c-7d4b-4c22-bdfb-be63fa242274",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10192",
+        "naam": "Wetenschappelijke autoriteit CITES",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ea035c96-5bec-4c27-98af-32745a48969d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10193",
+        "naam": "Nationaal comité voor de bescherming van dieren",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f6bcfd36-bec1-4203-b992-164dfade5bb6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10194",
+        "naam": "Deskundigengroep dierziekten",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b14e07dd-aa49-4b6b-959a-963285932f7f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10195",
+        "naam": "Commissie genetische modificatie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "64595552-4329-4381-acd9-0f00e34861f2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10196",
+        "naam": "Commissie voor de milieueffectrapportage",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e1045c25-343d-44fd-9d87-c383594f2e44",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10197",
+        "naam": "Adviescommissie medische verklaringen voor de luchtvaart",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b52216be-984e-4e76-a714-dc22b63ba099",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10198",
+        "naam": "Expertisenetwerk Waterveiligheid",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dc431192-225c-4a89-9165-9909ea2bf6f4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10199",
+        "naam": "Adviescommissie beoordeling aangeboden cultuurbezit uit nalatenschappen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f713920b-e840-4c4a-a658-24921ff08ce7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10202",
+        "naam": "Raad van Advies herbezinning NVWA",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "3dd5e052-b3e6-49aa-ac23-71fe3d38b2f2",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10203",
+        "naam": "Adviescommissie EFMZV",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "ae494bca-74de-4dad-af20-3a412e98d121",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10204",
+        "naam": "Commissie registratie diergeneesmiddelen",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b328d61b-018e-4527-b5b2-422949bf3d4c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10205",
+        "naam": "Technische commissie bodembeweging",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "dd6dfe38-7022-4449-bab4-d11b84630837",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10206",
+        "naam": "Monitoring Commissie Corporate Governance Code",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4d5a73ff-30e7-413a-a752-52f5bb1ee598",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10207",
+        "naam": "Selectiecommissie tijdelijk besluit specifieke uitkering verbetering digitale dienstverlening",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c67f7d2a-8c94-4a6b-9db2-8116c6acc22f",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10208",
+        "naam": "Toetsingscommissie vangnet Participatiewet",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "33e536e7-0699-4117-b235-9e3906769959",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10209",
+        "naam": "Comité van toezicht EFMB",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b7fcd0dc-8b6e-4b91-aaaf-9fc39c6563d5",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10211",
+        "naam": "Commissie van advies inzake volkenrechtelijke vraagstukken",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "1d879b96-6cbc-4cb6-9586-da0e535f8abc",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10212",
+        "naam": "Onderwijsraad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "37815161-d3bb-403a-ba6c-e202ca0c33ae",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10215",
+        "naam": "SSC-ICT",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "24a14954-b321-47c4-934b-2964ad11053a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10216",
+        "naam": "Dienst van de Huurcommissie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "4366ad21-4bca-4a36-8d7e-0858da94a465",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10218",
+        "naam": "Gezondheidsraad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "648a2299-16f0-4f85-b213-45b3fdae9957",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10219",
+        "naam": "Rijksinspectie Digitale Infrastructuur",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "9a9f1a02-147c-49a6-9c33-906a921023aa",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10221",
+        "naam": "Nationale ombudsman",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "8c43ab0c-8119-4f6c-9885-019a5d59a4f0",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10222",
+        "naam": "Immigratie- en Naturalisatiedienst",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a3d49516-7eb3-4e12-b2ba-c1831feb867d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10223",
+        "naam": "Sociaal-Economische Raad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0d9e5a82-7acf-45e0-bb40-8c391e5c2883",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10229",
+        "naam": "Algemene Rekenkamer",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "184a36b2-ccb1-4dc3-b07f-22e7f2674619",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10236",
+        "naam": "Adviescollege Openbaarheid en Informatiehuishouding",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c94c1db4-ca7e-4421-8547-f605961108b6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10237",
+        "naam": "Commissie rol Koninklijk Huis in de zaak J.A. Poch",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "446c324c-1caa-4201-bbb7-a110d4c9d008",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10245",
+        "naam": "Kanselarij der Nederlandse Orden",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "6cacbe2f-d7f0-494b-a242-e4a58a4f8dcf",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10248",
+        "naam": "Justitiële ICT Organisatie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "5e14d8ab-6d25-4994-8314-c9d997242157",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10249",
+        "naam": "Justitiële Informatiedienst",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a39cbb4b-d9fd-4df9-97a0-b40865ce679a",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10250",
+        "naam": "Adviescommissie voor burgerlijk procesrecht",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "0fcb11d8-ca93-472c-938d-a58f048d603b",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10251",
+        "naam": "Adviesraad internationale vraagstukken",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "44964233-e914-44eb-afb5-bf1b28405b3c",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10252",
+        "naam": "Adviesraad Migratie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "939d612e-7f4e-4105-a6b4-c27c8db0b259",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10253",
+        "naam": "Adviesraad voor wetenschap, technologie en innovatie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "439ed5d1-7e4e-496d-9c8c-f9e09caf8669",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10254",
+        "naam": "Commissie auteursrecht",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "94367acf-7966-4848-ab00-6de3c3011ec7",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10255",
+        "naam": "Commissie buitenslands gediplomeerden volksgezondheid",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e5974166-10c0-4887-be50-55deaa556db6",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10256",
+        "naam": "Commissie insolventierecht",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "c579b771-a4a9-4748-b0ec-2fdc9e809c24",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10257",
+        "naam": "Commissie vennootschapsrecht",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e5d2f342-6fef-4488-8daf-fcd421c25bbe",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10258",
+        "naam": "Ecologische Autoriteit",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "f3088803-97c0-41ca-82a0-3381b650db58",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10259",
+        "naam": "Nederlandse Sportraad",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2688019e-34cb-41b9-b3ea-4dbed8219693",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10260",
+        "naam": "Raad voor Cultuur",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "b5691c64-bdb4-40cd-9c53-a8a3a4e49661",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10261",
+        "naam": "Raad voor de leefomgeving en infrastructuur",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "256cf22b-0be0-4d97-a05c-c0d9311c743d",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10262",
+        "naam": "Raad voor Volksgezondheid en Samenleving",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "e7a32f60-999a-4147-8fad-528a9e11238e",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10263",
+        "naam": "Staatscommissie voor het internationaal privaatrecht",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "796f5e59-e6ea-4167-a5cf-574eff3f8fed",
+        "identifier": "https://identifier.overheid.nl/tooi/id/oorg/oorg10264",
+        "naam": "Politie",
+        "oorsprong": "oorglijst",
+        "is_actief": true
+    }
+}
+]
