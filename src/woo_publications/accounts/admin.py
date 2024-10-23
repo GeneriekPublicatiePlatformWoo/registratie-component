@@ -17,8 +17,6 @@ from .utils import validate_max_user_permissions
 
 @admin.register(User)
 class UserAdmin(AdminAuditLogMixin, HijackUserAdminMixin, _UserAdmin):
-    change_form_template = "admin/audit_log_change_view.html"
-
     list_display = (
         "username",
         "email",

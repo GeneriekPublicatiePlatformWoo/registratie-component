@@ -14,8 +14,6 @@ from .models import InformationCategory, Theme
 
 @admin.register(InformationCategory)
 class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
-    change_form_template = "admin/audit_log_change_view.html"
-
     list_display = (
         "naam",
         "identifier",
@@ -52,8 +50,6 @@ class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
 
 @admin.register(Theme)
 class ThemeAdmin(AdminAuditLogMixin, TreeAdmin):
-    change_form_template = "admin/audit_log_change_view.html"
-
     list_display = ("naam", "identifier", "show_actions")
     search_fields = ("identifier", "naam")
     form = movenodeform_factory(Theme)
