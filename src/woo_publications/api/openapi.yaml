@@ -49,12 +49,12 @@ paths:
         schema:
           type: integer
       - in: query
-        name: publication
+        name: publicatie
         schema:
           type: string
           format: uuid
         description: Search the document based on the unique identifier that represents
-          a publication..
+          a publication.
       - in: query
         name: sorteer
         schema:
@@ -1039,9 +1039,9 @@ components:
           description: De (primaire) unieke identificatie.
           maxLength: 255
         publicatie:
-          type: integer
-          description: De publicatie waaronder dit document valt. Een publicatie kan
-            nul of meer documenten bevatten.
+          type: string
+          format: uuid
+          description: The unique identifier of the publication.
         officieleTitel:
           type: string
           title: Officiële titel

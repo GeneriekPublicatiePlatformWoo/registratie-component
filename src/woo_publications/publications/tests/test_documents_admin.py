@@ -223,7 +223,7 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(document.verkorte_titel, "changed short title")
         self.assertEqual(document.omschrijving, "changed description")
 
-    def test_publications_admin_delete(self):
+    def test_document_admin_delete(self):
         document = DocumentFactory.create(
             officiele_titel="title one",
             verkorte_titel="one",

@@ -4,10 +4,11 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
 from ..models import Publication
-from .factories import PublicationFactory
+from .factories import DocumentFactory, PublicationFactory
 
 AUDIT_HEADERS = {
     "AUDIT_USER_REPRESENTATION": "username",
@@ -36,7 +37,7 @@ class PublicationLoggingTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         log = TimelineLogProxy.objects.get()
         expected_data = {
-            "event": "read",
+            "event": Events.read,
             "remarks": "remark",
             "acting_user": {"identifier": "id", "display_name": "username"},
             "_cached_object_repr": "title one",
@@ -59,7 +60,7 @@ class PublicationLoggingTests(APITestCase):
         log = TimelineLogProxy.objects.get()
         publication = Publication.objects.get()
         expected_data = {
-            "event": "create",
+            "event": Events.create,
             "remarks": "remark",
             "acting_user": {"identifier": "id", "display_name": "username"},
             "object_data": {
@@ -98,7 +99,7 @@ class PublicationLoggingTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         log = TimelineLogProxy.objects.get()
         expected_data = {
-            "event": "update",
+            "event": Events.update,
             "remarks": "remark",
             "acting_user": {"identifier": "id", "display_name": "username"},
             "object_data": {
@@ -131,7 +132,7 @@ class PublicationLoggingTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         log = TimelineLogProxy.objects.get()
         expected_data = {
-            "event": "delete",
+            "event": Events.delete,
             "remarks": "remark",
             "acting_user": {"identifier": "id", "display_name": "username"},
             "object_data": {
@@ -144,6 +145,31 @@ class PublicationLoggingTests(APITestCase):
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-24T12:00:00Z",
             },
+            "_cached_object_repr": "title one",
+        }
+        self.assertEqual(log.extra_data, expected_data)
+
+
+class DocumentLoggingTests(APITestCase):
+
+    def test_detail_logging(self):
+        assert not TimelineLogProxy.objects.exists()
+        document = DocumentFactory.create(
+            officiele_titel="title one",
+        )
+        detail_url = reverse(
+            "api:document-detail",
+            kwargs={"identifier": str(document.identifier)},
+        )
+
+        response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        log = TimelineLogProxy.objects.get()
+        expected_data = {
+            "event": Events.read,
+            "remarks": "remark",
+            "acting_user": {"identifier": "id", "display_name": "username"},
             "_cached_object_repr": "title one",
         }
         self.assertEqual(log.extra_data, expected_data)

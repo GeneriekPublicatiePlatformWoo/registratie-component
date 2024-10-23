@@ -6,11 +6,11 @@ from ..models import Document, Publication
 
 
 class DocumentFilterSet(FilterSet):
-    publication = filters.UUIDFilter(
-        field_name="publication__uuid",
+    publicatie = filters.UUIDFilter(
+        field_name="publicatie__uuid",
         lookup_expr="exact",
         help_text=_(
-            "Search the document based on the unique identifier that represents a publication.."
+            "Search the document based on the unique identifier that represents a publication."
         ),
     )
     sorteer = filters.OrderingFilter(
@@ -25,7 +25,7 @@ class DocumentFilterSet(FilterSet):
     class Meta:
         model = Document
         fields = (
-            "publication",
+            "publicatie",
             "sorteer",
         )
 
