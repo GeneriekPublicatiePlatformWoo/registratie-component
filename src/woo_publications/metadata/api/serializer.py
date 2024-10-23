@@ -34,17 +34,15 @@ class OrganisationSerializer(serializers.ModelSerializer):
         fields = ("uuid", "identifier", "naam", "oorsprong", "is_actief")
         read_only_fields = (
             "uuid",
-            "idenitfier",
+            "identifier",
             "oorsprong",
         )
         extra_kwargs = {
             "naam": {
                 "required": False,
                 "help_text": _(
-                    "The name of the organisation (can only be modified when `oorspring` is `{custom_entry}`).".format(
-                        custom_entry=OrganisationOrigins.custom_entry
-                    )
-                ),
+                    "The name of the organisation (can only be modified when `oorsprong` is `{custom_entry}`)."
+                ).format(custom_entry=OrganisationOrigins.custom_entry),
             },
             "is_actief": {
                 "required": False,
@@ -59,9 +57,7 @@ class OrganisationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     "naam": _(
-                        "Only an organisation with the origin `{}` can update the `naam` field.".format(
-                            OrganisationOrigins.custom_entry
-                        )
+                        "You cannot modify the name of organisations populated from a value list."
                     )
                 }
             )
