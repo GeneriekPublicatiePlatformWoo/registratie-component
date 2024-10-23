@@ -1,3 +1,4 @@
+from django.db.models import TextChoices
 from django.utils.translation import gettext_lazy as _
 
 from django_filters import rest_framework as filters
@@ -5,8 +6,14 @@ from django_filters.rest_framework import FilterSet
 
 from woo_publications.api.filters import URLFilter
 
-from ..constants import OrganisationActive, OrganisationOrigins
+from ..constants import OrganisationOrigins
 from ..models import InformationCategory, Organisation
+
+
+class OrganisationActive(TextChoices):
+    active = "true", _("Retrieves all the active organisations (default)")
+    inactive = "false", _("Retrieves all the inactive organisations")
+    all = "alle", _("Retrieve every organisation regardless if active or inactive.")
 
 
 class InformationCategoryFilterSet(FilterSet):
@@ -35,12 +42,15 @@ class OrganisationFilterSet(FilterSet):
     identifier = URLFilter(
         lookup_expr="exact",
         help_text=_(
-            "Search the organisation based on the unique IRI that identifies a specific organisation."
+            "Search the organisations by the unique IRI that identifies a specific organisation."
         ),
     )
     naam = filters.CharFilter(
         lookup_expr="icontains",
-        help_text=_("Search the organisation based on the name of the organisation."),
+        help_text=_(
+            "Search through the organisations based on the name of the organisation. "
+            "You can search on parts of the name, and matching is case-insensitive."
+        ),
     )
     oorsprong = filters.ChoiceFilter(
         choices=OrganisationOrigins.choices,
