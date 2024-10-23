@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.test import override_settings
 from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.translation import gettext as _
@@ -9,7 +10,14 @@ from maykin_2fa.test import disable_admin_mfa
 from timeline_logger.models import TimelineLog
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.publications.tests.factories import PublicationFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    ThemeFactory,
+)
+from woo_publications.publications.tests.factories import (
+    DocumentFactory,
+    PublicationFactory,
+)
 
 from ..constants import Events
 from ..models import TimelineLogProxy
@@ -321,3 +329,39 @@ class AuditLogAdminTests(WebTest):
             self.assertEqual(filtered_response.status_code, 200)
             self.assertNumLogsDisplayed(filtered_response, 1)
             self.assertContains(filtered_response, "User Two")
+
+    def test_admin_change_view_audit_log_button(self):
+        self.app.set_user(self.superuser)
+        # Create some incorrectly shaped log records to ensure that filtering doesn't
+        # cause the list view to crash on them.
+        TimelineLog.objects.create(extra_data=None)
+        TimelineLog.objects.create(extra_data={})
+        TimelineLog.objects.create(extra_data=[])
+
+        objects_with_logging: list[models.Model] = [
+            PublicationFactory.create(),
+            DocumentFactory.create(),
+            ThemeFactory.create(),
+            InformationCategoryFactory.create(),
+            self.superuser,
+        ]
+
+        for obj in objects_with_logging:
+            opts = obj._meta
+            with self.subTest(
+                f"{opts.verbose_name} change view has 'show logs' button and "
+                "filters correctly"
+            ):
+                reverse_url = reverse(
+                    f"admin:{opts.app_label}_{opts.model_name}_change",
+                    kwargs={"object_id": obj.pk},
+                )
+
+                response = self.app.get(reverse_url)
+
+                self.assertEqual(response.status_code, 200)
+
+                response = response.click("Show logs")
+
+                self.assertEqual(response.status_code, 200)
+                self.assertNumLogsDisplayed(response, 1)

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms import BaseInlineFormSet
@@ -58,9 +60,27 @@ class AdminAuditLogMixin:
 
         return super().log_deletion(request, object, object_repr)  # type: ignore reportAttributeAccessIssue
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):
+    def change_view(
+        self,
+        request,
+        object_id,
+        form_url="",
+        extra_context: dict[str, Any] | None = None,
+    ):
         if object_id and request.method == "GET":
             object = self.model.objects.get(pk=object_id)
+
+            if extra_context is None:
+                extra_context = {}
+
+            # extra context to render show logs button next to history button in change form
+            audit_url, audit_label = get_logs_link(object)
+            extra_context.update(
+                {
+                    "audit_log_url": audit_url,
+                    "audit_log_label": audit_label,
+                }
+            )
 
             assert isinstance(request.user, User)
             audit_admin_read(content_object=object, django_user=request.user)
