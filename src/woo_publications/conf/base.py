@@ -37,6 +37,15 @@ MIDDLEWARE = MIDDLEWARE + [
     "hijack.middleware.HijackUserMiddleware",
 ]
 
+# Remove unused/irrelevant middleware added by OAF
+MIDDLEWARE.remove("corsheaders.middleware.CorsMiddleware")
+MIDDLEWARE.remove("csp.contrib.rate_limiting.RateLimitedCSPMiddleware")
+
+# Pending the patch in open-api-framework... This otherwise causes generic admin login
+# failure errors because of mismatch in session expiry times and is generally really
+# annoying. See https://github.com/open-formulieren/open-forms/issues/4528 for details.
+MIDDLEWARE.remove("mozilla_django_oidc_db.middleware.SessionRefresh")
+
 #
 # SECURITY settings
 #
