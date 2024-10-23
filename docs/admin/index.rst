@@ -3,23 +3,51 @@
 Admin interface
 ===============
 
-WOO Publications comes with a minimal admin interface to perform basic administration.
+'WOO Publications' comes with a minimal admin interface to perform basic administration.
+
+Because the admin interface is in the Dutch language, the remainder of the following instructions are also written in the Dutch language.
 
 .. todo:: Provide proper guides/manual.
 
-How to access?
+Hoe krijg ik toegang??
 ---------------
-Lorem Ipsum.
+
+Volg de volgende stappen om toegang te krijgen tot de Admin-omgeving:
+
+1. Ga naar de URL waarop het 'WOO Publications'-component is geïnstalleerd, bijvoorbeeld https://woo-publicaties.gemeente.nl/.
+2. Je ziet een webpagina met enige informatie over het component. In het midden staat een grote, rode knop "Beheer". Klik daarop.
+3. Afhankleijk van de lokale inrichting dien je nog handmatig in te loggen, of wordt je automatisch ingelogd.
+4. Na het inloggen kom je direct terecht op het dashboard van de Admin-omgeving.
+
+Menubalk
+----------
+Bovenaan de Admin-omgeving staat de menubalk. Deze geeft toegang tot de verschillende beheer-functionaliteiten van het 'WOO Publications'-component. Deze onderdelen leggen we hieronder verder uit, maar eerst willen we je nog wijzen op de klikbare links uiterst rechtsboven in de menubalk.
+
+* Toon site
+   Deze klinkbare link brengt je terug naar de webpagina met enige informatie over het component, zonder uit te loggen.
+
+* Accountbeveiliging
+   Afhankelijk van de lokale inrichting, vind je hier enkele mogelijkheden om je account te beveiligen.
+
+* Wachtwoord wijzigen
+   Afhankelijk van de lokale inrichting, kun je hier je wachtwoord wijzigen.
+
+* Afmelden
+   Hiermee wordt je uitgelogd. Je wordt automatisch terug gebracht naar het inlogscherm.
+
+* Licht/donker-button
+   Door op deze button te klikken, kun je wisselen tussen een witte achtergrond of een zwarte achetrgrond.
+
 
 Dashboard
 ----------
 Lorem Ipsum.
 
-Click on one of the following links in order to learn more about these topics.
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Further reading
+   :caption: Klik verder om meer te leren over de volgende onderdelen.
 
    Publicaties/index
    Metadata/index
