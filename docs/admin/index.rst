@@ -18,7 +18,7 @@ Lorem Ipsum.
 Click on one of the following links in order to learn more about these topics.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Further reading
 
    Publicaties/index
@@ -26,5 +26,5 @@ Click on one of the following links in order to learn more about these topics.
    Accounts/index
    Logging/index
    Configuratie/index
-   Handige links/index
+   Handige_links/index
    Overige/index
