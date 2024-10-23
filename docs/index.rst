@@ -19,6 +19,8 @@ For a full publication platform, three additional components are required:
 
 All components are designed in line with the `Common Ground`_ model.
 
+This project is and only uses :ref:`introduction_open-source`.
+
 .. _`Wet open overheid (Woo)` : https://wetten.overheid.nl/BWBR0045754/
 .. _`Common Ground`: https://commonground.nl/
 
