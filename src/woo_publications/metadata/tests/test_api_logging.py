@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
-from .factories import InformationCategoryFactory, ThemeFactory
+from .factories import InformationCategoryFactory, OrganisationFactory, ThemeFactory
 
 AUDIT_HEADERS = {
     "AUDIT_USER_REPRESENTATION": "username",
@@ -31,6 +31,26 @@ class InformationCategoryLoggingTests(APITestCase):
         log_records = TimelineLogProxy.objects.filter(
             content_type=ContentType.objects.get_for_model(information_category),
             object_id=information_category.pk,
+            extra_data__event=Events.read,
+        )
+        self.assertEqual(log_records.count(), 1)
+
+
+class OrganisationLoggingTests(APITestCase):
+
+    def test_retrieve_logging(self):
+        organisation = OrganisationFactory.create()
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+
+        response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+        assert response.status_code == status.HTTP_200_OK
+        log_records = TimelineLogProxy.objects.filter(
+            content_type=ContentType.objects.get_for_model(organisation),
+            object_id=organisation.pk,
             extra_data__event=Events.read,
         )
         self.assertEqual(log_records.count(), 1)
