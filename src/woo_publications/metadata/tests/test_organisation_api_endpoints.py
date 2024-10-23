@@ -1,13 +1,51 @@
+from uuid import uuid4
+
 from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.accounts.tests.factories import UserFactory
+
 from ..constants import OrganisationActive, OrganisationOrigins
 from .factories import OrganisationFactory
 
+AUDIT_HEADERS = {
+    "AUDIT_USER_REPRESENTATION": "username",
+    "AUDIT_USER_ID": "id",
+    "AUDIT_REMARKS": "remark",
+}
+
 
 class OrganisationApiTests(APITestCase):
+    def test_403_when_audit_headers_are_missing(self):
+        user = UserFactory.create()
+        self.client.force_authenticate(user=user)
+        list_endpoint = reverse("api:organisation-list")
+        detail_endpoint = reverse(
+            "api:publication-detail", kwargs={"uuid": str(uuid4())}
+        )
+
+        with self.subTest(action="list"):
+            response = self.client.get(list_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="retrieve"):
+            response = self.client.get(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="create"):
+            response = self.client.post(list_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="update"):
+            response = self.client.put(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_list_organisations(self):
         organisation = OrganisationFactory.create(
             naam="one",
@@ -36,7 +74,9 @@ class OrganisationApiTests(APITestCase):
             "isActief": True,
         }
 
-        response = self.client.get(reverse("api:organisation-list"))
+        response = self.client.get(
+            reverse("api:organisation-list"), headers=AUDIT_HEADERS
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -74,9 +114,10 @@ class OrganisationApiTests(APITestCase):
             "oorsprong": OrganisationOrigins.municipality_list.value,
             "isActief": False,
         }
+        list_url = reverse("api:organisation-list")
 
         with self.subTest("default filter on active true"):
-            response = self.client.get(reverse("api:organisation-list"))
+            response = self.client.get(list_url, headers=AUDIT_HEADERS)
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -87,8 +128,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("filter on active true"):
             response = self.client.get(
-                reverse("api:organisation-list"),
+                list_url,
                 {"is_actief": OrganisationActive.active},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -100,8 +142,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("filter on active false"):
             response = self.client.get(
-                reverse("api:organisation-list"),
+                list_url,
                 {"is_actief": OrganisationActive.inactive},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -113,7 +156,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("filter on active every"):
             response = self.client.get(
-                reverse("api:organisation-list"), {"is_actief": OrganisationActive.all}
+                list_url,
+                {"is_actief": OrganisationActive.all},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -145,11 +190,13 @@ class OrganisationApiTests(APITestCase):
             "oorsprong": OrganisationOrigins.custom_entry.value,
             "isActief": True,
         }
+        list_url = reverse("api:organisation-list")
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
-                reverse("api:organisation-list"),
+                list_url,
                 {"identifier": "https://www.example.com/organisaties/1"},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -159,8 +206,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("with_none_existing_identifier"):
             response = self.client.get(
-                reverse("api:organisation-list"),
+                list_url,
                 {"identifier": "https://www.example.com/organisaties/999"},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -195,10 +243,13 @@ class OrganisationApiTests(APITestCase):
             "oorsprong": OrganisationOrigins.municipality_list.value,
             "isActief": True,
         }
+        list_url = reverse("api:organisation-list")
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
-                reverse("api:organisation-list"), {"naam": "object two"}
+                list_url,
+                {"naam": "object two"},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -208,7 +259,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("test_with_incomplete_match"):
             response = self.client.get(
-                reverse("api:organisation-list"), {"naam": "object"}
+                list_url,
+                {"naam": "object"},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -219,7 +272,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("with_none_existing_identifier"):
             response = self.client.get(
-                reverse("api:organisation-list"), {"naam": "object three"}
+                list_url,
+                {"naam": "object three"},
+                headers=AUDIT_HEADERS,
             )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -239,6 +294,7 @@ class OrganisationApiTests(APITestCase):
             is_actief=True,
             oorsprong=OrganisationOrigins.municipality_list,
         )
+        list_url = reverse("api:organisation-list")
 
         expected_data = {
             "uuid": str(organisation2.uuid),
@@ -250,8 +306,9 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("test_with_exact_match"):
             response = self.client.get(
-                reverse("api:organisation-list"),
+                list_url,
                 {"oorsprong": OrganisationOrigins.municipality_list},
+                headers=AUDIT_HEADERS,
             )
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             data = response.json()
@@ -260,7 +317,7 @@ class OrganisationApiTests(APITestCase):
 
         with self.subTest("test_with_incorrect_match"):
             response = self.client.get(
-                reverse("api:organisation-list"), {"oorsprong": "test"}
+                list_url, {"oorsprong": "test"}, headers=AUDIT_HEADERS
             )
 
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -277,7 +334,7 @@ class OrganisationApiTests(APITestCase):
             kwargs={"uuid": str(organisation.uuid)},
         )
 
-        response = self.client.get(detail_url)
+        response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -299,7 +356,7 @@ class OrganisationApiTests(APITestCase):
             "isActief": True,
         }
 
-        response = self.client.post(url, data)
+        response = self.client.post(url, data, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -331,7 +388,7 @@ class OrganisationApiTests(APITestCase):
             "isActief": False,
         }
 
-        response = self.client.put(detail_url, data)
+        response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -360,7 +417,11 @@ class OrganisationApiTests(APITestCase):
         )
 
         with self.subTest("test update is actief"):
-            response = self.client.put(detail_url, {"isActief": False})
+            response = self.client.put(
+                detail_url,
+                {"isActief": False},
+                headers=AUDIT_HEADERS,
+            )
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             response_data = response.json()
@@ -376,7 +437,11 @@ class OrganisationApiTests(APITestCase):
             self.assertEqual(response_data, expected_data)
 
         with self.subTest("test update name results in 400"):
-            response = self.client.put(detail_url, {"naam": "error"})
+            response = self.client.put(
+                detail_url,
+                {"naam": "error"},
+                headers=AUDIT_HEADERS,
+            )
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             response_data = response.json()
             self.assertEqual(
@@ -395,11 +460,10 @@ class OrganisationApiTests(APITestCase):
             "api:organisation-detail",
             kwargs={"uuid": str(organisation.uuid)},
         )
-        data = {
-            "isActief": False,
-        }
 
-        response = self.client.patch(detail_url, data)
+        response = self.client.patch(
+            detail_url, {"isActief": False}, headers=AUDIT_HEADERS
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

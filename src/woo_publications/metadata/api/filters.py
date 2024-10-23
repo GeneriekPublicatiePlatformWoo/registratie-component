@@ -65,7 +65,7 @@ class OrganisationFilterSet(FilterSet):
         match (value):
             case OrganisationActive.inactive:
                 return queryset.filter(is_actief=False)
-            case OrganisationActive.active:
-                return queryset.filter(is_actief=True)
             case OrganisationActive.all:
                 return queryset
+            case _:
+                return queryset.filter(is_actief=True)
