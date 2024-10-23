@@ -10,7 +10,7 @@ info:
     name: EUPL
     url: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md
 paths:
-  /api/v1/informatiecategorieen/:
+  /api/v1/informatiecategorieen:
     get:
       operationId: informatiecategorieenList
       description: Geeft een resultatenlijst (met paginering) terug van de bestaande
@@ -71,7 +71,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedInformationCategoryList'
           description: ''
-  /api/v1/informatiecategorieen/{uuid}/:
+  /api/v1/informatiecategorieen/{uuid}:
     get:
       operationId: informatiecategorieenRetrieve
       description: Haal een specifiieke informatiecategorie op.
@@ -118,7 +118,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
           description: ''
-  /api/v1/publicaties/:
+  /api/v1/publicaties:
     get:
       operationId: publicatiesList
       description: Geeft een lijst (met paginering) terug van alle bestaande publicaties.
@@ -235,7 +235,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Publication'
           description: ''
-  /api/v1/publicaties/{uuid}/:
+  /api/v1/publicaties/{uuid}:
     get:
       operationId: publicatiesRetrieve
       description: Haal een specifieke publicatie op.
@@ -427,7 +427,7 @@ paths:
       responses:
         '204':
           description: No response body
-  /api/v1/themas/:
+  /api/v1/themas:
     get:
       operationId: themasList
       description: Geeft een resultatenlijst (met paginering) terug van de bestaande
@@ -475,7 +475,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedThemeList'
           description: ''
-  /api/v1/themas/{uuid}/:
+  /api/v1/themas/{uuid}:
     get:
       operationId: themasRetrieve
       description: Haal een specifiek thema op.

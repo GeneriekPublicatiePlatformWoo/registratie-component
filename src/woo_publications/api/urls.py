@@ -12,7 +12,7 @@ from woo_publications.publications.api.viewsets import PublicationViewSet
 
 app_name = "api"
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 
 router.register("informatiecategorieen", InformationCategoryViewSet)
 router.register("publicaties", PublicationViewSet)
