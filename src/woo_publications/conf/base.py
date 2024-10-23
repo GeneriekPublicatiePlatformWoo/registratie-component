@@ -35,6 +35,11 @@ INSTALLED_APPS.remove("notifications_api_common")
 
 MIDDLEWARE = MIDDLEWARE + [
     "hijack.middleware.HijackUserMiddleware",
+    # NOTE: affects *all* requests, not just API calls. We can't subclass (yet) either
+    # to modify the behaviour, since drf-spectacular has a bug in its `issubclass`
+    # check, which is unreleased at the time of writing:
+    # https://github.com/tfranzel/drf-spectacular/commit/71c7a04ee8921c01babb11fbe2938397a372dac7
+    "djangorestframework_camel_case.middleware.CamelCaseMiddleWare",
 ]
 
 # Remove unused/irrelevant middleware added by OAF
