@@ -5,6 +5,8 @@ from django.urls import reverse
 from django_webtest import WebTest
 from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
+from zgw_consumers.constants import APITypes
+from zgw_consumers.test.factories import ServiceFactory
 
 from woo_publications.accounts.tests.factories import UserFactory
 
@@ -218,3 +220,29 @@ class TestDocumentAdmin(WebTest):
         self.assertFalse(
             Document.objects.filter(identifier=document.identifier).exists()
         )
+
+    def test_document_admin_service_select_box_only_displays_document_apis(self):
+        service = ServiceFactory.create(
+            api_root="https://example.com/",
+            api_type=APITypes.drc,
+        )
+        ServiceFactory.create(
+            api_root="https://foo.com/",
+            api_type=APITypes.zrc,
+        )
+
+        response = self.app.get(
+            reverse("admin:publications_document_add"),
+            user=self.user,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms["document_form"]
+        document_select = form["document_service"]
+
+        self.assertEqual(len(document_select.options), 2)
+
+        # test that default and document service are selectable but the zaak service isn't
+        service_option_values = [option[0] for option in document_select.options]
+        self.assertEqual(service_option_values, ["", str(service.pk)])
