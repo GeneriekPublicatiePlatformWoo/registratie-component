@@ -8,9 +8,11 @@ class ThemeManager(MP_NodeManager):
     def get_by_natural_key(self, identifier):
         return self.get(identifier=identifier)
 
+
 class OrganisationManager(Manager):
     def get_by_natural_key(self, identifier):
         return self.get(identifier=identifier)
+
 
 class InformationCategoryManager(OrderedModelManager):
     def get_by_natural_key(self, identifier):
