@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.test import override_settings
 from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.translation import gettext as _
@@ -331,87 +332,36 @@ class AuditLogAdminTests(WebTest):
 
     def test_admin_change_view_audit_log_button(self):
         self.app.set_user(self.superuser)
+        # Create some incorrectly shaped log records to ensure that filtering doesn't
+        # cause the list view to crash on them.
         TimelineLog.objects.create(extra_data=None)
         TimelineLog.objects.create(extra_data={})
         TimelineLog.objects.create(extra_data=[])
 
-        with self.subTest("publications has 'show logs' button and filters correctly"):
-            publication = PublicationFactory.create()
-            reverse_url = reverse(
-                "admin:publications_publication_change",
-                kwargs={"object_id": publication.id},
-            )
+        objects_with_logging: list[models.Model] = [
+            PublicationFactory.create(),
+            DocumentFactory.create(),
+            ThemeFactory.create(),
+            InformationCategoryFactory.create(),
+            self.superuser,
+        ]
 
-            response = self.app.get(reverse_url)
+        for obj in objects_with_logging:
+            opts = obj._meta
+            with self.subTest(
+                f"{opts.verbose_name} change view has 'show logs' button and "
+                "filters correctly"
+            ):
+                reverse_url = reverse(
+                    f"admin:{opts.app_label}_{opts.model_name}_change",
+                    kwargs={"object_id": obj.pk},
+                )
 
-            self.assertEqual(response.status_code, 200)
+                response = self.app.get(reverse_url)
 
-            response = response.click("Show logs")
+                self.assertEqual(response.status_code, 200)
 
-            self.assertEqual(response.status_code, 200)
-            self.assertNumLogsDisplayed(response, 1)
+                response = response.click("Show logs")
 
-        with self.subTest("documents has 'show logs' button and filters correctly"):
-            document = DocumentFactory.create()
-            reverse_url = reverse(
-                "admin:publications_document_change",
-                kwargs={"object_id": document.pk},
-            )
-
-            response = self.app.get(reverse_url)
-
-            self.assertEqual(response.status_code, 200)
-
-            response = response.click("Show logs")
-
-            self.assertEqual(response.status_code, 200)
-            self.assertNumLogsDisplayed(response, 1)
-
-        with self.subTest("themes has 'show logs' button and filters correctly"):
-            theme = ThemeFactory.create()
-            reverse_url = reverse(
-                "admin:metadata_theme_change",
-                kwargs={"object_id": theme.pk},
-            )
-
-            response = self.app.get(reverse_url)
-
-            self.assertEqual(response.status_code, 200)
-
-            response = response.click("Show logs")
-
-            self.assertEqual(response.status_code, 200)
-            self.assertNumLogsDisplayed(response, 1)
-
-        with self.subTest(
-            "information category has 'show logs' button and filters correctly"
-        ):
-            information_category = InformationCategoryFactory.create()
-            reverse_url = reverse(
-                "admin:metadata_informationcategory_change",
-                kwargs={"object_id": information_category.pk},
-            )
-
-            response = self.app.get(reverse_url)
-
-            self.assertEqual(response.status_code, 200)
-
-            response = response.click("Show logs")
-
-            self.assertEqual(response.status_code, 200)
-            self.assertNumLogsDisplayed(response, 1)
-
-        with self.subTest("user has 'show logs' button and filters correctly"):
-            reverse_url = reverse(
-                "admin:accounts_user_change",
-                kwargs={"object_id": self.superuser.pk},
-            )
-
-            response = self.app.get(reverse_url)
-
-            self.assertEqual(response.status_code, 200)
-
-            response = response.click("Show logs")
-
-            self.assertEqual(response.status_code, 200)
-            self.assertNumLogsDisplayed(response, 1)
+                self.assertEqual(response.status_code, 200)
+                self.assertNumLogsDisplayed(response, 1)
