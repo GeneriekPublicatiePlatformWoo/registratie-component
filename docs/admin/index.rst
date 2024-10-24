@@ -41,9 +41,11 @@ Bovenaan de Admin-omgeving staat de menubalk. Deze geeft toegang tot de verschil
 
 Dashboard
 ----------
-Lorem Ipsum.
+Onder de menubalk wordt het dashboard getoond. Deze biedt een snelle toegang tot dezelfde funtionaliteiten als de menubalk. 
+Op de volgende pagina's worden deze nader toegelicht.
 
-
+Bovendien wordt aan de rechterzijde een overzicht getoond van de 10 meest recente acties, die de ingelogde gebruiker binnen de Admin-omgeving heeft uitgevoerd. 
+Op een actie kan geklikt worden om meer details te zien.
 
 .. toctree::
    :maxdepth: 2
