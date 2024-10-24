@@ -404,7 +404,9 @@ class OrganisationApiTests(APITestCase):
             response_data = response.json()
             self.assertEqual(
                 response_data["naam"],
-                "You cannot modify the name of organisations populated from a value list.",
+                [
+                    "You cannot modify the name of organisations populated from a value list."
+                ],
             )
 
     def test_partial_update_organisation(self):
