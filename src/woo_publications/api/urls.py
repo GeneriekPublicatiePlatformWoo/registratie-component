@@ -6,6 +6,7 @@ from rest_framework import routers
 
 from woo_publications.metadata.api.viewsets import (
     InformationCategoryViewSet,
+    OrganisationViewSet,
     ThemeViewSet,
 )
 from woo_publications.publications.api.viewsets import PublicationViewSet
@@ -15,6 +16,7 @@ app_name = "api"
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.register("informatiecategorieen", InformationCategoryViewSet)
+router.register("organisaties", OrganisationViewSet)
 router.register("publicaties", PublicationViewSet)
 router.register("themas", ThemeViewSet)
 
