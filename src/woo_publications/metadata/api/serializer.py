@@ -49,20 +49,21 @@ class OrganisationSerializer(serializers.ModelSerializer):
             },
         }
 
-    def update(self, instance, validated_data):
-        if (
-            validated_data.get("naam")
-            and instance.oorsprong != OrganisationOrigins.custom_entry
-        ):
-            raise serializers.ValidationError(
-                {
-                    "naam": _(
-                        "You cannot modify the name of organisations populated from a value list."
-                    )
-                }
-            )
+    def validate(self, attrs):
+        if instance := self.instance:
+            if (
+                attrs.get("naam")
+                and instance.oorsprong != OrganisationOrigins.custom_entry
+            ):
+                raise serializers.ValidationError(
+                    {
+                        "naam": _(
+                            "You cannot modify the name of organisations populated from a value list."
+                        )
+                    }
+                )
 
-        return super().update(instance, validated_data)
+        return super().validate(attrs)
 
 
 class ThemeSerializer(serializers.ModelSerializer):
