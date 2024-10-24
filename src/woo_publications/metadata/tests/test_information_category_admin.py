@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
 from maykin_2fa.test import disable_admin_mfa
@@ -15,10 +16,7 @@ class TestInformationCategoryAdmin(WebTest):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.user = UserFactory.create(
-            is_staff=True,
-            is_superuser=True,
-        )
+        cls.user = UserFactory.create(superuser=True)
 
     def test_information_category_admin_show_items(self):
         InformationCategoryFactory.create(
@@ -78,12 +76,25 @@ class TestInformationCategoryAdmin(WebTest):
             self.assertContains(search_response, "field-identifier", 1)
             self.assertContains(search_response, "second item", 1)
 
+    def test_information_category_admin_list_filter(self):
+        self.app.set_user(user=self.user)
+
+        information_category = InformationCategoryFactory.create(
+            identifier="https://www.example.com/waardenlijsten/1",
+            naam="first item",
+            oorsprong=InformationCategoryOrigins.value_list,
+        )
+        InformationCategoryFactory.create(
+            identifier="https://www.example.com/waardenlijsten/2",
+            naam="second item",
+            oorsprong=InformationCategoryOrigins.custom_entry,
+        )
+        url = reverse("admin:metadata_informationcategory_changelist")
+
+        response = self.app.get(url)
+
         with self.subTest("filter_on_oorsprong"):
-            search_response = self.app.get(
-                url,
-                {"oorsprong__exact": InformationCategoryOrigins.value_list},
-                user=self.user,
-            )
+            search_response = response.click(description=_("Value list"))
 
             self.assertEqual(search_response.status_code, 200)
 

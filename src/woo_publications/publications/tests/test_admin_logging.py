@@ -49,10 +49,8 @@ class TestAdminAuditLogging(WebTest):
         with freeze_time("2024-09-25T00:14:00-00:00"):
             form.submit(name="_save")
 
-        added_item = Publication.objects.order_by("-pk").first()
-        assert added_item is not None
-        log = TimelineLogProxy.objects.first()
-        assert log is not None
+        added_item = Publication.objects.get()
+        log = TimelineLogProxy.objects.get()
 
         expected_data = {
             "event": Events.create,
@@ -157,8 +155,7 @@ class TestAdminAuditLogging(WebTest):
 
         self.assertEqual(response.status_code, 302)
 
-        log = TimelineLogProxy.objects.first()
-        assert log is not None
+        log = TimelineLogProxy.objects.get()
 
         expected_data = {
             "event": Events.delete,
