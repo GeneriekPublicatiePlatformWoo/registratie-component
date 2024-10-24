@@ -5,9 +5,27 @@ from rest_framework import viewsets
 
 from woo_publications.logging.service import AuditTrailViewSetMixin
 
-from ..models import Publication
-from .filters import PublicationFilterSet
-from .serializer import PublicationSerializer
+from ..models import Document, Publication
+from .filters import DocumentFilterSet, PublicationFilterSet
+from .serializer import DocumentSerializer, PublicationSerializer
+
+
+@extend_schema(tags=["Documenten"])
+@extend_schema_view(
+    list=extend_schema(
+        summary=_("All available documents."),
+        description=_("Returns a paginated result list of existing documents."),
+    ),
+    retrieve=extend_schema(
+        summary=_("Retrieve a specific document."),
+        description=_("Retrieve a specific document."),
+    ),
+)
+class DocumentViewSet(AuditTrailViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Document.objects.order_by("-creatiedatum")
+    serializer_class = DocumentSerializer
+    filterset_class = DocumentFilterSet
+    lookup_field = "identifier"
 
 
 @extend_schema(tags=["Publicaties"])
