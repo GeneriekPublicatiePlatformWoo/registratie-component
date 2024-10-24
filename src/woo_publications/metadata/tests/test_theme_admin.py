@@ -13,10 +13,7 @@ class TestInformationCategoryAdmin(WebTest):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.user = UserFactory.create(
-            is_staff=True,
-            is_superuser=True,
-        )
+        cls.user = UserFactory.create(superuser=True)
 
     def test_theme_admin_show_items(self):
         ThemeFactory.create(naam="first item")

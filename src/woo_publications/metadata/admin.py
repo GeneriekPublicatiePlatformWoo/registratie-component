@@ -78,6 +78,7 @@ class OrganisationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "naam",
         "identifier",
         "oorsprong",
+        "is_actief",
         "show_actions",
     )
     readonly_fields = (
@@ -90,10 +91,13 @@ class OrganisationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     )
     list_filter = ("oorsprong", "is_actief")
 
-    def has_change_permission(self, request, obj=None):
+    def get_readonly_fields(self, request, obj=None):
+        read_only_fields = super().get_readonly_fields(request, obj)
+
         if obj and obj.oorsprong != OrganisationOrigins.custom_entry:
-            return False
-        return True
+            read_only_fields += ("naam",)
+
+        return read_only_fields
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: Organisation) -> str:

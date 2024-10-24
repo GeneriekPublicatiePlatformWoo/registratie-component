@@ -42,10 +42,8 @@ class TestOrganisationAdminAuditLogging(WebTest):
 
         form.submit(name="_save")
 
-        added_item = Organisation.objects.order_by("-pk").first()
-        assert added_item is not None
-        log = TimelineLogProxy.objects.first()
-        assert log is not None
+        added_item = Organisation.objects.get()
+        log = TimelineLogProxy.objects.get()
 
         expected_data = {
             "event": Events.create,
@@ -143,8 +141,7 @@ class TestOrganisationAdminAuditLogging(WebTest):
 
         self.assertEqual(response.status_code, 302)
 
-        log = TimelineLogProxy.objects.first()
-        assert log is not None
+        log = TimelineLogProxy.objects.get()
 
         expected_data = {
             "event": Events.delete,
