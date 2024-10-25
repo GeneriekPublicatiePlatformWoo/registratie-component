@@ -218,7 +218,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 302)
 
         with self.subTest("update inline update logging"):
-            log = TimelineLogProxy.objects.filter(object_id=document.pk).first()
+            log = TimelineLogProxy.objects.filter(object_id=str(document.pk)).first()
             assert log is not None
 
             expected_data = {
@@ -229,6 +229,7 @@ class TestAdminAuditLogging(WebTest):
                 },
                 "object_data": {
                     "id": document.pk,
+                    "uuid": str(document.uuid),
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",
@@ -297,7 +298,9 @@ class TestAdminAuditLogging(WebTest):
 
         with self.subTest("update inline update logging"):
             document = Document.objects.get()
-            log = TimelineLogProxy.objects.filter(object_id=document.pk).get()
+            log = TimelineLogProxy.objects.filter(
+                object_id=str(document.pk), extra_data___cached_object_repr="title"
+            ).get()
 
             expected_data = {
                 "event": Events.create,
@@ -307,6 +310,7 @@ class TestAdminAuditLogging(WebTest):
                 },
                 "object_data": {
                     "id": document.pk,
+                    "uuid": str(document.uuid),
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
                     "bestandsnaam": "foo.pdf",

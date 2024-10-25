@@ -25,7 +25,7 @@ class DocumentViewSet(AuditTrailViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Document.objects.order_by("-creatiedatum")
     serializer_class = DocumentSerializer
     filterset_class = DocumentFilterSet
-    lookup_field = "identifier"
+    lookup_field = "uuid"
 
 
 @extend_schema(tags=["Publicaties"])

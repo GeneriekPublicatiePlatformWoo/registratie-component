@@ -6,14 +6,16 @@ from ..models import Document, Publication
 
 
 class DocumentSerializer(serializers.ModelSerializer):
-    publicatie = serializers.UUIDField(
-        source="publicatie.uuid",
+    publicatie = serializers.SlugRelatedField(
+        queryset=Publication.objects.all(),
+        slug_field="uuid",
         help_text=_("The unique identifier of the publication."),
     )
 
     class Meta:  # type: ignore
         model = Document
         fields = (
+            "uuid",
             "identifier",
             "publicatie",
             "officiele_titel",

@@ -159,7 +159,7 @@ class DocumentLoggingTests(APITestCase):
         )
         detail_url = reverse(
             "api:document-detail",
-            kwargs={"identifier": str(document.identifier)},
+            kwargs={"uuid": str(document.uuid)},
         )
 
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)

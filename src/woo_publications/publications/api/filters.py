@@ -6,12 +6,17 @@ from ..models import Document, Publication
 
 
 class DocumentFilterSet(FilterSet):
-    publicatie = filters.UUIDFilter(
-        field_name="publicatie__uuid",
-        lookup_expr="exact",
+    # TODO: change this filter to custom named filter with `@extend_schema_field(UUID)` once bug is fixed in drf-spectacular
+    publicatie = filters.ModelChoiceFilter(
+        queryset=Publication.objects.all(),
+        to_field_name="uuid",
         help_text=_(
-            "Search the document based on the unique identifier that represents a publication."
+            "Search the document based on the unique identifier (UUID) that represents a publication. "
+            "<sup><sub>Disclaimer: disregard the documented type `integer` the correct type is `UUID`.</sub></sup>"
         ),
+    )
+    identifier = filters.CharFilter(
+        help_text="Search the document based on the identifier field.",
     )
     sorteer = filters.OrderingFilter(
         help_text=_("Order on."),
@@ -26,6 +31,7 @@ class DocumentFilterSet(FilterSet):
         model = Document
         fields = (
             "publicatie",
+            "identifier",
             "sorteer",
         )
 

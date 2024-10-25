@@ -42,6 +42,11 @@ paths:
 
           The display name of the user performing the action, to make them recognizable.
         required: true
+      - in: query
+        name: identifier
+        schema:
+          type: string
+        description: Search the document based on the identifier field.
       - name: page
         required: false
         in: query
@@ -51,10 +56,10 @@ paths:
       - in: query
         name: publicatie
         schema:
-          type: string
-          format: uuid
-        description: Search the document based on the unique identifier that represents
-          a publication.
+          type: integer
+        description: 'Search the document based on the unique identifier (UUID) that
+          represents a publication. <sup><sub>Disclaimer: disregard the documented
+          type `integer` the correct type is `UUID`.</sub></sup>'
       - in: query
         name: sorteer
         schema:
@@ -88,7 +93,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedDocumentList'
           description: ''
-  /api/v1/documenten/{identifier}:
+  /api/v1/documenten/{uuid}:
     get:
       operationId: documentenRetrieve
       description: Retrieve a specific document.
@@ -121,11 +126,10 @@ paths:
           The display name of the user performing the action, to make them recognizable.
         required: true
       - in: path
-        name: identifier
+        name: uuid
         schema:
           type: string
-          title: Identificatie
-          description: De (primaire) unieke identificatie.
+          format: uuid
         required: true
       tags:
       - Documenten
@@ -1033,6 +1037,10 @@ components:
     Document:
       type: object
       properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
         identifier:
           type: string
           title: Identificatie
@@ -1085,6 +1093,7 @@ components:
       - officieleTitel
       - publicatie
       - registratiedatum
+      - uuid
     InformationCategory:
       type: object
       properties:

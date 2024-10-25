@@ -22,9 +22,7 @@ class DocumentApiTests(APITestCase):
         user = UserFactory.create()
         self.client.force_authenticate(user=user)
         list_endpoint = reverse("api:document-list")
-        detail_endpoint = reverse(
-            "api:document-detail", kwargs={"identifier": str(uuid4())}
-        )
+        detail_endpoint = reverse("api:document-detail", kwargs={"uuid": str(uuid4())})
 
         with self.subTest(action="list"):
             response = self.client.get(list_endpoint, headers={})
@@ -39,7 +37,7 @@ class DocumentApiTests(APITestCase):
     def test_list_documents(self):
         publication, publication2 = PublicationFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
-            DocumentFactory.create(
+            document = DocumentFactory.create(
                 publicatie=publication,
                 identifier="document-1",
                 officiele_titel="title one",
@@ -48,7 +46,7 @@ class DocumentApiTests(APITestCase):
                 creatiedatum="2024-01-01",
             )
         with freeze_time("2024-09-24T12:00:00-00:00"):
-            DocumentFactory.create(
+            document2 = DocumentFactory.create(
                 publicatie=publication2,
                 identifier="document-2",
                 officiele_titel="title two",
@@ -65,6 +63,7 @@ class DocumentApiTests(APITestCase):
 
         with self.subTest("first_item_in_response_with_expected_data"):
             expected_second_item_data = {
+                "uuid": str(document2.uuid),
                 "identifier": "document-2",
                 "publicatie": str(publication2.uuid),
                 "officieleTitel": "title two",
@@ -81,6 +80,7 @@ class DocumentApiTests(APITestCase):
 
         with self.subTest("second_item_in_response_with_expected_data"):
             expected_first_item_data = {
+                "uuid": str(document.uuid),
                 "identifier": "document-1",
                 "publicatie": str(publication.uuid),
                 "officieleTitel": "title one",
@@ -98,7 +98,7 @@ class DocumentApiTests(APITestCase):
     def test_list_documents_filter_order(self):
         publication, publication2 = PublicationFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
-            DocumentFactory.create(
+            document = DocumentFactory.create(
                 publicatie=publication,
                 identifier="document-1",
                 officiele_titel="title one",
@@ -107,7 +107,7 @@ class DocumentApiTests(APITestCase):
                 creatiedatum="2024-01-01",
             )
         with freeze_time("2024-09-24T12:00:00-00:00"):
-            DocumentFactory.create(
+            document2 = DocumentFactory.create(
                 publicatie=publication2,
                 identifier="document-2",
                 officiele_titel="title two",
@@ -117,6 +117,7 @@ class DocumentApiTests(APITestCase):
             )
 
         expected_first_item_data = {
+            "uuid": str(document.uuid),
             "identifier": "document-1",
             "publicatie": str(publication.uuid),
             "officieleTitel": "title one",
@@ -129,6 +130,7 @@ class DocumentApiTests(APITestCase):
             "registratiedatum": "2024-09-25T14:30:00+02:00",
         }
         expected_second_item_data = {
+            "uuid": str(document2.uuid),
             "identifier": "document-2",
             "publicatie": str(publication2.uuid),
             "officieleTitel": "title two",
@@ -231,7 +233,7 @@ class DocumentApiTests(APITestCase):
     def test_list_document_publication_filter(self):
         publication, publication2 = PublicationFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
-            DocumentFactory.create(
+            document = DocumentFactory.create(
                 publicatie=publication,
                 identifier="document-1",
                 officiele_titel="title one",
@@ -250,6 +252,7 @@ class DocumentApiTests(APITestCase):
             )
 
         expected_first_item_data = {
+            "uuid": str(document.uuid),
             "identifier": "document-1",
             "publicatie": str(publication.uuid),
             "officieleTitel": "title one",
@@ -275,10 +278,58 @@ class DocumentApiTests(APITestCase):
         self.assertEqual(data["count"], 1)
         self.assertEqual(data["results"][0], expected_first_item_data)
 
+    def test_list_document_identifier_filter(self):
+        publication, publication2 = PublicationFactory.create_batch(2)
+        with freeze_time("2024-09-25T12:30:00-00:00"):
+            document = DocumentFactory.create(
+                publicatie=publication,
+                identifier="document-1",
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                creatiedatum="2024-01-01",
+            )
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            DocumentFactory.create(
+                publicatie=publication2,
+                identifier="document-2",
+                officiele_titel="title two",
+                verkorte_titel="two",
+                omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                creatiedatum="2024-02-02",
+            )
+
+        expected_first_item_data = {
+            "uuid": str(document.uuid),
+            "identifier": "document-1",
+            "publicatie": str(publication.uuid),
+            "officieleTitel": "title one",
+            "verkorteTitel": "one",
+            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "creatiedatum": "2024-01-01",
+            "bestandsformaat": "unknown",
+            "bestandsnaam": "unknown.bin",
+            "bestandsomvang": 0,
+            "registratiedatum": "2024-09-25T14:30:00+02:00",
+        }
+
+        response = self.client.get(
+            reverse("api:document-list"),
+            {"identifier": "document-1"},
+            headers=AUDIT_HEADERS,
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.json()
+
+        self.assertEqual(data["count"], 1)
+        self.assertEqual(data["results"][0], expected_first_item_data)
+
     def test_detail_document(self):
         publication = PublicationFactory.create()
         with freeze_time("2024-09-25T12:30:00-00:00"):
-            DocumentFactory.create(
+            document = DocumentFactory.create(
                 publicatie=publication,
                 identifier="document-1",
                 officiele_titel="title one",
@@ -288,7 +339,7 @@ class DocumentApiTests(APITestCase):
             )
         detail_url = reverse(
             "api:document-detail",
-            kwargs={"identifier": "document-1"},
+            kwargs={"uuid": str(document.uuid)},
         )
 
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
@@ -297,6 +348,7 @@ class DocumentApiTests(APITestCase):
 
         data = response.json()
         expected_data = {
+            "uuid": str(document.uuid),
             "identifier": "document-1",
             "publicatie": str(publication.uuid),
             "officieleTitel": "title one",

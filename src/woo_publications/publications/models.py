@@ -48,6 +48,12 @@ class Publication(models.Model):
 
 
 class Document(models.Model):
+    uuid = models.UUIDField(
+        _("UUID"),
+        unique=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
     publicatie = models.ForeignKey(
         Publication,
         verbose_name=_("publication"),
@@ -79,7 +85,6 @@ class Document(models.Model):
         _("identifier"),
         help_text=_("The (primary) unique identifier."),
         max_length=255,
-        unique=True,
     )
     officiele_titel = models.CharField(
         _("official title"),
