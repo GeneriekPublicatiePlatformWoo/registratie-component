@@ -1,6 +1,6 @@
 .. admin_Publicaties_index:
 
-.. _`audittrail` : ../admin/Logging/index.hmtl
+.. _`audittrail` : ../Logging/index.hmtl
 
 Publicaties
 ============
@@ -55,7 +55,7 @@ Publicaties
 ------------
 Een *publicatie* bestaat uit een aantal gegevens met doorgaans een of meerdere *documenten* (zie hierboven).
 
-.. Tip:: Het toevoegen van een document aan een *publicatie* is niet verplicht. Daarmee kan voldaan worden aan de 'Wet open overheid, art. 3.3, lid 8 <https://wetten.overheid.nl/BWBR0045754/2024-10-01#Hoofdstuk3_Artikel3.3>'_: *"(...) Van een gehele niet-openbaarmaking doet het bestuursorgaan mededeling op de wijze en het tijdstip waarop het niet-openbaar gemaakte stuk openbaar zou zijn gemaakt."* In het veld ``Omschrijving`` kan de mededeling opgenomen worden.
+.. Tip:: Het toevoegen van een document aan een *publicatie* is niet verplicht. Daarmee kan voldaan worden aan de `Wet open overheid, art. 3.3, lid 8 <https://wetten.overheid.nl/BWBR0045754/2024-10-01#Hoofdstuk3_Artikel3.3>`_: *"(...) Van een gehele niet-openbaarmaking doet het bestuursorgaan mededeling op de wijze en het tijdstip waarop het niet-openbaar gemaakte stuk openbaar zou zijn gemaakt."* In het veld ``Omschrijving`` kan de mededeling opgenomen worden.
 
 In het beheerscherm van de *publicaties* wordt een lijst getoond van alle *publicatie*-registraties, die zijn opgeslagen in het "WOO Publications"-component. 
 Op dit scherm zijn de volgende acties mogelijk:
