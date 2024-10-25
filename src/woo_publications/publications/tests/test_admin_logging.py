@@ -327,3 +327,82 @@ class TestAdminAuditLogging(WebTest):
             }
 
             self.assertEqual(log.extra_data, expected_data)
+
+    def test_admin_inline_delete(self):
+        assert not TimelineLogProxy.objects.exists()
+
+        with freeze_time("2024-09-25T00:14:00-00:00"):
+            publication = PublicationFactory.create(
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            )
+            document = DocumentFactory.create(
+                publicatie=publication,
+                identifier="document-1",
+                officiele_titel="DELETE THIS ITEM",
+                verkorte_titel="",
+                omschrijving="",
+                creatiedatum="2024-09-25",
+            )
+        reverse_url = reverse(
+            "admin:publications_publication_change",
+            kwargs={"object_id": publication.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+
+        with self.subTest("read audit logging"):
+            log = TimelineLogProxy.objects.get()
+
+            expected_data = {
+                "event": Events.read,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "_cached_object_repr": "title one",
+            }
+
+            self.assertEqual(log.extra_data, expected_data)
+
+        form = response.forms["publication_form"]
+        form["document_set-0-DELETE"] = True
+        response = form.submit(name="_save")
+
+        self.assertEqual(response.status_code, 302)
+
+        with self.subTest("update inline update logging"):
+            log = TimelineLogProxy.objects.filter(
+                object_id=str(document.pk),
+                extra_data___cached_object_repr="DELETE THIS ITEM",
+            ).first()
+            assert log is not None
+
+            expected_data = {
+                "event": Events.delete.value,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "object_data": {
+                    "id": document.pk,
+                    "identifier": "document-1",
+                    "publicatie": publication.id,
+                    "bestandsnaam": "unknown.bin",
+                    "creatiedatum": "2024-09-25",
+                    "omschrijving": "",
+                    "document_uuid": None,
+                    "bestandsomvang": 0,
+                    "verkorte_titel": "",
+                    "bestandsformaat": "unknown",
+                    "officiele_titel": "DELETE THIS ITEM",
+                    "document_service": None,
+                    "registratiedatum": "2024-09-25T00:14:00Z",
+                },
+                "_cached_object_repr": "DELETE THIS ITEM",
+            }
+
+            self.assertEqual(log.extra_data, expected_data)

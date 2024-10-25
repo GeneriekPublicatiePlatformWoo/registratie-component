@@ -124,6 +124,16 @@ class AuditLogInlineformset(BaseInlineFormSet):
 
         return super().save_existing(form, obj, commit)
 
+    def delete_existing(self, obj, commit=True):
+        if commit:
+            audit_admin_delete(
+                content_object=obj,
+                django_user=self.django_user,
+                object_data=serialize_instance(obj),
+            )
+
+        super().delete_existing(obj, commit)
+
 
 def get_logs_link(obj: models.Model) -> tuple[str, str]:
     """
