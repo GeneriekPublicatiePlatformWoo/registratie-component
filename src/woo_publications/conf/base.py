@@ -23,6 +23,7 @@ INSTALLED_APPS = INSTALLED_APPS + [
     "treebeard",
     # Project applications.
     "woo_publications.accounts",
+    "woo_publications.application",
     "woo_publications.api",
     "woo_publications.logging",
     "woo_publications.metadata",
@@ -144,6 +145,10 @@ REST_FRAMEWORK["DEFAULT_PAGINATION_CLASS"] = (
 )
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
     "woo_publications.api.permissions.AuditHeaderPermission",
+    "woo_publications.application.permission.TokenAuthPermission",
+)
+REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = (
+    "woo_publications.application.authentication.TokenAuthentication",
 )
 REST_FRAMEWORK["EXCEPTION_HANDLER"] = "rest_framework.views.exception_handler"
 
