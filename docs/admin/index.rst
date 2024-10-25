@@ -9,8 +9,8 @@ Because the admin interface is in the Dutch language, the remainder of the follo
 
 .. todo:: Provide proper guides/manual.
 
-Hoe krijg ik toegang??
----------------
+Hoe krijg ik toegang?
+-----------------------
 
 Volg de volgende stappen om toegang te krijgen tot de Admin-omgeving:
 
@@ -41,15 +41,18 @@ Bovenaan de Admin-omgeving staat de menubalk. Deze geeft toegang tot de verschil
 
 Dashboard
 ----------
-Onder de menubalk wordt het dashboard getoond. Deze biedt een snelle toegang tot dezelfde funtionaliteiten als de menubalk. 
+Onder de menubalk wordt het dashboard getoond. Deze biedt een snelle toegang tot dezelfde onderdelen als de menubalk. 
 Op de volgende pagina's worden deze nader toegelicht.
 
 Bovendien wordt aan de rechterzijde een overzicht getoond van de 10 meest recente acties, die de ingelogde gebruiker binnen de Admin-omgeving heeft uitgevoerd. 
 Op een actie kan geklikt worden om meer details te zien.
 
+Onderdelen
+-----------------------------------------------------------
+Klik verder om meer te leren over de volgende onderdelen:
+
 .. toctree::
    :maxdepth: 2
-   :caption: Klik verder om meer te leren over de volgende onderdelen.
 
    Publicaties/index
    Metadata/index
