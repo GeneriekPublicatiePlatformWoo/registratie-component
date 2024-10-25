@@ -52,7 +52,7 @@ Onderdelen
 Klik verder om meer te leren over de volgende onderdelen:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    Publicaties/index
    Metadata/index
