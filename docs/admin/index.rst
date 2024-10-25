@@ -9,6 +9,8 @@ Because the admin interface is in the Dutch language, the remainder of the follo
 
 .. todo:: Provide proper guides/manual.
 
+.. todo:: Add screenshots when interfaces are no longer changing constantly.
+
 Hoe krijg ik toegang?
 -----------------------
 
