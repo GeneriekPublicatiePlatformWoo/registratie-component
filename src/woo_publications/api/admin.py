@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from ..logging.admin_tools import AdminAuditLogMixin
+from woo_publications.logging.admin_tools import AdminAuditLogMixin
+
 from .models import TokenAuth
 
 
