@@ -35,7 +35,7 @@ De 17 *informatiecategorieën* zijn opgenomen in de landelijke waardelijst `Woo 
 In het "WOO Publicaties"-component leggen we de *informatiecategorieën* vast op de *publicatie* (in ontwikkeling). Dezelfde *informatiecategorieën* gelden voor de daaraan gekoppelde *documenten*.
 
 Beheerscherm
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 In het beheerscherm van de *informatiecatgeorieën* wordt een lijst getoond van alle *informatiecategorieën* die zijn opgeslagen in het "WOO Publications"-component. 
 
