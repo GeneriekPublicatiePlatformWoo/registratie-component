@@ -87,7 +87,7 @@ Toelichting
 
 Om de vindbaarheid van openbare documenten te bevorderen ondersteunt de `DiWoo`_-standaard het toekennen van een of meerdere *thema's* aan openbare documenten. Hiervoor is een landelijke waardelijst gedefinieerd: `Thema-indeling voor Officiële Publicaties (TOP-lijst)`_. Op de `Woo-index`_ kan een burger zoeken naar openbare documenten, die aan een bepaald thema gekoppeld zijn.
 
-De landelijke thema-lijst is ook standaard ingelezen in en wordt ontsloten met het "Woo-publications"-component, zodat deze gebruikt kan worden bij het registreren en vindbaar maken van openbare documenten.
+De landelijke thema-lijst is ook standaard ingelezen in en wordt ontsloten met het "Woo-publicaties"-component, zodat deze gebruikt kan worden bij het registreren en vindbaar maken van openbare documenten.
 
 In het "WOO Publicaties"-component leggen we de *thema's* vast op de *publicatie* (in ontwikkeling). Dezelfde *thema's* gelden voor de daaraan gekoppelde *documenten*.
 
