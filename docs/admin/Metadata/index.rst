@@ -64,11 +64,20 @@ Hierop zien we:
 
 Op een informatiecategorie zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
-* ``Naam``. De naam van de *informatiecategorie*, bijvoorbeeld "convenant".
-* ``Naam meervoud``. De meervoudsvorm van de naam, bijvoorbeeld "convenanten".
-* ``Definitie``. De (mogelijk landelijke) definitie van de *informatiecategorie*.
-* ``UUID``. Een niet-muteerbaar, automatisch toegekend identificatie kenmerk.
-* ``Oorsprong``. Een niet-muteerbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
+Naam
+    De naam van de *informatiecategorie*, bijvoorbeeld "convenant".
+
+Naam meervoud
+    De meervoudsvorm van de naam, bijvoorbeeld "convenanten".
+
+Definitie
+    De (mogelijk landelijke) definitie van de *informatiecategorie*.
+
+UUID
+    Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
+
+Oorsprong
+    Een niet-wijzigbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
 
 Thema's
 --------
