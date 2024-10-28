@@ -86,7 +86,7 @@ In het "WOO Publicaties"-component leggen we de *thema's* vast op de *publicatie
 De `DiWoo`_-standaard ondersteunt alleen het gebruik van de landelijke waardelijst `Thema-indeling voor Officiële Publicaties (TOP-lijst)`_. Ook op de `Woo-index`_ kan alleen op deze *thema's*  gezocht worden naar openbare documenten.
 
 Beheerscherm
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 In het beheerscherm van de *thema's* wordt een lijst getoond van alle thema's die zijn opgeslagen in het "WOO Publications"-component. Standaard staan de landelijke thema's hier al in. 
 
