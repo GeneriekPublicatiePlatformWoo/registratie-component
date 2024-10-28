@@ -50,7 +50,7 @@ Op het beheerscherm zijn de volgende acties mogelijk:
 * Onder de (bulk-)actie staat de lijst met *informatiecategorieën*. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong**.
 * Bij een *informatiecategorie* kan op de `naam` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *informatiecategorie* kan op **"Show logs"** (op één na rechter kolom) geklikt worden om direct de `audittrail`_ in te zien.
+* Bij een *informatiecategorie* kan op **"Show logs"** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail <admin_logging_index>` in te zien.
 
 Wanneer bij een *informatiecategorie* op  de `naam` wordt geklikt, wordt een scherm geopend met nadere details.
 Hierop zien we:
