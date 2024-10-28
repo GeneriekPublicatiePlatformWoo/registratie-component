@@ -80,7 +80,7 @@ Oorsprong
     Een niet-wijzigbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
 
 Thema's
---------
+-------
 
 Toelichting
 ~~~~~~~~~~~~~
