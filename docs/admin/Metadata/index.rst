@@ -44,7 +44,7 @@ Daarnaast bestaat er de mogelijkheid om voor de eigen organisatie *extra informa
 
 Op het beheerscherm zijn de volgende acties mogelijk:
 
-* Rechtboven zit een knop **"informatiecategorie toevoegen"** waarmee een *informatiecategorie* toegevoegd kan worden.
+* Rechtboven zit een knop **informatiecategorie toevoegen** waarmee een *informatiecategorie* toegevoegd kan worden.
 * Bovenaan zit een zoekveld met en knop **"Zoeken"** waarmee naar *informatiecategorieën* gezocht kan worden.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere informatiecategorieën**. Op dit moment wordt alleen de actie **"Geselecteerde informatiecategorieën verwijderen"** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *informatiecategorieën* aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *informatiecategorieën*. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
