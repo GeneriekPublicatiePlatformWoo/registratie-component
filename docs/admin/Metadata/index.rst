@@ -58,7 +58,7 @@ Hierop zien we:
 * **Alle gegevens**. Deze lichten we hieronder toe.
 * Rechtsboven een knop **"Show logs"**. Deze toont de volledige `audittrail`_ van de *informatiecategorie*.
 * Rechtsboven een knop **"Geschiedenis"**. Deze toont de beheer-handelingen die vanuit de beheerinterface zijn uitgevoerd op de *informatiecategorie*.
-* Als de *informatiecategorie* tot de landelijke 17 behoort, linksonder een knop om het scherm te **sluiten** en teurg te keren naar de lijst.
+* Als de *informatiecategorie* tot de landelijke lijst behoort, linksonder een knop om het scherm te **sluiten** en terug te keren naar de lijst.
 * Als de *informatiecatgeorie* door de organisatie zelf is toegevoegd, linksonder de mogelijkheid om **wijzigingen op te slaan** (indien van toepassing). Er kan voor gekozen worden om na het opslaan direct een nieuwe *informatiecategorie* aan te maken of om direct de huidige *informatiecategorie* nogmaals te wijzigen.
 * Rechtsonder de mogelijkheid om de *informatiecategorie* te **verwijderen**.
 
