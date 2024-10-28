@@ -26,7 +26,7 @@ De `Wet open overheid`_ beschrijft 17 *informatiecategorieën*. Documenten die o
 
 Daarnaast vraagt de wet om ook documenten openbaar te maken die buiten deze *informatiecategorieën* vallen. Hiervoor geldt geen "harde" plicht, maar wel een *inspanningsverplichting*.
 
-Overigens gelden op de plicht tot openbaarmaking ook een aantal uitzonderingen (hoofdstuk 5 van de wet). Raadpleeg voor meer informatie over de wet de jurist en/of informatiebeheerder van uw eigen organisatie.
+Overigens gelden op de plicht tot openbaarmaking ook een aantal uitzonderingen (hoofdstuk 5 van de wet). Raadpleeg voor meer informatie over de wet de jurist en/of informatiebeheerder van je eigen organisatie.
 
 Voor de aansluiting op de landelijke `Woo-index`_ wordt ten zeerste geadviseerd om documenten te voorzien van metadata conform de `DiWoo`_-standaard. Deze standaard vereist omder meer dat in de metadata wordt vastgelegd op grond van welke *informatiecategorie(ën)* het document actief openbaar is gemaakt.
 
