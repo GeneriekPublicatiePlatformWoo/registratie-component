@@ -20,7 +20,7 @@ Informatiecategorieën
 ---------------------
 
 Toelichting
-~~~~~~~~~~~~~
+~~~~~~~~~~~
 
 De `Wet open overheid`_ beschrijft 17 *informatiecategorieën*. Documenten die onder minstens één van deze categorieën vallen, moeten *actief* openbaar gemaakt worden. Dat wil zeggen dat een bestuursorgaan deze online moet publiceren, ook wanneer daar niet door een burger expliciet om gevraagd is in een *Woo-verzoek*. 
 
