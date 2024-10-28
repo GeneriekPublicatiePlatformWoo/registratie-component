@@ -81,7 +81,7 @@ Om de vindbaarheid van openbare documenten te bevorderen ondersteunt de `DiWoo`_
 
 De landelijke thema-lijst is ook standaard ingelezen in en wordt ontsloten met het "Woo-publications"-component, zodat deze gebruikt kan worden bij het registreren en vindbaar maken van openbare documenten.
 
-In het "WOO Publications"-component leggen we de *thema's* vast op de *publicatie* (in ontwikkeling). Dezelfde *thema's* gelden voor de daaraan gekoppelde *documenten*.
+In het "WOO Publicaties"-component leggen we de *thema's* vast op de *publicatie* (in ontwikkeling). Dezelfde *thema's* gelden voor de daaraan gekoppelde *documenten*.
 
 De `DiWoo`_-standaard ondersteunt alleen het gebruik van de landelijke waardelijst `Thema-indeling voor Officiële Publicaties (TOP-lijst)`_. Ook op de `Woo-index`_ kan alleen op deze *thema's*  gezocht worden naar openbare documenten.
 
