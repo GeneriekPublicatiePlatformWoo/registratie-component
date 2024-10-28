@@ -9,7 +9,7 @@
 .. _`audittrail` : ../Logging/index.hmtl
 
 Metadata
-============
+========
 
 Onder het menu-item "Metadata" en op het dashboard onder het kopje "Metadata" wordt toegang geboden tot het beheer van:
 
