@@ -14,7 +14,7 @@ Onder het menu-item "Metadata" en op het dashboard onder het kopje "Metadata" wo
 * Informatiecategorieën
 * Thema's
 
-Door herop te klikken wordt het desbetreffende beheerscherm geopend.
+Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
 
 Informatiecategorieën
 ------------------------
