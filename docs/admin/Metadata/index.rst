@@ -109,7 +109,7 @@ Hierop zien we:
 
 Op een *thema* zijn de volgende gegevens beschikbaar.
 
-* ``UUID``. Een niet-muteerbaar, automatisch toegekend identificatie kenmerk.
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatie kenmerk.
 * ``Naam``. De naam van het *thema*, bijvoorbeeld "cultuur en recreatie".
 * ``position``. (In ontwikkeling)
 * ``ref node id``. (In ontwikkeling)
