@@ -64,20 +64,11 @@ Hierop zien we:
 
 Op een informatiecategorie zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
-Naam
-    De naam van de *informatiecategorie*, bijvoorbeeld "convenant".
-
-Naam meervoud
-    De meervoudsvorm van de naam, bijvoorbeeld "convenanten".
-
-Definitie
-    De (mogelijk landelijke) definitie van de *informatiecategorie*.
-
-UUID
-    Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
-
-Oorsprong
-    Een niet-wijzigbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
+* ``Naam``. De naam van de *informatiecategorie*, bijvoorbeeld "convenant".
+* ``Naam meervoud``. De meervoudsvorm van de naam, bijvoorbeeld "convenanten".
+* ``Definitie``. De (mogelijk landelijke) definitie van de *informatiecategorie*.
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
+* ``Oorsprong``. Een niet-wijzigbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
 
 Thema's
 -------
@@ -119,5 +110,5 @@ Op een *thema* zijn de volgende gegevens beschikbaar.
 
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatie kenmerk.
 * ``Naam``. De naam van het *thema*, bijvoorbeeld "cultuur en recreatie".
-* ``position``. (In ontwikkeling)
-* ``ref node id``. (In ontwikkeling)
+* ``position``. (systeemveld)
+* ``ref node id``. (systeemveld)
