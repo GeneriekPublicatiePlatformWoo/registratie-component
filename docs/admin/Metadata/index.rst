@@ -1,12 +1,10 @@
 .. admin_Metadata_index:
 
-.. _`audittrail` : ../Logging/index.hmtl
-.. _`Wet open overheid` : https://wetten.overheid.nl/BWBR0045754/
-.. _`Woo-index`: https://open.overheid.nl/
-.. _`DiWoo` : https://standaarden.overheid.nl/diwoo/metadata
-.. _`Woo informatiecategorieën` : https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_woo_informatiecategorieen
-.. _`Thema-indeling voor Officiële Publicaties (TOP-lijst)` : https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_toplijst
-.. _`audittrail` : ../Logging/index.hmtl
+.. _Wet open overheid: https://wetten.overheid.nl/BWBR0045754/
+.. _Woo-index: https://open.overheid.nl/
+.. _DiWoo: https://standaarden.overheid.nl/diwoo/metadata
+.. _Woo informatiecategorieën: https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_woo_informatiecategorieen
+.. _Thema-indeling voor Officiële Publicaties (TOP-lijst): https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_toplijst
 
 Metadata
 ========
