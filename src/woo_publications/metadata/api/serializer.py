@@ -29,6 +29,8 @@ class InformationCategorySerializer(serializers.ModelSerializer):
 
 
 class OrganisationSerializer(serializers.ModelSerializer):
+    instance: Organisation | None
+
     class Meta:  # type: ignore
         model = Organisation
         fields = ("uuid", "identifier", "naam", "oorsprong", "is_actief")
@@ -50,18 +52,19 @@ class OrganisationSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        if instance := self.instance:
-            if (
-                attrs.get("naam")
-                and instance.oorsprong != OrganisationOrigins.custom_entry
-            ):
-                raise serializers.ValidationError(
-                    {
-                        "naam": _(
-                            "You cannot modify the name of organisations populated from a value list."
-                        )
-                    }
-                )
+        if (
+            (instance := self.instance)
+            and instance.oorsprong != OrganisationOrigins.custom_entry
+            and attrs.get("naam")
+        ):
+            raise serializers.ValidationError(
+                {
+                    "naam": _(
+                        "You cannot modify the name of organisations populated from a "
+                        "value list."
+                    )
+                }
+            )
 
         return super().validate(attrs)
 
