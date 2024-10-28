@@ -17,7 +17,7 @@ Onder het menu-item "Metadata" en op het dashboard onder het kopje "Metadata" wo
 Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
 
 Informatiecategorieën
-------------------------
+---------------------
 
 Toelichting
 ~~~~~~~~~~~~~
