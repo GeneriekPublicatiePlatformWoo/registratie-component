@@ -87,8 +87,6 @@ class OrganisationViewSet(
     ) -> models.QuerySet[Organisation]:
         # let the default filter backends do their work first
         qs = super().filter_queryset(queryset)
-        # TODO: this will become isActief at some point - need to check when the
-        # camelCase -> snake_case conversion happens.
         if self.action == "list" and "is_actief" not in self.request.query_params:
             qs = qs.filter(is_actief=True)
         return qs

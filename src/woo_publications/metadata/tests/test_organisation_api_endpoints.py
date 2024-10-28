@@ -116,7 +116,7 @@ class OrganisationApiTests(APITestCase):
         with self.subTest("filter on active true"):
             response = self.client.get(
                 list_url,
-                {"is_actief": OrganisationActive.active},
+                {"isActief": OrganisationActive.active},
                 headers=AUDIT_HEADERS,
             )
 
@@ -130,7 +130,7 @@ class OrganisationApiTests(APITestCase):
         with self.subTest("filter on active false"):
             response = self.client.get(
                 list_url,
-                {"is_actief": OrganisationActive.inactive},
+                {"isActief": OrganisationActive.inactive},
                 headers=AUDIT_HEADERS,
             )
 
@@ -144,7 +144,7 @@ class OrganisationApiTests(APITestCase):
         with self.subTest("filter on active every"):
             response = self.client.get(
                 list_url,
-                {"is_actief": OrganisationActive.all},
+                {"isActief": OrganisationActive.all},
                 headers=AUDIT_HEADERS,
             )
 
