@@ -1,6 +1,7 @@
 import uuid
 
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
 from freezegun import freeze_time
@@ -19,10 +20,7 @@ class TestDocumentAdmin(WebTest):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.user = UserFactory.create(
-            is_staff=True,
-            is_superuser=True,
-        )
+        cls.user = UserFactory.create(superuser=True)
 
     def test_document_admin_shows_items(self):
         DocumentFactory.create(
@@ -100,23 +98,51 @@ class TestDocumentAdmin(WebTest):
             self.assertContains(search_response, "field-identifier", 1)
             self.assertContains(search_response, "title one", 1)
 
+    def test_document_admin_list_filters(self):
+        self.app.set_user(user=self.user)
+
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            DocumentFactory.create(
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                creatiedatum="2024-09-24",
+            )
+        with freeze_time("2024-09-25T12:30:00-00:00"):
+            document2 = DocumentFactory.create(
+                officiele_titel="title two",
+                verkorte_titel="two",
+                omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                creatiedatum="2024-09-25",
+            )
+        reverse_url = reverse("admin:publications_document_changelist")
+
         with freeze_time("2024-09-25T00:14:00-00:00"):
-            with self.subTest("filter_on_registratiedatum"):
-                today = "2024-09-25T00:00:00-00:00"
-                tomorrow = "2024-09-26T00:00:00-00:00"
+            response = self.app.get(reverse_url)
 
-                search_response = self.app.get(
-                    reverse_url,
-                    {
-                        "registratiedatum__gte": today,
-                        "registratiedatum__lt": tomorrow,
-                    },
-                    user=self.user,
-                )
+        self.assertEqual(response.status_code, 200)
 
-                self.assertEqual(search_response.status_code, 200)
-                self.assertContains(search_response, "field-identifier", 1)
-                self.assertContains(search_response, publication2.identifier, 1)
+        with self.subTest("filter_on_registratiedatum"):
+            search_response = response.click(description=_("Today"), index=0)
+
+            self.assertEqual(search_response.status_code, 200)
+
+            # Sanity check that we indeed filtered on registratiedatum
+            assert "registratiedatum__gte" in search_response.context["request"].GET
+
+            self.assertContains(search_response, "field-identifier", 1)
+            self.assertContains(search_response, document2.identifier, 1)
+
+        with self.subTest("filter_on_creatiedatum"):
+            search_response = response.click(description=_("Today"), index=1)
+
+            self.assertEqual(search_response.status_code, 200)
+
+            # Sanity check that we indeed filtered on creatiedatum
+            assert "creatiedatum__gte" in search_response.context["request"].GET
+
+            self.assertContains(search_response, "field-identifier", 1)
+            self.assertContains(search_response, document2.identifier, 1)
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_document_admin_create(self):
