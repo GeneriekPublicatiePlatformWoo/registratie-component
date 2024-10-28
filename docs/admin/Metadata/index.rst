@@ -37,7 +37,7 @@ In het "WOO Publicaties"-component leggen we de *informatiecategorieën* vast op
 Beheerscherm
 ~~~~~~~~~~~~
 
-In het beheerscherm van de *informatiecatgeorieën* wordt een lijst getoond van alle *informatiecategorieën* die zijn opgeslagen in het "WOO Publications"-component. 
+In het beheerscherm van de *informatiecatgeorieën* wordt een lijst getoond van alle *informatiecategorieën* die zijn opgeslagen in het "WOO Publicaties"-component. 
 
 Standaard staan de landelijke 17 verplichte *informatiecategorieën* hier al in. Zij zijn te herkennen aan de waarde "Waardelijst" in de kolom `Oorsprong` van de lijst. Zij kunnen niet gewijzigd worden.
 Daarnaast bestaat er de mogelijkheid om voor de eigen organisatie *extra informatiecategorieën* toe te voegen. Deze zijn te herkennen aan de waarde "Zelf-toegevoegd item" in de kolom `Oorsprong` van de lijst. Deze kunnen indien nodig gewijzigd worden.
