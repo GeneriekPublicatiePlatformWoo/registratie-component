@@ -32,7 +32,7 @@ Voor de aansluiting op de landelijke `Woo-index`_ wordt ten zeerste geadviseerd 
 
 De 17 *informatiecategorieën* zijn opgenomen in de landelijke waardelijst `Woo informatiecatgeorieën`_. Deze lijst is al standaard opgenomen in het "Woo Publicaties"-component. Daarnaast bestaat de mogelijkheid, zoals we hieronder zullen beschrijven, om in het kader van de *inspanningsverplichting* hier voor de eigen organisatie *extra informatiecategorieën* aan toe te voegen.
 
-In het "WOO Publications"-component leggen we de *informatiecategorieën* vast op de *publicatie* (in ontwikkeling). Dezelfde *informatiecategorieën* gelden voor de daaraan gekoppelde *documenten*.
+In het "WOO Publicaties"-component leggen we de *informatiecategorieën* vast op de *publicatie* (in ontwikkeling). Dezelfde *informatiecategorieën* gelden voor de daaraan gekoppelde *documenten*.
 
 Beheerscherm
 ~~~~~~~~~~~~~~
