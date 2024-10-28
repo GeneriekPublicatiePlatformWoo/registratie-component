@@ -30,7 +30,7 @@ Overigens gelden op de plicht tot openbaarmaking ook een aantal uitzonderingen (
 
 Voor de aansluiting op de landelijke `Woo-index`_ wordt ten zeerste geadviseerd om documenten te voorzien van metadata conform de `DiWoo`_-standaard. Deze standaard vereist onder meer dat in de metadata wordt vastgelegd op grond van welke *informatiecategorie(ën)* het document actief openbaar is gemaakt.
 
-De 17 *informatiecategorieën* zijn opgenomen in de landelijke waardelijst `Woo informatiecatgeorieën`_. Deze lijst is al standaard opgenomen in het "Woo Publications"-component. Daarnaast bestaat de mogelijkheid, zoals we hieronder zullen beschrijven, om in het kader van de *inspanningsverplichting* hier voor de eigen organisatie *extra informatiecategorieën* aan toe te voegen.
+De 17 *informatiecategorieën* zijn opgenomen in de landelijke waardelijst `Woo informatiecatgeorieën`_. Deze lijst is al standaard opgenomen in het "Woo Publicaties"-component. Daarnaast bestaat de mogelijkheid, zoals we hieronder zullen beschrijven, om in het kader van de *inspanningsverplichting* hier voor de eigen organisatie *extra informatiecategorieën* aan toe te voegen.
 
 In het "WOO Publications"-component leggen we de *informatiecategorieën* vast op de *publicatie* (in ontwikkeling). Dezelfde *informatiecategorieën* gelden voor de daaraan gekoppelde *documenten*.
 
