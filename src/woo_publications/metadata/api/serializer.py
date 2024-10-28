@@ -3,7 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework_recursive.fields import RecursiveField
 
-from ..models import InformationCategory, Theme
+from ..constants import OrganisationOrigins
+from ..models import InformationCategory, Organisation, Theme
 
 
 class InformationCategorySerializer(serializers.ModelSerializer):
@@ -25,6 +26,47 @@ class InformationCategorySerializer(serializers.ModelSerializer):
                 )
             },
         }
+
+
+class OrganisationSerializer(serializers.ModelSerializer):
+    instance: Organisation | None
+
+    class Meta:  # type: ignore
+        model = Organisation
+        fields = ("uuid", "identifier", "naam", "oorsprong", "is_actief")
+        read_only_fields = (
+            "uuid",
+            "identifier",
+            "oorsprong",
+        )
+        extra_kwargs = {
+            "naam": {
+                "required": False,
+                "help_text": _(
+                    "The name of the organisation (can only be modified when `oorsprong` is `{custom_entry}`)."
+                ).format(custom_entry=OrganisationOrigins.custom_entry),
+            },
+            "is_actief": {
+                "required": False,
+            },
+        }
+
+    def validate(self, attrs):
+        if (
+            (instance := self.instance)
+            and instance.oorsprong != OrganisationOrigins.custom_entry
+            and attrs.get("naam")
+        ):
+            raise serializers.ValidationError(
+                {
+                    "naam": _(
+                        "You cannot modify the name of organisations populated from a "
+                        "value list."
+                    )
+                }
+            )
+
+        return super().validate(attrs)
 
 
 class ThemeSerializer(serializers.ModelSerializer):

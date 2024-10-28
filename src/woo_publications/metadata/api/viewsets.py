@@ -1,13 +1,22 @@
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
-from woo_publications.logging.service import AuditTrailRetrieveMixin
+from woo_publications.logging.service import (
+    AuditTrailCreateMixin,
+    AuditTrailRetrieveMixin,
+    AuditTrailUpdateMixin,
+)
 
-from ..models import InformationCategory, Theme
-from .filters import InformationCategoryFilterSet
-from .serializer import InformationCategorySerializer, ThemeSerializer
+from ..models import InformationCategory, Organisation, Theme
+from .filters import InformationCategoryFilterSet, OrganisationFilterSet
+from .serializer import (
+    InformationCategorySerializer,
+    OrganisationSerializer,
+    ThemeSerializer,
+)
 
 
 @extend_schema(tags=["Informatiecategorieën"])
@@ -30,6 +39,57 @@ class InformationCategoryViewSet(
     serializer_class = InformationCategorySerializer
     filterset_class = InformationCategoryFilterSet
     lookup_field = "uuid"
+
+
+@extend_schema(tags=["Organisaties"])
+@extend_schema_view(
+    list=extend_schema(
+        summary=_("All available organisations."),
+        description=_("Returns a paginated result list of existing organisations."),
+    ),
+    retrieve=extend_schema(
+        summary=_("Retrieve a specific organisation."),
+        description=_("Retrieve a specific organisation."),
+    ),
+    create=extend_schema(
+        summary=_("Create an organisation."),
+        description=_("Create an organisation."),
+    ),
+    partial_update=extend_schema(
+        summary=_("Update an organisation partially."),
+        description=_("Update an organisation partially."),
+    ),
+    update=extend_schema(
+        summary=_("Update an organisation entirely."),
+        description=_("Update an organisation entirely."),
+    ),
+)
+class OrganisationViewSet(
+    # Auditlog mixins
+    AuditTrailCreateMixin,
+    AuditTrailRetrieveMixin,
+    AuditTrailUpdateMixin,
+    # DRF model Viewset mixins
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.ListModelMixin,
+    # Viewset
+    viewsets.GenericViewSet,
+):
+    queryset = Organisation.objects.order_by("pk")
+    serializer_class = OrganisationSerializer
+    filterset_class = OrganisationFilterSet
+    lookup_field = "uuid"
+
+    def filter_queryset(
+        self, queryset: models.QuerySet[Organisation]
+    ) -> models.QuerySet[Organisation]:
+        # let the default filter backends do their work first
+        qs = super().filter_queryset(queryset)
+        if self.action == "list" and "is_actief" not in self.request.query_params:
+            qs = qs.filter(is_actief=True)
+        return qs
 
 
 @extend_schema(tags=["Themas"])

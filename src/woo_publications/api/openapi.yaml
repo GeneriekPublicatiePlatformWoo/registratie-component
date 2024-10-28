@@ -118,6 +118,291 @@ paths:
               schema:
                 $ref: '#/components/schemas/InformationCategory'
           description: ''
+  /api/v1/organisaties:
+    get:
+      operationId: organisatiesList
+      description: Returns a paginated result list of existing organisations.
+      summary: All available organisations.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      - in: query
+        name: identifier
+        schema:
+          type: string
+          format: uri
+          title: Identificatie
+        description: Search the organisations by the unique IRI that identifies a
+          specific organisation.
+      - in: query
+        name: isActief
+        schema:
+          type: string
+          enum:
+          - alle
+          - 'false'
+          - 'true'
+        description: |-
+          Filter the organisations depending on their activity status:
+
+          * `true` - Retrieves all the active organisations (default)
+          * `false` - Retrieves all the inactive organisations
+          * `alle` - Retrieve every organisation regardless if active or inactive.
+      - in: query
+        name: naam
+        schema:
+          type: string
+        description: Search through the organisations based on the name of the organisation.
+          You can search on parts of the name, and matching is case-insensitive.
+      - in: query
+        name: oorsprong
+        schema:
+          type: string
+          enum:
+          - gemeentelijst
+          - oorglijst
+          - solijst
+          - zelf_toegevoegd
+        description: |-
+          Search the organisation based on the origin of the organisation.
+
+          * `gemeentelijst` - Municipality list
+          * `solijst` - Collaborative organisations list
+          * `oorglijst` - Alternative government organisations
+          * `zelf_toegevoegd` - Zelf-toegevoegd item
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Organisaties
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrganisationList'
+          description: ''
+    post:
+      operationId: organisatiesCreate
+      description: Create an organisation.
+      summary: Create an organisation.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisation'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+  /api/v1/organisaties/{uuid}:
+    get:
+      operationId: organisatiesRetrieve
+      description: Retrieve a specific organisation.
+      summary: Retrieve a specific organisation.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+    put:
+      operationId: organisatiesUpdate
+      description: Update an organisation entirely.
+      summary: Update an organisation entirely.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
+    patch:
+      operationId: organisatiesPartialUpdate
+      description: Update an organisation partially.
+      summary: Update an organisation partially.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      - in: path
+        name: uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Organisaties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+          description: ''
   /api/v1/publicaties:
     get:
       operationId: publicatiesList
@@ -643,7 +928,7 @@ components:
           type: string
         oorsprong:
           allOf:
-          - $ref: '#/components/schemas/OorsprongEnum'
+          - $ref: '#/components/schemas/InformationCategoryOorsprongEnum'
           description: |-
             Geeft aan waar de categorie gedefinieerd is, waar de gegevens opgehaald worden en hoe de identificatie dient geïnterpreteerd te worden. Als een waardelijst als oorsprong gebruikt wordt, dan kan de categorie niet bewerkt of verwijderd worden.
 
@@ -658,13 +943,64 @@ components:
       - identifier
       - naam
       - order
-    OorsprongEnum:
+    InformationCategoryOorsprongEnum:
       enum:
       - waardelijst
       - zelf_toegevoegd
       type: string
       description: |-
         * `waardelijst` - Waardelijst
+        * `zelf_toegevoegd` - Zelf-toegevoegd item
+    Organisation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          title: Identificatie
+          description: The unique IRI that identifies this organisation in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
+        naam:
+          type: string
+          description: The name of the organisation (can only be modified when `oorsprong`
+            is `zelf_toegevoegd`).
+          maxLength: 80
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OrganisationOorsprongEnum'
+          readOnly: true
+          description: |-
+            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+
+            * `gemeentelijst` - Municipality list
+            * `solijst` - Collaborative organisations list
+            * `oorglijst` - Alternative government organisations
+            * `zelf_toegevoegd` - Zelf-toegevoegd item
+        isActief:
+          type: boolean
+          title: Is active
+          description: Displays if the the organisation is currently active or not.
+      required:
+      - identifier
+      - oorsprong
+      - uuid
+    OrganisationOorsprongEnum:
+      enum:
+      - gemeentelijst
+      - solijst
+      - oorglijst
+      - zelf_toegevoegd
+      type: string
+      description: |-
+        * `gemeentelijst` - Municipality list
+        * `solijst` - Collaborative organisations list
+        * `oorglijst` - Alternative government organisations
         * `zelf_toegevoegd` - Zelf-toegevoegd item
     PaginatedInformationCategoryList:
       type: object
@@ -689,6 +1025,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InformationCategory'
+    PaginatedOrganisationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organisation'
     PaginatedPublicationList:
       type: object
       required:
@@ -735,6 +1094,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Theme'
+    PatchedOrganisation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        identifier:
+          type: string
+          format: uri
+          readOnly: true
+          title: Identificatie
+          description: The unique IRI that identifies this organisation in the overheid.nl
+            value list. For entries that have been added manually, an identifier is
+            generated.
+        naam:
+          type: string
+          description: The name of the organisation (can only be modified when `oorsprong`
+            is `zelf_toegevoegd`).
+          maxLength: 80
+        oorsprong:
+          allOf:
+          - $ref: '#/components/schemas/OrganisationOorsprongEnum'
+          readOnly: true
+          description: |-
+            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+
+            * `gemeentelijst` - Municipality list
+            * `solijst` - Collaborative organisations list
+            * `oorglijst` - Alternative government organisations
+            * `zelf_toegevoegd` - Zelf-toegevoegd item
+        isActief:
+          type: boolean
+          title: Is active
+          description: Displays if the the organisation is currently active or not.
     PatchedPublication:
       type: object
       properties:
