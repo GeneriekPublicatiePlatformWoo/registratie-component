@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 
 from ..constants import InformationCategoryOrigins
 from .factories import InformationCategoryFactory
@@ -17,7 +18,9 @@ AUDIT_HEADERS = {
 }
 
 
-class InformationCategoryTests(APITestCase):
+class InformationCategoryAPIAuthorizationAndPermissionTests(
+    APIKeyUnAuthorizedMixin, APITestCase
+):
     def test_403_when_audit_headers_are_missing(self):
         user = UserFactory.create()
         self.client.force_authenticate(user=user)
@@ -36,6 +39,19 @@ class InformationCategoryTests(APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_api_key_result_in_401_with_wrong_credentials(self):
+        information_category = InformationCategoryFactory.create()
+        list_url = reverse("api:informationcategory-list")
+        detail_url = reverse(
+            "api:informationcategory-detail",
+            kwargs={"uuid": str(information_category.uuid)},
+        )
+
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(list_url)
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(detail_url)
+
+
+class InformationCategoryTests(TokenAuthMixin, APITestCase):
     def test_list_informatie_categorie(self):
         information_category = InformationCategoryFactory.create(
             identifier="https://www.example.com/waardenlijsten/1",

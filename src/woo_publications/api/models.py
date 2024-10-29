@@ -43,7 +43,7 @@ class TokenAuth(models.Model):
         blank=True,
     )
     telefoon_nummer = PhoneNumberField(
-        _("Phonenumber"),
+        _("phonenumber"),
         help_text=_("Phonenumber of the person, who can access the API"),
         blank=True,
     )

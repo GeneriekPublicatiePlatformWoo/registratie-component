@@ -336,6 +336,8 @@ paths:
           type: integer
       tags:
       - Organisaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -381,6 +383,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+      security:
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -428,6 +432,8 @@ paths:
         required: true
       tags:
       - Organisaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -479,6 +485,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -530,6 +538,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedOrganisation'
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:

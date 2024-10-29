@@ -80,7 +80,7 @@ class TestAutorizationAndPermissionView(views.APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ApiTokenAuthorizationAndPermissionTests(APITestCase, URLPatternsTestCase):
+class ApiTokenAuthorizationAndPermissionTests(URLPatternsTestCase, APITestCase):
     urlpatterns = [
         path("whatever", TestAutorizationAndPermissionView.as_view()),
     ]

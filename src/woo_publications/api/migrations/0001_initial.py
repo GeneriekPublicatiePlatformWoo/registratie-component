@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                         help_text="Phonenumber of the person, who can access the API",
                         max_length=128,
                         region=None,
-                        verbose_name="Phonenumber",
+                        verbose_name="phonenumber",
                     ),
                 ),
                 (

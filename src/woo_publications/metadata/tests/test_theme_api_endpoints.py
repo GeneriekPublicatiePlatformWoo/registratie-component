@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 
 from .factories import ThemeFactory
 
@@ -16,7 +17,7 @@ AUDIT_HEADERS = {
 }
 
 
-class ThemeTests(APITestCase):
+class ThemeAPIAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITestCase):
     def test_403_when_audit_headers_are_missing(self):
         user = UserFactory.create()
         self.client.force_authenticate(user=user)
@@ -35,6 +36,19 @@ class ThemeTests(APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_api_key_result_in_401_with_wrong_credentials(self):
+        theme = ThemeFactory.create()
+        list_url = reverse("api:theme-list")
+        detail_url = reverse(
+            "api:theme-detail",
+            kwargs={"uuid": str(theme.uuid)},
+        )
+
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(list_url)
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(detail_url)
+
+
+class ThemeTests(TokenAuthMixin, APITestCase):
     def test_list_theme(self):
         parent_theme = ThemeFactory.create(
             identifier="https://www.example.com/thema/1",

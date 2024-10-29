@@ -7,7 +7,7 @@ from ..models import TokenAuth
 class TokenAuthFactory(factory.django.DjangoModelFactory):
     permissies = []
 
-    class Meta:
+    class Meta:  # type: ignore
         model = TokenAuth
 
     class Params:

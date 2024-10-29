@@ -24,9 +24,9 @@ class AuditHeaderPermission(BasePermission):
 
 class TokenAuthPermission(BasePermission):
     def has_permission(self, request, view) -> bool:
-        token: TokenAuth = request.auth
+        token = request.auth
 
-        if not token:
+        if not isinstance(token, TokenAuth):
             return False
 
         if (

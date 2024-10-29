@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from woo_publications.api.tests.mixins import TokenAuthMixin
 from woo_publications.logging.models import TimelineLogProxy
 
 from .factories import InformationCategoryFactory, OrganisationFactory, ThemeFactory
@@ -13,7 +14,7 @@ AUDIT_HEADERS = {
 }
 
 
-class InformationCategoryLoggingTests(APITestCase):
+class InformationCategoryLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_retrieve_logging(self):
         information_category = InformationCategoryFactory.create()
@@ -29,7 +30,7 @@ class InformationCategoryLoggingTests(APITestCase):
         self.assertEqual(log_records.count(), 1)
 
 
-class OrganisationLoggingTests(APITestCase):
+class OrganisationLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_retrieve_logging(self):
         organisation = OrganisationFactory.create()
@@ -45,7 +46,7 @@ class OrganisationLoggingTests(APITestCase):
         self.assertEqual(log_records.count(), 1)
 
 
-class ThemeLoggingTests(APITestCase):
+class ThemeLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_retrieve_logging(self):
         theme = ThemeFactory.create()
