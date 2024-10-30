@@ -65,11 +65,11 @@ class InformationCategory(OrderedModel):
         verbose_name = _("information category")
         verbose_name_plural = _("information categories")
 
-    def natural_key(self):
-        return (self.identifier,)
-
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
 
 
 class Theme(MP_Node):
@@ -95,11 +95,11 @@ class Theme(MP_Node):
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
 
-    def natural_key(self):
-        return (self.identifier,)
-
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
 
 
 class Organisation(models.Model):
@@ -141,8 +141,8 @@ class Organisation(models.Model):
         verbose_name = _("organisation")
         verbose_name_plural = _("organisations")
 
-    def natural_key(self):
-        return (self.identifier,)
-
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
