@@ -11,6 +11,15 @@ class PublicationFactory(factory.django.DjangoModelFactory):
     class Meta:  # type: ignore
         model = Publication
 
+    @factory.post_generation
+    def informatie_categorieen(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            for information_category in extracted:
+                self.informatie_categorieen.add(information_category)
+
 
 class DocumentFactory(factory.django.DjangoModelFactory):
     publicatie = factory.SubFactory(PublicationFactory)

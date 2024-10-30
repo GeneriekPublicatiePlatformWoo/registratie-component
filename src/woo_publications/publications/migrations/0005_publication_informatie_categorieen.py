@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
         ("metadata", "0005_organisation"),
         (
             "publications",
-            "0003_document_document_service_document_document_uuid_and_more",
+            "0004_document_uuid_alter_document_identifier",
         ),
     ]
 
