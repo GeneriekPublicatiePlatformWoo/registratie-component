@@ -171,7 +171,7 @@ django-solo==2.3.0
     #   mozilla-django-oidc-db
     #   notifications-api-common
     #   zgw-consumers
-django-timeline-logger==4.0.0
+django-timeline-logger==5.0.0
     # via -r requirements/base.in
 django-treebeard==4.7.1
     # via -r requirements/base.in
