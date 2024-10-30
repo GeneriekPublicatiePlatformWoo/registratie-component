@@ -9,9 +9,21 @@ from glom import PathAccessError, T, glom
 from woo_publications.metadata.constants import OrganisationOrigins
 from woo_publications.metadata.models import Organisation
 
-MUNICIPALITY_WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/rwc_gemeenten_compleet/4/json/rwc_gemeenten_compleet_4.json"
-SO_WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/rwc_samenwerkingsorganisaties_compleet/1/json/rwc_samenwerkingsorganisaties_compleet_1.json"
-OORG_WAARDENLIJST_URL = "https://repository.officiele-overheidspublicaties.nl/waardelijsten/rwc_overige_overheidsorganisaties_compleet/8/json/rwc_overige_overheidsorganisaties_compleet_8.json"
+MUNICIPALITY_WAARDENLIJST_URL = (
+    "https://repository.officiele-overheidspublicaties.nl/waardelijsten/"
+    "rwc_gemeenten_compleet/4/json/"
+    "rwc_gemeenten_compleet_4.json"
+)
+SO_WAARDENLIJST_URL = (
+    "https://repository.officiele-overheidspublicaties.nl/waardelijsten/"
+    "rwc_samenwerkingsorganisaties_compleet/1/json/"
+    "rwc_samenwerkingsorganisaties_compleet_1.json"
+)
+OORG_WAARDENLIJST_URL = (
+    "https://repository.officiele-overheidspublicaties.nl/waardelijsten/"
+    "rwc_overige_overheidsorganisaties_compleet/8/json/"
+    "rwc_overige_overheidsorganisaties_compleet_8.json"
+)
 
 MUNICIPALITY_WAARDENLIJST_TYPE = "https://identifier.overheid.nl/tooi/def/ont/Gemeente"
 SO_WAARDENLIJST_TYPE = (
@@ -54,16 +66,15 @@ def update_organisation(file_path: Path):
             response = requests.get(waardenlijst_url)
         except requests.RequestException as err:
             raise OrganisatieWaardenlijstError(
-                "Could not retrieve the value list data from url `{}`.".format(
-                    waardenlijst_url
-                )
+                f"Could not retrieve the value list data from url `{waardenlijst_url}`."
             ) from err
 
         try:
             response.raise_for_status()
         except requests.RequestException as err:
             raise OrganisatieWaardenlijstError(
-                f"Got an unexpected response status code when retrieving the value list data from url `{waardenlijst_url}`: {response.status_code}."
+                "Got an unexpected response status code when retrieving the value "
+                f"list data from url `{waardenlijst_url}`: {response.status_code}."
             ) from err
 
         data = response.json()
