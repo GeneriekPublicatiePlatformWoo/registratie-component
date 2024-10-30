@@ -970,7 +970,7 @@ components:
           type: string
           description: The name of the organisation (can only be modified when `oorsprong`
             is `zelf_toegevoegd`).
-          maxLength: 80
+          maxLength: 255
         oorsprong:
           allOf:
           - $ref: '#/components/schemas/OrganisationOorsprongEnum'
@@ -1113,7 +1113,7 @@ components:
           type: string
           description: The name of the organisation (can only be modified when `oorsprong`
             is `zelf_toegevoegd`).
-          maxLength: 80
+          maxLength: 255
         oorsprong:
           allOf:
           - $ref: '#/components/schemas/OrganisationOorsprongEnum'

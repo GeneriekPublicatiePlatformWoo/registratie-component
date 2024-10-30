@@ -7,7 +7,7 @@ from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins, OrganisationOrigins
-from .manager import InformationCategoryManager, ThemeManager
+from .manager import InformationCategoryManager, OrganisationManager, ThemeManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"
@@ -65,11 +65,11 @@ class InformationCategory(OrderedModel):
         verbose_name = _("information category")
         verbose_name_plural = _("information categories")
 
-    def natural_key(self):
-        return (self.identifier,)
-
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
 
 
 class Theme(MP_Node):
@@ -95,11 +95,11 @@ class Theme(MP_Node):
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
 
-    def natural_key(self):
-        return (self.identifier,)
-
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
 
 
 class Organisation(models.Model):
@@ -115,7 +115,7 @@ class Organisation(models.Model):
         editable=False,
         default=get_default_organisation_identifier,
     )
-    naam = models.CharField(_("name"), max_length=80)
+    naam = models.CharField(_("name"), max_length=255)
     oorsprong = models.CharField(
         _("origin"),
         help_text=_(
@@ -135,9 +135,14 @@ class Organisation(models.Model):
         null=False,
     )
 
+    objects = OrganisationManager()
+
     class Meta:
         verbose_name = _("organisation")
         verbose_name_plural = _("organisations")
 
     def __str__(self):
         return self.naam
+
+    def natural_key(self):
+        return (self.identifier,)
