@@ -1,7 +1,7 @@
 from django import forms
 
-from django_filters.rest_framework import Filter
+from django_filters.rest_framework import filters
 
 
-class URLFilter(Filter):
+class URLFilter(filters.Filter):
     field_class = forms.URLField

@@ -1,10 +1,7 @@
-from django.contrib.contenttypes.models import ContentType
-
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
-from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
 from .factories import InformationCategoryFactory, OrganisationFactory, ThemeFactory
@@ -28,11 +25,7 @@ class InformationCategoryLoggingTests(APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.filter(
-            content_type=ContentType.objects.get_for_model(information_category),
-            object_id=information_category.pk,
-            extra_data__event=Events.read,
-        )
+        log_records = TimelineLogProxy.objects.for_object(information_category)  # type: ignore reportAttributeAccessIssue
         self.assertEqual(log_records.count(), 1)
 
 
@@ -48,11 +41,7 @@ class OrganisationLoggingTests(APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.filter(
-            content_type=ContentType.objects.get_for_model(organisation),
-            object_id=organisation.pk,
-            extra_data__event=Events.read,
-        )
+        log_records = TimelineLogProxy.objects.for_object(organisation)  # type: ignore reportAttributeAccessIssue
         self.assertEqual(log_records.count(), 1)
 
 
@@ -68,9 +57,5 @@ class ThemeLoggingTests(APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.filter(
-            content_type=ContentType.objects.get_for_model(theme),
-            object_id=theme.pk,
-            extra_data__event=Events.read,
-        )
+        log_records = TimelineLogProxy.objects.for_object(theme)  # type: ignore reportAttributeAccessIssue
         self.assertEqual(log_records.count(), 1)
