@@ -24,13 +24,13 @@ Op dit scherm zijn de volgende acties mogelijk:
 * Onder de (bulk-)actie staat de lijst met *document*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum en/of creatiedatum**.
 * Bij een *document*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *document*-registratie kan op **"Show logs"** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *document*-registratie kan op **"Show logs"** (rechter kolom) geklikt worden om direct de :ref:`audit trail<_admin_logging_index>` in te zien.
 
 Wanneer bij een *document*-registratie op  de `officiële titel` wordt geklikt, wordt een scherm geopend met de *document*-details.
 Hierop zien we:
 
 * **Alle metadatavelden**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **"Show logs"**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *document*-registratie.
+* Rechtsboven een knop **"Show logs"**. Deze toont de volledige :ref:`audit trail<_admin_logging_index>` van de *document*-registratie.
 * Rechtsboven een knop **"Geschiedenis"**. Deze toont de beheer-handelingen die vanuit de Admin-interface zijn uitgevoerd op de registratie.
 * Linksonder de mogelijkheid om **wijzigingen op te slaan**. Er kan voor gekozen worden om na het opslaan direct een nieuwe registratie aan te maken of om direct de huidige registratie nogmaals te wijzigen.
 * Rechtsonder de mogelijkheid om de registratie te **verwijderen**.
