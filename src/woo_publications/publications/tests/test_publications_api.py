@@ -8,6 +8,8 @@ from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
+from woo_publications.logging.logevent import audit_api_create
+from woo_publications.logging.serializing import serialize_instance
 
 from ..models import Publication
 from .factories import PublicationFactory
@@ -104,6 +106,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "eigenaar": {},
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
             }
 
@@ -115,6 +118,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                "eigenaar": {},
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
             }
 
@@ -138,6 +142,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "eigenaar": {},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
         expected_second_item_data = {
@@ -145,6 +150,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            "eigenaar": {},
             "registratiedatum": "2024-09-25T14:30:00+02:00",
         }
 
@@ -235,6 +241,96 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(data["results"][0], expected_second_item_data)
             self.assertEqual(data["results"][1], expected_first_item_data)
 
+    def test_list_publications_filter_owner(self):
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            publication = PublicationFactory.create(
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=publication,
+                user_id="123",
+                user_display="buurman",
+                object_data=serialize_instance(publication),
+                remarks="test",
+            )
+        with freeze_time("2024-09-25T12:30:00-00:00"):
+            publication2 = PublicationFactory.create(
+                officiele_titel="title two",
+                verkorte_titel="two",
+                omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=publication2,
+                user_id="456",
+                user_display="buurman",
+                object_data=serialize_instance(publication2),
+                remarks="test",
+            )
+
+        expected_first_item_data = {
+            "uuid": str(publication.uuid),
+            "officieleTitel": "title one",
+            "verkorteTitel": "one",
+            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "eigenaar": {"displayName": "buurman", "identifier": "123"},
+            "registratiedatum": "2024-09-24T14:00:00+02:00",
+        }
+        expected_second_item_data = {
+            "uuid": str(publication2.uuid),
+            "officieleTitel": "title two",
+            "verkorteTitel": "two",
+            "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            "eigenaar": {"displayName": "buurman", "identifier": "456"},
+            "registratiedatum": "2024-09-25T14:30:00+02:00",
+        }
+
+        with self.subTest("filter_with_existing_eigenaar"):
+            response = self.client.get(
+                reverse("api:publication-list"),
+                {"eigenaar": "123"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0], expected_first_item_data)
+
+        with self.subTest("filter_with_none_existing_eigenaar"):
+            response = self.client.get(
+                reverse("api:publication-list"),
+                {"eigenaar": "39834594397543"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 0)
+
+        with self.subTest("filter_with_no_input"):
+            response = self.client.get(
+                reverse("api:publication-list"),
+                {"eigenaar": ""},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 2)
+
+            self.assertEqual(data["results"][0], expected_second_item_data)
+            self.assertEqual(data["results"][1], expected_first_item_data)
+
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_detail_publication(self):
         publication = PublicationFactory.create(
@@ -257,6 +353,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "eigenaar": {},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -283,6 +380,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "eigenaar": {"displayName": "username", "identifier": "id"},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -317,6 +415,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
             "verkorteTitel": "changed short title",
             "omschrijving": "changed description",
+            "eigenaar": {},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -349,6 +448,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "eigenaar": {},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
