@@ -1,21 +1,21 @@
 import factory
 
 from ..constants import PermissionOptions
-from ..models import TokenAuth
+from ..models import Application
 
 
 class TokenAuthFactory(factory.django.DjangoModelFactory):
-    permissies = []
+    permissions = []
 
     class Meta:  # type: ignore
-        model = TokenAuth
+        model = Application
 
     class Params:
-        read_permission = factory.Trait(permissies=[PermissionOptions.read.value])
-        write_permission = factory.Trait(permissies=[PermissionOptions.write.value])
+        read_permission = factory.Trait(permissions=[PermissionOptions.read])
+        write_permission = factory.Trait(permissions=[PermissionOptions.write])
         read_write_permission = factory.Trait(
-            permissies=[
-                PermissionOptions.read.value,
-                PermissionOptions.write.value,
+            permissions=[
+                PermissionOptions.read,
+                PermissionOptions.write,
             ]
         )

@@ -88,7 +88,7 @@ class ApiTokenAuthorizationAndPermissionTests(URLPatternsTestCase, APITestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.no_permission_token = TokenAuthFactory.create().token
+        cls.no_permission_token = TokenAuthFactory.create(permissions=[]).token
         cls.read_token = TokenAuthFactory.create(read_permission=True).token
         cls.write_token = TokenAuthFactory.create(write_permission=True).token
         cls.read_write_token = TokenAuthFactory.create(read_write_permission=True).token

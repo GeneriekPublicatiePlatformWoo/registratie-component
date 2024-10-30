@@ -8,7 +8,7 @@ from rest_framework.request import Request
 from woo_publications.api.drf_spectacular.headers import ALL_AUDIT_PARAMETERS
 
 from .constants import PermissionOptions
-from .models import TokenAuth
+from .models import Application
 
 if TYPE_CHECKING:
     from rest_framework.views import APIView
@@ -26,18 +26,20 @@ class TokenAuthPermission(BasePermission):
     def has_permission(self, request, view) -> bool:
         token = request.auth
 
-        if not isinstance(token, TokenAuth):
+        if not isinstance(token, Application):
             return False
+
+        assert isinstance(token.permissions, list)
 
         if (
             request.method in SAFE_METHODS
-            and PermissionOptions.read in token.permissies
+            and PermissionOptions.read in token.permissions
         ):
             return True
 
         if (
             request.method not in SAFE_METHODS
-            and PermissionOptions.write in token.permissies
+            and PermissionOptions.write in token.permissions
         ):
             return True
 

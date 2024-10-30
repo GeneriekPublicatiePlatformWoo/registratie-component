@@ -134,7 +134,7 @@ django-hijack==3.6.0
     # via -r requirements/base.in
 django-ipware==7.0.1
     # via django-axes
-django-jsonform==2.22.0
+django-jsonform==2.23.1
     # via
     #   mozilla-django-oidc-db
     #   open-api-framework

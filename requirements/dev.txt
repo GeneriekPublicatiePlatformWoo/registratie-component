@@ -257,7 +257,7 @@ django-ipware==7.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-django-jsonform==2.22.0
+django-jsonform==2.23.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
