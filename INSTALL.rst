@@ -124,6 +124,16 @@ When updating an existing installation:
        python src/manage.py migrate
 
 
+Loading fixture data
+--------------------
+
+Some fixtures contain data from overheid.nl and pre-populate the available metdata. You
+can load them using:
+
+.. code-block:: bash
+
+    python src/manage.py loaddata information_categories themes organisations
+
 Testsuite
 ---------
 

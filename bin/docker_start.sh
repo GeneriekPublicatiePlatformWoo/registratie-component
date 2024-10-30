@@ -27,12 +27,11 @@ done
 python src/manage.py migrate
 
 # Load fixtures distributed in the image
-_FIXED_FIXTURES=("information_categories" "themes" "organisations")
-for fixture in "${_FIXED_FIXTURES[@]}"
-do
-    echo "Loading required fixture $fixture"
-    python src/manage.py loaddata $fixture
-done
+echo "Loading required fixtures"
+python src/manage.py loaddata \
+    information_categories \
+    themes \
+    organisations
 
 # Load any JSON fixtures present in the configured fixtures dir
 if [ -d $fixtures_dir ]; then
