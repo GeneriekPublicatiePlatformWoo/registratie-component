@@ -136,14 +136,14 @@ class Document(models.Model):
         null=True,
         blank=True,
     )
-    # lock = models.CharField(
-    #     _("document lock"),
-    #     max_length=255,
-    #     blank=True,
-    #     help_text=_(
-    #         "The lock value to be able to update this document in the Documents API.",
-    #     ),
-    # )
+    lock = models.CharField(
+        _("document lock"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "The lock value to be able to update this document in the Documents API.",
+        ),
+    )
 
     class Meta:  # type: ignore
         verbose_name = _("document")
