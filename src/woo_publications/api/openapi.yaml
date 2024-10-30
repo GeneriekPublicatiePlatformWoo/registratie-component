@@ -58,8 +58,8 @@ paths:
         schema:
           type: integer
         description: 'Search the document based on the unique identifier (UUID) that
-          represents a publication. <sup><sub>Disclaimer: disregard the documented
-          type `integer` the correct type is `UUID`.</sub></sup>'
+          represents a publication. **Disclaimer**: disregard the documented type
+          `integer` the correct type is `UUID`.'
       - in: query
         name: sorteer
         schema:

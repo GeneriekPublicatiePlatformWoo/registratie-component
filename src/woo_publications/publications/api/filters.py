@@ -12,7 +12,7 @@ class DocumentFilterSet(FilterSet):
         to_field_name="uuid",
         help_text=_(
             "Search the document based on the unique identifier (UUID) that represents a publication. "
-            "<sup><sub>Disclaimer: disregard the documented type `integer` the correct type is `UUID`.</sub></sup>"
+            "**Disclaimer**: disregard the documented type `integer` the correct type is `UUID`."
         ),
     )
     identifier = filters.CharFilter(

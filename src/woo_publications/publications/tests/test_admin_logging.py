@@ -218,8 +218,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 302)
 
         with self.subTest("update inline update logging"):
-            log = TimelineLogProxy.objects.filter(object_id=str(document.pk)).first()
-            assert log is not None
+            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
 
             expected_data = {
                 "event": Events.update,
@@ -298,9 +297,7 @@ class TestAdminAuditLogging(WebTest):
 
         with self.subTest("update inline update logging"):
             document = Document.objects.get()
-            log = TimelineLogProxy.objects.filter(
-                object_id=str(document.pk), extra_data___cached_object_repr="title"
-            ).get()
+            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
 
             expected_data = {
                 "event": Events.create,
@@ -376,11 +373,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 302)
 
         with self.subTest("update inline update logging"):
-            log = TimelineLogProxy.objects.filter(
-                object_id=str(document.pk),
-                extra_data___cached_object_repr="DELETE THIS ITEM",
-            ).first()
-            assert log is not None
+            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
 
             expected_data = {
                 "event": Events.delete.value,
@@ -390,6 +383,7 @@ class TestAdminAuditLogging(WebTest):
                 },
                 "object_data": {
                     "id": document.pk,
+                    "uuid": str(document.uuid),
                     "identifier": "document-1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",
