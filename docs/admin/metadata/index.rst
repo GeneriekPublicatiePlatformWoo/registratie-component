@@ -50,13 +50,13 @@ Op het beheerscherm zijn de volgende acties mogelijk:
 * Onder de (bulk-)actie staat de lijst met *informatiecategorieën*. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong**.
 * Bij een *informatiecategorie* kan op de `naam` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *informatiecategorie* kan op **"Show logs"** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *informatiecategorie* kan op **"Show logs"** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail<_admin_logging_index>` in te zien.
 
 Wanneer bij een *informatiecategorie* op  de `naam` wordt geklikt, wordt een scherm geopend met nadere details.
 Hierop zien we:
 
 * **Alle gegevens**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **"Show logs"**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *informatiecategorie*.
+* Rechtsboven een knop **"Show logs"**. Deze toont de volledige :ref:`audit trail<_admin_logging_index>` van de *informatiecategorie*.
 * Rechtsboven een knop **"Geschiedenis"**. Deze toont de beheer-handelingen die vanuit de beheerinterface zijn uitgevoerd op de *informatiecategorie*.
 * Als de *informatiecategorie* tot de landelijke lijst behoort, linksonder een knop om het scherm te **sluiten** en terug te keren naar de lijst.
 * Als de *informatiecatgeorie* door de organisatie zelf is toegevoegd, linksonder de mogelijkheid om **wijzigingen op te slaan** (indien van toepassing). Er kan voor gekozen worden om na het opslaan direct een nieuwe *informatiecategorie* aan te maken of om direct de huidige *informatiecategorie* nogmaals te wijzigen.
