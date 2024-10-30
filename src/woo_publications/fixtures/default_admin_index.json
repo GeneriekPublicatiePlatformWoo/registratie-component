@@ -130,6 +130,10 @@
             ],
             [
                 "metadata",
+                "organisation"
+            ],
+            [
+                "metadata",
                 "theme"
             ]
         ]
