@@ -106,7 +106,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "eigenaar": {},
+                "eigenaar": None,
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
             }
 
@@ -118,7 +118,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
-                "eigenaar": {},
+                "eigenaar": None,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
             }
 
@@ -142,7 +142,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {},
+            "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
         expected_second_item_data = {
@@ -150,7 +150,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
-            "eigenaar": {},
+            "eigenaar": None,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
         }
 
@@ -276,7 +276,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {"displayName": "buurman", "identifier": "123"},
+            "eigenaar": {"weergaveNaam": "buurman", "identifier": "123"},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
         expected_second_item_data = {
@@ -284,7 +284,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
-            "eigenaar": {"displayName": "buurman", "identifier": "456"},
+            "eigenaar": {"weergaveNaam": "buurman", "identifier": "456"},
             "registratiedatum": "2024-09-25T14:30:00+02:00",
         }
 
@@ -353,7 +353,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {},
+            "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -380,7 +380,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {"displayName": "username", "identifier": "id"},
+            "eigenaar": {"weergaveNaam": "username", "identifier": "id"},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -415,7 +415,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
             "verkorteTitel": "changed short title",
             "omschrijving": "changed description",
-            "eigenaar": {},
+            "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 
@@ -448,7 +448,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {},
+            "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
         }
 

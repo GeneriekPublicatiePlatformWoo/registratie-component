@@ -1136,19 +1136,18 @@ components:
     Eigenaar:
       type: object
       properties:
-        displayName:
+        weergaveNaam:
           type: string
           readOnly: true
-          description: obtained from the audit trail request headers, extracted from
-            the audit trails/log entries.
+          description: The display name of the user, as recorded in the audit trails.
         identifier:
           type: string
           readOnly: true
-          description: arbitrary, unique-ish string. Could be a `sub` claim from OIDC,
-            but for our perspective this data has no 'meaning'.
+          description: The system identifier that uniquely identifies the user performing
+            the action.
       required:
-      - displayName
       - identifier
+      - weergaveNaam
     InformationCategory:
       type: object
       properties:
@@ -1417,7 +1416,9 @@ components:
           allOf:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
-          description: De eigenaar van de publicatie.
+          nullable: true
+          title: owner
+          description: The creator of the publication, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
@@ -1446,7 +1447,9 @@ components:
           allOf:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
-          description: De eigenaar van de publicatie.
+          nullable: true
+          title: owner
+          description: The creator of the publication, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time

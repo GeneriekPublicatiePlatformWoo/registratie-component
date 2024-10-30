@@ -62,10 +62,7 @@ class PublicationFilterSet(FilterSet):
         )
 
     def filter_eigenaar(self, queryset, name: str, value: str):
-        publication_ct = ContentType.objects.get(
-            app_label="publications",
-            model="publication",
-        )
+        publication_ct = ContentType.objects.get_for_model(Publication)
 
         publication_object_ids = TimelineLogProxy.objects.filter(
             content_type=publication_ct,
