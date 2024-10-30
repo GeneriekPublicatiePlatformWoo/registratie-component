@@ -4,8 +4,8 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from woo_publications.logging.constants import Events
 from woo_publications.api.tests.mixins import TokenAuthMixin
+from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
 from ..models import Publication
@@ -151,7 +151,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         self.assertEqual(log.extra_data, expected_data)
 
 
-class DocumentLoggingTests(APITestCase):
+class DocumentLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_detail_logging(self):
         assert not TimelineLogProxy.objects.exists()

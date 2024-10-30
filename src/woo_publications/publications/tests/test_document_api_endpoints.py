@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 
 from .factories import DocumentFactory, PublicationFactory
 
@@ -17,7 +18,7 @@ AUDIT_HEADERS = {
 }
 
 
-class DocumentApiTests(APITestCase):
+class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITestCase):
     def test_403_when_audit_headers_are_missing(self):
         user = UserFactory.create()
         self.client.force_authenticate(user=user)
@@ -34,6 +35,19 @@ class DocumentApiTests(APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_api_key_result_in_301_with_wrong_credentials(self):
+        document = DocumentFactory.create()
+        list_url = reverse("api:document-list")
+        detail_url = reverse(
+            "api:document-detail",
+            kwargs={"uuid": str(document.uuid)},
+        )
+
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(list_url)
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(detail_url)
+
+
+class DocumentApiTests(TokenAuthMixin, APITestCase):
     def test_list_documents(self):
         publication, publication2 = PublicationFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
