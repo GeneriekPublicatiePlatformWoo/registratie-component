@@ -125,3 +125,14 @@ class DocumentenClient(NLXClient):
             f"bestandsdelen/{file_part_uuid}", data={"lock": lock}, files=request.FILES
         )
         response.raise_for_status()
+
+    def unlock_document(self, *, uuid: UUID, lock: str) -> None:
+        """
+        Unlock the locked document in the Documents API.
+        """
+        assert lock, "Lock must not be an empty value"
+        response = self.post(
+            f"enkelvoudiginformatieobjecten/{uuid}/unlock",
+            json={"lock": lock},
+        )
+        response.raise_for_status()

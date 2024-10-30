@@ -117,3 +117,42 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
         self.assertEqual(len(bestandsdelen), 1)
         self.assertTrue(bestandsdelen[0]["voltooid"])
         self.assertTrue(detail_data["locked"])
+
+    def test_can_unlock_document_after_uploads_completed(self):
+        service = ServiceFactory.build(for_documents_api_docker_compose=True)
+        uploaded_file = File(BytesIO(b"123"))
+        upload_request = factory.post("/irrelevant", {"inhoud": uploaded_file})
+        with get_client(service) as client:
+            document = client.create_document(
+                identification=str(
+                    uuid4()
+                ),  # must be unique for the source organisation
+                source_organisation="123456782",
+                document_type_url=DOCUMENT_TYPE_URL,
+                creation_date=date.today(),
+                title="File part test",
+                filesize=3,  # in bytes
+                filename="data.txt",
+                content_type="text/plain",
+            )
+            part = document.file_parts[0]
+            # "upload" the part
+            client.proxy_file_part_upload(
+                upload_request,
+                file_part_uuid=part.uuid,
+                lock=document.lock,
+            )
+
+            # and unlock the document
+            client.unlock_document(uuid=document.uuid, lock=document.lock)
+
+            # and verify that it's in the expected state
+            detail_response = client.get(
+                f"enkelvoudiginformatieobjecten/{document.uuid}"
+            )
+            detail_response.raise_for_status()
+            detail_data = detail_response.json()
+
+        self.assertFalse(detail_data["locked"])
+        bestandsdelen = detail_data["bestandsdelen"]
+        self.assertEqual(len(bestandsdelen), 0)
