@@ -22,6 +22,13 @@ class Publication(models.Model):
         default=uuid.uuid4,
         editable=False,
     )
+    informatie_categorieen = models.ManyToManyField(
+        "metadata.informationcategory",
+        verbose_name=_("information categories"),
+        help_text=_(
+            "The information categories which discribes the content of this publication."
+        ),
+    )
     officiele_titel = models.CharField(
         _("official title"),
         max_length=255,
