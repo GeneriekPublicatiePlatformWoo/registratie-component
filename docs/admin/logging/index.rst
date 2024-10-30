@@ -1,4 +1,4 @@
-.. admin_logging_index:
+.. _admin_logging_index:
 
 Logging
 =======
