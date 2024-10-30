@@ -21,9 +21,11 @@ for the reference.
 """
 
 from datetime import date
+from io import BytesIO
 from uuid import uuid4
 
-from django.test import TestCase
+from django.core.files import File
+from django.test import RequestFactory, TestCase
 
 from woo_publications.utils.tests.vcr import VCRMixin
 
@@ -35,24 +37,28 @@ DOCUMENT_TYPE_URL = (
     "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8"  # this UUID is in the fixture
 )
 
+factory = RequestFactory()
+
 
 class DocumentsAPIClientTests(VCRMixin, TestCase):
 
     def test_create_document_with_file_parts_upload(self):
         service = ServiceFactory.build(for_documents_api_docker_compose=True)
-        client = get_client(service)
 
-        document = client.create_document(
-            identification=str(uuid4()),  # must be unique for the source organisation
-            source_organisation="123456782",
-            document_type_url=DOCUMENT_TYPE_URL,
-            creation_date=date.today(),
-            title="Sample document",
-            filesize=256_000,  # in bytes
-            filename="sample.png",
-            content_type="image/png",
-            description="a" * 5000,  # use a long string and try to break it
-        )
+        with get_client(service) as client:
+            document = client.create_document(
+                identification=str(
+                    uuid4()
+                ),  # must be unique for the source organisation
+                source_organisation="123456782",
+                document_type_url=DOCUMENT_TYPE_URL,
+                creation_date=date.today(),
+                title="Sample document",
+                filesize=256_000,  # in bytes
+                filename="sample.png",
+                content_type="image/png",
+                description="a" * 5000,  # use a long string and try to break it
+            )
 
         self.assertGreater(len(str(document.uuid)), 0)
         # we expect a lock to be returend
@@ -71,3 +77,43 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
             )
 
             self.assertEqual(detail_response.status_code, 200)
+
+    def test_proxy_file_part_upload(self):
+        service = ServiceFactory.build(for_documents_api_docker_compose=True)
+
+        uploaded_file = File(BytesIO(b"1234567890"))
+        upload_request = factory.post("/irrelevant", {"inhoud": uploaded_file})
+
+        with get_client(service) as client:
+            document = client.create_document(
+                identification=str(
+                    uuid4()
+                ),  # must be unique for the source organisation
+                source_organisation="123456782",
+                document_type_url=DOCUMENT_TYPE_URL,
+                creation_date=date.today(),
+                title="File part test",
+                filesize=10,  # in bytes
+                filename="data.txt",
+                content_type="text/plain",
+            )
+            part = document.file_parts[0]
+
+            # "upload" the part
+            client.proxy_file_part_upload(
+                upload_request,
+                file_part_uuid=part.uuid,
+                lock=document.lock,
+            )
+
+            # and verify that it's completed
+            detail_response = client.get(
+                f"enkelvoudiginformatieobjecten/{document.uuid}"
+            )
+            detail_response.raise_for_status()
+            detail_data = detail_response.json()
+
+        bestandsdelen = detail_data["bestandsdelen"]
+        self.assertEqual(len(bestandsdelen), 1)
+        self.assertTrue(bestandsdelen[0]["voltooid"])
+        self.assertTrue(detail_data["locked"])

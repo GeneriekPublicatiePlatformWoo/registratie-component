@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
+from django.http import HttpRequest
+
 from furl import furl
 from zgw_consumers.client import build_client
 from zgw_consumers.models import Service
@@ -97,3 +99,29 @@ class DocumentenClient(NLXClient):
             lock=response_data["lock"],
             file_parts=file_parts,
         )
+
+    def proxy_file_part_upload(
+        self,
+        request: HttpRequest,
+        *,
+        file_part_uuid: UUID,
+        lock: str,
+    ) -> None:
+        """
+        Proxy the file part upload we received to the underlying Documents API.
+
+        Unfortunately it doesn't seem possible to stream the incoming request directly
+        to the Documents API using requests, because we need to send some extra form
+        data (the lock ID), and streaming seems to be supported only for just the file
+        uploads without additional form data (see
+        https://requests.readthedocs.io/en/latest/user/advanced/#streaming-uploads).
+
+        Writing a custom file-like wrapper or generator that produces the raw HTTP
+        stream with multipart boundaries is not worth it. If we run into performance
+        issues, we can consider httpx, aiohttp or an entirely different solution to
+        optimize.
+        """
+        response = self.put(
+            f"bestandsdelen/{file_part_uuid}", data={"lock": lock}, files=request.FILES
+        )
+        response.raise_for_status()
