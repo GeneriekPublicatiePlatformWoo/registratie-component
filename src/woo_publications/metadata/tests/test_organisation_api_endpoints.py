@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 
 from ..api.filters import OrganisationActive
 from ..constants import OrganisationOrigins
@@ -18,7 +19,7 @@ AUDIT_HEADERS = {
 }
 
 
-class OrganisationApiTests(APITestCase):
+class ThemeAPIAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITestCase):
     def test_403_when_audit_headers_are_missing(self):
         user = UserFactory.create()
         self.client.force_authenticate(user=user)
@@ -46,6 +47,26 @@ class OrganisationApiTests(APITestCase):
             response = self.client.put(detail_endpoint, headers={})
 
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_api_key_result_in_401_with_wrong_credentials(self):
+        organisation = OrganisationFactory.create()
+        list_url = reverse("api:organisation-list")
+        detail_url = reverse(
+            "api:organisation-detail",
+            kwargs={"uuid": str(organisation.uuid)},
+        )
+
+        # create
+        self.assertWrongApiKeyProhibitsPostEndpointAccess(detail_url)
+        # read
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(list_url)
+        self.assertWrongApiKeyProhibitsGetEndpointAccess(detail_url)
+        # update
+        self.assertWrongApiKeyProhibitsPatchEndpointAccess(detail_url)
+        self.assertWrongApiKeyProhibitsPutEndpointAccess(detail_url)
+
+
+class OrganisationApiTests(TokenAuthMixin, APITestCase):
 
     def test_list_organisations(self):
         organisation = OrganisationFactory.create(

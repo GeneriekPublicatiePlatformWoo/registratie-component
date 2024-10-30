@@ -86,6 +86,8 @@ paths:
         style: form
       tags:
       - Documenten
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -133,6 +135,8 @@ paths:
         required: true
       tags:
       - Documenten
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -194,6 +198,8 @@ paths:
           type: integer
       tags:
       - Informatiecategorieën
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -241,6 +247,8 @@ paths:
         required: true
       tags:
       - Informatiecategorieën
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -332,6 +340,8 @@ paths:
           type: integer
       tags:
       - Organisaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -377,6 +387,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+      security:
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -424,6 +436,8 @@ paths:
         required: true
       tags:
       - Organisaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -475,6 +489,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -526,6 +542,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedOrganisation'
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -597,6 +615,8 @@ paths:
         style: form
       tags:
       - Publicaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -643,6 +663,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
+      security:
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -690,6 +712,8 @@ paths:
         required: true
       tags:
       - Publicaties
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -742,6 +766,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Publication'
         required: true
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -793,6 +819,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedPublication'
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -839,6 +867,8 @@ paths:
         required: true
       tags:
       - Publicaties
+      security:
+      - tokenAuth: []
       responses:
         '204':
           description: No response body
@@ -883,6 +913,8 @@ paths:
           type: integer
       tags:
       - Themas
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -930,6 +962,8 @@ paths:
         required: true
       tags:
       - Themas
+      security:
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -1439,6 +1473,12 @@ components:
         * `confidentieel` - Confidentieel
         * `geheim` - Geheim
         * `zeer_geheim` - Zeer geheim
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
 externalDocs:
   description: Functional and technical documentation
   url: https://odrc.readthedocs.io/

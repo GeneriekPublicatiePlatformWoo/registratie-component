@@ -85,6 +85,7 @@ class CatalogiAPIDocumentTypeSerializer(serializers.Serializer):
 )
 class CatalogiAPIDocumentTypeView(views.APIView):
     permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
 
     def get(self, request: Request, uuid: UUID, *args, **kwargs):
         """

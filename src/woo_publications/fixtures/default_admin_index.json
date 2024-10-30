@@ -32,7 +32,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 6,
+        "order": 7,
         "translations": {
             "en": "WOO publications",
             "nl": "WOO publicaties"
@@ -45,7 +45,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 3,
+        "order": 5,
         "translations": {
             "en": "Logging",
             "nl": "Logging"
@@ -66,12 +66,12 @@
                 "accesslog"
             ],
             [
-                "log_outgoing_requests",
-                "outgoingrequestslog"
-            ],
-            [
                 "logging",
                 "timelinelogproxy"
+            ],
+            [
+                "log_outgoing_requests",
+                "outgoingrequestslog"
             ]
         ]
     }
@@ -79,7 +79,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 4,
+        "order": 6,
         "translations": {
             "en": "Configuration",
             "nl": "Configuratie"
@@ -163,7 +163,7 @@
 {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 5,
+        "order": 7,
         "translations": {
             "en": "Useful links"
         },
@@ -226,6 +226,23 @@
         ],
         "name": "API documentatie",
         "link": "/api/docs/"
+    }
+},
+{
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 4,
+        "translations": {
+            "en": "API access"
+        },
+        "name": "API access",
+        "slug": "api_access",
+        "models": [
+            [
+                "api",
+                "application"
+            ]
+        ]
     }
 }
 ]

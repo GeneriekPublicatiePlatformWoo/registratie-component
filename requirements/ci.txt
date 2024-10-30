@@ -232,7 +232,7 @@ django-ipware==7.0.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-django-jsonform==2.22.0
+django-jsonform==2.23.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt

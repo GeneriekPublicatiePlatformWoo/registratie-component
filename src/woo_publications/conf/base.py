@@ -143,7 +143,11 @@ REST_FRAMEWORK["DEFAULT_PAGINATION_CLASS"] = (
     "rest_framework.pagination.PageNumberPagination"
 )
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
+    "woo_publications.api.permissions.TokenAuthPermission",
     "woo_publications.api.permissions.AuditHeaderPermission",
+)
+REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = (
+    "woo_publications.api.authorization.TokenAuthentication",
 )
 REST_FRAMEWORK["EXCEPTION_HANDLER"] = "rest_framework.views.exception_handler"
 
