@@ -27,7 +27,7 @@ done
 python src/manage.py migrate
 
 # Load fixtures distributed in the image
-_FIXED_FIXTURES=("information_categories" "themes")
+_FIXED_FIXTURES=("information_categories" "themes" "organisations")
 for fixture in "${_FIXED_FIXTURES[@]}"
 do
     echo "Loading required fixture $fixture"
