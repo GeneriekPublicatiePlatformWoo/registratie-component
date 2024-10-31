@@ -8,6 +8,11 @@
 # your Helm charts from). Note that various environment variables are UNSAFE and merely
 # specified so that you can get up and running with the least amount of friction.
 #
+# One API key is pre-populated to authenticate API calls. It has all permissions. Use
+# it with the HTTP request header:
+#
+#   Authorization: Token insecure-ea1a8d297e3b2d3313b8a30b18959c3
+#
 # Before deploying to production, please review the environment configuration reference:
 # https://odrc.readthedocs.io/en/latest/installation/config.html
 

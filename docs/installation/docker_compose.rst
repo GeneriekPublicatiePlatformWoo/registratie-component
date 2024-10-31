@@ -16,6 +16,8 @@ for anything other than testing. For example, it includes:
   ``POSTGRES_HOST_AUTH_METHOD=trust``. This lets us connect to the database
   without using a password.
 * Debug mode is enabled.
+* Admin superuser credentials (``admin`` / ``admin``).
+* An API key ``insecure-ea1a8d297e3b2d3313b8a30b18959c3``.
 
 .. _`WSL`: https://docs.microsoft.com/en-us/windows/wsl/
 
@@ -73,13 +75,16 @@ Getting started
 4. Navigate to ``http://127.0.0.1:8000/admin/``, where you can log in with the
    ``admin`` username and ``admin`` password.
 
-5. To stop the containers, press *CTRL-C* or if you used the ``-d`` option:
+5. You can authenticate to the API endpoints with the
+   ``Authorization: Token insecure-ea1a8d297e3b2d3313b8a30b18959c3`` HTTP request header.
+
+6. To stop the containers, press *CTRL-C* or if you used the ``-d`` option:
 
    .. code:: bash
 
       docker compose stop
 
-6. If you want to get newer versions, you need to ``pull`` because the
+7. If you want to get newer versions, you need to ``pull`` because the
    ``docker-compose.yml`` contains no explicit versions:
 
    .. code:: bash
