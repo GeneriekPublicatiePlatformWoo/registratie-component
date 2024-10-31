@@ -57,7 +57,7 @@ class TestOrganisationAdminAuditLogging(WebTest):
                 "identifier": added_item.identifier,
                 "naam": "organisation name",
                 "oorsprong": OrganisationOrigins.custom_entry,
-                "is_actief": True,
+                "is_actief": False,
             },
             "_cached_object_repr": "organisation name",
         }
@@ -155,7 +155,7 @@ class TestOrganisationAdminAuditLogging(WebTest):
                 "identifier": organisation.identifier,
                 "naam": "soon to be deleted organisation",
                 "oorsprong": OrganisationOrigins.custom_entry,
-                "is_actief": True,
+                "is_actief": False,
             },
             "_cached_object_repr": "soon to be deleted organisation",
         }
