@@ -1,4 +1,4 @@
-.. admin_accounts_index:
+.. _admin_accounts_index:
 
 Accounts
 ========

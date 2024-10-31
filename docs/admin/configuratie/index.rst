@@ -1,4 +1,4 @@
-.. admin_configuratie_index:
+.. _admin_configuratie_index:
 
 Configuratie
 ============

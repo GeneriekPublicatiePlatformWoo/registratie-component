@@ -1,4 +1,4 @@
-.. admin_publicaties_index:
+.. _admin_publicaties_index:
 
 Publicaties
 ============

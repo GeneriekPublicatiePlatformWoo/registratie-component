@@ -1,4 +1,4 @@
-.. admin_handige_links_index:
+.. _admin_handige_links_index:
 
 Handige links
 =============

@@ -1,4 +1,4 @@
-.. admin_overige_index:
+.. _admin_overige_index:
 
 Overige
 =======

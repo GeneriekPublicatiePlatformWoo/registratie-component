@@ -1,4 +1,4 @@
-.. admin_metadata_index:
+.. _admin_metadata_index:
 
 .. _Wet open overheid: https://wetten.overheid.nl/BWBR0045754/
 .. _Woo-index: https://open.overheid.nl/
