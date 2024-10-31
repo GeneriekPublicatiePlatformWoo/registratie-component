@@ -1,0 +1,15 @@
+[
+{
+    "model": "api.application",
+    "pk": 1,
+    "fields": {
+        "token": "insecure-ea1a8d297e3b2d3313b8a30b18959c3",
+        "permissions": "[\"read\", \"write\"]",
+        "contact_person": "DEMO PURPOSES",
+        "email": "",
+        "phone_number": "",
+        "last_modified": "2024-10-31T09:11:45.207Z",
+        "created": "2024-10-31T09:11:45.207Z"
+    }
+}
+]
