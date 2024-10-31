@@ -66,12 +66,12 @@
                 "accesslog"
             ],
             [
-                "logging",
-                "timelinelogproxy"
-            ],
-            [
                 "log_outgoing_requests",
                 "outgoingrequestslog"
+            ],
+            [
+                "logging",
+                "timelinelogproxy"
             ]
         ]
     }
@@ -173,6 +173,23 @@
     }
 },
 {
+    "model": "admin_index.appgroup",
+    "fields": {
+        "order": 4,
+        "translations": {
+            "en": "API access"
+        },
+        "name": "API access",
+        "slug": "api_access",
+        "models": [
+            [
+                "api",
+                "application"
+            ]
+        ]
+    }
+},
+{
     "model": "admin_index.applink",
     "fields": {
         "order": 0,
@@ -226,23 +243,6 @@
         ],
         "name": "API documentatie",
         "link": "/api/docs/"
-    }
-},
-{
-    "model": "admin_index.appgroup",
-    "fields": {
-        "order": 4,
-        "translations": {
-            "en": "API access"
-        },
-        "name": "API access",
-        "slug": "api_access",
-        "models": [
-            [
-                "api",
-                "application"
-            ]
-        ]
     }
 }
 ]
