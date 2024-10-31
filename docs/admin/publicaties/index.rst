@@ -12,15 +12,16 @@ Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
 
 Documenten
 -----------
+
 Een *document* bestaat uit een bestand (bijvoorbeeld een PDF) en metadata. Een *document* hoort altijd bij een publicatie. 
 
-In het beheerscherm van de *documenten* wordt een lijst getoond van alle *document*-registraties, die zijn opgeslagen in het "WOO Publications"-component. 
+In het beheerscherm van de *documenten* wordt een lijst getoond van alle *document*-registraties, die zijn opgeslagen in het "WOO Publicaties"-component.
 Op dit scherm zijn de volgende acties mogelijk:
 
 * Rechtboven zit een knop **document toevoegen** waarmee een registratie toegevoegd kan worden.
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee in de registraties gezocht kan worden.
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
-* Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere *document*-registraties**. Op dit moment wordt alleen de actie **Geselecteerde documenten verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *document*-regsitraties aan te vinken.
+* Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere documentregistraties**. Op dit moment wordt alleen de actie **Geselecteerde documenten verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *document*-regsitraties aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *document*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum en/of creatiedatum**.
 * Bij een *document*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
@@ -38,30 +39,42 @@ Hierop zien we:
 Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
-* ``Documents API Service``. *In ontwikkeling*
-* ``Document UUID``. *In ontwikkeling*
-* ``Identificatie``. Het unieke kenmerk dat intern aan het *document* is toegekend, bijvoorbeeld door het zaaksysteem of het DMS. (DiWoo : identifier)
-* ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van het document. (DiWoo : officieleTitel)
-* ``Verkorte titel``. De verkorte titel / citeertitel van het document. (DiWoo : verkorteTitel)
-* ``Omschrijving``. Een beknopte omschrijving / samenvatting van de inhoud van het document. (DiWoo : omschrijving)
-* ``Creatiedatum``. De datum waarop het document gecreëerd is. Deze ligt doorgaans voor of op de registratiedatum.  (DiWoo : creatiedatum)
-* ``Bestandsformaat``. *In ontwikkeling* (DiWoo : format)
-* ``Bestandsnaam``. *In ontwikkeling*
-* ``Bestandsomvang`` *In ontwikkeling*
+* ``Identificatie``. Het unieke kenmerk dat intern aan het *document* is toegekend, bijvoorbeeld door het zaaksysteem of het DMS. (DiWoo : ``identifier``)
+* ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van het document. (DiWoo : ``officieleTitel``)
+* ``Verkorte titel``. De verkorte titel / citeertitel van het document. (DiWoo : ``verkorteTitel``)
+* ``Omschrijving``. Een beknopte omschrijving / samenvatting van de inhoud van het document. (DiWoo : ``omschrijving``)
+* ``Creatiedatum``. De datum waarop het document gecreëerd is. Deze ligt doorgaans voor of op de registratiedatum.  (DiWoo : ``creatiedatum``)
+* ``Bestandsformaat``. *In ontwikkeling* (DiWoo : ``format``)
+* ``Bestandsnaam``. Naam van het bestand zoals deze op de harde schijf opgeslagen wordt.
+* ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
+* ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 
 Publicaties
 ------------
+
 Een *publicatie* bestaat uit een aantal gegevens met doorgaans een of meerdere *documenten* (zie hierboven).
 
-.. Tip:: Het toevoegen van een document aan een *publicatie* is niet verplicht. Daarmee kan voldaan worden aan de `Wet open overheid, art. 3.3, lid 8 <https://wetten.overheid.nl/BWBR0045754/2024-10-01#Hoofdstuk3_Artikel3.3>`_: *"(...) Van een gehele niet-openbaarmaking doet het bestuursorgaan mededeling op de wijze en het tijdstip waarop het niet-openbaar gemaakte stuk openbaar zou zijn gemaakt."* In het veld ``Omschrijving`` kan de mededeling opgenomen worden.
+.. tip::
 
-In het beheerscherm van de *publicaties* wordt een lijst getoond van alle *publicatie*-registraties, die zijn opgeslagen in het "WOO Publications"-component. 
+    Het toevoegen van een document aan een *publicatie* is niet verplicht. Daarmee kan
+    voldaan worden aan:
+
+        (...) Van een gehele niet-openbaarmaking doet het bestuursorgaan mededeling op
+        de wijze en het tijdstip waarop het niet-openbaar gemaakte stuk openbaar zou
+        zijn gemaakt.
+
+        -- `Wet open overheid, art. 3.3, lid 8`_
+
+    In het veld ``Omschrijving`` kan de mededeling opgenomen worden.
+
+In het beheerscherm van de *publicaties* wordt een lijst getoond van alle *publicatie*-registraties, die zijn opgeslagen in het "WOO Publicaties"-component.
 Op dit scherm zijn de volgende acties mogelijk:
 
 * Rechtboven zit een knop **publicatie toevoegen** waarmee een registratie toegevoegd kan worden.
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee in de registraties gezocht kan worden.
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
-* Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere *document*-registraties**. Op dit moment wordt alleen de actie **Geselecteerde publicaties verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *publicatie*-regsitraties aan te vinken.
+* Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere publicaties**. Op dit moment wordt alleen de actie **Geselecteerde publicaties verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *publicatie*-regsitraties aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *publicatie*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum**.
 * Bij een *publicatie*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
@@ -81,9 +94,11 @@ Hierop zien we:
 
 Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
-* ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van de publicatie. (DiWoo : officieleTitel)
-* ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : verkorteTitel)
-* ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : omschrijving)
+* ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van de publicatie. (DiWoo : ``officieleTitel``)
+* ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : ``verkorteTitel``)
+* ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : ``omschrijving``)
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
-* ``UUID``. Een niet-muteerbaar, automatisch toegekend identificatie kenmerk. (DiWoo : identifier)
-* ``Geregistreerd op``. De niet-muteerbare datum en tijd waarop de publicatie nieuw is toegevoegd. 
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
+* ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop de publicatie nieuw is toegevoegd.
+
+.. _Wet open overheid, art. 3.3, lid 8: https://wetten.overheid.nl/BWBR0045754/2024-10-01#Hoofdstuk3_Artikel3.3
