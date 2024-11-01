@@ -197,5 +197,5 @@ class TestOrganisationAdmin(WebTest):
         self.assertTrue(
             added_item.identifier.startswith(CUSTOM_ORGANISATION_URL_PREFIX)
         )
-        self.assertTrue(added_item.is_actief)
+        self.assertFalse(added_item.is_actief)
         self.assertEqual(added_item.oorsprong, OrganisationOrigins.custom_entry)

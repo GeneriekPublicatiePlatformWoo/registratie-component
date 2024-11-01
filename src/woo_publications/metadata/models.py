@@ -131,7 +131,7 @@ class Organisation(models.Model):
     is_actief = models.BooleanField(
         _("is active"),
         help_text=_("Displays if the the organisation is currently active or not."),
-        default=True,
+        default=False,
         null=False,
     )
 

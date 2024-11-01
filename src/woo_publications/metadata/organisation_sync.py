@@ -1,7 +1,6 @@
-from io import StringIO
 from pathlib import Path
 
-from django.core.management import call_command
+from django.core import serializers
 
 import requests
 from glom import PathAccessError, T, glom
@@ -94,17 +93,22 @@ def update_organisation(file_path: Path):
                 defaults={**fields, "oorsprong": oorsprong},
             )
 
-    to_export = Organisation.objects.exclude(
-        oorsprong=OrganisationOrigins.municipality_list
-    ).values_list("pk", flat=True)
-
-    call_command(
-        "dumpdata",
-        "metadata.organisation",
-        format="json",
-        indent=4,
-        natural_primary=True,
-        pks=",".join([str(pk) for pk in to_export]),
-        output=file_path,
-        stdout=StringIO(),
+    value_list_organisations = Organisation.objects.exclude(
+        oorsprong=OrganisationOrigins.custom_entry
     )
+
+    fixture_data = serializers.serialize(
+        "json",
+        value_list_organisations,
+        indent=4,
+        use_natural_primary_keys=True,
+        fields=(
+            "uuid",
+            "identifier",
+            "naam",
+            "oorsprong",
+        ),
+    )
+
+    with open(file_path, "w") as outfile:
+        outfile.write(fixture_data)
