@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 from django.core import serializers
@@ -95,7 +94,7 @@ def update_organisation(file_path: Path):
             )
 
     value_list_organisations = Organisation.objects.exclude(
-        oorsprong=OrganisationOrigins.municipality_list
+        oorsprong=OrganisationOrigins.custom_entry
     )
 
     fixutre_data = serializers.serialize(
@@ -103,29 +102,13 @@ def update_organisation(file_path: Path):
         value_list_organisations,
         indent=4,
         use_natural_primary_keys=True,
-    )
-
-    def remove_field_reference_from_fixture(
-        fixture: list, field_name: list[str]
-    ) -> str:
-        new_fixture = []
-        if isinstance(fixture, list):
-            for fixture_items in fixture:
-                new_item = {
-                    "model": fixture_items["model"],
-                    "fields": {
-                        key: value
-                        for key, value in fixture_items["fields"].items()
-                        if key not in field_name
-                    },
-                }
-                new_fixture.append(new_item)
-
-        return json.dumps(new_fixture, indent=4)
-
-    processed_fixture = remove_field_reference_from_fixture(
-        json.loads(fixutre_data), ["is_actief"]
+        fields=(
+            "uuid",
+            "identifier",
+            "naam",
+            "oorsprong",
+        ),
     )
 
     with open(file_path, "w") as outfile:
-        outfile.write(processed_fixture)
+        outfile.write(fixutre_data)
