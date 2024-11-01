@@ -72,6 +72,7 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "registratiedatum",
         "show_actions",
     )
+    readonly_fields = ("uuid",)
     search_fields = (
         "identifier",
         "officiele_titel",
