@@ -583,6 +583,11 @@ paths:
 
           The display name of the user performing the action, to make them recognizable.
         required: true
+      - in: query
+        name: eigenaar
+        schema:
+          type: string
+        description: Filter publications based on the owner identifier of the object.
       - name: page
         required: false
         in: query
@@ -1128,6 +1133,21 @@ components:
       - publicatie
       - registratiedatum
       - uuid
+    Eigenaar:
+      type: object
+      properties:
+        weergaveNaam:
+          type: string
+          readOnly: true
+          description: The display name of the user, as recorded in the audit trails.
+        identifier:
+          type: string
+          readOnly: true
+          description: The system identifier that uniquely identifies the user performing
+            the action.
+      required:
+      - identifier
+      - weergaveNaam
     InformationCategory:
       type: object
       properties:
@@ -1392,6 +1412,13 @@ components:
           maxLength: 255
         omschrijving:
           type: string
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          title: owner
+          description: The creator of the publication, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
@@ -1416,6 +1443,13 @@ components:
           maxLength: 255
         omschrijving:
           type: string
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          title: owner
+          description: The creator of the publication, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
@@ -1425,6 +1459,7 @@ components:
             opgeslagen is. Niet te verwarren met de creatiedatum van de publicatie,
             die typisch *voor* de registratiedatum valt.
       required:
+      - eigenaar
       - officieleTitel
       - registratiedatum
       - uuid

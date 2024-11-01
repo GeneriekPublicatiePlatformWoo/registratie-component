@@ -1,6 +1,10 @@
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
+
+from woo_publications.logging.constants import Events
+from woo_publications.logging.models import TimelineLogProxy
 
 from ..models import Document, Publication
 
@@ -45,7 +49,25 @@ class PublicationFilterSet(FilterSet):
             "verkorte_titel",
         ),
     )
+    eigenaar = filters.CharFilter(
+        help_text=_("Filter publications based on the owner identifier of the object."),
+        method="filter_eigenaar",
+    )
 
     class Meta:
         model = Publication
-        fields = ("sorteer",)
+        fields = (
+            "sorteer",
+            "eigenaar",
+        )
+
+    def filter_eigenaar(self, queryset, name: str, value: str):
+        publication_ct = ContentType.objects.get_for_model(Publication)
+
+        publication_object_ids = TimelineLogProxy.objects.filter(
+            content_type=publication_ct,
+            extra_data__event=Events.create,
+            extra_data__acting_user__identifier=value,
+        ).values_list("object_id", flat=True)
+
+        return queryset.filter(pk__in=[id for id in publication_object_ids])

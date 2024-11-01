@@ -29,7 +29,29 @@ class DocumentSerializer(serializers.ModelSerializer):
         )
 
 
+class EigenaarSerializer(serializers.Serializer):
+    weergave_naam = serializers.CharField(
+        source="display_name",
+        read_only=True,
+        help_text=_("The display name of the user, as recorded in the audit trails."),
+    )
+    identifier = serializers.CharField(
+        read_only=True,
+        help_text=_(
+            "The system identifier that uniquely identifies the user performing the action."
+        ),
+    )
+
+
 class PublicationSerializer(serializers.ModelSerializer):
+    eigenaar = EigenaarSerializer(
+        source="get_owner",
+        label=_("owner"),
+        help_text=_("The creator of the publication, derived from the audit logs."),
+        allow_null=True,
+        read_only=True,
+    )
+
     class Meta:  # type: ignore
         model = Publication
         fields = (
@@ -37,6 +59,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             "officiele_titel",
             "verkorte_titel",
             "omschrijving",
+            "eigenaar",
             "registratiedatum",
         )
         extra_kwargs = {

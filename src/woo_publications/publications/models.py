@@ -5,6 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 from zgw_consumers.constants import APITypes
 
+from woo_publications.logging.constants import Events
+from woo_publications.logging.models import TimelineLogProxy
+from woo_publications.logging.typing import ActingUser
+
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
 # when the document is specified both the service and uuid needs to be set
@@ -42,6 +46,18 @@ class Publication(models.Model):
     class Meta:  # type: ignore
         verbose_name = _("publication")
         verbose_name_plural = _("publications")
+
+    def get_owner(self) -> ActingUser | None:
+        """
+        Extract the owner from the audit trails.
+        """
+        qs = TimelineLogProxy.objects.for_object(self)  # type: ignore reportAttributeAccessIssue
+        try:
+            log = qs.get(extra_data__event=Events.create)
+        except TimelineLogProxy.DoesNotExist:
+            return None
+        assert isinstance(log, TimelineLogProxy)
+        return log.acting_user[0]
 
     def __str__(self):
         return self.officiele_titel
