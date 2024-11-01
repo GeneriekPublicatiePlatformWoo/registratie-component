@@ -7,6 +7,7 @@ from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
 
+from ...metadata.tests.factories import InformationCategoryFactory
 from ..models import Publication
 from .factories import PublicationFactory
 
@@ -120,6 +121,7 @@ class TestPublicationsAdmin(WebTest):
 
     @freeze_time("2024-09-25T00:14:00-00:00")
     def test_publications_admin_create(self):
+        ic, ic2, ic3 = InformationCategoryFactory.create_batch(3)
         reverse_url = reverse("admin:publications_publication_add")
 
         response = self.app.get(reverse_url, user=self.user)
@@ -127,6 +129,7 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
+        form["informatie_categorieen"] = f"{ic.pk},{ic2.pk},{ic3.pk}"
         form["officiele_titel"] = "The official title of this publication"
         form["verkorte_titel"] = "The title"
         form["omschrijving"] = (
@@ -138,6 +141,9 @@ class TestPublicationsAdmin(WebTest):
 
         added_item = Publication.objects.order_by("-pk").first()
         assert added_item is not None
+        self.assertTrue(added_item.informatie_categorieen.filter(pk=ic.pk).exists())
+        self.assertTrue(added_item.informatie_categorieen.filter(pk=ic2.pk).exists())
+        self.assertTrue(added_item.informatie_categorieen.filter(pk=ic3.pk).exists())
         self.assertEqual(
             added_item.officiele_titel, "The official title of this publication"
         )
@@ -150,8 +156,10 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(str(added_item.registratiedatum), "2024-09-25 00:14:00+00:00")
 
     def test_publications_admin_update(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -166,6 +174,7 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
+        form["informatie_categorieen"] = str({ic.pk})
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
@@ -176,6 +185,8 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(response.status_code, 302)
 
         publication.refresh_from_db()
+        self.assertTrue(publication.informatie_categorieen.filter(pk=ic.pk).exists())
+        self.assertFalse(publication.informatie_categorieen.filter(pk=ic2.pk).exists())
         self.assertEqual(publication.officiele_titel, "changed official title")
         self.assertEqual(publication.verkorte_titel, "changed short title")
         self.assertEqual(publication.omschrijving, "changed description")

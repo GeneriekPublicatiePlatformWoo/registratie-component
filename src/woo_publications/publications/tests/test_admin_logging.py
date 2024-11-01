@@ -9,6 +9,7 @@ from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
+from ...metadata.tests.factories import InformationCategoryFactory
 from ..models import Document, Publication
 from .factories import DocumentFactory, PublicationFactory
 
@@ -32,6 +33,7 @@ class TestAdminAuditLogging(WebTest):
 
     def test_admin_create(self):
         assert not TimelineLogProxy.objects.exists()
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         reverse_url = reverse("admin:publications_publication_add")
 
         response = self.app.get(reverse_url, user=self.user)
@@ -39,6 +41,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
+        form["informatie_categorieen"] = f"{ic.pk},{ic2.pk}"
         form["officiele_titel"] = "The official title of this publication"
         form["verkorte_titel"] = "The title"
         form["omschrijving"] = (
@@ -65,6 +68,7 @@ class TestAdminAuditLogging(WebTest):
                 "verkorte_titel": "The title",
                 "officiele_titel": "The official title of this publication",
                 "registratiedatum": "2024-09-25T00:14:00Z",
+                "informatie_categorieen": [ic.pk, ic2.pk],
             },
             "_cached_object_repr": "The official title of this publication",
         }
@@ -73,8 +77,10 @@ class TestAdminAuditLogging(WebTest):
 
     def test_admin_update(self):
         assert not TimelineLogProxy.objects.exists()
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-27T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -89,6 +95,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
+        form["informatie_categorieen"] = str(ic.pk)
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
@@ -126,6 +133,7 @@ class TestAdminAuditLogging(WebTest):
                     "verkorte_titel": "changed short title",
                     "officiele_titel": "changed official title",
                     "registratiedatum": "2024-09-27T00:14:00Z",
+                    "informatie_categorieen": [ic.pk],
                 },
                 "_cached_object_repr": "changed official title",
             }
@@ -134,9 +142,10 @@ class TestAdminAuditLogging(WebTest):
 
     def test_admin_delete(self):
         assert not TimelineLogProxy.objects.exists()
-
+        information_category = InformationCategoryFactory.create()
         with freeze_time("2024-09-27T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[information_category],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -170,6 +179,7 @@ class TestAdminAuditLogging(WebTest):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-27T00:14:00Z",
+                "informatie_categorieen": [information_category.pk],
             },
             "_cached_object_repr": "title one",
         }
@@ -178,14 +188,17 @@ class TestAdminAuditLogging(WebTest):
 
     def test_admin_inline_update_admin(self):
         assert not TimelineLogProxy.objects.exists()
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
 
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
             document = DocumentFactory.create(publicatie=publication)
+
         reverse_url = reverse(
             "admin:publications_publication_change",
             kwargs={"object_id": publication.id},
@@ -251,9 +264,11 @@ class TestAdminAuditLogging(WebTest):
     def test_admin_inline_create_admin(self):
         assert not TimelineLogProxy.objects.exists()
         assert not Document.objects.exists()
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
 
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -330,9 +345,10 @@ class TestAdminAuditLogging(WebTest):
 
     def test_admin_inline_delete(self):
         assert not TimelineLogProxy.objects.exists()
-
+        information_category = InformationCategoryFactory.create()
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[information_category],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
