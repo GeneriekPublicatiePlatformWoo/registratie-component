@@ -1,17 +1,12 @@
 .. _admin_metadata_index:
 
-.. _Wet open overheid: https://wetten.overheid.nl/BWBR0045754/
-.. _Woo-index: https://open.overheid.nl/
-.. _DiWoo: https://standaarden.overheid.nl/diwoo/metadata
-.. _Woo informatiecategorieën: https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_woo_informatiecategorieen
-.. _Thema-indeling voor Officiële Publicaties (TOP-lijst): https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_toplijst
-
 Metadata
 ========
 
 Onder het menu-item "Metadata" en op het dashboard onder het kopje "Metadata" wordt toegang geboden tot het beheer van:
 
 * Informatiecategorieën
+* Organisaties
 * Thema's
 
 Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
@@ -70,6 +65,114 @@ Op een informatiecategorie zijn de volgende gegevens beschikbaar. Op het scherm 
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
 * ``Oorsprong``. Een niet-wijzigbaar, automatisch toegekende aanduiding van op welke wijze de *informatiecategorie* is toegevoegd; via de landelijke waardelijst of zelf toegevoegd.
 
+Organisaties
+------------
+
+Toelichting
+~~~~~~~~~~~
+
+De `Wet open overheid`_ kent voor alle Nederlandse bestuursorganen een verplichting om
+documenten actief openbaar te maken. Mogelijk wordt vanuit één instantie/installatie
+van het “Woo Publicaties”-component de openbaarmaking voor meerdere bestuursorganen
+ondersteund. Denk daarbij bijvoorbeeld aan publicaties namens *de gemeente* en
+publicaties namens *gemeenschappelijke regelingen* waaraan de gemeente deelneemt.
+Of denk aan *shared service centres* die de ICT-diensten leveren voor meerdere gemeenten.
+
+Het namens verschillende organisaties publiceren binnen één publicatieplatform wordt in
+het “Woo Publicaties”-component ondersteund. In de admin-interface kan, zoals hieronder
+wordt uitgelegd, een beheerder configureren namens welke organisaties gepubliceerd mag
+worden. De organisatie wordt op iedere :ref: `publicatie<admin_publicaties_index>`
+vastgelegd, zodat ook voor de burger inzichtelijk is van welke organisatie een
+publicatie is. Ook zijn deze gegevens relevant om (op termijn) te toetsen in hoeverre
+iedere organisatie voldoet aan de wettelijke openbaarmakingsplicht.
+
+De landelijke `Woo-index`_ veronderstelt het gebruik van landelijke waardelijsten.
+Deze worden bijgehouden door het `Register van Overheidsorganisaties (ROO) <https://organisaties.overheid.nl/>`_.
+Standaard staan organisaties uit de volgende drie officiële waardelijsten al in het
+“Woo Publicaties”-component ingelezen:
+
+* `Gemeenten <https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Frwc_gemeenten_compleet>`_
+* `Samenwerkingsorganisaties <https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Frwc_samenwerkingsorganisaties_compleet>`_
+* `Overige overheidsorganisaties <https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Frwc_overige_overheidsorganisaties_compleet>`_
+
+.. warning:: Let op! In de admin-interface bestaat de mogelijkheid om *extra organisaties*
+   toe te voegen. Mogelijk kunnen hieraan gekoppelde publicaties niet gevonden worden
+   via de landelijke `Woo-index`_! Zij kunnen wel gevonden worden via het burgerportaal
+   (in ontwikkeling) van het GPP-Woo.
+
+Beheerscherm
+~~~~~~~~~~~~
+
+In het beheerscherm van de *organisaties* wordt een lijst getoond van alle
+*organisaties* die zijn opgeslagen in het "WOO Publicaties"-component.
+
+Standaard staan organisaties uit drie officiële waardelijsten hier al in (zie toelichting
+hierboven).
+
+Deze zijn te herkennen via de *Oorsprong* kolom. Organisaties uit de waardelijsten kunnen
+niet gewijzigd worden - ze kunnen enkel
+:ref:`geactiveerd of gedeactiveerd worden <admin_metadata_index_organisation_active>`.
+Daarnaast bestaat de mogelijkheid om voor de eigen organisatie *extra organisaties*
+toe te voegen. Deze zijn de herkennen aan de waarde "Zelf-toegevoegd item" in de kolom
+*Oorsprong* van de lijst. Deze kunnen indien nodig gewijzigd worden.
+
+Op het beheerscherm zijn de volgende acties mogelijk:
+
+
+* Rechtboven zit een knop **organisatie toevoegen** waarmee een *organisatie* toegevoegd
+  kan worden.
+* Bovenaan zit een zoekveld met en knop **Zoeken** waarmee naar *organisaties* gezocht
+  kan worden.
+* Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere organisaties**.
+  Op dit moment wordt alleen de actie **Geselecteerde organisaties verwijderen**
+  ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *organisaties*
+  aan te vinken.
+* Onder de (bulk-)actie staat de lijst met *organisaties*. Door op de kolomtitels te
+  klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
+* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong**.
+* Bij een *organisatie* kan op de *naam* geklikt worden om **de details in te zien** en
+  deze eventueel **te wijzigen** en/of (de)activeren.
+* Bij een *organisatie* kan op **Show logs** (op één na rechter kolom) geklikt worden om
+  direct de :ref:`audit trail<admin_logging_index>` in te zien.
+
+Wanneer bij een *organisatie* op de *naam* wordt geklikt, dan opent een scherm met
+nadere details. Hierop zien we:
+
+* **Alle gegevens**. Deze lichten we hieronder toe.
+* Rechtsboven een knop **Show logs**. Deze toont de volledige
+  :ref:`audit trail<admin_logging_index>` van de *organisatie*.
+* Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de
+  beheerinterface zijn uitgevoerd op de *organisatie*.
+* Linksonder de mogelijkheid om **wijzigingen op te slaan**. Er kan voor gekozen worden
+  om na het opslaan direct een nieuwe *organisatie* aan te maken of om direct de
+  huidige *organisatie* nogmaals te wijzigen.
+* Rechtsonder de mogelijkheid om de *organisatie* te **verwijderen**.
+
+Op een organisatie zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte
+velden **dikgedrukt** weergegeven.
+
+* ``Naam``. De naam van de *organistaie*, bijvoorbeeld "Politie".
+* ``Is actief``. Een selectievakje die aangeeft of de organisatie geactiveerd is of
+  niet. Om een organisatie te activeren klik je het vinkje aan, om een organisatie te
+  deactiveren schakel je het vinkje uit, en sla de wijzigingen op.
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
+* ``Oorsprong``. Een niet-wijzigbaar, automatisch toegekende aanduiding die aangeeft
+  uit welke landelijke waardelijst de organisatie komt, of dat deze zelf toegevoegd is
+  door een beheerder.
+
+.. _admin_metadata_index_organisation_active:
+
+Activeren/deactiveren van organisaties
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Als een organisatie gedeactiveerd is, dan kunnen er geen nieuwe publicaties aan gekoppeld
+worden. Als je een organisatie deactiveert waaraan al bestaande publicaties hangen, dan
+heeft dit geen invloed op de bestaande publicaties.
+
+Bij een nieuwe installatie zijn standaard alle organisaties gedeactiveerd. Een beheerder
+dient de gewenste organisaties te activeren om ze in gebruik te nemen.
+
+
 Thema's
 -------
 
@@ -87,13 +190,13 @@ De `DiWoo`_-standaard ondersteunt alleen het gebruik van de landelijke waardelij
 Beheerscherm
 ~~~~~~~~~~~~
 
-In het beheerscherm van de *thema's* wordt een lijst getoond van alle thema's die zijn opgeslagen in het "WOO Publications"-component. Standaard staan de landelijke thema's hier al in. 
+In het beheerscherm van de *thema's* wordt een lijst getoond van alle thema's die zijn opgeslagen in het "WOO Publications"-component. Standaard staan de landelijke thema's hier al in.
 
 Op het beheerscherm zijn de volgende acties mogelijk:
 
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee naar *thema's* gezocht kan worden.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere informatiecategorieën**. Op dit moment wordt alleen de actie **Geselecteerde thema's verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *thema's* aan te vinken.
-* Onder de (bulk-)actie staat de lijst met *thema's*. 
+* Onder de (bulk-)actie staat de lijst met *thema's*.
 * Bij een *thema* kan op de `naam` geklikt worden om **de details in te zien**.
 * Bij een *thema* kan op **Show logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
@@ -112,3 +215,10 @@ Op een *thema* zijn de volgende gegevens beschikbaar.
 * ``Naam``. De naam van het *thema*, bijvoorbeeld "cultuur en recreatie".
 * ``position``. *systeemveld*
 * ``ref node id``. *systeemveld*
+
+
+.. _Wet open overheid: https://wetten.overheid.nl/BWBR0045754/
+.. _Woo-index: https://open.overheid.nl/
+.. _DiWoo: https://standaarden.overheid.nl/diwoo/metadata
+.. _Woo informatiecategorieën: https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_woo_informatiecategorieen
+.. _Thema-indeling voor Officiële Publicaties (TOP-lijst): https://standaarden.overheid.nl/tooi/waardelijsten/work?work_uri=https%3A%2F%2Fidentifier.overheid.nl%2Ftooi%2Fset%2Fscw_toplijst
