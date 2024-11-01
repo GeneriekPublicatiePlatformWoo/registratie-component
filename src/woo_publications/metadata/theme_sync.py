@@ -1,7 +1,6 @@
-from io import StringIO
 from pathlib import Path
 
-from django.core.management import call_command
+from django.core import serializers
 
 import requests
 from glom import Coalesce, PathAccessError, T, glom
@@ -77,15 +76,12 @@ def update_theme(file_path: Path):
                 naam=theme["naam"],
             )
 
-    to_export = Theme.objects.all().values_list("pk", flat=True)
-
-    call_command(
-        "dumpdata",
-        "metadata.theme",
-        format="json",
+    fixture_data = serializers.serialize(
+        "json",
+        Theme.objects.all(),
         indent=4,
-        natural_primary=True,
-        pks=",".join([str(pk) for pk in to_export]),
-        output=file_path,
-        stdout=StringIO(),
+        use_natural_primary_keys=True,
     )
+
+    with open(file_path, "w") as outfile:
+        outfile.write(fixture_data)

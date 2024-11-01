@@ -97,7 +97,7 @@ def update_organisation(file_path: Path):
         oorsprong=OrganisationOrigins.custom_entry
     )
 
-    fixutre_data = serializers.serialize(
+    fixture_data = serializers.serialize(
         "json",
         value_list_organisations,
         indent=4,
@@ -111,4 +111,4 @@ def update_organisation(file_path: Path):
     )
 
     with open(file_path, "w") as outfile:
-        outfile.write(fixutre_data)
+        outfile.write(fixture_data)
