@@ -79,24 +79,6 @@ class Document(models.Model):
         ),
         on_delete=models.CASCADE,
     )
-    document_service = models.ForeignKey(
-        "zgw_consumers.Service",
-        verbose_name=_("Documents API Service"),
-        on_delete=models.PROTECT,
-        limit_choices_to={
-            "api_type": APITypes.drc,
-        },
-        null=True,
-        blank=True,
-    )
-    document_uuid = models.UUIDField(
-        _("document UUID"),
-        help_text=_("The UUID of the API resource recorded in the Documenten API."),
-        unique=False,
-        editable=True,
-        null=True,
-        blank=True,
-    )
     identifier = models.CharField(
         _("identifier"),
         help_text=_("The (primary) unique identifier."),
@@ -148,6 +130,34 @@ class Document(models.Model):
             "System timestamp reflecting when the publication was registered in the "
             "database. Not to be confused with the creation date of the publication, "
             "which is usually *before* the registration date."
+        ),
+    )
+
+    # Documents API integration
+    document_service = models.ForeignKey(
+        "zgw_consumers.Service",
+        verbose_name=_("Documents API Service"),
+        on_delete=models.PROTECT,
+        limit_choices_to={
+            "api_type": APITypes.drc,
+        },
+        null=True,
+        blank=True,
+    )
+    document_uuid = models.UUIDField(
+        _("document UUID"),
+        help_text=_("The UUID of the API resource recorded in the Documenten API."),
+        unique=False,
+        editable=True,
+        null=True,
+        blank=True,
+    )
+    lock = models.CharField(
+        _("document lock"),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "The lock value to be able to update this document in the Documents API.",
         ),
     )
 

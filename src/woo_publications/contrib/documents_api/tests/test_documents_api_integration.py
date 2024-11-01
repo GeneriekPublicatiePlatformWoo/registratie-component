@@ -22,11 +22,11 @@ from django.test import LiveServerTestCase
 from furl import furl
 from rest_framework.reverse import reverse
 from zgw_consumers.client import build_client
-from zgw_consumers.constants import APITypes, AuthTypes
-from zgw_consumers.test.factories import ServiceFactory
 
 from woo_publications.metadata.tests.factories import InformationCategoryFactory
 from woo_publications.utils.tests.vcr import VCRMixin
+
+from .factories import ServiceFactory
 
 
 class DocumentsApiIntegrationTests(VCRMixin, LiveServerTestCase):
@@ -39,12 +39,7 @@ class DocumentsApiIntegrationTests(VCRMixin, LiveServerTestCase):
         super().setUp()
 
         self.documents_api_service = ServiceFactory.build(
-            label="Open Zaak (docker-compose)",
-            api_root="http://openzaak.docker.internal:8001/documenten/api/v1/",
-            api_type=APITypes.drc,
-            auth_type=AuthTypes.zgw,
-            client_id="woo-publications-dev",
-            secret="insecure-yQL9Rzh4eHGVmYx5w3J2gu",
+            for_documents_api_docker_compose=True
         )
 
     def test_can_create_document_with_woo_publications_informatieobjecttype(self):

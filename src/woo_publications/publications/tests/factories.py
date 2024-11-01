@@ -1,6 +1,6 @@
 import factory
-from zgw_consumers.constants import APITypes, AuthTypes
-from zgw_consumers.test.factories import ServiceFactory
+
+from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
 
 from ..models import Document, Publication
 
@@ -27,11 +27,7 @@ class DocumentFactory(factory.django.DjangoModelFactory):
             # See the fixtures in docker/open-zaak.
             document_service=factory.SubFactory(
                 ServiceFactory,
-                api_root="http://openzaak.docker.internal:8001/documenten/api/v1/",
-                api_type=APITypes.drc,
-                client_id="woo-publications-dev",
-                Secret="insecure-yQL9Rzh4eHGVmYx5w3J2gu",
-                auth_type=AuthTypes.zgw,
+                for_documents_api_docker_compose=True,
             ),
             document_uuid=factory.Faker("uuid4"),
         )

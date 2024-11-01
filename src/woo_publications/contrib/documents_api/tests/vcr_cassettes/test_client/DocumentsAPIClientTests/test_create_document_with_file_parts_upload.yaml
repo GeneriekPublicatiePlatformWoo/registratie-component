@@ -1,0 +1,105 @@
+interactions:
+- request:
+    body: '{"identificatie": "4e679b23-352c-435a-a25d-aef5db4dfa4b", "bronorganisatie":
+      "123456782", "informatieobjecttype": "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
+      "creatiedatum": "2024-10-30", "titel": "Sample document", "auteur": "WOO registrations",
+      "status": "definitief", "formaat": "image/png", "taal": "dut", "bestandsnaam":
+      "sample.png", "inhoud": null, "bestandsomvang": 256000, "beschrijving": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "indicatieGebruiksrecht": false}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMDMwMDE0MCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9._wfSC7YH6PsAsqwvpJTiPVcLi1JT-21ANNrzzqCyRJQ
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1501'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+    method: POST
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/52336cff-6ca4-44a6-954e-7fb67f90cc6c","identificatie":"4e679b23-352c-435a-a25d-aef5db4dfa4b","bronorganisatie":"123456782","creatiedatum":"2024-10-30","titel":"Sample
+        document","vertrouwelijkheidaanduiding":"openbaar","auteur":"WOO registrations","status":"definitief","formaat":"image/png","taal":"dut","versie":1,"beginRegistratie":"2024-10-30T14:55:40.616181Z","bestandsnaam":"sample.png","inhoud":null,"bestandsomvang":256000,"link":"","beschrijving":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/aa888a0e-4110-44df-ae36-6a172562ce06","volgnummer":1,"omvang":256000,"voltooid":false,"lock":"ce2065ad4d8a4352907e8158f39ad6f1"}],"trefwoorden":[],"lock":"ce2065ad4d8a4352907e8158f39ad6f1"}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Length:
+      - '2175'
+      Content-Security-Policy:
+      - base-uri 'self'; img-src 'self'; script-src 'self'; form-action 'self'; frame-src
+        'self'; object-src 'none'; style-src 'self'; frame-ancestors 'none'; default-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Location:
+      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/52336cff-6ca4-44a6-954e-7fb67f90cc6c
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMDMwMDE0MCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9._wfSC7YH6PsAsqwvpJTiPVcLi1JT-21ANNrzzqCyRJQ
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/52336cff-6ca4-44a6-954e-7fb67f90cc6c
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/52336cff-6ca4-44a6-954e-7fb67f90cc6c","identificatie":"4e679b23-352c-435a-a25d-aef5db4dfa4b","bronorganisatie":"123456782","creatiedatum":"2024-10-30","titel":"Sample
+        document","vertrouwelijkheidaanduiding":"openbaar","auteur":"WOO registrations","status":"definitief","formaat":"image/png","taal":"dut","versie":1,"beginRegistratie":"2024-10-30T14:55:40.616181Z","bestandsnaam":"sample.png","inhoud":null,"bestandsomvang":256000,"link":"","beschrijving":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/aa888a0e-4110-44df-ae36-6a172562ce06","volgnummer":1,"omvang":256000,"voltooid":false,"lock":"ce2065ad4d8a4352907e8158f39ad6f1"}],"trefwoorden":[]}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Length:
+      - '2133'
+      Content-Security-Policy:
+      - base-uri 'self'; img-src 'self'; script-src 'self'; form-action 'self'; frame-src
+        'self'; object-src 'none'; style-src 'self'; frame-ancestors 'none'; default-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      ETag:
+      - '"6f06328dc126ab025eb3e579c794efc8"'
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
