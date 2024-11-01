@@ -1403,6 +1403,12 @@ components:
           type: string
           format: uuid
           readOnly: true
+        informatieCategorieen:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The information categories that describe this publication.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1434,6 +1440,12 @@ components:
           type: string
           format: uuid
           readOnly: true
+        informatieCategorieen:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The information categories that describe this publication.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1460,6 +1472,7 @@ components:
             die typisch *voor* de registratiedatum valt.
       required:
       - eigenaar
+      - informatieCategorieen
       - officieleTitel
       - registratiedatum
       - uuid

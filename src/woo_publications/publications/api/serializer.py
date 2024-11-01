@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
+from woo_publications.metadata.models import InformationCategory
+
 from ..models import Document, Publication
 
 
@@ -51,11 +53,19 @@ class PublicationSerializer(serializers.ModelSerializer):
         allow_null=True,
         read_only=True,
     )
+    informatie_categorieen = serializers.SlugRelatedField(
+        queryset=InformationCategory.objects.all(),
+        slug_field="uuid",
+        help_text=_("The information categories that describe this publication."),
+        many=True,
+        allow_empty=False,
+    )
 
     class Meta:  # type: ignore
         model = Publication
         fields = (
             "uuid",
+            "informatie_categorieen",
             "officiele_titel",
             "verkorte_titel",
             "omschrijving",

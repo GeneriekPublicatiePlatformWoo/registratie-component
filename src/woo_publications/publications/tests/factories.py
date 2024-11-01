@@ -18,7 +18,7 @@ class PublicationFactory(factory.django.DjangoModelFactory):
 
         if extracted:
             for information_category in extracted:
-                self.informatie_categorieen.add(information_category)
+                self.informatie_categorieen.add(information_category)  # type: ignore reportAttributeAccessIssue
 
 
 class DocumentFactory(factory.django.DjangoModelFactory):
