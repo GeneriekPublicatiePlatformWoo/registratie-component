@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from django.test import override_settings
 from django.urls import reverse
 
 from rest_framework import status
@@ -66,6 +67,7 @@ class ThemeAPIAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITestCa
         self.assertWrongApiKeyProhibitsPutEndpointAccess(detail_url)
 
 
+@override_settings(LANGUAGE_CODE="en")
 class OrganisationApiTests(TokenAuthMixin, APITestCase):
 
     def test_list_organisations(self):

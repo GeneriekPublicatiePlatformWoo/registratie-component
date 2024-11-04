@@ -23,9 +23,12 @@ from ..constants import Events
 from ..models import TimelineLogProxy
 
 
-# must decorate the class, since at the test-level the wsgi app is already being
-# initialized and overriding the setting is too late
-@override_settings(SESSION_ENGINE="django.contrib.sessions.backends.db")
+@override_settings(
+    # must decorate the class, since at the test-level the wsgi app is already being
+    # initialized and overriding the setting is too late
+    SESSION_ENGINE="django.contrib.sessions.backends.db",
+    LANGUAGE_CODE="en",
+)
 @disable_admin_mfa()
 class AuditLogAdminTests(WebTest):
 

@@ -13,8 +13,9 @@ paths:
   /api/v1/documenten:
     get:
       operationId: documentenList
-      description: Returns a paginated result list of existing documents.
-      summary: All available documents.
+      description: Geeft een resultatenlijst (met paginering) terug van de bestaande
+        documenten.
+      summary: Alle beschikbare documenten.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -57,9 +58,9 @@ paths:
         name: publicatie
         schema:
           type: integer
-        description: 'Search the document based on the unique identifier (UUID) that
-          represents a publication. **Disclaimer**: disregard the documented type
-          `integer` the correct type is `UUID`.'
+        description: 'Filter documenten op basis van de unieke publicatie-identificatie
+          (UUID) waartoe ze horen. **Opmerkingen**: negeer het gedocumenteerde type
+          `integer`, het correcte type is `string` met formaat `uuid`.'
       - in: query
         name: sorteer
         schema:
@@ -98,8 +99,8 @@ paths:
   /api/v1/documenten/{uuid}:
     get:
       operationId: documentenRetrieve
-      description: Retrieve a specific document.
-      summary: Retrieve a specific document.
+      description: Haal een specifiek document op.
+      summary: Haal een specifiek document op.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -259,8 +260,8 @@ paths:
   /api/v1/organisaties:
     get:
       operationId: organisatiesList
-      description: Returns a paginated result list of existing organisations.
-      summary: All available organisations.
+      description: Geeft een lijst (met paginering) terug van alle bestaande organisaties.
+      summary: Alle beschikbare organisaties.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -294,8 +295,8 @@ paths:
           type: string
           format: uri
           title: Identificatie
-        description: Search the organisations by the unique IRI that identifies a
-          specific organisation.
+        description: Zoek een organisatie op basis van de unieke IRI die een specifieke
+          organisatie identificeert.
       - in: query
         name: isActief
         schema:
@@ -305,17 +306,17 @@ paths:
           - 'false'
           - 'true'
         description: |-
-          Filter the organisations depending on their activity status:
+          Filter de organisaties op hun actief-status:
 
-          * `true` - Retrieves all the active organisations (default)
-          * `false` - Retrieves all the inactive organisations
-          * `alle` - Retrieve every organisation regardless if active or inactive.
+          * `true` - Haal alle actieve organisaties op (standaard).
+          * `false` - Haal alle inactieve organisaties op.
+          * `alle` - Haal alle organisaties op, ongeacht of ze actief zijn of niet.
       - in: query
         name: naam
         schema:
           type: string
-        description: Search through the organisations based on the name of the organisation.
-          You can search on parts of the name, and matching is case-insensitive.
+        description: Zoek organisaties op basis van de organisatienaam. Je kan op
+          delen van de naam zoeken, en het zoeken is niet hoofdlettergevoelig.
       - in: query
         name: oorsprong
         schema:
@@ -326,11 +327,11 @@ paths:
           - solijst
           - zelf_toegevoegd
         description: |-
-          Search the organisation based on the origin of the organisation.
+          Zoek organisaties op basis van de oorsprong van de gegevens.
 
-          * `gemeentelijst` - Municipality list
-          * `solijst` - Collaborative organisations list
-          * `oorglijst` - Alternative government organisations
+          * `gemeentelijst` - Register gemeenten compleet
+          * `solijst` - Register samenwerkingsorganisaties compleet
+          * `oorglijst` - Register overige overheidsorganisaties compleet
           * `zelf_toegevoegd` - Zelf-toegevoegd item
       - name: page
         required: false
@@ -351,8 +352,8 @@ paths:
           description: ''
     post:
       operationId: organisatiesCreate
-      description: Create an organisation.
-      summary: Create an organisation.
+      description: Maak een organisatie aan.
+      summary: Maak een organisatie aan.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -399,8 +400,8 @@ paths:
   /api/v1/organisaties/{uuid}:
     get:
       operationId: organisatiesRetrieve
-      description: Retrieve a specific organisation.
-      summary: Retrieve a specific organisation.
+      description: Haal een specifieke organisatie op.
+      summary: Haal een specifieke organisatie op.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -447,8 +448,8 @@ paths:
           description: ''
     put:
       operationId: organisatiesUpdate
-      description: Update an organisation entirely.
-      summary: Update an organisation entirely.
+      description: Werk een organisatie (in zijn geheel) bij.
+      summary: Werk een organisatie (in zijn geheel) bij.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -500,8 +501,8 @@ paths:
           description: ''
     patch:
       operationId: organisatiesPartialUpdate
-      description: Update an organisation partially.
-      summary: Update an organisation partially.
+      description: Werk een organisatie (gedeeltelijk) bij.
+      summary: Werk een organisatie (gedeeltelijk) bij.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -587,7 +588,7 @@ paths:
         name: eigenaar
         schema:
           type: string
-        description: Filter publications based on the owner identifier of the object.
+        description: Filter publicaties op basis van de identificatie van de eigenaar.
       - name: page
         required: false
         in: query
@@ -1088,7 +1089,7 @@ components:
         publicatie:
           type: string
           format: uuid
-          description: The unique identifier of the publication.
+          description: De unieke identificatie van de publicatie.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1139,12 +1140,12 @@ components:
         weergaveNaam:
           type: string
           readOnly: true
-          description: The display name of the user, as recorded in the audit trails.
+          description: De weergavenaam van de gebruiker, zoals vastgelegd in de auditlogs.
         identifier:
           type: string
           readOnly: true
-          description: The system identifier that uniquely identifies the user performing
-            the action.
+          description: De (unieke) identificatie waarmee de gebruiker die de actie
+            uitvoert achterhaald kan worden.
       required:
       - identifier
       - weergaveNaam
@@ -1207,29 +1208,29 @@ components:
           format: uri
           readOnly: true
           title: Identificatie
-          description: The unique IRI that identifies this organisation in the overheid.nl
-            value list. For entries that have been added manually, an identifier is
-            generated.
+          description: De unieke IRI waarmee deze organisatie gedefinieerd is in de
+            overheid.nl waardelijsten. Voor zelf-toegevoegde items wordt een identificatie
+            gegenereerd.
         naam:
           type: string
-          description: The name of the organisation (can only be modified when `oorsprong`
-            is `zelf_toegevoegd`).
+          description: De naam van de organisatie (deze kan enkel gewijzigd worden
+            als de `oorsprong` `zelf_toegevoegd` is).
           maxLength: 255
         oorsprong:
           allOf:
           - $ref: '#/components/schemas/OrganisationOorsprongEnum'
           readOnly: true
           description: |-
-            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+            Geeft aan waar de organisatie gedefinieerd is, waar de gegevens opgehaald worden en hoe de identificatie dient geïnterpreteerd te worden. Als een waardelijst als oorsprong gebruikt wordt, dan kan de organisatie niet bewerkt of verwijderd worden.
 
-            * `gemeentelijst` - Municipality list
-            * `solijst` - Collaborative organisations list
-            * `oorglijst` - Alternative government organisations
+            * `gemeentelijst` - Register gemeenten compleet
+            * `solijst` - Register samenwerkingsorganisaties compleet
+            * `oorglijst` - Register overige overheidsorganisaties compleet
             * `zelf_toegevoegd` - Zelf-toegevoegd item
         isActief:
           type: boolean
-          title: Is active
-          description: Displays if the the organisation is currently active or not.
+          title: Actief
+          description: Geeft de actief-status van de organisatie aan.
       required:
       - identifier
       - oorsprong
@@ -1242,9 +1243,9 @@ components:
       - zelf_toegevoegd
       type: string
       description: |-
-        * `gemeentelijst` - Municipality list
-        * `solijst` - Collaborative organisations list
-        * `oorglijst` - Alternative government organisations
+        * `gemeentelijst` - Register gemeenten compleet
+        * `solijst` - Register samenwerkingsorganisaties compleet
+        * `oorglijst` - Register overige overheidsorganisaties compleet
         * `zelf_toegevoegd` - Zelf-toegevoegd item
     PaginatedDocumentList:
       type: object
@@ -1373,29 +1374,29 @@ components:
           format: uri
           readOnly: true
           title: Identificatie
-          description: The unique IRI that identifies this organisation in the overheid.nl
-            value list. For entries that have been added manually, an identifier is
-            generated.
+          description: De unieke IRI waarmee deze organisatie gedefinieerd is in de
+            overheid.nl waardelijsten. Voor zelf-toegevoegde items wordt een identificatie
+            gegenereerd.
         naam:
           type: string
-          description: The name of the organisation (can only be modified when `oorsprong`
-            is `zelf_toegevoegd`).
+          description: De naam van de organisatie (deze kan enkel gewijzigd worden
+            als de `oorsprong` `zelf_toegevoegd` is).
           maxLength: 255
         oorsprong:
           allOf:
           - $ref: '#/components/schemas/OrganisationOorsprongEnum'
           readOnly: true
           description: |-
-            Determines where the organisation is defined and sourced from, and how the identifier should be interpreted. If the value list is the origin, the organisation can not be modified or deleted.
+            Geeft aan waar de organisatie gedefinieerd is, waar de gegevens opgehaald worden en hoe de identificatie dient geïnterpreteerd te worden. Als een waardelijst als oorsprong gebruikt wordt, dan kan de organisatie niet bewerkt of verwijderd worden.
 
-            * `gemeentelijst` - Municipality list
-            * `solijst` - Collaborative organisations list
-            * `oorglijst` - Alternative government organisations
+            * `gemeentelijst` - Register gemeenten compleet
+            * `solijst` - Register samenwerkingsorganisaties compleet
+            * `oorglijst` - Register overige overheidsorganisaties compleet
             * `zelf_toegevoegd` - Zelf-toegevoegd item
         isActief:
           type: boolean
-          title: Is active
-          description: Displays if the the organisation is currently active or not.
+          title: Actief
+          description: Geeft de actief-status van de organisatie aan.
     PatchedPublication:
       type: object
       properties:
@@ -1417,8 +1418,8 @@ components:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
           nullable: true
-          title: owner
-          description: The creator of the publication, derived from the audit logs.
+          description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
+            de auditlogs.
         registratiedatum:
           type: string
           format: date-time
@@ -1448,8 +1449,8 @@ components:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
           nullable: true
-          title: owner
-          description: The creator of the publication, derived from the audit logs.
+          description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
+            de auditlogs.
         registratiedatum:
           type: string
           format: date-time
@@ -1483,7 +1484,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Theme'
-          description: The nested themes attached to this current theme.
+          description: De subthema's die binnen het huidige thema bestaan.
       required:
       - identifier
       - naam
