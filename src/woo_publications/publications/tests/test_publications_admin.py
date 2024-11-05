@@ -6,6 +6,7 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 from ..models import Publication
 from .factories import PublicationFactory
@@ -120,6 +121,7 @@ class TestPublicationsAdmin(WebTest):
 
     @freeze_time("2024-09-25T00:14:00-00:00")
     def test_publications_admin_create(self):
+        ic, ic2, ic3 = InformationCategoryFactory.create_batch(3)
         reverse_url = reverse("admin:publications_publication_add")
 
         response = self.app.get(reverse_url, user=self.user)
@@ -127,31 +129,58 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
-        form["officiele_titel"] = "The official title of this publication"
-        form["verkorte_titel"] = "The title"
-        form["omschrijving"] = (
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-            "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
-        )
 
-        form.submit(name="_save")
+        with self.subTest("no information_categorieen given results in form error"):
+            form["officiele_titel"] = "The official title of this publication"
+            form["verkorte_titel"] = "The title"
+            form["omschrijving"] = (
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
 
-        added_item = Publication.objects.order_by("-pk").first()
-        assert added_item is not None
-        self.assertEqual(
-            added_item.officiele_titel, "The official title of this publication"
-        )
-        self.assertEqual(added_item.verkorte_titel, "The title")
-        self.assertEqual(
-            added_item.omschrijving,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-            "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
-        )
-        self.assertEqual(str(added_item.registratiedatum), "2024-09-25 00:14:00+00:00")
+            submit_response = form.submit(name="_save")
+
+            self.assertEqual(submit_response.status_code, 200)
+            self.assertFormError(
+                submit_response.context["adminform"],
+                "informatie_categorieen",
+                _("This field is required."),
+            )
+
+        with self.subTest("complete data creates publication"):
+            form["informatie_categorieen"] = f"{ic.pk},{ic2.pk},{ic3.pk}"
+            form["officiele_titel"] = "The official title of this publication"
+            form["verkorte_titel"] = "The title"
+            form["omschrijving"] = (
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
+
+            form.submit(name="_save")
+
+            added_item = Publication.objects.order_by("-pk").first()
+            assert added_item is not None
+            self.assertQuerySetEqual(
+                added_item.informatie_categorieen.all(), [ic, ic2, ic3], ordered=False
+            )
+            self.assertEqual(
+                added_item.officiele_titel, "The official title of this publication"
+            )
+            self.assertEqual(added_item.verkorte_titel, "The title")
+            self.assertEqual(
+                added_item.omschrijving,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
+            )
+            self.assertEqual(
+                str(added_item.registratiedatum), "2024-09-25 00:14:00+00:00"
+            )
 
     def test_publications_admin_update(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -166,20 +195,47 @@ class TestPublicationsAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
-        form["officiele_titel"] = "changed official title"
-        form["verkorte_titel"] = "changed short title"
-        form["omschrijving"] = "changed description"
 
-        with freeze_time("2024-09-27T00:14:00-00:00"):
-            response = form.submit(name="_save")
+        with self.subTest("no information_categorieen given results in form error"):
+            form["informatie_categorieen"] = ""
+            form["officiele_titel"] = "The official title of this publication"
+            form["verkorte_titel"] = "The title"
+            form["omschrijving"] = (
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
 
-        self.assertEqual(response.status_code, 302)
+            submit_response = form.submit(name="_save")
 
-        publication.refresh_from_db()
-        self.assertEqual(publication.officiele_titel, "changed official title")
-        self.assertEqual(publication.verkorte_titel, "changed short title")
-        self.assertEqual(publication.omschrijving, "changed description")
-        self.assertEqual(str(publication.registratiedatum), "2024-09-25 00:14:00+00:00")
+            self.assertEqual(submit_response.status_code, 200)
+            self.assertFormError(
+                submit_response.context["adminform"],
+                "informatie_categorieen",
+                _("This field is required."),
+            )
+
+        with self.subTest("complete data updates publication"):
+            form["informatie_categorieen"] = str(ic.pk)
+            form["officiele_titel"] = "changed official title"
+            form["verkorte_titel"] = "changed short title"
+            form["omschrijving"] = "changed description"
+
+            with freeze_time("2024-09-27T00:14:00-00:00"):
+                response = form.submit(name="_save")
+
+            self.assertEqual(response.status_code, 302)
+
+            publication.refresh_from_db()
+            self.assertQuerySetEqual(publication.informatie_categorieen.all(), [ic])
+            self.assertFalse(
+                publication.informatie_categorieen.filter(pk=ic2.pk).exists()
+            )
+            self.assertEqual(publication.officiele_titel, "changed official title")
+            self.assertEqual(publication.verkorte_titel, "changed short title")
+            self.assertEqual(publication.omschrijving, "changed description")
+            self.assertEqual(
+                str(publication.registratiedatum), "2024-09-25 00:14:00+00:00"
+            )
 
     def test_publications_admin_delete(self):
         publication = PublicationFactory.create(

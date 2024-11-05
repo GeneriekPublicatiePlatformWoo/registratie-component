@@ -30,6 +30,7 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "uuid",
         "show_actions",
     )
+    raw_id_fields = ("informatie_categorieen",)
     readonly_fields = (
         "uuid",
         "registratiedatum",

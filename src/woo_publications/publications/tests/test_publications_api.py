@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from freezegun import freeze_time
 from rest_framework import status
@@ -10,6 +11,7 @@ from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 from woo_publications.logging.logevent import audit_api_create
 from woo_publications.logging.serializing import serialize_instance
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 from ..models import Publication
 from .factories import PublicationFactory
@@ -79,14 +81,17 @@ class PublicationApiAuthorizationAndPermissionTests(
 
 class PublicationApiTests(TokenAuthMixin, APITestCase):
     def test_list_publications(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication2 = PublicationFactory.create(
+                informatie_categorieen=[ic2],
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -103,6 +108,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with self.subTest("first_item_in_response_with_expected_data"):
             expected_first_item_data = {
                 "uuid": str(publication.uuid),
+                "informatieCategorieen": [str(ic.uuid)],
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -115,6 +121,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with self.subTest("second_item_in_response_with_expected_data"):
             expected_second_item_data = {
                 "uuid": str(publication2.uuid),
+                "informatieCategorieen": [str(ic2.uuid)],
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -125,20 +132,24 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_list_publications_filter_order(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication2 = PublicationFactory.create(
+                informatie_categorieen=[ic2],
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
             )
         expected_first_item_data = {
             "uuid": str(publication.uuid),
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -147,6 +158,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         }
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
+            "informatieCategorieen": [str(ic2.uuid)],
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -242,8 +254,10 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(data["results"][1], expected_first_item_data)
 
     def test_list_publications_filter_owner(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -258,6 +272,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication2 = PublicationFactory.create(
+                informatie_categorieen=[ic2],
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -273,6 +288,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
 
         expected_first_item_data = {
             "uuid": str(publication.uuid),
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -281,6 +297,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         }
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
+            "informatieCategorieen": [str(ic2.uuid)],
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -333,7 +350,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_detail_publication(self):
+        ic = InformationCategoryFactory.create()
         publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -350,6 +369,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         data = response.json()
         expected_first_item_data = {
             "uuid": str(publication.uuid),
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -361,34 +381,56 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_create_publication(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         url = reverse("api:publication-list")
-        data = {
-            "officieleTitel": "title one",
-            "verkorteTitel": "one",
-            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        }
 
-        response = self.client.post(url, data, headers=AUDIT_HEADERS)
+        with self.subTest("empty information categories results in error"):
+            data = {
+                "officieleTitel": "changed offical title",
+                "verkorteTitel": "changed short title",
+                "omschrijving": "changed description",
+            }
 
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            response = self.client.post(url, data, headers=AUDIT_HEADERS)
 
-        response_data = response.json()
-        expected_data = {
-            "uuid": response_data[
-                "uuid"
-            ],  # uuid gets generated so we are just testing that its there
-            "officieleTitel": "title one",
-            "verkorteTitel": "one",
-            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "eigenaar": {"weergaveNaam": "username", "identifier": "id"},
-            "registratiedatum": "2024-09-24T14:00:00+02:00",
-        }
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+            self.assertEqual(
+                response_data["informatieCategorieen"], [_("This field is required.")]
+            )
 
-        self.assertEqual(response_data, expected_data)
+        with self.subTest("complete data"):
+            data = {
+                "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "officieleTitel": "title one",
+                "verkorteTitel": "one",
+                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            }
+
+            response = self.client.post(url, data, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+            response_data = response.json()
+            expected_data = {
+                "uuid": response_data[
+                    "uuid"
+                ],  # uuid gets generated so we are just testing that its there
+                "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "officieleTitel": "title one",
+                "verkorteTitel": "one",
+                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "eigenaar": {"weergaveNaam": "username", "identifier": "id"},
+                "registratiedatum": "2024-09-24T14:00:00+02:00",
+            }
+
+            self.assertEqual(response_data, expected_data)
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_update_publication(self):
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
         publication = PublicationFactory.create(
+            informatie_categorieen=[ic, ic2],
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -397,33 +439,55 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "api:publication-detail",
             kwargs={"uuid": str(publication.uuid)},
         )
-        data = {
-            "officieleTitel": "changed offical title",
-            "verkorteTitel": "changed short title",
-            "omschrijving": "changed description",
-        }
 
-        response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
+        with self.subTest("empty information categories results in error"):
+            data = {
+                "officieleTitel": "changed offical title",
+                "verkorteTitel": "changed short title",
+                "omschrijving": "changed description",
+            }
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+            response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
 
-        response_data = response.json()
-        expected_data = {
-            "uuid": response_data[
-                "uuid"
-            ],  # uuid gets generated so we are just testing that its there
-            "officieleTitel": "changed offical title",
-            "verkorteTitel": "changed short title",
-            "omschrijving": "changed description",
-            "eigenaar": None,
-            "registratiedatum": "2024-09-24T14:00:00+02:00",
-        }
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+            self.assertEqual(
+                response_data["informatieCategorieen"], [_("This field is required.")]
+            )
 
-        self.assertEqual(response_data, expected_data)
+        with self.subTest("complete data"):
+
+            data = {
+                "informatieCategorieen": [str(ic2.uuid)],
+                "officieleTitel": "changed offical title",
+                "verkorteTitel": "changed short title",
+                "omschrijving": "changed description",
+            }
+
+            response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            response_data = response.json()
+            expected_data = {
+                "uuid": response_data[
+                    "uuid"
+                ],  # uuid gets generated so we are just testing that its there
+                "informatieCategorieen": [str(ic2.uuid)],
+                "officieleTitel": "changed offical title",
+                "verkorteTitel": "changed short title",
+                "omschrijving": "changed description",
+                "eigenaar": None,
+                "registratiedatum": "2024-09-24T14:00:00+02:00",
+            }
+
+            self.assertEqual(response_data, expected_data)
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_partial_update_publication(self):
+        ic = InformationCategoryFactory.create()
         publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -436,8 +500,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
         }
 
-        response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
-
+        response = self.client.patch(detail_url, data, headers=AUDIT_HEADERS)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_data = response.json()
@@ -445,6 +508,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "uuid": response_data[
                 "uuid"
             ],  # uuid gets generated so we are just testing that its there
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "changed offical title",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -456,7 +520,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         self.assertEqual(response_data, expected_data)
 
     def test_destroy_publication(self):
+        ic = InformationCategoryFactory.create()
         publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

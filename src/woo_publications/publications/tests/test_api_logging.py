@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase
 from woo_publications.api.tests.mixins import TokenAuthMixin
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 
 from ..models import Publication
 from .factories import DocumentFactory, PublicationFactory
@@ -22,8 +23,10 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_detail_logging(self):
         assert not TimelineLogProxy.objects.exists()
+        ic = InformationCategoryFactory.create()
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -47,8 +50,10 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_create_logging(self):
         assert not TimelineLogProxy.objects.exists()
+        ic = InformationCategoryFactory.create()
         url = reverse("api:publication-list")
         data = {
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -67,6 +72,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             "object_data": {
                 "id": publication.pk,
                 "uuid": response.json()["uuid"],
+                "informatie_categorieen": [ic.id],
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
@@ -80,7 +86,9 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_update_publication(self):
         assert not TimelineLogProxy.objects.exists()
+        ic = InformationCategoryFactory.create()
         publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -90,6 +98,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             kwargs={"uuid": str(publication.uuid)},
         )
         data = {
+            "informatieCategorieen": [str(ic.uuid)],
             "officieleTitel": "changed offical title",
             "verkorteTitel": "changed short title",
             "omschrijving": "changed description",
@@ -106,6 +115,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             "object_data": {
                 "id": publication.pk,
                 "uuid": response.json()["uuid"],
+                "informatie_categorieen": [ic.id],
                 "omschrijving": "changed description",
                 "verkorte_titel": "changed short title",
                 "officiele_titel": "changed offical title",
@@ -117,8 +127,10 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
 
     def test_destroy_publication(self):
         assert not TimelineLogProxy.objects.exists()
+        ic = InformationCategoryFactory.create()
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -139,6 +151,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             "object_data": {
                 "id": publication.id,
                 "uuid": str(publication.uuid),
+                "informatie_categorieen": [ic.id],
                 "omschrijving": (
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 ),
