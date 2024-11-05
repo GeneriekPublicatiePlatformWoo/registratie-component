@@ -1,3 +1,5 @@
+import uuid
+
 from django.urls import reverse
 
 from django_webtest import WebTest
@@ -431,3 +433,207 @@ class TestPublicationAdminAuditLogging(WebTest):
             }
 
             self.assertEqual(log.extra_data, expected_data)
+
+
+@disable_admin_mfa()
+class TestDocumentAdminAuditLogging(WebTest):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.user = UserFactory.create(superuser=True)
+
+    def test_document_admin_create(self):
+        publication = PublicationFactory.create()
+        identifier = f"https://www.openzaak.nl/documenten/{str(uuid.uuid4())}"
+
+        response = self.app.get(
+            reverse("admin:publications_document_add"),
+            user=self.user,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms["document_form"]
+        form["publicatie"] = publication.id
+        form["identifier"] = identifier
+        form["officiele_titel"] = "The official title of this document"
+        form["verkorte_titel"] = "The title"
+        form["creatiedatum"] = "2024-01-01"
+        form["omschrijving"] = (
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+            "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+        )
+
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            form.submit(name="_save")
+
+        added_item = Document.objects.get()
+        log = TimelineLogProxy.objects.get()
+
+        expected_data = {
+            "event": Events.create,
+            "acting_user": {
+                "identifier": self.user.id,
+                "display_name": self.user.get_full_name(),
+            },
+            "object_data": {
+                "id": added_item.pk,
+                "lock": "",
+                "uuid": str(added_item.uuid),
+                "identifier": identifier,
+                "publicatie": publication.pk,
+                "bestandsnaam": "unknown.bin",
+                "creatiedatum": "2024-01-01",
+                "omschrijving": (
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                    "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+                ),
+                "document_uuid": None,
+                "bestandsomvang": 0,
+                "verkorte_titel": "The title",
+                "bestandsformaat": "unknown",
+                "officiele_titel": "The official title of this document",
+                "document_service": None,
+                "registratiedatum": "2024-09-24T12:00:00Z",
+                "laatst_geweizigd_datum": "2024-09-24T12:00:00Z",
+            },
+            "_cached_object_repr": "The official title of this document",
+        }
+
+        self.assertEqual(log.extra_data, expected_data)
+
+    def test_document_admin_update(self):
+        with freeze_time("2024-09-25T14:00:00-00:00"):
+            document = DocumentFactory.create(
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            )
+        publication = PublicationFactory.create()
+        identifier = f"https://www.openzaak.nl/documenten/{str(uuid.uuid4())}"
+        reverse_url = reverse(
+            "admin:publications_document_change",
+            kwargs={"object_id": document.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms["document_form"]
+        form["publicatie"] = publication.id
+        form["identifier"] = identifier
+        form["officiele_titel"] = "changed official title"
+        form["verkorte_titel"] = "changed short title"
+        form["creatiedatum"] = "2024-11-11"
+        form["omschrijving"] = "changed description"
+
+        with freeze_time("2024-09-29T14:00:00-00:00"):
+            response = form.submit(name="_save")
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(TimelineLogProxy.objects.count(), 2)
+
+        document.refresh_from_db()
+
+        read_log, update_log = TimelineLogProxy.objects.order_by("pk")
+
+        with self.subTest("read audit logging"):
+            expected_data = {
+                "event": Events.read,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "_cached_object_repr": "title one",
+            }
+
+            self.assertEqual(read_log.extra_data, expected_data)
+
+        with self.subTest("update audit logging"):
+            expected_data = {
+                "event": Events.update,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "object_data": {
+                    "id": document.pk,
+                    "lock": "",
+                    "uuid": str(document.uuid),
+                    "identifier": identifier,
+                    "publicatie": publication.pk,
+                    "bestandsnaam": "unknown.bin",
+                    "creatiedatum": "2024-11-11",
+                    "omschrijving": "changed description",
+                    "document_uuid": None,
+                    "bestandsomvang": 0,
+                    "verkorte_titel": "changed short title",
+                    "bestandsformaat": "unknown",
+                    "officiele_titel": "changed official title",
+                    "document_service": None,
+                    "registratiedatum": "2024-09-25T14:00:00Z",
+                    "laatst_geweizigd_datum": "2024-09-29T14:00:00Z",
+                },
+                "_cached_object_repr": "changed official title",
+            }
+
+            self.assertEqual(update_log.extra_data, expected_data)
+
+    def test_document_admin_delete(self):
+        publication = PublicationFactory.create()
+        identifier = f"https://www.openzaak.nl/documenten/{str(uuid.uuid4())}"
+        with freeze_time("2024-09-25T14:00:00-00:00"):
+            document = DocumentFactory.create(
+                publicatie=publication,
+                identifier=identifier,
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                creatiedatum="2024-11-11",
+            )
+        reverse_url = reverse(
+            "admin:publications_document_delete",
+            kwargs={"object_id": document.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms[1]
+        response = form.submit()
+
+        self.assertEqual(response.status_code, 302)
+
+        log = TimelineLogProxy.objects.get()
+
+        expected_data = {
+            "event": Events.delete,
+            "acting_user": {
+                "identifier": self.user.id,
+                "display_name": self.user.get_full_name(),
+            },
+            "object_data": {
+                "id": document.pk,
+                "lock": "",
+                "uuid": str(document.uuid),
+                "identifier": identifier,
+                "publicatie": publication.pk,
+                "bestandsnaam": "unknown.bin",
+                "creatiedatum": "2024-11-11",
+                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "document_uuid": None,
+                "bestandsomvang": 0,
+                "verkorte_titel": "one",
+                "bestandsformaat": "unknown",
+                "officiele_titel": "title one",
+                "document_service": None,
+                "registratiedatum": "2024-09-25T14:00:00Z",
+                "laatst_geweizigd_datum": "2024-09-25T14:00:00Z",
+            },
+            "_cached_object_repr": "title one",
+        }
+
+        self.maxDiff = None
+        self.assertEqual(log.extra_data, expected_data)
