@@ -1124,12 +1124,20 @@ components:
           format: date-time
           readOnly: true
           title: Geregistreerd op
-          description: Systeemdatum en -tijd wanneer de publicatie in de databank
-            opgeslagen is. Niet te verwarren met de creatiedatum van de publicatie,
-            die typisch *voor* de registratiedatum valt.
+          description: System timestamp reflecting when the document was registered
+            in the database. Not to be confused with the creation date of the document,
+            which is usually *before* the registration date.
+        laatstGeweizigdDatum:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Laatst gewijzigd op
+          description: System timestamp reflecting when the document was last modified
+            in the database.
       required:
       - creatiedatum
       - identifier
+      - laatstGeweizigdDatum
       - officieleTitel
       - publicatie
       - registratiedatum
@@ -1435,6 +1443,13 @@ components:
           description: Systeemdatum en -tijd wanneer de publicatie in de databank
             opgeslagen is. Niet te verwarren met de creatiedatum van de publicatie,
             die typisch *voor* de registratiedatum valt.
+        laatstGeweizigdDatum:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Laatst gewijzigd op
+          description: System timestamp reflecting when the publication was last modified
+            in the database.
     Publication:
       type: object
       properties:
@@ -1473,9 +1488,17 @@ components:
           description: Systeemdatum en -tijd wanneer de publicatie in de databank
             opgeslagen is. Niet te verwarren met de creatiedatum van de publicatie,
             die typisch *voor* de registratiedatum valt.
+        laatstGeweizigdDatum:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Laatst gewijzigd op
+          description: System timestamp reflecting when the publication was last modified
+            in the database.
       required:
       - eigenaar
       - informatieCategorieen
+      - laatstGeweizigdDatum
       - officieleTitel
       - registratiedatum
       - uuid
