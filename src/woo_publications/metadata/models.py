@@ -91,7 +91,7 @@ class Theme(MP_Node):
 
     objects = ThemeManager()
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = _("theme")
         verbose_name_plural = _("themes")
 

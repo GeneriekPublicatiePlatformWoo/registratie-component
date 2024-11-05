@@ -45,7 +45,9 @@ class AuditTrailCreateMixin:
     request: Request
 
     def perform_create(self, serializer: serializers.BaseSerializer):
-        super().perform_create(serializer)  # type: ignore - typing mixins is hard
+        super().perform_create(  # pyright: ignore[reportAttributeAccessIssue]
+            serializer
+        )
 
         instance = serializer.instance
         assert instance is not None
@@ -74,11 +76,11 @@ class AuditTrailRetrieveMixin(Generic[_MT_co]):
         # Optimize multiple calls to get_object, since the default implementations
         # performs the DB lookup and permission checks every time.
         if not hasattr(self, "_cached_object"):
-            self._cached_object = super().get_object()  # type: ignore
+            self._cached_object = super().get_object()  # pyright: ignore
         return self._cached_object
 
     def retrieve(self, request: Request, *args, **kwargs):
-        response = super().retrieve(request, *args, **kwargs)  # type: ignore
+        response = super().retrieve(request, *args, **kwargs)  # pyright: ignore
 
         user_id, user_repr, remarks = _extract_audit_parameters(request)
         audit_api_read(
@@ -99,7 +101,9 @@ class AuditTrailUpdateMixin:
     request: Request
 
     def perform_update(self, serializer: serializers.BaseSerializer):
-        super().perform_update(serializer)  # type: ignore - typing mixins is hard
+        super().perform_update(  # pyright: ignore[reportAttributeAccessIssue]
+            serializer
+        )
 
         instance = serializer.instance
         assert instance is not None
@@ -135,7 +139,7 @@ class AuditTrailDestroyMixin:
             remarks=remarks,
         )
 
-        super().perform_destroy(instance)  # type: ignore - typing mixins is hard
+        super().perform_destroy(instance)  # pyright: ignore[reportAttributeAccessIssue]
 
 
 class AuditTrailViewSetMixin(

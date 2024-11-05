@@ -56,7 +56,7 @@ class ResetSequences(migrations.RunSQL):
 
             sql = "\n".join(x[0] for x in rows)
 
-            self._run_sql(schema_editor, sql)  # type: ignore
+            self._run_sql(schema_editor, sql)  # pyright: ignore
 
     def database_backwards(self, *args, **kwargs) -> None:
         pass

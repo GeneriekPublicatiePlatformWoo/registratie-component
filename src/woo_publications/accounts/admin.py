@@ -34,12 +34,12 @@ class UserAdmin(AdminAuditLogMixin, HijackUserAdminMixin, _UserAdmin):
         # Set the current and target user on the ModelForm class so they are
         # available in the instantiated form. See the comment in the
         # UserChangeForm for more details.
-        ModelForm._current_user = request.user  # type: ignore
-        ModelForm._target_user = obj  # type: ignore
+        ModelForm._current_user = request.user  # pyright: ignore
+        ModelForm._target_user = obj  # pyright: ignore
         return ModelForm
 
     def user_change_password(self, request, id, form_url=""):
-        user: User = self.get_object(request, unquote(id))  # type: ignore
+        user: User = self.get_object(request, unquote(id))  # pyright: ignore
         assert isinstance(request.user, User)
         try:
             validate_max_user_permissions(request.user, user)

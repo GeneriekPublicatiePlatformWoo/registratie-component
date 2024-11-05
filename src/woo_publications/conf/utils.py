@@ -21,8 +21,8 @@ def config[T](option: str, default: T | Undefined = undefined, *args, **kwargs) 
         kwargs.pop("split")
         kwargs["cast"] = Csv()
         if default == []:
-            default = ""  # type: ignore
-    return _config(option, default=default, *args, **kwargs)  # type: ignore
+            default = ""  # pyright: ignore
+    return _config(option, default=default, *args, **kwargs)  # pyright: ignore
 
 
 def get_sentry_integrations() -> list:

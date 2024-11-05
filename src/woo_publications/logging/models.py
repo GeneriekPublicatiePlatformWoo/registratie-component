@@ -22,7 +22,7 @@ class TimelineLogProxy(TimelineLog):
 
     extra_data: MetadataDict | None
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         proxy = True
         verbose_name = _("(audit) log entry")
         verbose_name_plural = _("(audit) log entries")

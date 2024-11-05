@@ -81,7 +81,7 @@ class ThrottleMixin:
             ):
                 raise PermissionDenied
 
-        return super().dispatch(request, *args, **kwargs)  # type: ignore
+        return super().dispatch(request, *args, **kwargs)  # pyright: ignore
 
 
 class IPThrottleMixin(ThrottleMixin):
