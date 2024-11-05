@@ -41,7 +41,8 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
-        form["informatie_categorieen"] = f"{ic.pk},{ic2.pk}"
+        # Force the value because the select box options get loaded in with js
+        form["informatie_categorieen"].force_value([ic.id, ic2.id])
         form["officiele_titel"] = "The official title of this publication"
         form["verkorte_titel"] = "The title"
         form["omschrijving"] = (
@@ -95,7 +96,7 @@ class TestAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["publication_form"]
-        form["informatie_categorieen"] = str(ic.pk)
+        form["informatie_categorieen"].select_multiple(texts=[ic.naam])
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
