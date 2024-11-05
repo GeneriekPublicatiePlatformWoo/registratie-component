@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             model_name="publication",
             name="informatie_categorieen",
             field=models.ManyToManyField(
-                help_text="The information categories which discribes the content of this publication.",
+                help_text="The information categories clarify the kind of information present in the publication.",
                 to="metadata.informationcategory",
                 verbose_name="information categories",
             ),

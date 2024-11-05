@@ -94,6 +94,7 @@ Hierop zien we:
 
 Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
+* ``Informatiecategorieën`` De informatiecategorieën die het soort informatie verduidelijken binnen de publicatie (DiWoo : ``informatieCategorieen``)
 * ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van de publicatie. (DiWoo : ``officieleTitel``)
 * ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : ``verkorteTitel``)
 * ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : ``omschrijving``)

@@ -14,7 +14,7 @@ class DocumentSerializer(serializers.ModelSerializer):
         help_text=_("The unique identifier of the publication."),
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Document
         fields = (
             "uuid",
@@ -56,12 +56,14 @@ class PublicationSerializer(serializers.ModelSerializer):
     informatie_categorieen = serializers.SlugRelatedField(
         queryset=InformationCategory.objects.all(),
         slug_field="uuid",
-        help_text=_("The information categories that describe this publication."),
+        help_text=_(
+            "The information categories clarify the kind of information present in the publication."
+        ),
         many=True,
         allow_empty=False,
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Publication
         fields = (
             "uuid",

@@ -26,7 +26,7 @@ class Publication(models.Model):
         "metadata.informationcategory",
         verbose_name=_("information categories"),
         help_text=_(
-            "The information categories which discribes the content of this publication."
+            "The information categories clarify the kind of information present in the publication."
         ),
     )
     officiele_titel = models.CharField(

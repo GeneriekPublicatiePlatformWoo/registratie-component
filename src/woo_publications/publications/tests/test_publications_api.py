@@ -384,7 +384,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
         url = reverse("api:publication-list")
 
-        with self.subTest("empty informatie categorieen results in error"):
+        with self.subTest("empty information categories results in error"):
             data = {
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",
@@ -440,7 +440,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             kwargs={"uuid": str(publication.uuid)},
         )
 
-        with self.subTest("empty informatie categorieen results in error"):
+        with self.subTest("empty information categories results in error"):
             data = {
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",

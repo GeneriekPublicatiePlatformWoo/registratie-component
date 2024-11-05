@@ -1,6 +1,9 @@
+from typing import Sequence
+
 import factory
 
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
+from woo_publications.metadata.models import InformationCategory
 
 from ..models import Document, Publication
 
@@ -8,17 +11,21 @@ from ..models import Document, Publication
 class PublicationFactory(factory.django.DjangoModelFactory):
     officiele_titel = factory.Faker("word")
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Publication
 
     @factory.post_generation
-    def informatie_categorieen(self, create, extracted, **kwargs):
+    def informatie_categorieen(
+        obj: Publication,  # pyright: ignore reportGeneralTypeIssues
+        create: bool,
+        extracted: Sequence[InformationCategory],
+        **kwargs,
+    ):
         if not create:
             return
 
         if extracted:
-            for information_category in extracted:
-                self.informatie_categorieen.add(information_category)  # type: ignore reportAttributeAccessIssue
+            obj.informatie_categorieen.set(extracted)
 
 
 class DocumentFactory(factory.django.DjangoModelFactory):
@@ -27,7 +34,7 @@ class DocumentFactory(factory.django.DjangoModelFactory):
     officiele_titel = factory.Faker("word")
     creatiedatum = factory.Faker("past_date")
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Document
 
     class Params:

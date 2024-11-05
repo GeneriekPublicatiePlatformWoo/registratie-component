@@ -7,9 +7,9 @@ from maykin_2fa.test import disable_admin_mfa
 from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
+from woo_publications.metadata.tests.factories import InformationCategoryFactory
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
-from ...metadata.tests.factories import InformationCategoryFactory
 from ..models import Document, Publication
 from .factories import DocumentFactory, PublicationFactory
 
