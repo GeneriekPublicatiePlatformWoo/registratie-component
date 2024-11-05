@@ -148,7 +148,8 @@ class TestPublicationsAdmin(WebTest):
             )
 
         with self.subTest("complete data creates publication"):
-            form["informatie_categorieen"] = f"{ic.pk},{ic2.pk},{ic3.pk}"
+            # Force the value because the select box options get loaded in with js
+            form["informatie_categorieen"].force_value([ic.id, ic2.id, ic3.id])
             form["officiele_titel"] = "The official title of this publication"
             form["verkorte_titel"] = "The title"
             form["omschrijving"] = (
@@ -215,7 +216,7 @@ class TestPublicationsAdmin(WebTest):
             )
 
         with self.subTest("complete data updates publication"):
-            form["informatie_categorieen"] = str(ic.pk)
+            form["informatie_categorieen"].select_multiple(texts=[ic.naam])
             form["officiele_titel"] = "changed official title"
             form["verkorte_titel"] = "changed short title"
             form["omschrijving"] = "changed description"
