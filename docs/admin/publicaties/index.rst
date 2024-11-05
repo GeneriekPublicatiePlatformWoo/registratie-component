@@ -13,7 +13,7 @@ Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
 Documenten
 -----------
 
-Een *document* bestaat uit een bestand (bijvoorbeeld een PDF) en metadata. Een *document* hoort altijd bij een publicatie. 
+Een *document* bestaat uit een bestand (bijvoorbeeld een PDF) en metadata. Een *document* hoort altijd bij een publicatie.
 
 In het beheerscherm van de *documenten* wordt een lijst getoond van alle *document*-registraties, die zijn opgeslagen in het "WOO Publicaties"-component.
 Op dit scherm zijn de volgende acties mogelijk:
@@ -22,7 +22,7 @@ Op dit scherm zijn de volgende acties mogelijk:
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee in de registraties gezocht kan worden.
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere documentregistraties**. Op dit moment wordt alleen de actie **Geselecteerde documenten verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *document*-regsitraties aan te vinken.
-* Onder de (bulk-)actie staat de lijst met *document*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
+* Onder de (bulk-)actie staat de lijst met *document*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum en/of creatiedatum**.
 * Bij een *document*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
 * Bij een *document*-registratie kan op **Show logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
@@ -49,6 +49,8 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
 * ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
+* ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd was.
 
 Publicaties
 ------------
@@ -75,7 +77,7 @@ Op dit scherm zijn de volgende acties mogelijk:
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee in de registraties gezocht kan worden.
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere publicaties**. Op dit moment wordt alleen de actie **Geselecteerde publicaties verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *publicatie*-regsitraties aan te vinken.
-* Onder de (bulk-)actie staat de lijst met *publicatie*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
+* Onder de (bulk-)actie staat de lijst met *publicatie*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum**.
 * Bij een *publicatie*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
 * Bij een *publicatie*-registratie kan op **Show documents** (rechter kolom) geklikt worden om direct de gekoppelde *documenten* in te zien.
@@ -101,5 +103,6 @@ Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het sc
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop de publicatie nieuw is toegevoegd.
+* ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop de publicatie voor het laatst gewijzigd was.
 
 .. _Wet open overheid, art. 3.3, lid 8: https://wetten.overheid.nl/BWBR0045754/2024-10-01#Hoofdstuk3_Artikel3.3
