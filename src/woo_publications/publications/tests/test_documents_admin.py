@@ -186,9 +186,12 @@ class TestDocumentAdmin(WebTest):
             "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
         )
         self.assertEqual(str(added_item.registratiedatum), "2024-09-24 12:00:00+00:00")
+        self.assertEqual(
+            str(added_item.laatst_geweizigd_datum), "2024-09-24 12:00:00+00:00"
+        )
 
     def test_document_admin_update(self):
-        with freeze_time("2024-09-25T00:14:00-00:00"):
+        with freeze_time("2024-09-25T14:00:00-00:00"):
             document = DocumentFactory.create(
                 officiele_titel="title one",
                 verkorte_titel="one",
@@ -212,7 +215,8 @@ class TestDocumentAdmin(WebTest):
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
 
-        response = form.submit(name="_save")
+        with freeze_time("2024-09-29T14:00:00-00:00"):
+            response = form.submit(name="_save")
 
         self.assertEqual(response.status_code, 302)
 
@@ -222,6 +226,10 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(document.officiele_titel, "changed official title")
         self.assertEqual(document.verkorte_titel, "changed short title")
         self.assertEqual(document.omschrijving, "changed description")
+        self.assertEqual(str(document.registratiedatum), "2024-09-25 14:00:00+00:00")
+        self.assertEqual(
+            str(document.laatst_geweizigd_datum), "2024-09-29 14:00:00+00:00"
+        )
 
     def test_document_admin_delete(self):
         document = DocumentFactory.create(

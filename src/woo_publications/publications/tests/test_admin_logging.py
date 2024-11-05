@@ -15,7 +15,7 @@ from .factories import DocumentFactory, PublicationFactory
 
 
 @disable_admin_mfa()
-class TestAdminAuditLogging(WebTest):
+class TestPublicationAdminAuditLogging(WebTest):
     """
     Test that CRUD actions on publications are audit-logged.
 
@@ -68,6 +68,7 @@ class TestAdminAuditLogging(WebTest):
                 "verkorte_titel": "The title",
                 "officiele_titel": "The official title of this publication",
                 "registratiedatum": "2024-09-25T00:14:00Z",
+                "laatst_geweizigd_datum": "2024-09-25T00:14:00Z",
                 "informatie_categorieen": [ic.pk, ic2.pk],
             },
             "_cached_object_repr": "The official title of this publication",
@@ -100,7 +101,8 @@ class TestAdminAuditLogging(WebTest):
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
 
-        form.submit(name="_save")
+        with freeze_time("2024-09-28T00:14:00-00:00"):
+            form.submit(name="_save")
 
         publication.refresh_from_db()
 
@@ -133,6 +135,7 @@ class TestAdminAuditLogging(WebTest):
                     "verkorte_titel": "changed short title",
                     "officiele_titel": "changed official title",
                     "registratiedatum": "2024-09-27T00:14:00Z",
+                    "laatst_geweizigd_datum": "2024-09-28T00:14:00Z",
                     "informatie_categorieen": [ic.pk],
                 },
                 "_cached_object_repr": "changed official title",
@@ -179,6 +182,7 @@ class TestAdminAuditLogging(WebTest):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-27T00:14:00Z",
+                "laatst_geweizigd_datum": "2024-09-27T00:14:00Z",
                 "informatie_categorieen": [information_category.pk],
             },
             "_cached_object_repr": "title one",
@@ -226,7 +230,9 @@ class TestAdminAuditLogging(WebTest):
         form["document_set-0-identifier"] = "http://example.com/1"
         form["document_set-0-officiele_titel"] = "title"
         form["document_set-0-creatiedatum"] = "17-10-2024"
-        response = form.submit(name="_save")
+
+        with freeze_time("2024-09-29T00:14:00-00:00"):
+            response = form.submit(name="_save")
 
         self.assertEqual(response.status_code, 302)
 
@@ -241,20 +247,21 @@ class TestAdminAuditLogging(WebTest):
                 },
                 "object_data": {
                     "id": document.pk,
+                    "lock": "",
                     "uuid": str(document.uuid),
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",
                     "creatiedatum": "2024-10-17",
                     "omschrijving": "",
+                    "document_uuid": None,
                     "bestandsomvang": 0,
                     "verkorte_titel": "",
                     "bestandsformaat": "unknown",
                     "officiele_titel": "title",
-                    "registratiedatum": "2024-09-25T00:14:00Z",
                     "document_service": None,
-                    "document_uuid": None,
-                    "lock": "",
+                    "registratiedatum": "2024-09-25T00:14:00Z",
+                    "laatst_geweizigd_datum": "2024-09-25T00:14:00Z",
                 },
                 "_cached_object_repr": "title",
             }
@@ -334,6 +341,7 @@ class TestAdminAuditLogging(WebTest):
                     "bestandsformaat": "application/pdf",
                     "officiele_titel": "title",
                     "registratiedatum": "2024-09-26T00:14:00Z",
+                    "laatst_geweizigd_datum": "2024-09-26T00:14:00Z",
                     "document_service": None,
                     "document_uuid": None,
                     "lock": "",
@@ -386,7 +394,9 @@ class TestAdminAuditLogging(WebTest):
 
         form = response.forms["publication_form"]
         form["document_set-0-DELETE"] = True
-        response = form.submit(name="_save")
+
+        with freeze_time("2024-09-29T00:14:00-00:00"):
+            response = form.submit(name="_save")
 
         self.assertEqual(response.status_code, 302)
 
@@ -394,27 +404,28 @@ class TestAdminAuditLogging(WebTest):
             log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
 
             expected_data = {
-                "event": Events.delete.value,
+                "event": Events.delete,
                 "acting_user": {
                     "identifier": self.user.id,
                     "display_name": self.user.get_full_name(),
                 },
                 "object_data": {
                     "id": document.pk,
+                    "lock": "",
                     "uuid": str(document.uuid),
                     "identifier": "document-1",
                     "publicatie": publication.id,
                     "bestandsnaam": "unknown.bin",
                     "creatiedatum": "2024-09-25",
                     "omschrijving": "",
+                    "document_uuid": None,
                     "bestandsomvang": 0,
                     "verkorte_titel": "",
                     "bestandsformaat": "unknown",
                     "officiele_titel": "DELETE THIS ITEM",
-                    "registratiedatum": "2024-09-25T00:14:00Z",
                     "document_service": None,
-                    "document_uuid": None,
-                    "lock": "",
+                    "registratiedatum": "2024-09-25T00:14:00Z",
+                    "laatst_geweizigd_datum": "2024-09-25T00:14:00Z",
                 },
                 "_cached_object_repr": "DELETE THIS ITEM",
             }
