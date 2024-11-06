@@ -2,9 +2,30 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
+from woo_publications.contrib.documents_api.client import FilePart
 from woo_publications.metadata.models import InformationCategory, Organisation
 
 from ..models import Document, Publication
+
+
+class FilePartSerializer(serializers.Serializer[FilePart]):
+    uuid = serializers.UUIDField(
+        label=_("UUID"),
+        help_text=_("The unique ID for a given file part for a document."),
+    )
+    order = serializers.IntegerField(
+        label=_("order"),
+        help_text=_("Index of the filepart, indicating which chunk is being uploaded."),
+    )
+    size = serializers.IntegerField(
+        label=_("size"),
+        help_text=_(
+            "Chunk size, in bytes. Large files must be cut up into chunks, where each "
+            "chunk has an expected chunk size (configured on the Documents API "
+            "server). A part is only considered complete once each chunk has binary "
+            "data of exactly this size attached to it."
+        ),
+    )
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -12,6 +33,18 @@ class DocumentSerializer(serializers.ModelSerializer):
         queryset=Publication.objects.all(),
         slug_field="uuid",
         help_text=_("The unique identifier of the publication."),
+    )
+    bestandsdelen = FilePartSerializer(
+        label=_("file parts"),
+        help_text=_(
+            "The expected file parts/chunks to upload the file contents. These are "
+            "derived from the specified total file size (`bestandsomvang`) in the "
+            "document create body."
+        ),
+        source="zgw_document.file_parts",
+        many=True,
+        read_only=True,
+        allow_null=True,
     )
 
     class Meta:  # pyright: ignore
@@ -29,6 +62,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "bestandsomvang",
             "registratiedatum",
             "laatst_gewijzigd_datum",
+            "bestandsdelen",
         )
 
 
