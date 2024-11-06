@@ -171,6 +171,17 @@ div.breadcrumbs {
   }
 }
 
+// prevent input fields from stretching vertically on wrapping labels
+.form-row .flex-container {
+  input {
+    align-self: start;
+  }
+  .related-lookup {
+    align-self: start;
+    margin-block-start: 5px;
+  }
+}
+
 /**
  * Django form related widget
  */
