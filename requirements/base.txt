@@ -166,6 +166,7 @@ django-simple-certmanager==2.3.0
     # via zgw-consumers
 django-solo==2.3.0
     # via
+    #   -r requirements/base.in
     #   commonground-api-common
     #   django-log-outgoing-requests
     #   mozilla-django-oidc-db
