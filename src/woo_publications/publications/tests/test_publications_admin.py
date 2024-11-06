@@ -6,7 +6,10 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.metadata.tests.factories import InformationCategoryFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    OrganisationFactory,
+)
 
 from ..models import Publication
 from .factories import PublicationFactory
@@ -122,6 +125,8 @@ class TestPublicationsAdmin(WebTest):
     @freeze_time("2024-09-25T00:14:00-00:00")
     def test_publications_admin_create(self):
         ic, ic2, ic3 = InformationCategoryFactory.create_batch(3)
+        organisation = OrganisationFactory(is_actief=True)
+        deactivated_organisation = OrganisationFactory(is_actief=False)
         reverse_url = reverse("admin:publications_publication_add")
 
         response = self.app.get(reverse_url, user=self.user)
@@ -131,12 +136,7 @@ class TestPublicationsAdmin(WebTest):
         form = response.forms["publication_form"]
 
         with self.subTest("no information_categorieen given results in form error"):
-            form["officiele_titel"] = "The official title of this publication"
-            form["verkorte_titel"] = "The title"
-            form["omschrijving"] = (
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
-            )
+            form["informatie_categorieen"] = ""
 
             submit_response = form.submit(name="_save")
 
@@ -147,9 +147,32 @@ class TestPublicationsAdmin(WebTest):
                 _("This field is required."),
             )
 
+        with self.subTest(
+            "organisation fields only has active organisation as options"
+        ):
+            form_fields = submit_response.context["adminform"].form.fields
+
+            with self.subTest("publisher"):
+                publisher_qs = form_fields["publisher"].queryset
+                self.assertIn(organisation, publisher_qs)
+                self.assertNotIn(deactivated_organisation, publisher_qs)
+
+            with self.subTest("verantwoordelijke"):
+                verantwoordelijke_qs = form_fields["verantwoordelijke"].queryset
+                self.assertIn(organisation, verantwoordelijke_qs)
+                self.assertNotIn(deactivated_organisation, verantwoordelijke_qs)
+
+            with self.subTest("opsteller"):
+                opsteller_qs = form_fields["verantwoordelijke"].queryset
+                self.assertIn(organisation, opsteller_qs)
+                self.assertNotIn(deactivated_organisation, opsteller_qs)
+
         with self.subTest("complete data creates publication"):
             # Force the value because the select box options get loaded in with js
             form["informatie_categorieen"].force_value([ic.id, ic2.id, ic3.id])
+            form["publisher"].select(text=organisation.naam)
+            form["verantwoordelijke"].select(text=organisation.naam)
+            form["opsteller"].select(text=organisation.naam)
             form["officiele_titel"] = "The official title of this publication"
             form["verkorte_titel"] = "The title"
             form["omschrijving"] = (
@@ -182,8 +205,15 @@ class TestPublicationsAdmin(WebTest):
 
     def test_publications_admin_update(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation, organisation2 = OrganisationFactory.create_batch(
+            2, is_actief=True
+        )
+        deactivated_organisation = OrganisationFactory.create(is_actief=False)
         with freeze_time("2024-09-25T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                publisher=organisation,
+                verantwoordelijke=organisation,
+                opsteller=organisation,
                 informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
@@ -202,12 +232,6 @@ class TestPublicationsAdmin(WebTest):
 
         with self.subTest("no information_categorieen given results in form error"):
             form["informatie_categorieen"] = ""
-            form["officiele_titel"] = "The official title of this publication"
-            form["verkorte_titel"] = "The title"
-            form["omschrijving"] = (
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
-            )
 
             submit_response = form.submit(name="_save")
 
@@ -218,8 +242,46 @@ class TestPublicationsAdmin(WebTest):
                 _("This field is required."),
             )
 
+        with self.subTest(
+            "organisation fields only has active organisation as options"
+        ):
+            form_fields = response.context["adminform"].form.fields
+
+            with self.subTest("publisher"):
+                publisher_qs = form_fields["publisher"].queryset
+                self.assertIn(organisation, publisher_qs)
+                self.assertIn(organisation2, publisher_qs)
+                self.assertNotIn(deactivated_organisation, publisher_qs)
+
+            with self.subTest("verantwoordelijke"):
+                verantwoordelijke_qs = form_fields["verantwoordelijke"].queryset
+                self.assertIn(organisation, verantwoordelijke_qs)
+                self.assertIn(organisation2, verantwoordelijke_qs)
+                self.assertNotIn(deactivated_organisation, verantwoordelijke_qs)
+
+            with self.subTest("opsteller"):
+                opsteller_qs = form_fields["verantwoordelijke"].queryset
+                self.assertIn(organisation, opsteller_qs)
+                self.assertIn(organisation2, opsteller_qs)
+                self.assertNotIn(deactivated_organisation, opsteller_qs)
+
+        with self.subTest("no publisher given results in form error"):
+            form["publisher"] = ""
+
+            submit_response = form.submit(name="_save")
+
+            self.assertEqual(submit_response.status_code, 200)
+            self.assertFormError(
+                submit_response.context["adminform"],
+                "publisher",
+                _("This field is required."),
+            )
+
         with self.subTest("complete data updates publication"):
             form["informatie_categorieen"].select_multiple(texts=[ic.naam])
+            form["publisher"].select(text=organisation2.naam)
+            form["verantwoordelijke"].select(text=organisation2.naam)
+            form["opsteller"].select(text=organisation2.naam)
             form["officiele_titel"] = "changed official title"
             form["verkorte_titel"] = "changed short title"
             form["omschrijving"] = "changed description"

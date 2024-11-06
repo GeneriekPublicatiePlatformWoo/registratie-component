@@ -4,11 +4,13 @@ import factory
 
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
 from woo_publications.metadata.models import InformationCategory
+from woo_publications.metadata.tests.factories import OrganisationFactory
 
 from ..models import Document, Publication
 
 
 class PublicationFactory(factory.django.DjangoModelFactory):
+    publisher = factory.SubFactory(OrganisationFactory, is_actief=True)
     officiele_titel = factory.Faker("word")
 
     class Meta:  # pyright: ignore

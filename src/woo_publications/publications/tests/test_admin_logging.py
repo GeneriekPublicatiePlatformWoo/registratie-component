@@ -9,7 +9,10 @@ from maykin_2fa.test import disable_admin_mfa
 from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
-from woo_publications.metadata.tests.factories import InformationCategoryFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    OrganisationFactory,
+)
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
 from ..models import Document, Publication
@@ -36,6 +39,9 @@ class TestPublicationAdminAuditLogging(WebTest):
     def test_admin_create(self):
         assert not TimelineLogProxy.objects.exists()
         ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation, organisation2 = OrganisationFactory.create_batch(
+            2, is_actief=True
+        )
         reverse_url = reverse("admin:publications_publication_add")
 
         response = self.app.get(reverse_url, user=self.user)
@@ -45,6 +51,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         form = response.forms["publication_form"]
         # Force the value because the select box options get loaded in with js
         form["informatie_categorieen"].force_value([ic.id, ic2.id])
+        form["publisher"].select(text=organisation.naam)
+        form["verantwoordelijke"].select(text=organisation.naam)
+        form["opsteller"].select(text=organisation2.naam)
         form["officiele_titel"] = "The official title of this publication"
         form["verkorte_titel"] = "The title"
         form["omschrijving"] = (
@@ -66,13 +75,16 @@ class TestPublicationAdminAuditLogging(WebTest):
             },
             "object_data": {
                 "id": added_item.pk,
-                "uuid": str(added_item.uuid),
-                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
-                "verkorte_titel": "The title",
-                "officiele_titel": "The official title of this publication",
-                "registratiedatum": "2024-09-25T00:14:00Z",
-                "laatst_gewijzigd_datum": "2024-09-25T00:14:00Z",
                 "informatie_categorieen": [ic.pk, ic2.pk],
+                "laatst_gewijzigd_datum": "2024-09-25T00:14:00Z",
+                "officiele_titel": "The official title of this publication",
+                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
+                "opsteller": organisation2.pk,
+                "publisher": organisation.pk,
+                "registratiedatum": "2024-09-25T00:14:00Z",
+                "uuid": str(added_item.uuid),
+                "verantwoordelijke": organisation.pk,
+                "verkorte_titel": "The title",
             },
             "_cached_object_repr": "The official title of this publication",
         }
@@ -82,8 +94,14 @@ class TestPublicationAdminAuditLogging(WebTest):
     def test_admin_update(self):
         assert not TimelineLogProxy.objects.exists()
         ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation, organisation2 = OrganisationFactory.create_batch(
+            2, is_actief=True
+        )
         with freeze_time("2024-09-27T00:14:00-00:00"):
             publication = PublicationFactory.create(
+                publisher=organisation,
+                verantwoordelijke=organisation,
+                opsteller=organisation,
                 informatie_categorieen=[ic, ic2],
                 officiele_titel="title one",
                 verkorte_titel="one",
@@ -100,6 +118,9 @@ class TestPublicationAdminAuditLogging(WebTest):
 
         form = response.forms["publication_form"]
         form["informatie_categorieen"].select_multiple(texts=[ic.naam])
+        form["publisher"].select(text=organisation2.naam)
+        form["verantwoordelijke"].select(text=organisation2.naam)
+        form["opsteller"].select(text=organisation2.naam)
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
@@ -133,13 +154,16 @@ class TestPublicationAdminAuditLogging(WebTest):
                 },
                 "object_data": {
                     "id": publication.pk,
-                    "uuid": str(publication.uuid),
-                    "omschrijving": "changed description",
-                    "verkorte_titel": "changed short title",
-                    "officiele_titel": "changed official title",
-                    "registratiedatum": "2024-09-27T00:14:00Z",
-                    "laatst_gewijzigd_datum": "2024-09-28T00:14:00Z",
                     "informatie_categorieen": [ic.pk],
+                    "laatst_gewijzigd_datum": "2024-09-28T00:14:00Z",
+                    "officiele_titel": "changed official title",
+                    "omschrijving": "changed description",
+                    "opsteller": organisation2.pk,
+                    "publisher": organisation2.pk,
+                    "registratiedatum": "2024-09-27T00:14:00Z",
+                    "uuid": str(publication.uuid),
+                    "verantwoordelijke": organisation2.pk,
+                    "verkorte_titel": "changed short title",
                 },
                 "_cached_object_repr": "changed official title",
             }
@@ -149,9 +173,13 @@ class TestPublicationAdminAuditLogging(WebTest):
     def test_admin_delete(self):
         assert not TimelineLogProxy.objects.exists()
         information_category = InformationCategoryFactory.create()
+        organisation = OrganisationFactory.create(is_actief=True)
         with freeze_time("2024-09-27T00:14:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[information_category],
+                publisher=organisation,
+                verantwoordelijke=organisation,
+                opsteller=organisation,
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -180,13 +208,16 @@ class TestPublicationAdminAuditLogging(WebTest):
             },
             "object_data": {
                 "id": publication.pk,
-                "uuid": str(publication.uuid),
-                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "verkorte_titel": "one",
-                "officiele_titel": "title one",
-                "registratiedatum": "2024-09-27T00:14:00Z",
-                "laatst_gewijzigd_datum": "2024-09-27T00:14:00Z",
                 "informatie_categorieen": [information_category.pk],
+                "laatst_gewijzigd_datum": "2024-09-27T00:14:00Z",
+                "officiele_titel": "title one",
+                "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "opsteller": organisation.pk,
+                "publisher": organisation.pk,
+                "registratiedatum": "2024-09-27T00:14:00Z",
+                "uuid": str(publication.uuid),
+                "verantwoordelijke": organisation.pk,
+                "verkorte_titel": "one",
             },
             "_cached_object_repr": "title one",
         }
