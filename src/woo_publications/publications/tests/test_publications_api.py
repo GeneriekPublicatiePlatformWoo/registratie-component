@@ -11,7 +11,10 @@ from woo_publications.accounts.tests.factories import UserFactory
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 from woo_publications.logging.logevent import audit_api_create
 from woo_publications.logging.serializing import serialize_instance
-from woo_publications.metadata.tests.factories import InformationCategoryFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    OrganisationFactory,
+)
 
 from ..models import Publication
 from .factories import PublicationFactory
@@ -109,6 +112,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             expected_first_item_data = {
                 "uuid": str(publication.uuid),
                 "informatieCategorieen": [str(ic.uuid)],
+                "publisher": str(publication.publisher.uuid),
+                "verantwoordelijke": None,
+                "opsteller": None,
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -123,6 +129,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             expected_second_item_data = {
                 "uuid": str(publication2.uuid),
                 "informatieCategorieen": [str(ic2.uuid)],
+                "publisher": str(publication2.publisher.uuid),
+                "verantwoordelijke": None,
+                "opsteller": None,
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -152,6 +161,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "publisher": str(publication.publisher.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -162,6 +174,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "publisher": str(publication2.publisher.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -293,6 +308,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "publisher": str(publication.publisher.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -303,6 +321,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "publisher": str(publication2.publisher.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -382,6 +403,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "publisher": str(publication.publisher.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -395,13 +419,17 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_create_publication(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation, organisation2, organisation3 = OrganisationFactory.create_batch(
+            3, is_actief=True
+        )
+        deactivated_organisation = OrganisationFactory.create(is_actief=False)
         url = reverse("api:publication-list")
 
-        with self.subTest("empty information categories results in error"):
+        with self.subTest("no information categories results in error"):
             data = {
-                "officieleTitel": "changed offical title",
-                "verkorteTitel": "changed short title",
-                "omschrijving": "changed description",
+                "officieleTitel": "bla",
+                "verkorteTitel": "bla",
+                "omschrijving": "bla",
             }
 
             response = self.client.post(url, data, headers=AUDIT_HEADERS)
@@ -412,9 +440,64 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 response_data["informatieCategorieen"], [_("This field is required.")]
             )
 
+        with self.subTest("deactivated organisation cannot be used as an organisation"):
+            data = {
+                "publisher": str(deactivated_organisation.uuid),
+                "verantwoordelijke": str(deactivated_organisation.uuid),
+                "opsteller": str(deactivated_organisation.uuid),
+            }
+
+            response = self.client.post(url, data, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+
+            # format the same way drf does for gettext to translate the error message properly
+            self.assertEqual(
+                response_data["publisher"],
+                [
+                    _("Object with {slug_name}={value} does not exist.").format(
+                        slug_name="uuid", value=deactivated_organisation.uuid
+                    )
+                ],
+            )
+            self.assertEqual(
+                response_data["verantwoordelijke"],
+                [
+                    _("Object with {slug_name}={value} does not exist.").format(
+                        slug_name="uuid", value=deactivated_organisation.uuid
+                    )
+                ],
+            )
+            self.assertEqual(
+                response_data["opsteller"],
+                [
+                    _("Object with {slug_name}={value} does not exist.").format(
+                        slug_name="uuid", value=deactivated_organisation.uuid
+                    )
+                ],
+            )
+
+        with self.subTest("no publisher results in error"):
+            data = {
+                "informatieCategorieen": [str(ic.uuid)],
+                "officieleTitel": "bla",
+                "verkorteTitel": "bla",
+                "omschrijving": "bla",
+            }
+
+            response = self.client.post(url, data, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+            self.assertEqual(response_data["publisher"], [_("This field is required.")])
+
         with self.subTest("complete data"):
             data = {
                 "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "publisher": str(organisation.uuid),
+                "verantwoordelijke": str(organisation2.uuid),
+                "opsteller": str(organisation3.uuid),
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -430,6 +513,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                     "uuid"
                 ],  # uuid gets generated so we are just testing that its there
                 "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "publisher": str(organisation.uuid),
+                "verantwoordelijke": str(organisation2.uuid),
+                "opsteller": str(organisation3.uuid),
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -443,8 +529,12 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_update_publication(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation, organisation2, organisation3 = OrganisationFactory.create_batch(
+            3, is_actief=True
+        )
         publication = PublicationFactory.create(
             informatie_categorieen=[ic, ic2],
+            publisher=organisation3,
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -473,6 +563,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
 
             data = {
                 "informatieCategorieen": [str(ic2.uuid)],
+                "publisher": str(organisation.uuid),
+                "verantwoordelijke": str(organisation2.uuid),
+                "opsteller": str(organisation3.uuid),
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",
                 "omschrijving": "changed description",
@@ -488,6 +581,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                     "uuid"
                 ],  # uuid gets generated so we are just testing that its there
                 "informatieCategorieen": [str(ic2.uuid)],
+                "publisher": str(organisation.uuid),
+                "verantwoordelijke": str(organisation2.uuid),
+                "opsteller": str(organisation3.uuid),
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",
                 "omschrijving": "changed description",
@@ -501,8 +597,10 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_partial_update_publication(self):
         ic = InformationCategoryFactory.create()
+        organisation = OrganisationFactory.create(is_actief=True)
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
+            publisher=organisation,
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -524,6 +622,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "uuid"
             ],  # uuid gets generated so we are just testing that its there
             "informatieCategorieen": [str(ic.uuid)],
+            "publisher": str(organisation.uuid),
+            "verantwoordelijke": None,
+            "opsteller": None,
             "officieleTitel": "changed offical title",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
