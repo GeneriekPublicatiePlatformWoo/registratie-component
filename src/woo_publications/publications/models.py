@@ -29,6 +29,36 @@ class Publication(models.Model):
             "The information categories clarify the kind of information present in the publication."
         ),
     )
+    publisher = models.ForeignKey(
+        "metadata.organisation",
+        verbose_name=_("publisher"),
+        related_name="publication_publishers",
+        help_text=_("The organisation which publishes the publication."),
+        limit_choices_to={"is_actief": True},
+        on_delete=models.CASCADE,
+    )
+    verantwoordelijke = models.ForeignKey(
+        "metadata.organisation",
+        verbose_name=_("liable organisation"),
+        related_name="publication_liable_organisations",
+        help_text=_(
+            "The organisation which is liable for the publication and it's contents."
+        ),
+        limit_choices_to={"is_actief": True},
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    opsteller = models.ForeignKey(
+        "metadata.organisation",
+        verbose_name=_("drafter"),
+        related_name="publication_drafters",
+        help_text=_("The organisation which drafted the publication and it's content."),
+        limit_choices_to={"is_actief": True},
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     officiele_titel = models.CharField(
         _("official title"),
         max_length=255,
