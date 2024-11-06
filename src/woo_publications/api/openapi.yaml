@@ -96,6 +96,65 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedDocumentList'
           description: ''
+    post:
+      operationId: documentenCreate
+      description: |-
+        Creating a document results in the registration of the metadata and prepares the client for the upload of the binary data.
+
+        The document (metadata) is immediately registered in the underlying Documents API, and you receive an array of `bestandsdelen` in the response data to upload the actual binary data of the document.
+
+        Note that the record in the underlying Documents API remains locked until all file parts have been provided.
+
+        **NOTE**
+        This requires the global configuration to be set up via the admin interface. You must:
+
+        * configure and select the Documents API to use
+        * specify the organisation RSIN for the created documents
+      summary: Register a document's metadata.
+      parameters:
+      - in: header
+        name: Audit-Remarks
+        schema:
+          type: string
+        description: |2
+
+          Any additional information describing the action performed by the user.
+        required: true
+      - in: header
+        name: Audit-User-ID
+        schema:
+          type: string
+        description: |2
+
+          The system identifier that uniquely identifies the user performing the action.
+          Ideally, this is obtained from some Identity and Access Management infrastructure.
+          With OpenID Connect, this would typically be the `sub` claim.
+        required: true
+      - in: header
+        name: Audit-User-Representation
+        schema:
+          type: string
+        description: |2
+
+          The display name of the user performing the action, to make them recognizable.
+        required: true
+      tags:
+      - Documenten
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
   /api/v1/documenten/{uuid}:
     get:
       operationId: documentenRetrieve
@@ -1134,7 +1193,18 @@ components:
           title: Laatst gewijzigd op
           description: System timestamp reflecting when the document was last modified
             in the database.
+        bestandsdelen:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilePart'
+          readOnly: true
+          nullable: true
+          title: file parts
+          description: The expected file parts/chunks to upload the file contents.
+            These are derived from the specified total file size (`bestandsomvang`)
+            in the document create body.
       required:
+      - bestandsdelen
       - creatiedatum
       - identifier
       - laatstGewijzigdDatum
@@ -1157,6 +1227,26 @@ components:
       required:
       - identifier
       - weergaveNaam
+    FilePart:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: The unique ID for a given file part for a document.
+        order:
+          type: integer
+          description: Index of the filepart, indicating which chunk is being uploaded.
+        size:
+          type: integer
+          description: Chunk size, in bytes. Large files must be cut up into chunks,
+            where each chunk has an expected chunk size (configured on the Documents
+            API server). A part is only considered complete once each chunk has binary
+            data of exactly this size attached to it.
+      required:
+      - order
+      - size
+      - uuid
     InformationCategory:
       type: object
       properties:
