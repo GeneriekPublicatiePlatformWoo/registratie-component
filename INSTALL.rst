@@ -95,6 +95,20 @@ development machine.
 example file included in the same directory.
 
 
+.. _install_etc_hosts:
+
+Setting up ``/etc/hosts``
+-------------------------
+
+When using (parts of) docker compose for development, in combination with ``runserver``,
+you need to add two entries to your ``/etc/hosts`` configuration for a proper networking
+setup:
+
+.. code-block:: none
+
+    127.0.0.1   host.docker.internal openzaak.docker.internal
+
+
 Update installation
 -------------------
 
