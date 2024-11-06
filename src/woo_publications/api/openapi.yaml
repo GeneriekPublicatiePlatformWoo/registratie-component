@@ -1419,6 +1419,21 @@ components:
             format: uuid
           description: The information categories clarify the kind of information
             present in the publication.
+        publisher:
+          type: string
+          format: uuid
+          description: The organisation which publishes the publication.
+        verantwoordelijke:
+          type: string
+          format: uuid
+          nullable: true
+          description: The organisation which is liable for the publication and it's
+            contents.
+        opsteller:
+          type: string
+          format: uuid
+          nullable: true
+          description: The organisation which drafted the publication and it's content.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1464,6 +1479,21 @@ components:
             format: uuid
           description: The information categories clarify the kind of information
             present in the publication.
+        publisher:
+          type: string
+          format: uuid
+          description: The organisation which publishes the publication.
+        verantwoordelijke:
+          type: string
+          format: uuid
+          nullable: true
+          description: The organisation which is liable for the publication and it's
+            contents.
+        opsteller:
+          type: string
+          format: uuid
+          nullable: true
+          description: The organisation which drafted the publication and it's content.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1500,6 +1530,7 @@ components:
       - informatieCategorieen
       - laatstGewijzigdDatum
       - officieleTitel
+      - publisher
       - registratiedatum
       - uuid
     Theme:
