@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name="document",
-            name="laatst_geweizigd_datum",
+            name="laatst_gewijzigd_datum",
             field=models.DateTimeField(
                 auto_now=True,
                 help_text="System timestamp reflecting when the document was last modified in the database.",
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name="publication",
-            name="laatst_geweizigd_datum",
+            name="laatst_gewijzigd_datum",
             field=models.DateTimeField(
                 auto_now=True,
                 help_text="System timestamp reflecting when the publication was last modified in the database.",

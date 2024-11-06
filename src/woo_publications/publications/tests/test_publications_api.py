@@ -114,7 +114,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "eigenaar": None,
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
             }
 
             self.assertEqual(data["results"][0], expected_first_item_data)
@@ -128,7 +128,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
                 "eigenaar": None,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
             }
 
             self.assertEqual(data["results"][1], expected_second_item_data)
@@ -157,7 +157,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
         }
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
@@ -167,7 +167,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
             "eigenaar": None,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
 
         # registratiedatum
@@ -298,7 +298,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "eigenaar": {"weergaveNaam": "buurman", "identifier": "123"},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
         }
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
@@ -308,7 +308,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
             "eigenaar": {"weergaveNaam": "buurman", "identifier": "456"},
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
 
         with (
@@ -387,7 +387,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
         }
 
         self.assertEqual(data, expected_first_item_data)
@@ -435,7 +435,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "eigenaar": {"weergaveNaam": "username", "identifier": "id"},
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
             }
 
             self.assertEqual(response_data, expected_data)
@@ -493,7 +493,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "omschrijving": "changed description",
                 "eigenaar": None,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
             }
 
             self.assertEqual(response_data, expected_data)
@@ -529,7 +529,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
         }
 
         # test that only officiele_titel got changed

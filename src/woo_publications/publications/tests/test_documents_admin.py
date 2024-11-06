@@ -187,7 +187,7 @@ class TestDocumentAdmin(WebTest):
         )
         self.assertEqual(str(added_item.registratiedatum), "2024-09-24 12:00:00+00:00")
         self.assertEqual(
-            str(added_item.laatst_geweizigd_datum), "2024-09-24 12:00:00+00:00"
+            str(added_item.laatst_gewijzigd_datum), "2024-09-24 12:00:00+00:00"
         )
 
     def test_document_admin_update(self):
@@ -228,7 +228,7 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(document.omschrijving, "changed description")
         self.assertEqual(str(document.registratiedatum), "2024-09-25 14:00:00+00:00")
         self.assertEqual(
-            str(document.laatst_geweizigd_datum), "2024-09-29 14:00:00+00:00"
+            str(document.laatst_gewijzigd_datum), "2024-09-29 14:00:00+00:00"
         )
 
     def test_document_admin_delete(self):

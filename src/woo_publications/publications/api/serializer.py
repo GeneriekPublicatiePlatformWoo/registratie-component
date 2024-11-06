@@ -28,7 +28,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "bestandsnaam",
             "bestandsomvang",
             "registratiedatum",
-            "laatst_geweizigd_datum",
+            "laatst_gewijzigd_datum",
         )
 
 
@@ -74,7 +74,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             "omschrijving",
             "eigenaar",
             "registratiedatum",
-            "laatst_geweizigd_datum",
+            "laatst_gewijzigd_datum",
         )
         extra_kwargs = {
             "uuid": {
@@ -83,7 +83,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             "registratiedatum": {
                 "read_only": True,
             },
-            "laatst_geweizigd_datum": {
+            "laatst_gewijzigd_datum": {
                 "read_only": True,
             },
         }

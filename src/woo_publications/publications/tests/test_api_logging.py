@@ -77,7 +77,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-24T12:00:00Z",
-                "laatst_geweizigd_datum": "2024-09-24T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-24T12:00:00Z",
             },
             "_cached_object_repr": "title one",
         }
@@ -123,7 +123,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "changed short title",
                 "officiele_titel": "changed offical title",
                 "registratiedatum": "2024-09-24T12:00:00Z",
-                "laatst_geweizigd_datum": "2024-09-27T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-27T12:00:00Z",
             },
             "_cached_object_repr": "changed offical title",
         }
@@ -163,7 +163,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-24T12:00:00Z",
-                "laatst_geweizigd_datum": "2024-09-24T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-24T12:00:00Z",
             },
             "_cached_object_repr": "title one",
         }

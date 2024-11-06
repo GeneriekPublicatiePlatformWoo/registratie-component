@@ -88,7 +88,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
                 "bestandsnaam": "unknown.bin",
                 "bestandsomvang": 0,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
             }
 
             self.assertEqual(data["results"][0], expected_second_item_data)
@@ -106,7 +106,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
                 "bestandsnaam": "unknown.bin",
                 "bestandsomvang": 0,
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
-                "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+                "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
             }
 
             self.assertEqual(data["results"][1], expected_first_item_data)
@@ -144,7 +144,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
         expected_second_item_data = {
             "uuid": str(document2.uuid),
@@ -158,7 +158,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-24T14:00:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
         }
 
         # registratiedatum
@@ -281,7 +281,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
 
         response = self.client.get(
@@ -330,7 +330,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
 
         response = self.client.get(
@@ -379,7 +379,7 @@ class DocumentApiTests(TokenAuthMixin, APITestCase):
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGeweizigdDatum": "2024-09-25T14:30:00+02:00",
+            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
         }
 
         self.assertEqual(data, expected_data)

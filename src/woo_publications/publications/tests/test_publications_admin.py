@@ -176,7 +176,7 @@ class TestPublicationsAdmin(WebTest):
                 str(added_item.registratiedatum), "2024-09-25 00:14:00+00:00"
             )
             self.assertEqual(
-                str(added_item.laatst_geweizigd_datum), "2024-09-25 00:14:00+00:00"
+                str(added_item.laatst_gewijzigd_datum), "2024-09-25 00:14:00+00:00"
             )
 
     def test_publications_admin_update(self):
@@ -240,7 +240,7 @@ class TestPublicationsAdmin(WebTest):
                 str(publication.registratiedatum), "2024-09-25 00:14:00+00:00"
             )
             self.assertEqual(
-                str(publication.laatst_geweizigd_datum), "2024-09-27 00:14:00+00:00"
+                str(publication.laatst_gewijzigd_datum), "2024-09-27 00:14:00+00:00"
             )
 
     def test_publications_admin_delete(self):

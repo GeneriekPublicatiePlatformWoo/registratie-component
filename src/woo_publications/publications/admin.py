@@ -20,7 +20,7 @@ class DocumentInlineAdmin(admin.StackedInline):
     model = Document
     readonly_fields = (
         "registratiedatum",
-        "laatst_geweizigd_datum",
+        "laatst_gewijzigd_datum",
     )
     extra = 0
 
@@ -38,7 +38,7 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     readonly_fields = (
         "uuid",
         "registratiedatum",
-        "laatst_geweizigd_datum",
+        "laatst_gewijzigd_datum",
     )
     search_fields = (
         "uuid",
@@ -81,7 +81,7 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     readonly_fields = (
         "uuid",
         "registratiedatum",
-        "laatst_geweizigd_datum",
+        "laatst_gewijzigd_datum",
     )
     search_fields = (
         "identifier",

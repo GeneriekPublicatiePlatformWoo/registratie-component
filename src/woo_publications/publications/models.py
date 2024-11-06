@@ -49,7 +49,7 @@ class Publication(models.Model):
             "which is usually *before* the registration date."
         ),
     )
-    laatst_geweizigd_datum = models.DateTimeField(
+    laatst_gewijzigd_datum = models.DateTimeField(
         _("last modified"),
         auto_now=True,
         editable=False,
@@ -148,7 +148,7 @@ class Document(models.Model):
             "which is usually *before* the registration date."
         ),
     )
-    laatst_geweizigd_datum = models.DateTimeField(
+    laatst_gewijzigd_datum = models.DateTimeField(
         _("last modified"),
         auto_now=True,
         editable=False,
