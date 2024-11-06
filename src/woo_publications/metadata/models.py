@@ -7,7 +7,7 @@ from ordered_model.models import OrderedModel
 from treebeard.mp_tree import MP_Node
 
 from .constants import InformationCategoryOrigins, OrganisationOrigins
-from .manager import InformationCategoryManager, OrganisationManager, ThemeManager
+from .managers import InformationCategoryManager, OrganisationManager, ThemeManager
 
 CUSTOM_CATEGORY_IDENTIFIER_URL_PREFIX = (
     "https://generiek-publicatieplatform.woo/informatiecategorie/"

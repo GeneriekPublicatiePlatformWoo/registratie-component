@@ -7,7 +7,7 @@ from woo_publications.logging.service import AuditTrailViewSetMixin
 
 from ..models import Document, Publication
 from .filters import DocumentFilterSet, PublicationFilterSet
-from .serializer import DocumentSerializer, PublicationSerializer
+from .serializers import DocumentSerializer, PublicationSerializer
 
 
 @extend_schema(tags=["Documenten"])
