@@ -169,7 +169,7 @@ class TestDocumentAdmin(WebTest):
                 submit_response.context["adminform"],
                 None,
                 _("You cannot create a {} document.").format(
-                    PublicationStatusOptions.revoked.label
+                    PublicationStatusOptions.revoked.label.lower()
                 ),
             )
 

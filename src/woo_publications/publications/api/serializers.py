@@ -158,6 +158,11 @@ class PublicationSerializer(serializers.ModelSerializer):
             "laatst_gewijzigd_datum": {
                 "read_only": True,
             },
+            "publicatiestatus": {
+                "help_text": _(
+                    "\n**Disclaimer**: you can't create a {} publication."
+                ).format(PublicationStatusOptions.revoked.label.lower())
+            },
         }
 
     def validate(self, attrs):
@@ -169,7 +174,7 @@ class PublicationSerializer(serializers.ModelSerializer):
                     {
                         "publicatiestatus": _(
                             "You cannot create a {} publication.".format(
-                                PublicationStatusOptions.revoked
+                                PublicationStatusOptions.revoked.lower()
                             )
                         )
                     }
@@ -182,7 +187,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     "publicatiestatus": _("You cannot modify a {} publication.").format(
-                        PublicationStatusOptions.revoked
+                        PublicationStatusOptions.revoked.lower()
                     )
                 }
             )

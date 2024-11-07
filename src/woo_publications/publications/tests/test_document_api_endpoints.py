@@ -370,6 +370,60 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         self.assertEqual(data["count"], 1)
         self.assertEqual(data["results"][0], expected_first_item_data)
 
+    def test_list_document_filter_publication_status(self):
+        published = DocumentFactory.create(
+            publicatiestatus=PublicationStatusOptions.published
+        )
+        concept = DocumentFactory.create(
+            publicatiestatus=PublicationStatusOptions.concept
+        )
+        revoked = DocumentFactory.create(
+            publicatiestatus=PublicationStatusOptions.revoked
+        )
+        list_url = reverse("api:document-list")
+
+        with self.subTest("filter on published publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.published},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(published.uuid))
+
+        with self.subTest("filter on concept publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.concept},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(concept.uuid))
+
+        with self.subTest("filter on revoked publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.revoked},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(revoked.uuid))
+
     def test_detail_document(self):
         publication = PublicationFactory.create()
         with freeze_time("2024-09-25T12:30:00-00:00"):

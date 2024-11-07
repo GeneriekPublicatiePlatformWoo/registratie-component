@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
@@ -18,6 +19,10 @@ class DocumentFilterSet(FilterSet):
             "Search the document based on the unique identifier (UUID) that represents a publication. "
             "**Disclaimer**: disregard the documented type `integer` the correct type is `UUID`."
         ),
+    )
+    publicatiestatus = filters.ChoiceFilter(
+        help_text=_("Filter documents based on the publication status."),
+        choices=PublicationStatusOptions.choices,
     )
     identifier = filters.CharFilter(
         help_text="Search the document based on the identifier field.",
@@ -35,6 +40,7 @@ class DocumentFilterSet(FilterSet):
         model = Document
         fields = (
             "publicatie",
+            "publicatiestatus",
             "identifier",
             "sorteer",
         )
@@ -53,12 +59,17 @@ class PublicationFilterSet(FilterSet):
         help_text=_("Filter publications based on the owner identifier of the object."),
         method="filter_eigenaar",
     )
+    publicatiestatus = filters.ChoiceFilter(
+        help_text=_("Filter publications based on the publication status."),
+        choices=PublicationStatusOptions.choices,
+    )
 
     class Meta:
         model = Publication
         fields = (
-            "sorteer",
             "eigenaar",
+            "publicatiestatus",
+            "sorteer",
         )
 
     def filter_eigenaar(self, queryset, name: str, value: str):

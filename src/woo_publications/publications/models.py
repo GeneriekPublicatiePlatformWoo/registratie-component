@@ -125,7 +125,7 @@ class Publication(models.Model):
         if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
             raise ValidationError(
                 _("You cannot create a {} publication.").format(
-                    PublicationStatusOptions.revoked.label
+                    PublicationStatusOptions.revoked.label.lower()
                 )
             )
 
@@ -268,7 +268,7 @@ class Document(models.Model):
         if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
             raise ValidationError(
                 _("You cannot create a {} document.").format(
-                    PublicationStatusOptions.revoked.label
+                    PublicationStatusOptions.revoked.label.lower()
                 )
             )
 

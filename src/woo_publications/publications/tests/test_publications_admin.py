@@ -158,7 +158,7 @@ class TestPublicationsAdmin(WebTest):
                 submit_response.context["adminform"],
                 None,
                 _("You cannot create a {} publication.").format(
-                    PublicationStatusOptions.revoked.label
+                    PublicationStatusOptions.revoked.label.lower()
                 ),
             )
 
