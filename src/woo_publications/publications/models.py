@@ -1,6 +1,7 @@
 import uuid
 from typing import Callable
 
+from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
@@ -118,6 +119,15 @@ class Publication(models.Model):
             return None
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            raise ValidationError(
+                _("You cannot create a {} publication.").format(
+                    PublicationStatusOptions.revoked.label
+                )
+            )
 
     def __str__(self):
         return self.officiele_titel
@@ -252,6 +262,15 @@ class Document(models.Model):
                 ),
             )
         ]
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            raise ValidationError(
+                _("You cannot create a {} document.").format(
+                    PublicationStatusOptions.revoked.label
+                )
+            )
 
     def __str__(self):
         return self.officiele_titel
