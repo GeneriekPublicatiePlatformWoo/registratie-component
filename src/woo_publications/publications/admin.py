@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.logging.service import (
     AdminAuditLogMixin,
     AuditLogInlineformset,
@@ -28,10 +29,11 @@ class DocumentInlineAdmin(admin.StackedInline):
 @admin.register(Publication)
 class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     list_display = (
+        "uuid",
         "officiele_titel",
         "verkorte_titel",
+        "publicatiestatus",
         "registratiedatum",
-        "uuid",
         "show_actions",
     )
     autocomplete_fields = ("informatie_categorieen",)
@@ -48,6 +50,11 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     list_filter = ("registratiedatum",)
     date_hierarchy = "registratiedatum"
     inlines = (DocumentInlineAdmin,)
+
+    def has_change_permission(self, request, obj=None):
+        if obj and obj.publicatiestatus == PublicationStatusOptions.revoked:
+            return False
+        return True
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: Publication) -> str:
@@ -73,6 +80,7 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "officiele_titel",
         "verkorte_titel",
         "bestandsnaam",
+        "publicatiestatus",
         "show_filesize",
         "identifier",
         "registratiedatum",
