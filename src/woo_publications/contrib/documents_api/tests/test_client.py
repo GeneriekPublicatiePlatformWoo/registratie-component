@@ -25,7 +25,7 @@ from io import BytesIO
 from uuid import uuid4
 
 from django.core.files import File
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 
 from woo_publications.utils.tests.vcr import VCRMixin
 
@@ -36,8 +36,6 @@ DOCUMENT_TYPE_URL = (
     "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/"
     "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8"  # this UUID is in the fixture
 )
-
-factory = RequestFactory()
 
 
 class DocumentsAPIClientTests(VCRMixin, TestCase):
@@ -82,7 +80,6 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
         service = ServiceFactory.build(for_documents_api_docker_compose=True)
 
         uploaded_file = File(BytesIO(b"1234567890"))
-        upload_request = factory.post("/irrelevant", {"inhoud": uploaded_file})
 
         with get_client(service) as client:
             document = client.create_document(
@@ -101,7 +98,7 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
 
             # "upload" the part
             client.proxy_file_part_upload(
-                upload_request,
+                uploaded_file,
                 file_part_uuid=part.uuid,
                 lock=document.lock,
             )
@@ -121,7 +118,6 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
     def test_can_unlock_document_after_uploads_completed(self):
         service = ServiceFactory.build(for_documents_api_docker_compose=True)
         uploaded_file = File(BytesIO(b"123"))
-        upload_request = factory.post("/irrelevant", {"inhoud": uploaded_file})
         with get_client(service) as client:
             document = client.create_document(
                 identification=str(
@@ -138,7 +134,7 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
             part = document.file_parts[0]
             # "upload" the part
             client.proxy_file_part_upload(
-                upload_request,
+                uploaded_file,
                 file_part_uuid=part.uuid,
                 lock=document.lock,
             )

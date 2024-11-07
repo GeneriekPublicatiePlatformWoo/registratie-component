@@ -1,16 +1,22 @@
 from typing import override
+from uuid import UUID
 
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import mixins, viewsets
+from requests import HTTPError
+from rest_framework import mixins, serializers, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 from woo_publications.logging.service import AuditTrailViewSetMixin
 
 from ..models import Document, Publication
 from .filters import DocumentFilterSet, PublicationFilterSet
-from .serializers import DocumentSerializer, PublicationSerializer
+from .serializers import DocumentSerializer, FilePartSerializer, PublicationSerializer
 
 
 @extend_schema(tags=["Documenten"])
@@ -65,6 +71,51 @@ class DocumentViewSet(
         woo_document.register_in_documents_api(
             build_absolute_uri=self.request.build_absolute_uri,
         )
+
+    @extend_schema(
+        summary=_("Upload file part"),
+        description=_(
+            "Send the binary data for a file part to perform the actual file upload. "
+            "The response data of the document create endpoints returns the list of "
+            "expected file parts, pointing to this endpoint. The client must split "
+            "the binary file in the expected part sizes and then upload each chunk "
+            "individually.\n\n"
+            "Once all file parts for the document are received, the document will be "
+            "automatically unlocked in the Documents API and ready for use.\n\n"
+            "**NOTE** this endpoint expects `multipart/form-data` rather than JSON to "
+            "avoid the base64 encoding overhead."
+        ),
+        responses={204: None},
+    )
+    @action(
+        detail=True,
+        methods=["put"],
+        serializer_class=FilePartSerializer,
+        parser_classes=(MultiPartParser,),
+        url_path="file_part/<uuid:part_uuid>",
+        url_name="filepart-detail",
+    )
+    def file_part(self, request: Request, part_uuid: UUID, *args, **kwargs) -> Response:
+        document: Document = self.get_object()
+        serializer = FilePartSerializer(
+            data=request.data,
+            context={"request": request, "view": self},
+        )
+        serializer.is_valid(raise_exception=True)
+
+        file = serializer.validated_data["inhoud"]
+        try:
+            document.upload_part_data(uuid=part_uuid, file=file)
+        except HTTPError as exc:
+            # we can only handle HTTP 400 responses
+            if (_response := exc.response) is None:
+                raise
+            if _response.status_code != 400:
+                raise
+            # XXX: should we transform these error responses?
+            raise serializers.ValidationError(detail=_response.json()) from exc
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @extend_schema(tags=["Publicaties"])

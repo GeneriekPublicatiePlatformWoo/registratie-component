@@ -13,6 +13,7 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
     uuid = serializers.UUIDField(
         label=_("UUID"),
         help_text=_("The unique ID for a given file part for a document."),
+        read_only=True,
     )
     url = serializers.URLField(
         label=_("url"),
@@ -24,6 +25,7 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
         source="order",
         label=_("order"),
         help_text=_("Index of the filepart, indicating which chunk is being uploaded."),
+        read_only=True,
     )
     omvang = serializers.IntegerField(
         source="size",
@@ -34,6 +36,16 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
             "server). A part is only considered complete once each chunk has binary "
             "data of exactly this size attached to it."
         ),
+        read_only=True,
+    )
+    inhoud = serializers.FileField(
+        label=_("binary content"),
+        help_text=_(
+            "The binary data of this chunk, which will be forwarded to the underlying "
+            "Documents API. The file size must match the part's `omvang`."
+        ),
+        write_only=True,
+        use_url=False,
     )
 
 

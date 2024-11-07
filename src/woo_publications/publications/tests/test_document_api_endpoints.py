@@ -668,11 +668,10 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                 self.assertEqual(detail_data["bestandsdelen"], [])
 
             with self.subTest("expected file content"):
-                file_response = detail = client.get(
+                file_response = client.get(
                     f"enkelvoudiginformatieobjecten/{document.document_uuid}/download"
                 )
 
                 self.assertEqual(file_response.status_code, status.HTTP_200_OK)
                 # read the binary data and check that it matches what we uploaded
-                breakpoint()
                 self.assertEqual(file_response.content, b"aAaAa")

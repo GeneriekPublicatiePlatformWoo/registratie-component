@@ -1,7 +1,9 @@
 import uuid
 from typing import Callable
+from uuid import UUID
 
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
@@ -353,3 +355,17 @@ class Document(models.Model):
 
         # cache reference
         self.zgw_document = zgw_document
+
+    def upload_part_data(self, uuid: UUID, file: File) -> None:
+        assert self.document_service, "A Documents API service must be recorded"
+
+        with get_client(self.document_service) as client:
+            client.proxy_file_part_upload(
+                file,
+                file_part_uuid=uuid,
+                lock=self.lock,
+            )
+
+            completed = client.check_uploads_complete(document_uuid=self.document_uuid)
+            if completed:
+                client.unlock_document(uuid=self.document_uuid, lock=self.lock)
