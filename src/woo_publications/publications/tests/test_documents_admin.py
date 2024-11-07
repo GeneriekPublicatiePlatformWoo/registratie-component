@@ -10,6 +10,7 @@ from zgw_consumers.constants import APITypes
 from zgw_consumers.test.factories import ServiceFactory
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.constants import PublicationStatusOptions
 
 from ..models import Document
 from .factories import DocumentFactory, PublicationFactory
@@ -157,38 +158,61 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["document_form"]
-        form["publicatie"] = publication.id
-        form["identifier"] = identifier
-        form["officiele_titel"] = "The official title of this document"
-        form["verkorte_titel"] = "The title"
-        form["creatiedatum"] = "2024-01-01"
-        form["omschrijving"] = (
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-            "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
-        )
 
-        add_response = form.submit(name="_save")
+        with self.subTest("trying to create a revoked publication results in errors"):
+            form["publicatiestatus"].select(text=PublicationStatusOptions.revoked.label)
 
-        self.assertRedirects(
-            add_response, reverse("admin:publications_document_changelist")
-        )
-        added_item = Document.objects.order_by("-pk").first()
-        assert added_item is not None
-        self.assertEqual(added_item.publicatie, publication)
-        self.assertEqual(added_item.identifier, identifier)
-        self.assertEqual(
-            added_item.officiele_titel, "The official title of this document"
-        )
-        self.assertEqual(added_item.verkorte_titel, "The title")
-        self.assertEqual(
-            added_item.omschrijving,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
-            "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
-        )
-        self.assertEqual(str(added_item.registratiedatum), "2024-09-24 12:00:00+00:00")
-        self.assertEqual(
-            str(added_item.laatst_gewijzigd_datum), "2024-09-24 12:00:00+00:00"
-        )
+            submit_response = form.submit(name="_save")
+
+            self.assertEqual(submit_response.status_code, 200)
+            self.assertFormError(
+                submit_response.context["adminform"],
+                None,
+                _("You cannot create a {} document.").format(
+                    PublicationStatusOptions.revoked.label
+                ),
+            )
+
+        with self.subTest("complete data"):
+            form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
+            form["publicatie"] = publication.id
+            form["identifier"] = identifier
+            form["officiele_titel"] = "The official title of this document"
+            form["verkorte_titel"] = "The title"
+            form["creatiedatum"] = "2024-01-01"
+            form["omschrijving"] = (
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
+
+            add_response = form.submit(name="_save")
+
+            self.assertRedirects(
+                add_response, reverse("admin:publications_document_changelist")
+            )
+            added_item = Document.objects.order_by("-pk").first()
+            assert added_item is not None
+
+            self.assertEqual(
+                added_item.publicatiestatus, PublicationStatusOptions.concept
+            )
+            self.assertEqual(added_item.publicatie, publication)
+            self.assertEqual(added_item.identifier, identifier)
+            self.assertEqual(
+                added_item.officiele_titel, "The official title of this document"
+            )
+            self.assertEqual(added_item.verkorte_titel, "The title")
+            self.assertEqual(
+                added_item.omschrijving,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
+            )
+            self.assertEqual(
+                str(added_item.registratiedatum), "2024-09-24 12:00:00+00:00"
+            )
+            self.assertEqual(
+                str(added_item.laatst_gewijzigd_datum), "2024-09-24 12:00:00+00:00"
+            )
 
     def test_document_admin_update(self):
         with freeze_time("2024-09-25T14:00:00-00:00"):
@@ -209,6 +233,7 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["document_form"]
+        form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
         form["publicatie"] = publication.id
         form["identifier"] = identifier
         form["officiele_titel"] = "changed official title"
@@ -221,6 +246,7 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(response.status_code, 302)
 
         document.refresh_from_db()
+        self.assertEqual(document.publicatiestatus, PublicationStatusOptions.concept)
         self.assertEqual(document.publicatie, publication)
         self.assertEqual(document.identifier, identifier)
         self.assertEqual(document.officiele_titel, "changed official title")
