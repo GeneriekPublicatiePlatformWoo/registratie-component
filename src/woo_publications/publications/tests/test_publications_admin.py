@@ -162,10 +162,11 @@ class TestPublicationsAdmin(WebTest):
                 self.assertIn(organisation, verantwoordelijke_qs)
                 self.assertNotIn(deactivated_organisation, verantwoordelijke_qs)
 
-            with self.subTest("opsteller"):
-                opsteller_qs = form_fields["verantwoordelijke"].queryset
-                self.assertIn(organisation, opsteller_qs)
-                self.assertNotIn(deactivated_organisation, opsteller_qs)
+        with self.subTest("opsteller field has all organisation as options"):
+            form_fields = response.context["adminform"].form.fields
+            opsteller_qs = form_fields["opsteller"].queryset
+            self.assertIn(organisation, opsteller_qs)
+            self.assertIn(deactivated_organisation, opsteller_qs)
 
         with self.subTest("complete data creates publication"):
             # Force the value because the select box options get loaded in with js
@@ -259,11 +260,12 @@ class TestPublicationsAdmin(WebTest):
                 self.assertIn(organisation2, verantwoordelijke_qs)
                 self.assertNotIn(deactivated_organisation, verantwoordelijke_qs)
 
-            with self.subTest("opsteller"):
-                opsteller_qs = form_fields["verantwoordelijke"].queryset
-                self.assertIn(organisation, opsteller_qs)
-                self.assertIn(organisation2, opsteller_qs)
-                self.assertNotIn(deactivated_organisation, opsteller_qs)
+        with self.subTest("opsteller field has all organisation as options"):
+            form_fields = response.context["adminform"].form.fields
+            opsteller_qs = form_fields["opsteller"].queryset
+            self.assertIn(organisation, opsteller_qs)
+            self.assertIn(organisation2, opsteller_qs)
+            self.assertIn(deactivated_organisation, opsteller_qs)
 
         with self.subTest("no publisher given results in form error"):
             form["publisher"] = ""

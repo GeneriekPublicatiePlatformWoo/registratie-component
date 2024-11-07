@@ -469,13 +469,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                     )
                 ],
             )
-            self.assertEqual(
-                response_data["opsteller"],
-                [
-                    _("Object with {slug_name}={value} does not exist.").format(
-                        slug_name="uuid", value=deactivated_organisation.uuid
-                    )
-                ],
+            self.assertNotIn(
+                "opsteller",
+                response_data,
             )
 
         with self.subTest("no publisher results in error"):

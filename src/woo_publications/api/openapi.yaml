@@ -1427,13 +1427,13 @@ components:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which is liable for the publication and it's
+          description: The organisation which is liable for the publication and its
             contents.
         opsteller:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which drafted the publication and it's content.
+          description: The organisation which drafted the publication and its content.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -1487,13 +1487,13 @@ components:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which is liable for the publication and it's
+          description: The organisation which is liable for the publication and its
             contents.
         opsteller:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which drafted the publication and it's content.
+          description: The organisation which drafted the publication and its content.
         officieleTitel:
           type: string
           title: Officiële titel

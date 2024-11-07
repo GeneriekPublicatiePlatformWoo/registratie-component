@@ -73,16 +73,16 @@ class PublicationSerializer(serializers.ModelSerializer):
         queryset=Organisation.objects.filter(is_actief=True),
         slug_field="uuid",
         help_text=_(
-            "The organisation which is liable for the publication and it's contents."
+            "The organisation which is liable for the publication and its contents."
         ),
         many=False,
         allow_null=True,
         required=False,
     )
     opsteller = serializers.SlugRelatedField(
-        queryset=Organisation.objects.filter(is_actief=True),
+        queryset=Organisation.objects.all(),
         slug_field="uuid",
-        help_text=_("The organisation which drafted the publication and it's content."),
+        help_text=_("The organisation which drafted the publication and its content."),
         many=False,
         allow_null=True,
         required=False,
