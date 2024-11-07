@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.contrib.documents_api.client import FilePart
 from woo_publications.metadata.models import InformationCategory, Organisation
 
@@ -64,6 +65,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "officiele_titel",
             "verkorte_titel",
             "omschrijving",
+            "publicatiestatus",
             "creatiedatum",
             "bestandsformaat",
             "bestandsnaam",
@@ -142,6 +144,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             "verkorte_titel",
             "omschrijving",
             "eigenaar",
+            "publicatiestatus",
             "registratiedatum",
             "laatst_gewijzigd_datum",
         )
@@ -156,3 +159,32 @@ class PublicationSerializer(serializers.ModelSerializer):
                 "read_only": True,
             },
         }
+
+    def validate(self, attrs):
+        self.instance: Publication
+
+        if self.context["request"].method == "POST":
+            if attrs.get("publicatiestatus") == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    {
+                        "publicatiestatus": _(
+                            "You cannot create a {} publication.".format(
+                                PublicationStatusOptions.revoked
+                            )
+                        )
+                    }
+                )
+
+        if (
+            self.instance
+            and self.instance.publicatiestatus == PublicationStatusOptions.revoked
+        ):
+            raise serializers.ValidationError(
+                {
+                    "publicatiestatus": _("You cannot modify a {} publication.").format(
+                        PublicationStatusOptions.revoked
+                    )
+                }
+            )
+
+        return super().validate(attrs)

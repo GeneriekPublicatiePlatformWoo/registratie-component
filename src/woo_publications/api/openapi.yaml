@@ -1158,6 +1158,10 @@ components:
           maxLength: 255
         omschrijving:
           type: string
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
         creatiedatum:
           type: string
           format: date
@@ -1549,6 +1553,10 @@ components:
           nullable: true
           description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
             de auditlogs.
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
         registratiedatum:
           type: string
           format: date-time
@@ -1564,6 +1572,16 @@ components:
           title: Laatst gewijzigd op
           description: System timestamp reflecting when the publication was last modified
             in the database.
+    PublicatiestatusEnum:
+      enum:
+      - gepubliceerd
+      - concept
+      - ingetrokken
+      type: string
+      description: |-
+        * `gepubliceerd` - Published
+        * `concept` - Concept
+        * `ingetrokken` - Revoked
     Publication:
       type: object
       properties:
@@ -1609,6 +1627,10 @@ components:
           nullable: true
           description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
             de auditlogs.
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
         registratiedatum:
           type: string
           format: date-time
