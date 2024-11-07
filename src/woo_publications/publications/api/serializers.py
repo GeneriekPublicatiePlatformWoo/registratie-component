@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
-from woo_publications.metadata.models import InformationCategory
+from woo_publications.metadata.models import InformationCategory, Organisation
 
 from ..models import Document, Publication
 
@@ -63,12 +63,39 @@ class PublicationSerializer(serializers.ModelSerializer):
         many=True,
         allow_empty=False,
     )
+    publisher = serializers.SlugRelatedField(
+        queryset=Organisation.objects.filter(is_actief=True),
+        slug_field="uuid",
+        help_text=_("The organisation which publishes the publication."),
+        many=False,
+    )
+    verantwoordelijke = serializers.SlugRelatedField(
+        queryset=Organisation.objects.filter(is_actief=True),
+        slug_field="uuid",
+        help_text=_(
+            "The organisation which is liable for the publication and its contents."
+        ),
+        many=False,
+        allow_null=True,
+        required=False,
+    )
+    opsteller = serializers.SlugRelatedField(
+        queryset=Organisation.objects.all(),
+        slug_field="uuid",
+        help_text=_("The organisation which drafted the publication and its content."),
+        many=False,
+        allow_null=True,
+        required=False,
+    )
 
     class Meta:  # pyright: ignore
         model = Publication
         fields = (
             "uuid",
             "informatie_categorieen",
+            "publisher",
+            "verantwoordelijke",
+            "opsteller",
             "officiele_titel",
             "verkorte_titel",
             "omschrijving",
