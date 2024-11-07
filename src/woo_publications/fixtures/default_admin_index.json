@@ -92,6 +92,10 @@
                 "appgroup"
             ],
             [
+                "config",
+                "globalconfiguration"
+            ],
+            [
                 "log_outgoing_requests",
                 "outgoingrequestslogconfig"
             ],

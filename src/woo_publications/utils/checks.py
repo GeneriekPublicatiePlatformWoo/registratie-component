@@ -8,6 +8,7 @@ from django.forms import ModelForm
 
 from treebeard.forms import MoveNodeForm
 
+from woo_publications.config.admin import GlobalConfigurationAdmin
 from woo_publications.logging.admin import TimelineLogProxyAdmin
 from woo_publications.logging.service import AdminAuditLogMixin
 
@@ -133,8 +134,13 @@ def check_model_admin_includes_logging_mixin(app_configs, **kwargs):
         if issubclass(admin_cls, AdminAuditLogMixin):
             continue
 
-        # ignore the timeline logger admin, no mutations are possible
-        if admin_cls is TimelineLogProxyAdmin:
+        # 1. ignore the timeline logger admin, no mutations are possible
+        # 2. ignore the config admin, as the mixin is not compatible with how
+        #    django-solo works
+        if admin_cls in (
+            TimelineLogProxyAdmin,
+            GlobalConfigurationAdmin,
+        ):
             continue
 
         errors.append(

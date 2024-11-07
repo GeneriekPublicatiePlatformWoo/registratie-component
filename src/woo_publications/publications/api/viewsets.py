@@ -1,7 +1,10 @@
+from typing import override
+
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
 from woo_publications.logging.service import AuditTrailViewSetMixin
 
@@ -20,12 +23,47 @@ from .serializers import DocumentSerializer, PublicationSerializer
         summary=_("Retrieve a specific document."),
         description=_("Retrieve a specific document."),
     ),
+    create=extend_schema(
+        summary=_("Register a document's metadata."),
+        description=_(
+            "Creating a document results in the registration of the metadata and "
+            "prepares the client for the upload of the binary data.\n\n"
+            "The document (metadata) is immediately registered in the underlying "
+            "Documents API, and you receive an array of `bestandsdelen` in the "
+            "response data to upload the actual binary data of the document.\n\n"
+            "Note that the record in the underlying Documents API remains locked until "
+            "all file parts have been provided.\n\n"
+            "**NOTE**\n"
+            "This requires the global configuration to be set up via the admin "
+            "interface. You must:\n\n"
+            "* configure and select the Documents API to use\n"
+            "* specify the organisation RSIN for the created documents"
+        ),
+    ),
 )
-class DocumentViewSet(AuditTrailViewSetMixin, viewsets.ReadOnlyModelViewSet):
+class DocumentViewSet(
+    AuditTrailViewSetMixin,
+    mixins.CreateModelMixin,
+    viewsets.ReadOnlyModelViewSet,
+):
     queryset = Document.objects.order_by("-creatiedatum")
     serializer_class = DocumentSerializer
     filterset_class = DocumentFilterSet
     lookup_field = "uuid"
+
+    @override
+    @transaction.atomic()
+    def perform_create(self, serializer):
+        """
+        Register the metadata in the database and create the record in the Documents API.
+        """
+        super().perform_create(serializer)
+        assert serializer.instance is not None
+        woo_document = serializer.instance
+        assert isinstance(woo_document, Document)
+        woo_document.register_in_documents_api(
+            build_absolute_uri=self.request.build_absolute_uri,
+        )
 
 
 @extend_schema(tags=["Publicaties"])

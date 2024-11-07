@@ -8,4 +8,5 @@ Developers
 
    installation
    audit_logging
+   troubleshooting
    reference

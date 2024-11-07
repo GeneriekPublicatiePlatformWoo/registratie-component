@@ -1,13 +1,21 @@
 import uuid
+from typing import Callable
 
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
+from rest_framework.reverse import reverse
 from zgw_consumers.constants import APITypes
 
+from woo_publications.config.models import GlobalConfiguration
+from woo_publications.contrib.documents_api.client import (
+    Document as ZGWDocument,
+    get_client,
+)
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.logging.typing import ActingUser
+from woo_publications.metadata.models import InformationCategory
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -215,6 +223,9 @@ class Document(models.Model):
         ),
     )
 
+    # Private property managed by the getter and setter below.
+    _zgw_document: ZGWDocument | None = None
+
     class Meta:  # type: ignore
         verbose_name = _("document")
         verbose_name_plural = _("documents")
@@ -231,3 +242,81 @@ class Document(models.Model):
 
     def __str__(self):
         return self.officiele_titel
+
+    @property
+    def zgw_document(self) -> ZGWDocument | None:
+        """
+        The related ZGW Documents API document.
+
+        The created or retrieved ZGW Document, based on the ``document_service`` and
+        ``document_uuid`` fields.
+        """
+        if self._zgw_document:
+            return self._zgw_document
+
+        # if we don't have a pointer, do nothing
+        if not (self.document_service and self.document_uuid):
+            return None
+
+        raise NotImplementedError(
+            "Dynamically retrieving the 'zgw_document' is not yet implemented."
+        )
+
+    @zgw_document.setter
+    def zgw_document(self, document: ZGWDocument) -> None:
+        """
+        Set the (created) ZGWDocument in the cache.
+        """
+        self._zgw_document = document
+
+    @transaction.atomic()
+    def register_in_documents_api(
+        self,
+        build_absolute_uri: Callable[[str], str],
+    ) -> None:
+        """
+        Create the matching document in the Documents API and store the references.
+
+        As a side-effect, this populates ``self.zgw_document``.
+        """
+
+        # Look up which service to use to register the document
+        config = GlobalConfiguration.get_solo()
+        if (service := config.documents_api_service) is None:
+            raise RuntimeError(
+                "No documents API configured yet! Set up the global configuration."
+            )
+
+        # Resolve the 'informatieobjecttype' for the Documents API to use.
+        # XXX: if there are multiple, which to pick?
+        information_category = self.publicatie.informatie_categorieen.first()
+        assert isinstance(information_category, InformationCategory)
+        iot_path = reverse(
+            "catalogi-informatieobjecttypen-detail",
+            kwargs={"uuid": information_category.uuid},
+        )
+        documenttype_url = build_absolute_uri(iot_path)
+
+        with get_client(service) as client:
+            zgw_document = client.create_document(
+                # woo_document.identifier will have duplicates
+                identification=str(self.uuid),
+                source_organisation=config.organisation_rsin,
+                document_type_url=documenttype_url,
+                creation_date=self.creatiedatum,
+                title=self.officiele_titel[:200],
+                filesize=self.bestandsomvang,
+                filename=self.bestandsnaam,
+                author="GPP-Woo/ODRC",  # FIXME
+                # content_type=,  # TODO, later
+                description=self.omschrijving[:1000],
+            )
+
+        # update reference in the database to the created document
+        self.document_service = service
+        self.document_uuid = zgw_document.uuid
+        self.lock = zgw_document.lock
+        self.save()
+
+        # cache reference
+        self.zgw_document = zgw_document
