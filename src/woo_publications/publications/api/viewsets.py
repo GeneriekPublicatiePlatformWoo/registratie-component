@@ -50,6 +50,7 @@ class DocumentViewSet(
     serializer_class = DocumentSerializer
     filterset_class = DocumentFilterSet
     lookup_field = "uuid"
+    lookup_value_converter = "uuid"
 
     @override
     @transaction.atomic()
@@ -98,3 +99,4 @@ class PublicationViewSet(AuditTrailViewSetMixin, viewsets.ModelViewSet):
     serializer_class = PublicationSerializer
     filterset_class = PublicationFilterSet
     lookup_field = "uuid"
+    lookup_value_converter = "uuid"

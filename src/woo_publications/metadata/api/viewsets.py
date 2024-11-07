@@ -39,6 +39,7 @@ class InformationCategoryViewSet(
     serializer_class = InformationCategorySerializer
     filterset_class = InformationCategoryFilterSet
     lookup_field = "uuid"
+    lookup_value_converter = "uuid"
 
 
 @extend_schema(tags=["Organisaties"])
@@ -81,6 +82,7 @@ class OrganisationViewSet(
     serializer_class = OrganisationSerializer
     filterset_class = OrganisationFilterSet
     lookup_field = "uuid"
+    lookup_value_converter = "uuid"
 
     def filter_queryset(
         self, queryset: models.QuerySet[Organisation]
@@ -107,6 +109,7 @@ class ThemeViewSet(AuditTrailRetrieveMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Theme.objects.all().order_by("path")
     serializer_class = ThemeSerializer
     lookup_field = "uuid"
+    lookup_value_converter = "uuid"
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)

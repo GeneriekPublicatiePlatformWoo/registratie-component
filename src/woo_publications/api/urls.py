@@ -16,7 +16,8 @@ from woo_publications.publications.api.viewsets import (
 
 app_name = "api"
 
-router = routers.DefaultRouter(trailing_slash=False)
+router = routers.DefaultRouter(trailing_slash=False, use_regex_path=False)
+router.include_format_suffixes = False
 
 router.register("documenten", DocumentViewSet)
 router.register("informatiecategorieen", InformationCategoryViewSet)
