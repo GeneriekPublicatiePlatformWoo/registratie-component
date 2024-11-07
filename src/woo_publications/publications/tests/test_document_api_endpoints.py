@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import override_settings
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -626,3 +627,52 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                 )
             ],
         )
+
+    def test_upload_file_parts(self):
+        document: Document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        endpoint = reverse(
+            "api:document-filepart-detail",
+            kwargs={
+                "uuid": document.uuid,
+                "part_uuid": document.zgw_document.file_parts[0].uuid,
+            },
+        )
+
+        response = self.client.put(
+            endpoint,
+            data={"inhoud": SimpleUploadedFile("dummy.txt", b"aAaAa")},
+            format="multipart",
+            headers={
+                **AUDIT_HEADERS,
+                "Host": "host.docker.internal:8000",
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        with get_client(document.document_service) as client:
+            with self.subTest("expected documents API state"):
+                detail = client.get(
+                    f"enkelvoudiginformatieobjecten/{document.document_uuid}"
+                )
+                self.assertEqual(detail.status_code, status.HTTP_200_OK)
+                detail_data = detail.json()
+                self.assertFalse(detail_data["locked"])
+                self.assertEqual(detail_data["bestandsdelen"], [])
+
+            with self.subTest("expected file content"):
+                file_response = detail = client.get(
+                    f"enkelvoudiginformatieobjecten/{document.document_uuid}/download"
+                )
+
+                self.assertEqual(file_response.status_code, status.HTTP_200_OK)
+                # read the binary data and check that it matches what we uploaded
+                breakpoint()
+                self.assertEqual(file_response.content, b"aAaAa")
