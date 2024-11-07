@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
@@ -60,6 +61,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-25T12:30:00-00:00"):
             document = DocumentFactory.create(
                 publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.concept,
                 identifier="document-1",
                 officiele_titel="title one",
                 verkorte_titel="one",
@@ -69,6 +71,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-24T12:00:00-00:00"):
             document2 = DocumentFactory.create(
                 publicatie=publication2,
+                publicatiestatus=PublicationStatusOptions.published,
                 identifier="document-2",
                 officiele_titel="title two",
                 verkorte_titel="two",
@@ -90,6 +93,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                "publicatiestatus": PublicationStatusOptions.published,
                 "creatiedatum": "2024-02-02",
                 "bestandsformaat": "unknown",
                 "bestandsnaam": "unknown.bin",
@@ -109,6 +113,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "creatiedatum": "2024-01-01",
                 "bestandsformaat": "unknown",
                 "bestandsnaam": "unknown.bin",
@@ -148,6 +153,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "creatiedatum": "2024-01-01",
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
@@ -163,6 +169,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "creatiedatum": "2024-02-02",
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
@@ -264,6 +271,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-25T12:30:00-00:00"):
             document = DocumentFactory.create(
                 publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.concept,
                 identifier="document-1",
                 officiele_titel="title one",
                 verkorte_titel="one",
@@ -273,6 +281,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-24T12:00:00-00:00"):
             DocumentFactory.create(
                 publicatie=publication2,
+                publicatiestatus=PublicationStatusOptions.concept,
                 identifier="document-2",
                 officiele_titel="title two",
                 verkorte_titel="two",
@@ -287,6 +296,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.concept,
             "creatiedatum": "2024-01-01",
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
@@ -337,6 +347,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "creatiedatum": "2024-01-01",
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
@@ -387,6 +398,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "creatiedatum": "2024-01-01",
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",

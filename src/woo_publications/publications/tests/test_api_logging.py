@@ -4,6 +4,7 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.api.tests.mixins import TokenAuthMixin
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
@@ -62,6 +63,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         url = reverse("api:publication-list")
         data = {
             "informatieCategorieen": [str(ic.uuid)],
+            "publicatiestatus": PublicationStatusOptions.concept,
             "publisher": str(organisation.uuid),
             "verantwoordelijke": str(organisation.uuid),
             "opsteller": str(organisation.uuid),
@@ -87,6 +89,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "officiele_titel": "title one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "opsteller": organisation.pk,
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "publisher": organisation.pk,
                 "registratiedatum": "2024-09-24T12:00:00Z",
                 "uuid": response.json()["uuid"],
@@ -105,6 +108,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
+                publicatiestatus=PublicationStatusOptions.concept,
                 publisher=organisation,
                 verantwoordelijke=organisation,
                 opsteller=organisation,
@@ -118,6 +122,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         )
         data = {
             "informatieCategorieen": [str(ic.uuid)],
+            "publicatiestatus": PublicationStatusOptions.published,
             "publisher": str(organisation.uuid),
             "verantwoordelijke": str(organisation.uuid),
             "opsteller": str(organisation.uuid),
@@ -142,6 +147,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "officiele_titel": "changed offical title",
                 "omschrijving": "changed description",
                 "opsteller": organisation.pk,
+                "publicatiestatus": PublicationStatusOptions.published,
                 "publisher": organisation.pk,
                 "registratiedatum": "2024-09-24T12:00:00Z",
                 "uuid": response.json()["uuid"],
@@ -160,6 +166,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
+                publicatiestatus=PublicationStatusOptions.concept,
                 publisher=organisation,
                 verantwoordelijke=organisation,
                 opsteller=organisation,
@@ -190,6 +197,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 ),
                 "opsteller": organisation.pk,
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "publisher": organisation.pk,
                 "registratiedatum": "2024-09-24T12:00:00Z",
                 "uuid": str(publication.uuid),
