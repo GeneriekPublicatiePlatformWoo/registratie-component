@@ -12,7 +12,7 @@ from woo_publications.logging.service import (
 
 from ..models import InformationCategory, Organisation, Theme
 from .filters import InformationCategoryFilterSet, OrganisationFilterSet
-from .serializer import (
+from .serializers import (
     InformationCategorySerializer,
     OrganisationSerializer,
     ThemeSerializer,
