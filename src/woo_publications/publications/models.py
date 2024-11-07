@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.reverse import reverse
 from zgw_consumers.constants import APITypes
 
+from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import (
     Document as ZGWDocument,
@@ -76,6 +77,12 @@ class Publication(models.Model):
         blank=True,
     )
     omschrijving = models.TextField(_("description"), blank=True)
+    publicatiestatus = models.CharField(
+        _("status"),
+        max_length=12,
+        choices=PublicationStatusOptions.choices,
+        default=PublicationStatusOptions.published,
+    )
     registratiedatum = models.DateTimeField(
         _("created on"),
         auto_now_add=True,
@@ -174,6 +181,12 @@ class Document(models.Model):
         _("file size"),
         default=0,
         help_text=_("Size of the file on disk, in bytes."),
+    )
+    publicatiestatus = models.CharField(
+        _("status"),
+        max_length=12,
+        choices=PublicationStatusOptions.choices,
+        default=PublicationStatusOptions.published,
     )
     registratiedatum = models.DateTimeField(
         _("created on"),
