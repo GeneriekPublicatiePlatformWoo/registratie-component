@@ -49,6 +49,15 @@ class Publication(models.Model):
             "which is usually *before* the registration date."
         ),
     )
+    laatst_gewijzigd_datum = models.DateTimeField(
+        _("last modified"),
+        auto_now=True,
+        editable=False,
+        help_text=_(
+            "System timestamp reflecting when the publication was last modified in the "
+            "database."
+        ),
+    )
 
     class Meta:  # type: ignore
         verbose_name = _("publication")
@@ -134,9 +143,18 @@ class Document(models.Model):
         auto_now_add=True,
         editable=False,
         help_text=_(
-            "System timestamp reflecting when the publication was registered in the "
-            "database. Not to be confused with the creation date of the publication, "
+            "System timestamp reflecting when the document was registered in the "
+            "database. Not to be confused with the creation date of the document, "
             "which is usually *before* the registration date."
+        ),
+    )
+    laatst_gewijzigd_datum = models.DateTimeField(
+        _("last modified"),
+        auto_now=True,
+        editable=False,
+        help_text=_(
+            "System timestamp reflecting when the document was last modified in the "
+            "database."
         ),
     )
 

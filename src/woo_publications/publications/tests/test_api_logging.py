@@ -77,22 +77,24 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-24T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-24T12:00:00Z",
             },
             "_cached_object_repr": "title one",
         }
 
         self.assertEqual(log.extra_data, expected_data)
 
-    @freeze_time("2024-09-24T12:00:00-00:00")
     def test_update_publication(self):
         assert not TimelineLogProxy.objects.exists()
         ic = InformationCategoryFactory.create()
-        publication = PublicationFactory.create(
-            informatie_categorieen=[ic],
-            officiele_titel="title one",
-            verkorte_titel="one",
-            omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        )
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[ic],
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            )
+
         detail_url = reverse(
             "api:publication-detail",
             kwargs={"uuid": str(publication.uuid)},
@@ -104,7 +106,8 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             "omschrijving": "changed description",
         }
 
-        response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
+        with freeze_time("2024-09-27T12:00:00-00:00"):
+            response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         log = TimelineLogProxy.objects.get()
@@ -120,6 +123,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "changed short title",
                 "officiele_titel": "changed offical title",
                 "registratiedatum": "2024-09-24T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-27T12:00:00Z",
             },
             "_cached_object_repr": "changed offical title",
         }
@@ -140,7 +144,8 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             kwargs={"uuid": str(publication.uuid)},
         )
 
-        response = self.client.delete(detail_url, headers=AUDIT_HEADERS)
+        with freeze_time("2024-09-27T12:00:00-00:00"):
+            response = self.client.delete(detail_url, headers=AUDIT_HEADERS)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         log = TimelineLogProxy.objects.get()
@@ -158,6 +163,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                 "verkorte_titel": "one",
                 "officiele_titel": "title one",
                 "registratiedatum": "2024-09-24T12:00:00Z",
+                "laatst_gewijzigd_datum": "2024-09-24T12:00:00Z",
             },
             "_cached_object_repr": "title one",
         }

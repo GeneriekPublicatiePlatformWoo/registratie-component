@@ -18,6 +18,10 @@ from .models import Document, Publication
 class DocumentInlineAdmin(admin.StackedInline):
     formset = AuditLogInlineformset
     model = Document
+    readonly_fields = (
+        "registratiedatum",
+        "laatst_gewijzigd_datum",
+    )
     extra = 0
 
 
@@ -34,6 +38,7 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     readonly_fields = (
         "uuid",
         "registratiedatum",
+        "laatst_gewijzigd_datum",
     )
     search_fields = (
         "uuid",
@@ -73,7 +78,11 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "registratiedatum",
         "show_actions",
     )
-    readonly_fields = ("uuid",)
+    readonly_fields = (
+        "uuid",
+        "registratiedatum",
+        "laatst_gewijzigd_datum",
+    )
     search_fields = (
         "identifier",
         "officiele_titel",

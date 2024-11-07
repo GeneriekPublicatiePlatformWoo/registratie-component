@@ -176,6 +176,9 @@ class TestPublicationsAdmin(WebTest):
             self.assertEqual(
                 str(added_item.registratiedatum), "2024-09-25 00:14:00+00:00"
             )
+            self.assertEqual(
+                str(added_item.laatst_gewijzigd_datum), "2024-09-25 00:14:00+00:00"
+            )
 
     def test_publications_admin_update(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
@@ -236,6 +239,9 @@ class TestPublicationsAdmin(WebTest):
             self.assertEqual(publication.omschrijving, "changed description")
             self.assertEqual(
                 str(publication.registratiedatum), "2024-09-25 00:14:00+00:00"
+            )
+            self.assertEqual(
+                str(publication.laatst_gewijzigd_datum), "2024-09-27 00:14:00+00:00"
             )
 
     def test_publications_admin_delete(self):
