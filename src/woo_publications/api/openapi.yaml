@@ -1234,19 +1234,28 @@ components:
           type: string
           format: uuid
           description: The unique ID for a given file part for a document.
-        order:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+          default: https://example.com/dummy
+          description: Endpoint where to submit the file part data to (**WIP**).
+        volgnummer:
           type: integer
+          title: order
           description: Index of the filepart, indicating which chunk is being uploaded.
-        size:
+        omvang:
           type: integer
+          title: size
           description: Chunk size, in bytes. Large files must be cut up into chunks,
             where each chunk has an expected chunk size (configured on the Documents
             API server). A part is only considered complete once each chunk has binary
             data of exactly this size attached to it.
       required:
-      - order
-      - size
+      - omvang
+      - url
       - uuid
+      - volgnummer
     InformationCategory:
       type: object
       properties:

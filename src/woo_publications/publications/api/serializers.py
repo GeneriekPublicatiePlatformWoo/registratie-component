@@ -13,11 +13,19 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
         label=_("UUID"),
         help_text=_("The unique ID for a given file part for a document."),
     )
-    order = serializers.IntegerField(
+    url = serializers.URLField(
+        label=_("url"),
+        help_text=_("Endpoint where to submit the file part data to (**WIP**)."),
+        default="https://example.com/dummy",
+        read_only=True,
+    )
+    volgnummer = serializers.IntegerField(
+        source="order",
         label=_("order"),
         help_text=_("Index of the filepart, indicating which chunk is being uploaded."),
     )
-    size = serializers.IntegerField(
+    omvang = serializers.IntegerField(
+        source="size",
         label=_("size"),
         help_text=_(
             "Chunk size, in bytes. Large files must be cut up into chunks, where each "
