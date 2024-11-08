@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from freezegun import freeze_time
+from requests.exceptions import ConnectionError, HTTPError
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -538,6 +539,10 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
         super().setUp()
         self.addCleanup(GlobalConfiguration.clear_cache)
 
+    def _get_vcr_kwargs(self, **kwargs):
+        kwargs.setdefault("ignore_hosts", ("invalid-domain",))
+        return super()._get_vcr_kwargs(**kwargs)
+
     def test_create_document_results_in_document_in_external_api(self):
         publication = PublicationFactory.create(
             informatie_categorieen=[self.information_category]
@@ -722,3 +727,97 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                 detail_data = detail.json()
                 self.assertTrue(detail_data["locked"])
                 self.assertEqual(len(detail_data["bestandsdelen"]), 2)
+
+    def test_upload_wrong_chunk_size(self):
+        document: Document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        endpoint = reverse(
+            "api:document-filepart-detail",
+            kwargs={
+                "uuid": document.uuid,
+                "part_uuid": document.zgw_document.file_parts[0].uuid,
+            },
+        )
+
+        response = self.client.put(
+            endpoint,
+            data={"inhoud": SimpleUploadedFile("dummy.txt", b"aAa")},  # missing 2 bytes
+            format="multipart",
+            headers={
+                **AUDIT_HEADERS,
+                "Host": "host.docker.internal:8000",
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        # the error response shape check is deliberately omitted - we're not sure if
+        # we should transform the errors or not, so we leave this as undefined behaviour
+        # for the time being
+
+    def test_upload_service_not_reachable(self):
+        document: Document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        endpoint = reverse(
+            "api:document-filepart-detail",
+            kwargs={
+                "uuid": document.uuid,
+                "part_uuid": document.zgw_document.file_parts[0].uuid,
+            },
+        )
+        # deliberately break the service configuration to trigger errors
+        self.service.api_root = "http://invalid-domain:42000/api/root"
+        self.service.save()
+
+        with self.assertRaises(ConnectionError):
+            self.client.put(
+                endpoint,
+                data={"inhoud": SimpleUploadedFile("dummy.txt", b"aAaAa")},
+                format="multipart",
+                headers={
+                    **AUDIT_HEADERS,
+                    "Host": "host.docker.internal:8000",
+                },
+            )
+
+    def test_upload_service_returns_error_response(self):
+        document: Document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        endpoint = reverse(
+            "api:document-filepart-detail",
+            kwargs={
+                "uuid": document.uuid,
+                "part_uuid": document.zgw_document.file_parts[0].uuid,
+            },
+        )
+        # deliberately break the service configuration to trigger errors
+        self.service.client_id = "invalid-client-id"
+        self.service.save()
+
+        with self.assertRaises(HTTPError):
+            self.client.put(
+                endpoint,
+                data={"inhoud": SimpleUploadedFile("dummy.txt", b"aAaAa")},
+                format="multipart",
+                headers={
+                    **AUDIT_HEADERS,
+                    "Host": "host.docker.internal:8000",
+                },
+            )

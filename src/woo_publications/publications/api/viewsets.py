@@ -5,7 +5,7 @@ from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from requests import HTTPError
+from requests import RequestException
 from rest_framework import mixins, serializers, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
@@ -111,7 +111,7 @@ class DocumentViewSet(
         file = serializer.validated_data["inhoud"]
         try:
             is_completed = document.upload_part_data(uuid=part_uuid, file=file)
-        except HTTPError as exc:
+        except RequestException as exc:
             # we can only handle HTTP 400 responses
             if (_response := exc.response) is None:
                 raise
