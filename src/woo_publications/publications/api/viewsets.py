@@ -16,7 +16,12 @@ from woo_publications.logging.service import AuditTrailViewSetMixin
 
 from ..models import Document, Publication
 from .filters import DocumentFilterSet, PublicationFilterSet
-from .serializers import DocumentSerializer, FilePartSerializer, PublicationSerializer
+from .serializers import (
+    DocumentSerializer,
+    DocumentStatusSerializer,
+    FilePartSerializer,
+    PublicationSerializer,
+)
 
 
 @extend_schema(tags=["Documenten"])
@@ -85,7 +90,7 @@ class DocumentViewSet(
             "**NOTE** this endpoint expects `multipart/form-data` rather than JSON to "
             "avoid the base64 encoding overhead."
         ),
-        responses={204: None},
+        responses={200: DocumentStatusSerializer},
     )
     @action(
         detail=True,
@@ -105,7 +110,7 @@ class DocumentViewSet(
 
         file = serializer.validated_data["inhoud"]
         try:
-            document.upload_part_data(uuid=part_uuid, file=file)
+            is_completed = document.upload_part_data(uuid=part_uuid, file=file)
         except HTTPError as exc:
             # we can only handle HTTP 400 responses
             if (_response := exc.response) is None:
@@ -115,7 +120,10 @@ class DocumentViewSet(
             # XXX: should we transform these error responses?
             raise serializers.ValidationError(detail=_response.json()) from exc
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        response_serializer = DocumentStatusSerializer(
+            instance={"document_upload_voltooid": is_completed}
+        )
+        return Response(response_serializer.data, status=status.HTTP_200_OK)
 
 
 @extend_schema(tags=["Publicaties"])

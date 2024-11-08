@@ -655,7 +655,8 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
             },
         )
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json()["documentUploadVoltooid"])
 
         with get_client(document.document_service) as client:
             with self.subTest("expected documents API state"):
@@ -675,3 +676,43 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                 self.assertEqual(file_response.status_code, status.HTTP_200_OK)
                 # read the binary data and check that it matches what we uploaded
                 self.assertEqual(file_response.content, b"aAaAa")
+
+    def test_upload_with_multiple_parts(self):
+        document: Document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=105,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        endpoint = reverse(
+            "api:document-filepart-detail",
+            kwargs={
+                "uuid": document.uuid,
+                "part_uuid": document.zgw_document.file_parts[0].uuid,
+            },
+        )
+
+        response = self.client.put(
+            endpoint,
+            data={"inhoud": SimpleUploadedFile("dummy.txt", b"A" * 100)},
+            format="multipart",
+            headers={
+                **AUDIT_HEADERS,
+                "Host": "host.docker.internal:8000",
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.json()["documentUploadVoltooid"])
+
+        with get_client(document.document_service) as client:
+            with self.subTest("expected documents API state"):
+                detail = client.get(
+                    f"enkelvoudiginformatieobjecten/{document.document_uuid}"
+                )
+                self.assertEqual(detail.status_code, status.HTTP_200_OK)
+                detail_data = detail.json()
+                self.assertTrue(detail_data["locked"])
+                self.assertEqual(len(detail_data["bestandsdelen"]), 2)

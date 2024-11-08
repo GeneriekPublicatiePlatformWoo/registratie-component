@@ -1,0 +1,198 @@
+interactions:
+- request:
+    body: '{"identificatie": "60f73fdb-d1d6-4b71-acc2-06be41e0013e", "bronorganisatie":
+      "000000000", "informatieobjecttype": "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
+      "creatiedatum": "2024-10-18", "titel": "rock", "auteur": "GPP-Woo/ODRC", "status":
+      "definitief", "formaat": "application/octet-stream", "taal": "dut", "bestandsnaam":
+      "unknown.bin", "inhoud": null, "bestandsomvang": 105, "beschrijving": "", "indicatieGebruiksrecht":
+      false}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0OTg1NCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.bdzFOTS9qCo_bEYihxA9r6mMkFxhC_nhvwIkI9z5c5U
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '498'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+    method: POST
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39","identificatie":"60f73fdb-d1d6-4b71-acc2-06be41e0013e","bronorganisatie":"000000000","creatiedatum":"2024-10-18","titel":"rock","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T07:10:54.257762Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":105,"link":"","beschrijving":"","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/31881581-18f1-41af-a356-3afe7874f4e9","volgnummer":1,"omvang":100,"voltooid":false,"lock":"869e5636e0384d56b1a0196b241ba197"},{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/9e3bfb22-5ace-4a8e-8c11-182d39bbbaec","volgnummer":2,"omvang":5,"voltooid":false,"lock":"869e5636e0384d56b1a0196b241ba197"}],"trefwoorden":[],"lock":"869e5636e0384d56b1a0196b241ba197"}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Length:
+      - '1370'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Location:
+      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: "--fc763bb5716220a21deb0a4506c2a6e1\r\nContent-Disposition: form-data; name=\"lock\"\r\n\r\n869e5636e0384d56b1a0196b241ba197\r\n--fc763bb5716220a21deb0a4506c2a6e1\r\nContent-Disposition:
+      form-data; name=\"inhoud\"; filename=\"dummy.txt\"\r\n\r\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\r\n--fc763bb5716220a21deb0a4506c2a6e1--\r\n"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0OTg1NCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.bdzFOTS9qCo_bEYihxA9r6mMkFxhC_nhvwIkI9z5c5U
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '364'
+      Content-Type:
+      - multipart/form-data; boundary=fc763bb5716220a21deb0a4506c2a6e1
+      User-Agent:
+      - python-requests/2.32.3
+    method: PUT
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/31881581-18f1-41af-a356-3afe7874f4e9
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/31881581-18f1-41af-a356-3afe7874f4e9","volgnummer":1,"omvang":100,"voltooid":true,"lock":"869e5636e0384d56b1a0196b241ba197"}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - PUT, OPTIONS
+      Content-Length:
+      - '201'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - Accept, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0OTg1NCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.bdzFOTS9qCo_bEYihxA9r6mMkFxhC_nhvwIkI9z5c5U
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39","identificatie":"60f73fdb-d1d6-4b71-acc2-06be41e0013e","bronorganisatie":"000000000","creatiedatum":"2024-10-18","titel":"rock","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T07:10:54.257762Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":105,"link":"","beschrijving":"","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/31881581-18f1-41af-a356-3afe7874f4e9","volgnummer":1,"omvang":100,"voltooid":true,"lock":"869e5636e0384d56b1a0196b241ba197"},{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/9e3bfb22-5ace-4a8e-8c11-182d39bbbaec","volgnummer":2,"omvang":5,"voltooid":false,"lock":"869e5636e0384d56b1a0196b241ba197"}],"trefwoorden":[]}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Length:
+      - '1327'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      ETag:
+      - '"9bcec8cfef7777b63c2f19c78291a0a9"'
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0OTg1NCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.bdzFOTS9qCo_bEYihxA9r6mMkFxhC_nhvwIkI9z5c5U
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/6142dbd3-3de7-4424-a2c3-2a8286701e39","identificatie":"60f73fdb-d1d6-4b71-acc2-06be41e0013e","bronorganisatie":"000000000","creatiedatum":"2024-10-18","titel":"rock","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T07:10:54.257762Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":105,"link":"","beschrijving":"","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/31881581-18f1-41af-a356-3afe7874f4e9","volgnummer":1,"omvang":100,"voltooid":true,"lock":"869e5636e0384d56b1a0196b241ba197"},{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/9e3bfb22-5ace-4a8e-8c11-182d39bbbaec","volgnummer":2,"omvang":5,"voltooid":false,"lock":"869e5636e0384d56b1a0196b241ba197"}],"trefwoorden":[]}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Length:
+      - '1327'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      ETag:
+      - '"9bcec8cfef7777b63c2f19c78291a0a9"'
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

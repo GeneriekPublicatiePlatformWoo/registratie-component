@@ -356,7 +356,7 @@ class Document(models.Model):
         # cache reference
         self.zgw_document = zgw_document
 
-    def upload_part_data(self, uuid: UUID, file: File) -> None:
+    def upload_part_data(self, uuid: UUID, file: File) -> bool:
         assert self.document_service, "A Documents API service must be recorded"
 
         with get_client(self.document_service) as client:
@@ -369,3 +369,5 @@ class Document(models.Model):
             completed = client.check_uploads_complete(document_uuid=self.document_uuid)
             if completed:
                 client.unlock_document(uuid=self.document_uuid, lock=self.lock)
+
+        return completed

@@ -49,6 +49,16 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
     )
 
 
+class DocumentStatusSerializer(serializers.Serializer):
+    document_upload_voltooid = serializers.BooleanField(
+        label=_("document upload completed"),
+        help_text=_(
+            "Indicates if all chunks of the file have been received and the document "
+            "has been unlocked and made 'ready for use' in the upstream Documents API."
+        ),
+    )
+
+
 class DocumentSerializer(serializers.ModelSerializer):
     publicatie = serializers.SlugRelatedField(
         queryset=Publication.objects.all(),
