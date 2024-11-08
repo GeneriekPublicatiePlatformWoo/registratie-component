@@ -7,7 +7,6 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.metadata.tests.factories import (
@@ -16,6 +15,7 @@ from woo_publications.metadata.tests.factories import (
 )
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
+from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
 from .factories import DocumentFactory, PublicationFactory
 

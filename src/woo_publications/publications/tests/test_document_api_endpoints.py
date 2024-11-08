@@ -9,7 +9,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
@@ -17,6 +16,7 @@ from woo_publications.contrib.documents_api.tests.factories import ServiceFactor
 from woo_publications.metadata.tests.factories import InformationCategoryFactory
 from woo_publications.utils.tests.vcr import VCRMixin
 
+from ..constants import PublicationStatusOptions
 from ..models import Document
 from .factories import DocumentFactory, PublicationFactory
 
@@ -621,8 +621,8 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
         self.assertEqual(
             response_data["publicatiestatus"],
             [
-                _("You cannot create a {} document.").format(
-                    PublicationStatusOptions.revoked
+                _("You cannot create a {revoked} document.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
                 )
             ],
         )

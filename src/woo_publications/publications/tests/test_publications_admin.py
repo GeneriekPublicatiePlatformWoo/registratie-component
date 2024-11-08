@@ -6,12 +6,12 @@ from freezegun import freeze_time
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.metadata.tests.factories import (
     InformationCategoryFactory,
     OrganisationFactory,
 )
 
+from ..constants import PublicationStatusOptions
 from ..models import Publication
 from .factories import PublicationFactory
 
@@ -157,8 +157,8 @@ class TestPublicationsAdmin(WebTest):
             self.assertFormError(
                 submit_response.context["adminform"],
                 None,
-                _("You cannot create a {} publication.").format(
-                    PublicationStatusOptions.revoked.label.lower()
+                _("You cannot create a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
                 ),
             )
 

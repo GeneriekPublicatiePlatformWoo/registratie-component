@@ -2,10 +2,10 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.contrib.documents_api.client import FilePart
 from woo_publications.metadata.models import InformationCategory, Organisation
 
+from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
 
 
@@ -80,27 +80,24 @@ class DocumentSerializer(serializers.ModelSerializer):
             },
             "publicatiestatus": {
                 "help_text": _(
-                    "\n**Disclaimer**: you can't create a {} document."
-                ).format(PublicationStatusOptions.revoked.label.lower())
+                    "\n**Disclaimer**: you can't create a {revoked} document."
+                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
             },
         }
 
-    def validate(self, attrs):
-        self.instance: Document
-
-        if self.context["request"].method == "POST":
-            if attrs.get("publicatiestatus") == PublicationStatusOptions.revoked:
+    def validate_publicatiestatus(
+        self, value: PublicationStatusOptions
+    ) -> PublicationStatusOptions:
+        # new record
+        if not self.instance:
+            if value == PublicationStatusOptions.revoked:
                 raise serializers.ValidationError(
-                    {
-                        "publicatiestatus": _(
-                            "You cannot create a {} document.".format(
-                                PublicationStatusOptions.revoked.lower()
-                            )
-                        )
-                    }
+                    _("You cannot create a {revoked} document.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
                 )
 
-        return super().validate(attrs)
+        return value
 
 
 class EigenaarSerializer(serializers.Serializer):
@@ -117,7 +114,7 @@ class EigenaarSerializer(serializers.Serializer):
     )
 
 
-class PublicationSerializer(serializers.ModelSerializer):
+class PublicationSerializer(serializers.ModelSerializer[Publication]):
     eigenaar = EigenaarSerializer(
         source="get_owner",
         label=_("owner"),
@@ -187,36 +184,31 @@ class PublicationSerializer(serializers.ModelSerializer):
             },
             "publicatiestatus": {
                 "help_text": _(
-                    "\n**Disclaimer**: you can't create a {} publication."
-                ).format(PublicationStatusOptions.revoked.label.lower())
+                    "\n**Disclaimer**: you can't create a {revoked} publication."
+                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
             },
         }
 
-    def validate(self, attrs):
-        self.instance: Publication
+    def validate_publicatiestatus(
+        self, value: PublicationStatusOptions
+    ) -> PublicationStatusOptions:
+        # existing record
+        if self.instance:
+            assert isinstance(self.instance, Publication)
 
-        if self.context["request"].method == "POST":
-            if attrs.get("publicatiestatus") == PublicationStatusOptions.revoked:
+            if self.instance.publicatiestatus == PublicationStatusOptions.revoked:
                 raise serializers.ValidationError(
-                    {
-                        "publicatiestatus": _(
-                            "You cannot create a {} publication.".format(
-                                PublicationStatusOptions.revoked.lower()
-                            )
-                        )
-                    }
+                    _("You cannot modify a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
+                )
+        # new record
+        else:
+            if value == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    _("You cannot create a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
                 )
 
-        if (
-            self.instance
-            and self.instance.publicatiestatus == PublicationStatusOptions.revoked
-        ):
-            raise serializers.ValidationError(
-                {
-                    "publicatiestatus": _("You cannot modify a {} publication.").format(
-                        PublicationStatusOptions.revoked.lower()
-                    )
-                }
-            )
-
-        return super().validate(attrs)
+        return value

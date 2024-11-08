@@ -3,10 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 
+from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
 
 

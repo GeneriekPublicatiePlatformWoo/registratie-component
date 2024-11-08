@@ -10,8 +10,8 @@ from zgw_consumers.constants import APITypes
 from zgw_consumers.test.factories import ServiceFactory
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.constants import PublicationStatusOptions
 
+from ..constants import PublicationStatusOptions
 from ..models import Document
 from .factories import DocumentFactory, PublicationFactory
 
@@ -168,8 +168,8 @@ class TestDocumentAdmin(WebTest):
             self.assertFormError(
                 submit_response.context["adminform"],
                 None,
-                _("You cannot create a {} document.").format(
-                    PublicationStatusOptions.revoked.label.lower()
+                _("You cannot create a {revoked} document.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
                 ),
             )
 

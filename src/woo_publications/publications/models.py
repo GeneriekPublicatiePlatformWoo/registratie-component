@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.reverse import reverse
 from zgw_consumers.constants import APITypes
 
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import (
     Document as ZGWDocument,
@@ -18,6 +17,8 @@ from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
+
+from .constants import PublicationStatusOptions
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -108,6 +109,18 @@ class Publication(models.Model):
         verbose_name = _("publication")
         verbose_name_plural = _("publications")
 
+    def __str__(self):
+        return self.officiele_titel
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            raise ValidationError(
+                _("You cannot create a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
+                )
+            )
+
     def get_owner(self) -> ActingUser | None:
         """
         Extract the owner from the audit trails.
@@ -119,18 +132,6 @@ class Publication(models.Model):
             return None
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
-
-    def clean(self):
-        super().clean()
-        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
-            raise ValidationError(
-                _("You cannot create a {} publication.").format(
-                    PublicationStatusOptions.revoked.label.lower()
-                )
-            )
-
-    def __str__(self):
-        return self.officiele_titel
 
 
 class Document(models.Model):
@@ -263,17 +264,17 @@ class Document(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.officiele_titel
+
     def clean(self):
         super().clean()
         if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
             raise ValidationError(
-                _("You cannot create a {} document.").format(
-                    PublicationStatusOptions.revoked.label.lower()
+                _("You cannot create a {revoked} document.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
                 )
             )
-
-    def __str__(self):
-        return self.officiele_titel
 
     @property
     def zgw_document(self) -> ZGWDocument | None:

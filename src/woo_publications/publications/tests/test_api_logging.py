@@ -4,7 +4,6 @@ from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.api.tests.mixins import TokenAuthMixin
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
@@ -13,6 +12,7 @@ from woo_publications.metadata.tests.factories import (
     OrganisationFactory,
 )
 
+from ..constants import PublicationStatusOptions
 from ..models import Publication
 from .factories import DocumentFactory, PublicationFactory
 

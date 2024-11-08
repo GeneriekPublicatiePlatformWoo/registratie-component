@@ -8,7 +8,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.constants import PublicationStatusOptions
 from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
 from woo_publications.logging.logevent import audit_api_create
 from woo_publications.logging.serializing import serialize_instance
@@ -17,6 +16,7 @@ from woo_publications.metadata.tests.factories import (
     OrganisationFactory,
 )
 
+from ..constants import PublicationStatusOptions
 from ..models import Publication
 from .factories import PublicationFactory
 
@@ -571,8 +571,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(
                 response_data["publicatiestatus"],
                 [
-                    _("You cannot create a {} publication.").format(
-                        PublicationStatusOptions.revoked
+                    _("You cannot create a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
                     )
                 ],
             )
@@ -713,8 +713,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         self.assertEqual(
             response_data["publicatiestatus"],
             [
-                _("You cannot modify a {} publication.").format(
-                    PublicationStatusOptions.revoked
+                _("You cannot modify a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
                 )
             ],
         )
