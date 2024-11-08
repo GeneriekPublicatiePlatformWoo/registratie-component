@@ -1598,6 +1598,8 @@ components:
 
             **Disclaimer**: you can't create a revoked publication.
 
+            **Disclaimer**: when you revoked a publication, the attached published documents also get's revoked.
+
             * `gepubliceerd` - Published
             * `concept` - Concept
             * `ingetrokken` - Revoked
@@ -1678,6 +1680,8 @@ components:
           description: |2-
 
             **Disclaimer**: you can't create a revoked publication.
+
+            **Disclaimer**: when you revoked a publication, the attached published documents also get's revoked.
 
             * `gepubliceerd` - Published
             * `concept` - Concept

@@ -186,7 +186,11 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
             "publicatiestatus": {
                 "help_text": _(
                     "\n**Disclaimer**: you can't create a {revoked} publication."
-                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
+                    "\n\n**Disclaimer**: when you {revoked} a publication, the attached {published} documents also get's {revoked}."
+                ).format(
+                    revoked=PublicationStatusOptions.revoked.label.lower(),
+                    published=PublicationStatusOptions.published.label.lower(),
+                )
             },
         }
 
