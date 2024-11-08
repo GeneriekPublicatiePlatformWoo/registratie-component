@@ -74,6 +74,33 @@ class DocumentSerializer(serializers.ModelSerializer):
             "laatst_gewijzigd_datum",
             "bestandsdelen",
         )
+        extra_kwargs = {
+            "uuid": {
+                "read_only": True,
+            },
+            "publicatiestatus": {
+                "help_text": _(
+                    "\n**Disclaimer**: you can't create a {} document."
+                ).format(PublicationStatusOptions.revoked.label.lower())
+            },
+        }
+
+    def validate(self, attrs):
+        self.instance: Document
+
+        if self.context["request"].method == "POST":
+            if attrs.get("publicatiestatus") == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    {
+                        "publicatiestatus": _(
+                            "You cannot create a {} document.".format(
+                                PublicationStatusOptions.revoked.lower()
+                            )
+                        )
+                    }
+                )
+
+        return super().validate(attrs)
 
 
 class EigenaarSerializer(serializers.Serializer):

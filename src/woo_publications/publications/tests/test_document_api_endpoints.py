@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.test import override_settings
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from freezegun import freeze_time
 from rest_framework import status
@@ -544,6 +545,7 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
         body = {
             "identifier": "WOO-P/0042",
             "publicatie": publication.uuid,
+            "publicatiestatus": PublicationStatusOptions.published,
             "officieleTitel": "Testdocument WOO-P + Open Zaak",
             "verkorteTitel": "Testdocument",
             "omschrijving": "Testing 123",
@@ -585,3 +587,42 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
             self.assertEqual(detail.status_code, status.HTTP_200_OK)
             detail_data = detail.json()
             self.assertTrue(detail_data["locked"])
+
+    def test_create_revoked_document_results_in_error(self):
+        publication = PublicationFactory.create(
+            informatie_categorieen=[self.information_category]
+        )
+        endpoint = reverse("api:document-list")
+        body = {
+            "identifier": "WOO-P/0042",
+            "publicatie": publication.uuid,
+            "publicatiestatus": PublicationStatusOptions.revoked,
+            "officieleTitel": "Testdocument WOO-P + Open Zaak",
+            "verkorteTitel": "Testdocument",
+            "omschrijving": "Testing 123",
+            "creatiedatum": "2024-11-05",
+            "bestandsformaat": "unknown",
+            "bestandsnaam": "unknown.bin",
+            "bestandsomvang": 10,
+        }
+
+        response = self.client.post(
+            endpoint,
+            data=body,
+            headers={
+                **AUDIT_HEADERS,
+                "Host": "host.docker.internal:8000",
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        response_data = response.json()
+
+        self.assertEqual(
+            response_data["publicatiestatus"],
+            [
+                _("You cannot create a {} document.").format(
+                    PublicationStatusOptions.revoked
+                )
+            ],
+        )

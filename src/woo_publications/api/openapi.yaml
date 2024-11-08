@@ -1192,6 +1192,13 @@ components:
           allOf:
           - $ref: '#/components/schemas/PublicatiestatusEnum'
           title: Status
+          description: |2-
+
+            **Disclaimer**: you can't create a revoked document.
+
+            * `gepubliceerd` - Published
+            * `concept` - Concept
+            * `ingetrokken` - Revoked
         creatiedatum:
           type: string
           format: date
