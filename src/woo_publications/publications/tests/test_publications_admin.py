@@ -92,12 +92,14 @@ class TestPublicationsAdmin(WebTest):
 
         with freeze_time("2024-09-24T12:00:00-00:00"):
             PublicationFactory.create(
+                publicatiestatus=PublicationStatusOptions.published,
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication2 = PublicationFactory.create(
+                publicatiestatus=PublicationStatusOptions.concept,
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -118,6 +120,17 @@ class TestPublicationsAdmin(WebTest):
             self.assertIn(
                 "registratiedatum", search_response.request.environ["QUERY_STRING"]
             )
+
+            self.assertEqual(search_response.status_code, 200)
+            self.assertContains(search_response, "field-uuid", 1)
+            self.assertContains(search_response, str(publication2.uuid), 1)
+
+        with self.subTest("filter_on_publicatiestatus"):
+            search_response = response.click(
+                description=str(PublicationStatusOptions.concept.label)
+            )
+
+            self.assertEqual(search_response.status_code, 200)
 
             self.assertEqual(search_response.status_code, 200)
             self.assertContains(search_response, "field-uuid", 1)

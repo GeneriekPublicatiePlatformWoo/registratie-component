@@ -47,7 +47,10 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "officiele_titel",
         "verkorte_titel",
     )
-    list_filter = ("registratiedatum",)
+    list_filter = (
+        "registratiedatum",
+        "publicatiestatus",
+    )
     date_hierarchy = "registratiedatum"
     inlines = (DocumentInlineAdmin,)
 
@@ -98,7 +101,11 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "bestandsnaam",
         "publicatie__uuid",
     )
-    list_filter = ("registratiedatum", "creatiedatum")
+    list_filter = (
+        "registratiedatum",
+        "creatiedatum",
+        "publicatiestatus",
+    )
     date_hierarchy = "registratiedatum"
 
     @admin.display(description=_("file size"), ordering="bestandsomvang")
