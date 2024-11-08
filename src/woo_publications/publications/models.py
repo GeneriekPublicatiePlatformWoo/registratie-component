@@ -121,6 +121,11 @@ class Publication(models.Model):
                 )
             )
 
+    def save(self, *args, **kwargs):
+        if self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            self.revoke_own_published_documents()
+        super().save(*args, **kwargs)
+
     def get_owner(self) -> ActingUser | None:
         """
         Extract the owner from the audit trails.
@@ -132,6 +137,11 @@ class Publication(models.Model):
             return None
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
+
+    def revoke_own_published_documents(self) -> None:
+        self.document_set.filter(  # pyright: ignore reportAttributeAccessIssue
+            publicatiestatus=PublicationStatusOptions.published
+        ).update(publicatiestatus=PublicationStatusOptions.revoked)
 
 
 class Document(models.Model):

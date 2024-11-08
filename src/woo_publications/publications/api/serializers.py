@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
@@ -212,3 +213,12 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
                 )
 
         return value
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        publication = super().update(instance, validated_data)
+
+        if validated_data.get("publicatiestatus") == PublicationStatusOptions.revoked:
+            publication.revoke_own_published_documents()
+
+        return publication
