@@ -62,6 +62,21 @@ paths:
           (UUID) waartoe ze horen. **Opmerkingen**: negeer het gedocumenteerde type
           `integer`, het correcte type is `string` met formaat `uuid`.'
       - in: query
+        name: publicatiestatus
+        schema:
+          type: string
+          title: Status
+          enum:
+          - concept
+          - gepubliceerd
+          - ingetrokken
+        description: |-
+          Filter documents based on the publication status.
+
+          * `gepubliceerd` - Published
+          * `concept` - Concept
+          * `ingetrokken` - Revoked
+      - in: query
         name: sorteer
         schema:
           type: array
@@ -655,6 +670,21 @@ paths:
         schema:
           type: integer
       - in: query
+        name: publicatiestatus
+        schema:
+          type: string
+          title: Status
+          enum:
+          - concept
+          - gepubliceerd
+          - ingetrokken
+        description: |-
+          Filter publications based on the publication status.
+
+          * `gepubliceerd` - Published
+          * `concept` - Concept
+          * `ingetrokken` - Revoked
+      - in: query
         name: sorteer
         schema:
           type: array
@@ -1158,6 +1188,17 @@ components:
           maxLength: 255
         omschrijving:
           type: string
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
+          description: |2-
+
+            **Disclaimer**: you can't create a revoked document.
+
+            * `gepubliceerd` - Published
+            * `concept` - Concept
+            * `ingetrokken` - Revoked
         creatiedatum:
           type: string
           format: date
@@ -1549,6 +1590,17 @@ components:
           nullable: true
           description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
             de auditlogs.
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
+          description: |2-
+
+            **Disclaimer**: you can't create a revoked publication.
+
+            * `gepubliceerd` - Published
+            * `concept` - Concept
+            * `ingetrokken` - Revoked
         registratiedatum:
           type: string
           format: date-time
@@ -1564,6 +1616,16 @@ components:
           title: Laatst gewijzigd op
           description: System timestamp reflecting when the publication was last modified
             in the database.
+    PublicatiestatusEnum:
+      enum:
+      - gepubliceerd
+      - concept
+      - ingetrokken
+      type: string
+      description: |-
+        * `gepubliceerd` - Published
+        * `concept` - Concept
+        * `ingetrokken` - Revoked
     Publication:
       type: object
       properties:
@@ -1609,6 +1671,17 @@ components:
           nullable: true
           description: De persoon die de publicatie aangemaakt heeft, afgeleid uit
             de auditlogs.
+        publicatiestatus:
+          allOf:
+          - $ref: '#/components/schemas/PublicatiestatusEnum'
+          title: Status
+          description: |2-
+
+            **Disclaimer**: you can't create a revoked publication.
+
+            * `gepubliceerd` - Published
+            * `concept` - Concept
+            * `ingetrokken` - Revoked
         registratiedatum:
           type: string
           format: date-time

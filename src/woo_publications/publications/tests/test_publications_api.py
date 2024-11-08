@@ -16,6 +16,7 @@ from woo_publications.metadata.tests.factories import (
     OrganisationFactory,
 )
 
+from ..constants import PublicationStatusOptions
 from ..models import Publication
 from .factories import PublicationFactory
 
@@ -88,6 +89,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
+                publicatiestatus=PublicationStatusOptions.published,
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -95,6 +97,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication2 = PublicationFactory.create(
                 informatie_categorieen=[ic2],
+                publicatiestatus=PublicationStatusOptions.concept,
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -118,6 +121,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "publicatiestatus": PublicationStatusOptions.published,
                 "eigenaar": None,
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
@@ -135,6 +139,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title two",
                 "verkorteTitel": "two",
                 "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "eigenaar": None,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
@@ -167,6 +172,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
             "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
@@ -180,6 +186,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "eigenaar": None,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
             "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
@@ -314,6 +321,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "eigenaar": {"weergaveNaam": "buurman", "identifier": "123"},
             "registratiedatum": "2024-09-24T14:00:00+02:00",
             "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
@@ -327,6 +335,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title two",
             "verkorteTitel": "two",
             "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "eigenaar": {"weergaveNaam": "buurman", "identifier": "456"},
             "registratiedatum": "2024-09-25T14:30:00+02:00",
             "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
@@ -381,11 +390,66 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(data["results"][0], expected_second_item_data)
             self.assertEqual(data["results"][1], expected_first_item_data)
 
+    def test_list_publication_filter_publication_status(self):
+        published = PublicationFactory.create(
+            publicatiestatus=PublicationStatusOptions.published
+        )
+        concept = PublicationFactory.create(
+            publicatiestatus=PublicationStatusOptions.concept
+        )
+        revoked = PublicationFactory.create(
+            publicatiestatus=PublicationStatusOptions.revoked
+        )
+        list_url = reverse("api:publication-list")
+
+        with self.subTest("filter on published publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.published},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(published.uuid))
+
+        with self.subTest("filter on concept publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.concept},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(concept.uuid))
+
+        with self.subTest("filter on revoked publications"):
+            response = self.client.get(
+                list_url,
+                {"publicatiestatus": PublicationStatusOptions.revoked},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(revoked.uuid))
+
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_detail_publication(self):
         ic = InformationCategoryFactory.create()
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
+            publicatiestatus=PublicationStatusOptions.concept,
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -409,6 +473,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "title one",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.concept,
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
             "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
@@ -481,16 +546,41 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "verkorteTitel": "bla",
                 "omschrijving": "bla",
             }
+            response = self.client.post(url, data, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            response_data = response.json()
+
+            self.assertEqual(response_data["publisher"], [_("This field is required.")])
+
+        with self.subTest("trying to create a revoked publication results in errors"):
+            data = {
+                "informatieCategorieen": [str(ic.uuid)],
+                "publisher": str(organisation.uuid),
+                "publicatiestatus": PublicationStatusOptions.revoked,
+                "officieleTitel": "changed offical title",
+                "verkorteTitel": "changed short title",
+                "omschrijving": "changed description",
+            }
 
             response = self.client.post(url, data, headers=AUDIT_HEADERS)
 
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             response_data = response.json()
-            self.assertEqual(response_data["publisher"], [_("This field is required.")])
+
+            self.assertEqual(
+                response_data["publicatiestatus"],
+                [
+                    _("You cannot create a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
+                ],
+            )
 
         with self.subTest("complete data"):
             data = {
                 "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "publisher": str(organisation.uuid),
                 "verantwoordelijke": str(organisation2.uuid),
                 "opsteller": str(organisation3.uuid),
@@ -515,6 +605,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "officieleTitel": "title one",
                 "verkorteTitel": "one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "eigenaar": {"weergaveNaam": "username", "identifier": "id"},
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
@@ -531,6 +622,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         publication = PublicationFactory.create(
             informatie_categorieen=[ic, ic2],
             publisher=organisation3,
+            publicatiestatus=PublicationStatusOptions.concept,
             officiele_titel="title one",
             verkorte_titel="one",
             omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -556,12 +648,12 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             )
 
         with self.subTest("complete data"):
-
             data = {
                 "informatieCategorieen": [str(ic2.uuid)],
                 "publisher": str(organisation.uuid),
                 "verantwoordelijke": str(organisation2.uuid),
                 "opsteller": str(organisation3.uuid),
+                "publicatiestatus": PublicationStatusOptions.published,
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",
                 "omschrijving": "changed description",
@@ -582,6 +674,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 "opsteller": str(organisation3.uuid),
                 "officieleTitel": "changed offical title",
                 "verkorteTitel": "changed short title",
+                "publicatiestatus": PublicationStatusOptions.published,
                 "omschrijving": "changed description",
                 "eigenaar": None,
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
@@ -589,6 +682,42 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             }
 
             self.assertEqual(response_data, expected_data)
+
+    def test_update_revoked_publication_cannot_be_modified(self):
+        ic = InformationCategoryFactory.create()
+        organisation = OrganisationFactory.create(is_actief=True)
+        publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
+            publisher=organisation,
+            publicatiestatus=PublicationStatusOptions.revoked,
+        )
+        detail_url = reverse(
+            "api:publication-detail",
+            kwargs={"uuid": str(publication.uuid)},
+        )
+
+        data = {
+            "informatieCategorieen": [str(ic.uuid)],
+            "publisher": str(organisation.uuid),
+            "publicatiestatus": PublicationStatusOptions.published,
+            "officieleTitel": "changed offical title",
+            "verkorteTitel": "changed short title",
+            "omschrijving": "changed description",
+        }
+
+        response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        response_data = response.json()
+        self.assertEqual(
+            response_data["publicatiestatus"],
+            [
+                _("You cannot modify a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
+                )
+            ],
+        )
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_partial_update_publication(self):
@@ -624,6 +753,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             "officieleTitel": "changed offical title",
             "verkorteTitel": "one",
             "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "publicatiestatus": PublicationStatusOptions.published,
             "eigenaar": None,
             "registratiedatum": "2024-09-24T14:00:00+02:00",
             "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",

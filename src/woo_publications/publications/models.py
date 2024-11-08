@@ -1,6 +1,7 @@
 import uuid
 from typing import Callable
 
+from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
@@ -16,6 +17,8 @@ from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
+
+from .constants import PublicationStatusOptions
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -76,6 +79,12 @@ class Publication(models.Model):
         blank=True,
     )
     omschrijving = models.TextField(_("description"), blank=True)
+    publicatiestatus = models.CharField(
+        _("status"),
+        max_length=12,
+        choices=PublicationStatusOptions.choices,
+        default=PublicationStatusOptions.published,
+    )
     registratiedatum = models.DateTimeField(
         _("created on"),
         auto_now_add=True,
@@ -100,6 +109,18 @@ class Publication(models.Model):
         verbose_name = _("publication")
         verbose_name_plural = _("publications")
 
+    def __str__(self):
+        return self.officiele_titel
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            raise ValidationError(
+                _("You cannot create a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
+                )
+            )
+
     def get_owner(self) -> ActingUser | None:
         """
         Extract the owner from the audit trails.
@@ -111,9 +132,6 @@ class Publication(models.Model):
             return None
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
-
-    def __str__(self):
-        return self.officiele_titel
 
 
 class Document(models.Model):
@@ -174,6 +192,12 @@ class Document(models.Model):
         _("file size"),
         default=0,
         help_text=_("Size of the file on disk, in bytes."),
+    )
+    publicatiestatus = models.CharField(
+        _("status"),
+        max_length=12,
+        choices=PublicationStatusOptions.choices,
+        default=PublicationStatusOptions.published,
     )
     registratiedatum = models.DateTimeField(
         _("created on"),
@@ -242,6 +266,15 @@ class Document(models.Model):
 
     def __str__(self):
         return self.officiele_titel
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
+            raise ValidationError(
+                _("You cannot create a {revoked} document.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
+                )
+            )
 
     @property
     def zgw_document(self) -> ZGWDocument | None:

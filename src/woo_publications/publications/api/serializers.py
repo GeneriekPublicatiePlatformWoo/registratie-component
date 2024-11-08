@@ -5,6 +5,7 @@ from rest_framework import serializers
 from woo_publications.contrib.documents_api.client import FilePart
 from woo_publications.metadata.models import InformationCategory, Organisation
 
+from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
 
 
@@ -64,6 +65,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "officiele_titel",
             "verkorte_titel",
             "omschrijving",
+            "publicatiestatus",
             "creatiedatum",
             "bestandsformaat",
             "bestandsnaam",
@@ -72,6 +74,30 @@ class DocumentSerializer(serializers.ModelSerializer):
             "laatst_gewijzigd_datum",
             "bestandsdelen",
         )
+        extra_kwargs = {
+            "uuid": {
+                "read_only": True,
+            },
+            "publicatiestatus": {
+                "help_text": _(
+                    "\n**Disclaimer**: you can't create a {revoked} document."
+                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
+            },
+        }
+
+    def validate_publicatiestatus(
+        self, value: PublicationStatusOptions
+    ) -> PublicationStatusOptions:
+        # new record
+        if not self.instance:
+            if value == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    _("You cannot create a {revoked} document.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
+                )
+
+        return value
 
 
 class EigenaarSerializer(serializers.Serializer):
@@ -88,7 +114,7 @@ class EigenaarSerializer(serializers.Serializer):
     )
 
 
-class PublicationSerializer(serializers.ModelSerializer):
+class PublicationSerializer(serializers.ModelSerializer[Publication]):
     eigenaar = EigenaarSerializer(
         source="get_owner",
         label=_("owner"),
@@ -142,6 +168,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             "verkorte_titel",
             "omschrijving",
             "eigenaar",
+            "publicatiestatus",
             "registratiedatum",
             "laatst_gewijzigd_datum",
         )
@@ -155,4 +182,33 @@ class PublicationSerializer(serializers.ModelSerializer):
             "laatst_gewijzigd_datum": {
                 "read_only": True,
             },
+            "publicatiestatus": {
+                "help_text": _(
+                    "\n**Disclaimer**: you can't create a {revoked} publication."
+                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
+            },
         }
+
+    def validate_publicatiestatus(
+        self, value: PublicationStatusOptions
+    ) -> PublicationStatusOptions:
+        # existing record
+        if self.instance:
+            assert isinstance(self.instance, Publication)
+
+            if self.instance.publicatiestatus == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    _("You cannot modify a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
+                )
+        # new record
+        else:
+            if value == PublicationStatusOptions.revoked:
+                raise serializers.ValidationError(
+                    _("You cannot create a {revoked} publication.").format(
+                        revoked=PublicationStatusOptions.revoked.label.lower()
+                    )
+                )
+
+        return value

@@ -12,6 +12,7 @@ from woo_publications.logging.service import (
     get_logs_link,
 )
 
+from .constants import PublicationStatusOptions
 from .models import Document, Publication
 
 
@@ -30,6 +31,7 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
     list_display = (
         "officiele_titel",
         "verkorte_titel",
+        "publicatiestatus",
         "registratiedatum",
         "uuid",
         "show_actions",
@@ -45,9 +47,17 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "officiele_titel",
         "verkorte_titel",
     )
-    list_filter = ("registratiedatum",)
+    list_filter = (
+        "registratiedatum",
+        "publicatiestatus",
+    )
     date_hierarchy = "registratiedatum"
     inlines = (DocumentInlineAdmin,)
+
+    def has_change_permission(self, request, obj=None):
+        if obj and obj.publicatiestatus == PublicationStatusOptions.revoked:
+            return False
+        return super().has_change_permission(request, obj)
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: Publication) -> str:
@@ -73,6 +83,7 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "officiele_titel",
         "verkorte_titel",
         "bestandsnaam",
+        "publicatiestatus",
         "show_filesize",
         "identifier",
         "registratiedatum",
@@ -90,7 +101,11 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "bestandsnaam",
         "publicatie__uuid",
     )
-    list_filter = ("registratiedatum", "creatiedatum")
+    list_filter = (
+        "registratiedatum",
+        "creatiedatum",
+        "publicatiestatus",
+    )
     date_hierarchy = "registratiedatum"
 
     @admin.display(description=_("file size"), ordering="bestandsomvang")

@@ -34,7 +34,7 @@ class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
     def has_change_permission(self, request, obj=None):
         if obj and obj.oorsprong == InformationCategoryOrigins.value_list:
             return False
-        return True
+        return super().has_change_permission(request, obj)
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: InformationCategory) -> str:

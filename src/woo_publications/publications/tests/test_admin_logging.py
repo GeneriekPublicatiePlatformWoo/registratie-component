@@ -15,6 +15,7 @@ from woo_publications.metadata.tests.factories import (
 )
 from woo_publications.utils.tests.webtest import add_dynamic_field
 
+from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
 from .factories import DocumentFactory, PublicationFactory
 
@@ -51,6 +52,7 @@ class TestPublicationAdminAuditLogging(WebTest):
         form = response.forms["publication_form"]
         # Force the value because the select box options get loaded in with js
         form["informatie_categorieen"].force_value([ic.id, ic2.id])
+        form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
         form["publisher"].select(text=organisation.naam)
         form["verantwoordelijke"].select(text=organisation.naam)
         form["opsteller"].select(text=organisation2.naam)
@@ -80,6 +82,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                 "officiele_titel": "The official title of this publication",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
                 "opsteller": organisation2.pk,
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "publisher": organisation.pk,
                 "registratiedatum": "2024-09-25T00:14:00Z",
                 "uuid": str(added_item.uuid),
@@ -118,6 +121,7 @@ class TestPublicationAdminAuditLogging(WebTest):
 
         form = response.forms["publication_form"]
         form["informatie_categorieen"].select_multiple(texts=[ic.naam])
+        form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
         form["publisher"].select(text=organisation2.naam)
         form["verantwoordelijke"].select(text=organisation2.naam)
         form["opsteller"].select(text=organisation2.naam)
@@ -159,6 +163,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                     "officiele_titel": "changed official title",
                     "omschrijving": "changed description",
                     "opsteller": organisation2.pk,
+                    "publicatiestatus": PublicationStatusOptions.concept,
                     "publisher": organisation2.pk,
                     "registratiedatum": "2024-09-27T00:14:00Z",
                     "uuid": str(publication.uuid),
@@ -177,6 +182,7 @@ class TestPublicationAdminAuditLogging(WebTest):
         with freeze_time("2024-09-27T00:14:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[information_category],
+                publicatiestatus=PublicationStatusOptions.concept,
                 publisher=organisation,
                 verantwoordelijke=organisation,
                 opsteller=organisation,
@@ -213,6 +219,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                 "officiele_titel": "title one",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "opsteller": organisation.pk,
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "publisher": organisation.pk,
                 "registratiedatum": "2024-09-27T00:14:00Z",
                 "uuid": str(publication.uuid),
@@ -264,6 +271,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         form["document_set-0-identifier"] = "http://example.com/1"
         form["document_set-0-officiele_titel"] = "title"
         form["document_set-0-creatiedatum"] = "17-10-2024"
+        form["document_set-0-publicatiestatus"].select(
+            text=PublicationStatusOptions.concept.label
+        )
 
         with freeze_time("2024-09-29T00:14:00-00:00"):
             response = form.submit(name="_save")
@@ -285,6 +295,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                     "uuid": str(document.uuid),
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
+                    "publicatiestatus": PublicationStatusOptions.concept,
                     "bestandsnaam": "unknown.bin",
                     "creatiedatum": "2024-10-17",
                     "omschrijving": "",
@@ -340,6 +351,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         form = response.forms["publication_form"]
 
         form["document_set-TOTAL_FORMS"] = "1"  # we're adding one, dynamically
+        add_dynamic_field(
+            form, "document_set-0-publicatiestatus", PublicationStatusOptions.concept
+        )
         add_dynamic_field(form, "document_set-0-identifier", "http://example.com/1")
         add_dynamic_field(form, "document_set-0-officiele_titel", "title")
         add_dynamic_field(form, "document_set-0-creatiedatum", "17-10-2024")
@@ -367,6 +381,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                     "uuid": str(document.uuid),
                     "identifier": "http://example.com/1",
                     "publicatie": publication.id,
+                    "publicatiestatus": PublicationStatusOptions.concept,
                     "bestandsnaam": "foo.pdf",
                     "creatiedatum": "2024-10-17",
                     "omschrijving": "",
@@ -397,6 +412,7 @@ class TestPublicationAdminAuditLogging(WebTest):
             )
             document = DocumentFactory.create(
                 publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.published,
                 identifier="document-1",
                 officiele_titel="DELETE THIS ITEM",
                 verkorte_titel="",
@@ -457,6 +473,7 @@ class TestPublicationAdminAuditLogging(WebTest):
                     "verkorte_titel": "",
                     "bestandsformaat": "unknown",
                     "officiele_titel": "DELETE THIS ITEM",
+                    "publicatiestatus": PublicationStatusOptions.published,
                     "document_service": None,
                     "registratiedatum": "2024-09-25T00:14:00Z",
                     "laatst_gewijzigd_datum": "2024-09-25T00:14:00Z",
@@ -486,6 +503,7 @@ class TestDocumentAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["document_form"]
+        form["publicatiestatus"] = PublicationStatusOptions.concept
         form["publicatie"] = publication.id
         form["identifier"] = identifier
         form["officiele_titel"] = "The official title of this document"
@@ -514,6 +532,7 @@ class TestDocumentAdminAuditLogging(WebTest):
                 "uuid": str(added_item.uuid),
                 "identifier": identifier,
                 "publicatie": publication.pk,
+                "publicatiestatus": PublicationStatusOptions.concept,
                 "bestandsnaam": "unknown.bin",
                 "creatiedatum": "2024-01-01",
                 "omschrijving": (
@@ -553,6 +572,7 @@ class TestDocumentAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 200)
 
         form = response.forms["document_form"]
+        form["publicatiestatus"] = PublicationStatusOptions.concept
         form["publicatie"] = publication.id
         form["identifier"] = identifier
         form["officiele_titel"] = "changed official title"
@@ -595,6 +615,7 @@ class TestDocumentAdminAuditLogging(WebTest):
                     "uuid": str(document.uuid),
                     "identifier": identifier,
                     "publicatie": publication.pk,
+                    "publicatiestatus": PublicationStatusOptions.concept,
                     "bestandsnaam": "unknown.bin",
                     "creatiedatum": "2024-11-11",
                     "omschrijving": "changed description",
@@ -617,6 +638,7 @@ class TestDocumentAdminAuditLogging(WebTest):
         identifier = f"https://www.openzaak.nl/documenten/{str(uuid.uuid4())}"
         with freeze_time("2024-09-25T14:00:00-00:00"):
             document = DocumentFactory.create(
+                publicatiestatus=PublicationStatusOptions.published,
                 publicatie=publication,
                 identifier=identifier,
                 officiele_titel="title one",
@@ -652,6 +674,7 @@ class TestDocumentAdminAuditLogging(WebTest):
                 "uuid": str(document.uuid),
                 "identifier": identifier,
                 "publicatie": publication.pk,
+                "publicatiestatus": PublicationStatusOptions.published,
                 "bestandsnaam": "unknown.bin",
                 "creatiedatum": "2024-11-11",
                 "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -667,5 +690,4 @@ class TestDocumentAdminAuditLogging(WebTest):
             "_cached_object_repr": "title one",
         }
 
-        self.maxDiff = None
         self.assertEqual(log.extra_data, expected_data)

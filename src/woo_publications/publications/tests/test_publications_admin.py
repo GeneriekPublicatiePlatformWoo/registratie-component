@@ -11,6 +11,7 @@ from woo_publications.metadata.tests.factories import (
     OrganisationFactory,
 )
 
+from ..constants import PublicationStatusOptions
 from ..models import Publication
 from .factories import PublicationFactory
 
@@ -91,12 +92,14 @@ class TestPublicationsAdmin(WebTest):
 
         with freeze_time("2024-09-24T12:00:00-00:00"):
             PublicationFactory.create(
+                publicatiestatus=PublicationStatusOptions.published,
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication2 = PublicationFactory.create(
+                publicatiestatus=PublicationStatusOptions.concept,
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
@@ -117,6 +120,17 @@ class TestPublicationsAdmin(WebTest):
             self.assertIn(
                 "registratiedatum", search_response.request.environ["QUERY_STRING"]
             )
+
+            self.assertEqual(search_response.status_code, 200)
+            self.assertContains(search_response, "field-uuid", 1)
+            self.assertContains(search_response, str(publication2.uuid), 1)
+
+        with self.subTest("filter_on_publicatiestatus"):
+            search_response = response.click(
+                description=str(PublicationStatusOptions.concept.label)
+            )
+
+            self.assertEqual(search_response.status_code, 200)
 
             self.assertEqual(search_response.status_code, 200)
             self.assertContains(search_response, "field-uuid", 1)
@@ -147,6 +161,20 @@ class TestPublicationsAdmin(WebTest):
                 _("This field is required."),
             )
 
+        with self.subTest("trying to create a revoked publication results in errors"):
+            form["publicatiestatus"].select(text=PublicationStatusOptions.revoked.label)
+
+            submit_response = form.submit(name="_save")
+
+            self.assertEqual(submit_response.status_code, 200)
+            self.assertFormError(
+                submit_response.context["adminform"],
+                None,
+                _("You cannot create a {revoked} publication.").format(
+                    revoked=PublicationStatusOptions.revoked.label.lower()
+                ),
+            )
+
         with self.subTest(
             "organisation fields only has active organisation as options"
         ):
@@ -171,6 +199,7 @@ class TestPublicationsAdmin(WebTest):
         with self.subTest("complete data creates publication"):
             # Force the value because the select box options get loaded in with js
             form["informatie_categorieen"].force_value([ic.id, ic2.id, ic3.id])
+            form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
             form["publisher"].select(text=organisation.naam)
             form["verantwoordelijke"].select(text=organisation.naam)
             form["opsteller"].select(text=organisation.naam)
@@ -185,6 +214,9 @@ class TestPublicationsAdmin(WebTest):
 
             added_item = Publication.objects.order_by("-pk").first()
             assert added_item is not None
+            self.assertEqual(
+                added_item.publicatiestatus, PublicationStatusOptions.concept
+            )
             self.assertQuerySetEqual(
                 added_item.informatie_categorieen.all(), [ic, ic2, ic3], ordered=False
             )
@@ -281,6 +313,7 @@ class TestPublicationsAdmin(WebTest):
 
         with self.subTest("complete data updates publication"):
             form["informatie_categorieen"].select_multiple(texts=[ic.naam])
+            form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
             form["publisher"].select(text=organisation2.naam)
             form["verantwoordelijke"].select(text=organisation2.naam)
             form["opsteller"].select(text=organisation2.naam)
@@ -294,6 +327,9 @@ class TestPublicationsAdmin(WebTest):
             self.assertEqual(response.status_code, 302)
 
             publication.refresh_from_db()
+            self.assertEqual(
+                publication.publicatiestatus, PublicationStatusOptions.concept
+            )
             self.assertQuerySetEqual(publication.informatie_categorieen.all(), [ic])
             self.assertFalse(
                 publication.informatie_categorieen.filter(pk=ic2.pk).exists()
@@ -307,6 +343,27 @@ class TestPublicationsAdmin(WebTest):
             self.assertEqual(
                 str(publication.laatst_gewijzigd_datum), "2024-09-27 00:14:00+00:00"
             )
+
+    def test_publications_admin_not_allowed_to_update_when_publication_is_revoked(self):
+        ic = InformationCategoryFactory.create()
+        publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
+            publicatiestatus=PublicationStatusOptions.revoked,
+        )
+        reverse_url = reverse(
+            "admin:publications_publication_change",
+            kwargs={"object_id": publication.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms["publication_form"]
+
+        response = form.submit(name="_save", expect_errors=True)
+
+        self.assertEqual(response.status_code, 403)
 
     def test_publications_admin_delete(self):
         publication = PublicationFactory.create(
