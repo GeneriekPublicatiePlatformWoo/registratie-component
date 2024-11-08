@@ -17,8 +17,7 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
     )
     url = serializers.URLField(
         label=_("url"),
-        help_text=_("Endpoint where to submit the file part data to (**WIP**)."),
-        default="https://example.com/dummy",
+        help_text=_("Endpoint where to submit the file part data to."),
         read_only=True,
     )
     volgnummer = serializers.IntegerField(

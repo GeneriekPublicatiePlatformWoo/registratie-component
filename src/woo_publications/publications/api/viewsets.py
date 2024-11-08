@@ -97,7 +97,7 @@ class DocumentViewSet(
         methods=["put"],
         serializer_class=FilePartSerializer,
         parser_classes=(MultiPartParser,),
-        url_path="file_part/<uuid:part_uuid>",
+        url_path="bestandsdelen/<uuid:part_uuid>",
         url_name="filepart-detail",
     )
     def file_part(self, request: Request, part_uuid: UUID, *args, **kwargs) -> Response:

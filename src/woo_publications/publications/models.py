@@ -347,6 +347,19 @@ class Document(models.Model):
                 description=self.omschrijving[:1000],
             )
 
+            # set the URLs for the endpoints. this is not the ideal place to do this,
+            # but we need to know the document UUID *and* the part UUID
+            for part in zgw_document.file_parts:
+                part.url = build_absolute_uri(
+                    reverse(
+                        "api:document-filepart-detail",
+                        kwargs={
+                            "uuid": self.uuid,
+                            "part_uuid": part.uuid,
+                        },
+                    )
+                )
+
         # update reference in the database to the created document
         self.document_service = service
         self.document_uuid = zgw_document.uuid

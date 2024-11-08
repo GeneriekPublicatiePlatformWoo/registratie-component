@@ -25,6 +25,7 @@ class FilePart:
     uuid: UUID
     order: int
     size: int
+    url: str = ""
 
 
 @dataclass

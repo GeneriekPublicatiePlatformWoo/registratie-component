@@ -219,9 +219,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Document'
           description: ''
-  /api/v1/documenten/{uuid}/file_part/{partUuid}:
+  /api/v1/documenten/{uuid}/bestandsdelen/{partUuid}:
     put:
-      operationId: documentenFilePartUpdate
+      operationId: documentenBestandsdelenUpdate
       description: |-
         Send the binary data for a file part to perform the actual file upload. The response data of the document create endpoints returns the list of expected file parts, pointing to this endpoint. The client must split the binary file in the expected part sizes and then upload each chunk individually.
 
@@ -1357,8 +1357,7 @@ components:
           type: string
           format: uri
           readOnly: true
-          default: https://example.com/dummy
-          description: Endpoint where to submit the file part data to (**WIP**).
+          description: Endpoint where to submit the file part data to.
         volgnummer:
           type: integer
           readOnly: true

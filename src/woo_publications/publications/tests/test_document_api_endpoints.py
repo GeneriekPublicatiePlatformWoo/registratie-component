@@ -576,6 +576,12 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
             # check that we have one file part in the response
             file_parts = response.json()["bestandsdelen"]
             self.assertEqual(len(file_parts), 1)
+            file_part_url = file_parts[0]["url"]
+            self.assertEqual(
+                file_part_url,
+                "http://host.docker.internal:8000/api/v1/documenten/"
+                f"{document.uuid}/bestandsdelen/{file_parts[0]["uuid"]}",
+            )
 
         # check that we can look up the document in the Open Zaak API:
         with (
