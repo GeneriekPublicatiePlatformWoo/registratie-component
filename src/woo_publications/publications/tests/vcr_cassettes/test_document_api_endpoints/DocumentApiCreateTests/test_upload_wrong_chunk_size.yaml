@@ -1,0 +1,109 @@
+interactions:
+- request:
+    body: '{"identificatie": "c1182276-6776-46f2-bdda-e19a8d92025e", "bronorganisatie":
+      "000000000", "informatieobjecttype": "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
+      "creatiedatum": "2024-11-06", "titel": "increase", "auteur": "GPP-Woo/ODRC",
+      "status": "definitief", "formaat": "application/octet-stream", "taal": "dut",
+      "bestandsnaam": "unknown.bin", "inhoud": null, "bestandsomvang": 5, "beschrijving":
+      "", "indicatieGebruiksrecht": false}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA1MTI0MSwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.PbshZJHXJDKEXdo8_V9dRyfyDX4DqlFRHE2ed5TdH6c
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '500'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.3
+    method: POST
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten
+  response:
+    body:
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/dba1f40e-2444-49e3-a224-ed344aacaf99","identificatie":"c1182276-6776-46f2-bdda-e19a8d92025e","bronorganisatie":"000000000","creatiedatum":"2024-11-06","titel":"increase","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T07:34:01.745454Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":5,"link":"","beschrijving":"","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/5299e749-afcf-4e9e-bbbb-620337149891","volgnummer":1,"omvang":5,"voltooid":false,"lock":"7e52e12b52a74c9c87362097a7d07b1a"}],"trefwoorden":[],"lock":"7e52e12b52a74c9c87362097a7d07b1a"}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Length:
+      - '1169'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Location:
+      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/dba1f40e-2444-49e3-a224-ed344aacaf99
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: "--e58c33e8c3e7cb78d99b0e2933cdc78a\r\nContent-Disposition: form-data; name=\"lock\"\r\n\r\n7e52e12b52a74c9c87362097a7d07b1a\r\n--e58c33e8c3e7cb78d99b0e2933cdc78a\r\nContent-Disposition:
+      form-data; name=\"inhoud\"; filename=\"dummy.txt\"\r\n\r\naAa\r\n--e58c33e8c3e7cb78d99b0e2933cdc78a--\r\n"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA1MTI0MSwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.PbshZJHXJDKEXdo8_V9dRyfyDX4DqlFRHE2ed5TdH6c
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '267'
+      Content-Type:
+      - multipart/form-data; boundary=e58c33e8c3e7cb78d99b0e2933cdc78a
+      User-Agent:
+      - python-requests/2.32.3
+    method: PUT
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/5299e749-afcf-4e9e-bbbb-620337149891
+  response:
+    body:
+      string: '{"type":"http://openzaak.docker.internal:8001/ref/fouten/ValidationError/","code":"invalid","title":"Invalid
+        input.","status":400,"detail":"","instance":"urn:uuid:54878588-90a1-4bdc-a474-13413ab538bf","invalidParams":[{"name":"nonFieldErrors","code":"file-size","reason":"Het
+        aangeleverde bestand heeft een afwijkende bestandsgrootte (volgens het `omvang`-veld).Verwachting:
+        5b, ontvangen: 3b"}]}'
+    headers:
+      API-version:
+      - 1.4.2
+      Allow:
+      - PUT, OPTIONS
+      Content-Length:
+      - '396'
+      Content-Security-Policy:
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Referrer-Policy:
+      - same-origin
+      Vary:
+      - Accept, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 400
+      message: Bad Request
+version: 1

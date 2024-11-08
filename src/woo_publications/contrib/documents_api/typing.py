@@ -48,3 +48,10 @@ class EIOCreateResponseBody(EIOCreateBody):
     url: Annotated[str, "API resource URL"]
     bestandsdelen: list[BestandsDeelMeta]
     lock: str
+
+
+class EIORetrieveBody(TypedDict):
+    # note: incomplete, only documented what we use
+    url: Annotated[str, "API resource URL"]
+    bestandsdelen: list[BestandsDeelMeta]
+    locked: bool

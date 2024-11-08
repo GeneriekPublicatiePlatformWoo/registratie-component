@@ -113,18 +113,7 @@ class ThemeTests(TokenAuthMixin, APITestCase):
     def test_detail_theme_wrong_uuid(self):
         list_url = reverse(
             "api:theme-detail",
-            kwargs={"uuid": str(uuid.uuid4)},
-        )
-
-        response = self.client.get(list_url, headers=AUDIT_HEADERS)
-
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-    def test_detail_broken_uuid(self):
-        # UUID misses 3 characters
-        list_url = reverse(
-            "api:theme-detail",
-            kwargs={"uuid": "d6323f56-5331-4b43-8e8c-63509be1e"},
+            kwargs={"uuid": uuid.uuid4()},
         )
 
         response = self.client.get(list_url, headers=AUDIT_HEADERS)

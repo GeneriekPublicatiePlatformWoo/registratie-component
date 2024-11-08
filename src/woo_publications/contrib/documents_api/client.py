@@ -4,14 +4,14 @@ from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
-from django.http import HttpRequest
+from django.core.files import File
 
 from furl import furl
 from zgw_consumers.client import build_client
 from zgw_consumers.models import Service
 from zgw_consumers.nlx import NLXClient
 
-from .typing import EIOCreateBody, EIOCreateResponseBody
+from .typing import EIOCreateBody, EIOCreateResponseBody, EIORetrieveBody
 
 __all__ = ["get_client"]
 
@@ -25,6 +25,7 @@ class FilePart:
     uuid: UUID
     order: int
     size: int
+    url: str = ""
 
 
 @dataclass
@@ -102,7 +103,7 @@ class DocumentenClient(NLXClient):
 
     def proxy_file_part_upload(
         self,
-        request: HttpRequest,
+        file: File,
         *,
         file_part_uuid: UUID,
         lock: str,
@@ -122,9 +123,22 @@ class DocumentenClient(NLXClient):
         optimize.
         """
         response = self.put(
-            f"bestandsdelen/{file_part_uuid}", data={"lock": lock}, files=request.FILES
+            f"bestandsdelen/{file_part_uuid}",
+            data={"lock": lock},
+            files={"inhoud": file},
         )
         response.raise_for_status()
+
+    def check_uploads_complete(self, *, document_uuid: UUID) -> bool:
+        document_detail_response = self.get(
+            f"enkelvoudiginformatieobjecten/{document_uuid}"
+        )
+        document_detail_response.raise_for_status()
+        document_detail: EIORetrieveBody = document_detail_response.json()
+        return all(
+            bestandsdeel["voltooid"]
+            for bestandsdeel in document_detail["bestandsdelen"]
+        )
 
     def unlock_document(self, *, uuid: UUID, lock: str) -> None:
         """

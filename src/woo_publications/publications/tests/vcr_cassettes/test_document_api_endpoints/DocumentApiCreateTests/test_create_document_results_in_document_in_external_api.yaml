@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"identificatie": "d79c80bc-9f35-48f6-8283-201a9dddedec", "bronorganisatie":
+    body: '{"identificatie": "0934dd86-32df-447f-8f17-fee64633a514", "bronorganisatie":
       "000000000", "informatieobjecttype": "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
       "creatiedatum": "2024-11-05", "titel": "Testdocument WOO-P + Open Zaak", "auteur":
       "GPP-Woo/ODRC", "status": "definitief", "formaat": "application/octet-stream",
@@ -12,7 +12,7 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMDg5NDE5MCwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.PQa8fiRc89We5rzd08Ol2wiZtMOsOkpSy2L-wffwy1c
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0ODg0MSwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.Q8ESNMQ4VzNwOqisx8oG8HEIRoYSaTEpwJkS523iXHg
       Connection:
       - keep-alive
       Content-Length:
@@ -25,9 +25,9 @@ interactions:
     uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten
   response:
     body:
-      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/eee7ecc8-9476-4620-be77-232fb5953616","identificatie":"d79c80bc-9f35-48f6-8283-201a9dddedec","bronorganisatie":"000000000","creatiedatum":"2024-11-05","titel":"Testdocument
-        WOO-P + Open Zaak","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-06T11:56:31.120557Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":10,"link":"","beschrijving":"Testing
-        123","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/257f4a77-ef04-4836-a550-69a2df1dc44b","volgnummer":1,"omvang":10,"voltooid":false,"lock":"c092b6244cdd4639ab1cc13889ebf706"}],"trefwoorden":[],"lock":"c092b6244cdd4639ab1cc13889ebf706"}'
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/5e3642bc-60a0-47b5-898d-6ecbc3a4735b","identificatie":"0934dd86-32df-447f-8f17-fee64633a514","bronorganisatie":"000000000","creatiedatum":"2024-11-05","titel":"Testdocument
+        WOO-P + Open Zaak","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T06:54:01.714716Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":10,"link":"","beschrijving":"Testing
+        123","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/3fa56422-a4ee-4817-b4b4-00466510c9c7","volgnummer":1,"omvang":10,"voltooid":false,"lock":"9c08e59677014e53a36081c36339ecf8"}],"trefwoorden":[],"lock":"9c08e59677014e53a36081c36339ecf8"}'
     headers:
       API-version:
       - 1.4.2
@@ -36,15 +36,15 @@ interactions:
       Content-Length:
       - '1204'
       Content-Security-Policy:
-      - form-action 'self'; script-src 'self'; frame-src 'self'; default-src 'self';
-        img-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none';
-        base-uri 'self'
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Location:
-      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/eee7ecc8-9476-4620-be77-232fb5953616
+      - http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/5e3642bc-60a0-47b5-898d-6ecbc3a4735b
       Referrer-Policy:
       - same-origin
       Vary:
@@ -64,18 +64,18 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMDg5NDE5MSwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.kBZ_vyeFpb3Oy0pSKoz61oabL9XTmw5J3lC5DJWMDBE
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3b28tcHVibGljYXRpb25zLWRldiIsImlhdCI6MTczMTA0ODg0MSwiY2xpZW50X2lkIjoid29vLXB1YmxpY2F0aW9ucy1kZXYiLCJ1c2VyX2lkIjoiIiwidXNlcl9yZXByZXNlbnRhdGlvbiI6IiJ9.Q8ESNMQ4VzNwOqisx8oG8HEIRoYSaTEpwJkS523iXHg
       Connection:
       - keep-alive
       User-Agent:
       - python-requests/2.32.3
     method: GET
-    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/eee7ecc8-9476-4620-be77-232fb5953616
+    uri: http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/5e3642bc-60a0-47b5-898d-6ecbc3a4735b
   response:
     body:
-      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/eee7ecc8-9476-4620-be77-232fb5953616","identificatie":"d79c80bc-9f35-48f6-8283-201a9dddedec","bronorganisatie":"000000000","creatiedatum":"2024-11-05","titel":"Testdocument
-        WOO-P + Open Zaak","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-06T11:56:31.120557Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":10,"link":"","beschrijving":"Testing
-        123","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/257f4a77-ef04-4836-a550-69a2df1dc44b","volgnummer":1,"omvang":10,"voltooid":false,"lock":"c092b6244cdd4639ab1cc13889ebf706"}],"trefwoorden":[]}'
+      string: '{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/enkelvoudiginformatieobjecten/5e3642bc-60a0-47b5-898d-6ecbc3a4735b","identificatie":"0934dd86-32df-447f-8f17-fee64633a514","bronorganisatie":"000000000","creatiedatum":"2024-11-05","titel":"Testdocument
+        WOO-P + Open Zaak","vertrouwelijkheidaanduiding":"openbaar","auteur":"GPP-Woo/ODRC","status":"definitief","formaat":"application/octet-stream","taal":"dut","versie":1,"beginRegistratie":"2024-11-08T06:54:01.714716Z","bestandsnaam":"unknown.bin","inhoud":null,"bestandsomvang":10,"link":"","beschrijving":"Testing
+        123","ontvangstdatum":null,"verzenddatum":null,"indicatieGebruiksrecht":false,"verschijningsvorm":"","ondertekening":{"soort":"","datum":null},"integriteit":{"algoritme":"","waarde":"","datum":null},"informatieobjecttype":"http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8","locked":true,"bestandsdelen":[{"url":"http://openzaak.docker.internal:8001/documenten/api/v1/bestandsdelen/3fa56422-a4ee-4817-b4b4-00466510c9c7","volgnummer":1,"omvang":10,"voltooid":false,"lock":"9c08e59677014e53a36081c36339ecf8"}],"trefwoorden":[]}'
     headers:
       API-version:
       - 1.4.2
@@ -84,15 +84,15 @@ interactions:
       Content-Length:
       - '1162'
       Content-Security-Policy:
-      - form-action 'self'; script-src 'self'; frame-src 'self'; default-src 'self';
-        img-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none';
-        base-uri 'self'
+      - style-src 'self'; script-src 'self'; frame-src 'self'; base-uri 'self'; frame-ancestors
+        'none'; default-src 'self'; form-action 'self'; object-src 'none'; img-src
+        'self'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       ETag:
-      - '"a36e0ee1514dc6bda96da5156de236a0"'
+      - '"cfcbe062752b379875f20774b576af6e"'
       Referrer-Policy:
       - same-origin
       Vary:
