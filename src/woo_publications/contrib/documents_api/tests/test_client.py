@@ -52,7 +52,7 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
                 document_type_url=DOCUMENT_TYPE_URL,
                 creation_date=date.today(),
                 title="Sample document",
-                filesize=256_000,  # in bytes
+                filesize=1_000,  # in bytes
                 filename="sample.png",
                 content_type="image/png",
                 description="a" * 5000,  # use a long string and try to break it
@@ -63,10 +63,11 @@ class DocumentsAPIClientTests(VCRMixin, TestCase):
         self.assertIsInstance(document.lock, str)
         self.assertNotEqual(document.lock, "")
 
-        # given the upload size & configuration of Open Zaak, we only expect one part
-        self.assertEqual(len(parts := document.file_parts), 1)
+        # given the upload size & configuration of Open Zaak (100 byte chunks),
+        # we expect multiple parts (see DOCUMENTEN_UPLOAD_CHUNK_SIZE envvar)
+        self.assertEqual(len(parts := document.file_parts), 10)
         self.assertGreater(len(str(parts[0].uuid)), 0)
-        self.assertEqual(parts[0].size, 256_000)
+        self.assertEqual(parts[0].size, 100)
 
         with self.subTest("check document is created"):
             # and we expect that we can fetch the document too
