@@ -18,7 +18,7 @@ from woo_publications.metadata.tests.factories import (
 
 from ..constants import PublicationStatusOptions
 from ..models import Publication
-from .factories import PublicationFactory
+from .factories import DocumentFactory, PublicationFactory
 
 AUDIT_HEADERS = {
     "AUDIT_USER_REPRESENTATION": "username",
@@ -688,8 +688,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         organisation = OrganisationFactory.create(is_actief=True)
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
-            publisher=organisation,
             publicatiestatus=PublicationStatusOptions.revoked,
+            publisher=organisation,
         )
         detail_url = reverse(
             "api:publication-detail",
@@ -761,6 +761,50 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
 
         # test that only officiele_titel got changed
         self.assertEqual(response_data, expected_data)
+
+    def test_partial_update_when_revoking_publication_the_published_documents_also_get_revoked(
+        self,
+    ):
+        ic = InformationCategoryFactory.create()
+        publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
+            publicatiestatus=PublicationStatusOptions.published,
+        )
+        published_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.published
+        )
+        concept_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.concept
+        )
+        revoked_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.revoked
+        )
+
+        detail_url = reverse(
+            "api:publication-detail",
+            kwargs={"uuid": str(publication.uuid)},
+        )
+        data = {"publicatiestatus": PublicationStatusOptions.revoked}
+
+        response = self.client.patch(detail_url, data, headers=AUDIT_HEADERS)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        published_document.refresh_from_db()
+        concept_document.refresh_from_db()
+        revoked_document.refresh_from_db()
+
+        self.assertEqual(
+            response.json()["publicatiestatus"], PublicationStatusOptions.revoked
+        )
+        self.assertEqual(
+            published_document.publicatiestatus, PublicationStatusOptions.revoked
+        )
+        self.assertEqual(
+            concept_document.publicatiestatus, PublicationStatusOptions.concept
+        )
+        self.assertEqual(
+            revoked_document.publicatiestatus, PublicationStatusOptions.revoked
+        )
 
     def test_destroy_publication(self):
         ic = InformationCategoryFactory.create()
