@@ -79,6 +79,10 @@ LOGIN_URLS = [reverse_lazy("admin:login")]
 # Default (connection timeout, read timeout) for the requests library (in seconds)
 REQUESTS_DEFAULT_TIMEOUT = (10, 30)
 
+SENDFILE_BACKEND = config("SENDFILE_BACKEND", default="django_sendfile.backends.nginx")
+SENDFILE_ROOT = PRIVATE_MEDIA_ROOT
+SENDFILE_URL = PRIVATE_MEDIA_URL
+
 ##############################
 #                            #
 # 3RD PARTY LIBRARY SETTINGS #
