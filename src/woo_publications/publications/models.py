@@ -3,6 +3,7 @@ from typing import Callable
 
 from django.core.exceptions import ValidationError
 from django.db import models, transaction
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.reverse import reverse
@@ -150,6 +151,7 @@ class Publication(models.Model):
             case User():
                 for document in documents:
                     document.publicatiestatus = PublicationStatusOptions.revoked
+                    document.laatst_gewijzigd_datum = timezone.now()
                     audit_admin_update(
                         content_object=document,
                         django_user=user,
@@ -159,6 +161,7 @@ class Publication(models.Model):
                 assert remarks
                 for document in documents:
                     document.publicatiestatus = PublicationStatusOptions.revoked
+                    document.laatst_gewijzigd_datum = timezone.now()
                     audit_api_update(
                         content_object=document,
                         user_id=user["user_id"],
@@ -167,7 +170,10 @@ class Publication(models.Model):
                         remarks=remarks,
                     )
 
-        Document.objects.bulk_update(documents, ["publicatiestatus"])
+        # manually update laatst_gewijzigd_datum because bulk_update doesn't trigger save method.
+        Document.objects.bulk_update(
+            documents, ["publicatiestatus", "laatst_gewijzigd_datum"]
+        )
 
 
 class Document(models.Model):
