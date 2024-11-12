@@ -5,6 +5,7 @@ from .api_tools import (
     AuditTrailRetrieveMixin,
     AuditTrailUpdateMixin,
     AuditTrailViewSetMixin,
+    extract_audit_parameters,
 )
 from .logevent import (
     audit_admin_create,
@@ -28,6 +29,7 @@ __all__ = [
     "AuditTrailUpdateMixin",
     "AuditTrailDestroyMixin",
     "AuditTrailViewSetMixin",
+    "extract_audit_parameters",
     # Low level helpers
     # * admin
     "audit_admin_create",

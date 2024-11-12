@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.reverse import reverse
 from zgw_consumers.constants import APITypes
 
+from woo_publications.accounts.models import User
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import (
     Document as ZGWDocument,
@@ -15,8 +16,11 @@ from woo_publications.contrib.documents_api.client import (
 )
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
+from woo_publications.logging.serializing import serialize_instance
+from woo_publications.logging.service import audit_admin_update, audit_api_update
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
+from woo_publications.typing import ApiUser
 
 from .constants import PublicationStatusOptions
 
@@ -133,10 +137,37 @@ class Publication(models.Model):
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
 
-    def revoke_own_published_documents(self) -> None:
-        self.document_set.filter(  # pyright: ignore reportAttributeAccessIssue
-            publicatiestatus=PublicationStatusOptions.published
-        ).update(publicatiestatus=PublicationStatusOptions.revoked)
+    def revoke_own_published_documents(
+        self, user: User | ApiUser, remarks: str | None = None
+    ) -> None:
+        documents = (
+            self.document_set.filter(  # pyright: ignore reportAttributeAccessIssue
+                publicatiestatus=PublicationStatusOptions.published
+            )
+        )
+
+        match user:
+            case User():
+                for document in documents:
+                    document.publicatiestatus = PublicationStatusOptions.revoked
+                    audit_admin_update(
+                        content_object=document,
+                        django_user=user,
+                        object_data=serialize_instance(document),
+                    )
+            case dict():
+                assert remarks
+                for document in documents:
+                    document.publicatiestatus = PublicationStatusOptions.revoked
+                    audit_api_update(
+                        content_object=document,
+                        user_id=user["user_id"],
+                        user_display=user["user_repr"],
+                        object_data=serialize_instance(document),
+                        remarks=remarks,
+                    )
+
+        Document.objects.bulk_update(documents, ["publicatiestatus"])
 
 
 class Document(models.Model):

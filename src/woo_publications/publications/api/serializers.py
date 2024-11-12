@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from woo_publications.contrib.documents_api.client import FilePart
+from woo_publications.logging.service import extract_audit_parameters
 from woo_publications.metadata.models import InformationCategory, Organisation
 
 from ..constants import PublicationStatusOptions
@@ -223,6 +224,12 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
         publication = super().update(instance, validated_data)
 
         if validated_data.get("publicatiestatus") == PublicationStatusOptions.revoked:
-            publication.revoke_own_published_documents()
+            user_id, user_repr, remarks = extract_audit_parameters(
+                self.context["request"]
+            )
+
+            publication.revoke_own_published_documents(
+                user={"user_id": user_id, "user_repr": user_repr}, remarks=remarks
+            )
 
         return publication

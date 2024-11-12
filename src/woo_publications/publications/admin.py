@@ -61,7 +61,7 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if obj.publicatiestatus == PublicationStatusOptions.revoked:
-            obj.revoke_own_published_documents()
+            obj.revoke_own_published_documents(request.user)
         super().save_model(request, obj, form, change)
 
     @admin.display(description=_("actions"))
