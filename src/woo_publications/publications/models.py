@@ -121,11 +121,6 @@ class Publication(models.Model):
                 )
             )
 
-    def save(self, *args, **kwargs):
-        if self.pk and self.publicatiestatus == PublicationStatusOptions.revoked:
-            self.revoke_own_published_documents()
-        super().save(*args, **kwargs)
-
     def get_owner(self) -> ActingUser | None:
         """
         Extract the owner from the audit trails.
