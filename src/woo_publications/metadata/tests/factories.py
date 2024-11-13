@@ -6,14 +6,14 @@ from ..models import InformationCategory, Organisation, Theme
 class InformationCategoryFactory(factory.django.DjangoModelFactory):
     naam = factory.Faker("word")
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = InformationCategory
 
 
 class ThemeFactory(factory.django.DjangoModelFactory):
     naam = factory.Faker("word")
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Theme
 
     @classmethod
@@ -28,5 +28,5 @@ class ThemeFactory(factory.django.DjangoModelFactory):
 class OrganisationFactory(factory.django.DjangoModelFactory):
     naam = factory.Faker("word")
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Organisation

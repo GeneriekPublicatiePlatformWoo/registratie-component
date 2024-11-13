@@ -107,7 +107,7 @@ class Publication(models.Model):
         ),
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = _("publication")
         verbose_name_plural = _("publications")
 
@@ -127,7 +127,9 @@ class Publication(models.Model):
         """
         Extract the owner from the audit trails.
         """
-        qs = TimelineLogProxy.objects.for_object(self)  # type: ignore reportAttributeAccessIssue
+        qs = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+            self
+        )
         try:
             log = qs.get(extra_data__event=Events.create)
         except TimelineLogProxy.DoesNotExist:
@@ -252,7 +254,7 @@ class Document(models.Model):
     # Private property managed by the getter and setter below.
     _zgw_document: ZGWDocument | None = None
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = _("document")
         verbose_name_plural = _("documents")
         constraints = [

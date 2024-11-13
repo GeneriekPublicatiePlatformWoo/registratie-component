@@ -4,7 +4,7 @@ from zgw_consumers.test.factories import ServiceFactory as _ServiceFactory
 
 
 class ServiceFactory(_ServiceFactory):
-    class Params:  # type: ignore
+    class Params:  # pyright: ignore
         # See ``docker/open-zaak/README.md`` for the test credentials and available
         # data.
         for_documents_api_docker_compose = factory.Trait(

@@ -6,7 +6,9 @@ from ..models import User
 
 class UserManagerTests(TestCase):
     def test_create_superuser(self):
-        user = User.objects.create_superuser("god", "god@heaven.com", "praisejebus")  # type: ignore
+        user = User.objects.create_superuser(  # pyright: ignore
+            "god", "god@heaven.com", "praisejebus"
+        )
         self.assertIsNotNone(user.pk)
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
@@ -16,7 +18,7 @@ class UserManagerTests(TestCase):
         self.assertNotEqual(user.password, "praisejebus")
 
     def test_create_user(self):
-        user = User.objects.create_user("infidel")  # type: ignore
+        user = User.objects.create_user("infidel")  # pyright: ignore
         self.assertIsNotNone(user.pk)
         self.assertFalse(user.is_superuser)
         self.assertFalse(user.is_staff)

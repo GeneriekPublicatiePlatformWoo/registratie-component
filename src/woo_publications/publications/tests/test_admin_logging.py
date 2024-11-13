@@ -281,7 +281,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 302)
 
         with self.subTest("update inline update logging"):
-            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
+            log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+                document
+            ).get()
 
             expected_data = {
                 "event": Events.update,
@@ -368,7 +370,9 @@ class TestPublicationAdminAuditLogging(WebTest):
 
         with self.subTest("update inline update logging"):
             document = Document.objects.get()
-            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
+            log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+                document
+            ).get()
 
             expected_data = {
                 "event": Events.create,
@@ -451,7 +455,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         self.assertEqual(response.status_code, 302)
 
         with self.subTest("update inline update logging"):
-            log = TimelineLogProxy.objects.for_object(document).get()  # type: ignore reportAttributeAccessIssue
+            log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+                document
+            ).get()
 
             expected_data = {
                 "event": Events.delete,

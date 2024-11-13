@@ -26,7 +26,9 @@ class InformationCategoryLoggingTests(TokenAuthMixin, APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.for_object(information_category)  # type: ignore reportAttributeAccessIssue
+        log_records = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+            information_category
+        )
         self.assertEqual(log_records.count(), 1)
 
 
@@ -42,7 +44,9 @@ class OrganisationLoggingTests(TokenAuthMixin, APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.for_object(organisation)  # type: ignore reportAttributeAccessIssue
+        log_records = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+            organisation
+        )
         self.assertEqual(log_records.count(), 1)
 
 
@@ -58,5 +62,7 @@ class ThemeLoggingTests(TokenAuthMixin, APITestCase):
         response = self.client.get(detail_url, headers=AUDIT_HEADERS)
 
         assert response.status_code == status.HTTP_200_OK
-        log_records = TimelineLogProxy.objects.for_object(theme)  # type: ignore reportAttributeAccessIssue
+        log_records = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+            theme
+        )
         self.assertEqual(log_records.count(), 1)

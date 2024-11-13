@@ -18,7 +18,7 @@ class PublicationFactory(factory.django.DjangoModelFactory):
 
     @factory.post_generation
     def informatie_categorieen(
-        obj: Publication,  # pyright: ignore reportGeneralTypeIssues
+        obj: Publication,  # pyright: ignore[reportGeneralTypeIssues]
         create: bool,
         extracted: Sequence[InformationCategory],
         **kwargs,

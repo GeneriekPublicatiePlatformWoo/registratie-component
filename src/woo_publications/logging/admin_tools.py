@@ -38,7 +38,9 @@ class AdminAuditLogMixin:
             object_data=serialize_instance(object),
         )
 
-        return super().log_addition(request, object, message)  # type: ignore reportAttributeAccessIssue
+        return super().log_addition(  # pyright: ignore[reportAttributeAccessIssue]
+            request, object, message
+        )
 
     def log_change(self, request, object, message):
         assert isinstance(request.user, User)
@@ -48,7 +50,9 @@ class AdminAuditLogMixin:
             object_data=serialize_instance(object),
         )
 
-        return super().log_change(request, object, message)  # type: ignore reportAttributeAccessIssue
+        return super().log_change(  # pyright: ignore[reportAttributeAccessIssue]
+            request, object, message
+        )
 
     def log_deletion(self, request, object, object_repr):
         assert isinstance(request.user, User)
@@ -58,7 +62,9 @@ class AdminAuditLogMixin:
             object_data=serialize_instance(object),
         )
 
-        return super().log_deletion(request, object, object_repr)  # type: ignore reportAttributeAccessIssue
+        return super().log_deletion(  # pyright: ignore[reportAttributeAccessIssue]
+            request, object, object_repr
+        )
 
     def change_view(
         self,
@@ -85,10 +91,16 @@ class AdminAuditLogMixin:
             assert isinstance(request.user, User)
             audit_admin_read(content_object=object, django_user=request.user)
 
-        return super().change_view(request, object_id, form_url, extra_context)  # type: ignore reportAttributeAccessIssue
+        return super().change_view(  # pyright: ignore[reportAttributeAccessIssue]
+            request, object_id, form_url, extra_context
+        )
 
     def get_formset_kwargs(self, request, obj, inline, prefix):
-        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)  # type: ignore reportAttributeAccessIssue
+        kwargs = (
+            super().get_formset_kwargs(  # pyright: ignore[reportAttributeAccessIssue]
+                request, obj, inline, prefix
+            )
+        )
         kwargs["_django_user"] = request.user
         return kwargs
 

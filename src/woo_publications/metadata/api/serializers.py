@@ -8,7 +8,7 @@ from ..models import InformationCategory, Organisation, Theme
 
 
 class InformationCategorySerializer(serializers.ModelSerializer):
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = InformationCategory
         fields = (
             "uuid",
@@ -31,7 +31,7 @@ class InformationCategorySerializer(serializers.ModelSerializer):
 class OrganisationSerializer(serializers.ModelSerializer):
     instance: Organisation | None
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Organisation
         fields = ("uuid", "identifier", "naam", "oorsprong", "is_actief")
         read_only_fields = (
@@ -76,7 +76,7 @@ class ThemeSerializer(serializers.ModelSerializer):
         help_text=_("The nested themes attached to this current theme."),
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         model = Theme
         fields = (
             "uuid",
