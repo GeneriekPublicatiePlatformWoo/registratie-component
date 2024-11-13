@@ -59,6 +59,7 @@ Klik verder om meer te leren over de volgende onderdelen:
    publicaties/index
    metadata/index
    accounts/index
+   api_access/index
    logging/index
    configuratie/index
    handige_links/index
