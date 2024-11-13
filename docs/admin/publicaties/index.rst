@@ -106,6 +106,7 @@ Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het sc
 * ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : ``verkorteTitel``)
 * ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : ``omschrijving``)
 * ``Status``. De status van de publicatie. "Published" betekent dat de publicatie online vindbaar en raadpleegbaar is. "Concept" en "Revoked" zijn offline voor de buitenwereld.
+  Let op, als je een publicatie intrekt, dan worden de documenten met de huidige status "published" automatisch ook ingetrokken!
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop de publicatie nieuw is toegevoegd.
 * ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop de publicatie voor het laatst gewijzigd was.
