@@ -2,7 +2,6 @@ import logging
 
 from decouple import Csv, Undefined, undefined
 from open_api_framework.conf.utils import config as _config
-from sentry_sdk.integrations import DidNotEnable, django, redis
 
 logger = logging.getLogger(__name__)
 
@@ -17,32 +16,12 @@ def config[T](option: str, default: T | Undefined = undefined, *args, **kwargs) 
 
     Pass ``split=True`` to split the comma-separated input into a list.
     """
-    if kwargs.get("split") is True:
+    if kwargs.get("split") is True:  # pragma: no cover
         kwargs.pop("split")
         kwargs["cast"] = Csv()
         if default == []:
             default = ""  # pyright: ignore
     return _config(option, default=default, *args, **kwargs)  # pyright: ignore
-
-
-def get_sentry_integrations() -> list:
-    """
-    Determine which Sentry SDK integrations to enable.
-    """
-    default = [
-        django.DjangoIntegration(),
-        redis.RedisIntegration(),
-    ]
-    extra = []
-
-    try:
-        from sentry_sdk.integrations import celery
-    except DidNotEnable:  # happens if the celery import fails by the integration
-        pass
-    else:
-        extra.append(celery.CeleryIntegration())
-
-    return [*default, *extra]
 
 
 def mute_logging(config: dict) -> None:  # pragma: no cover

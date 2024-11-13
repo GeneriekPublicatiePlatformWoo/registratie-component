@@ -41,7 +41,7 @@ urlpatterns += staticfiles_urlpatterns() + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
-if settings.DEBUG and apps.is_installed("debug_toolbar"):
+if settings.DEBUG and apps.is_installed("debug_toolbar"):  # pragma: no cover
     import debug_toolbar  # pyright: ignore
 
     urlpatterns = [

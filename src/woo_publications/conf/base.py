@@ -126,9 +126,9 @@ HIJACK_INSERT_BEFORE = (
 
 # Subpath (optional)
 # This environment variable can be configured during deployment.
-SUBPATH = config("SUBPATH", default="")
-if SUBPATH:
-    SUBPATH = f"/{SUBPATH.strip('/')}"
+SUBPATH = (
+    f"/{_subpath.strip('/')}" if (_subpath := config("SUBPATH", default="")) else ""
+)
 
 #
 # DJANGO REST FRAMEWORK
