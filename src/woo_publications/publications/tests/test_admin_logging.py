@@ -53,9 +53,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         # Force the value because the select box options get loaded in with js
         form["informatie_categorieen"].force_value([ic.id, ic2.id])
         form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
-        form["publisher"].select(text=organisation.naam)
-        form["verantwoordelijke"].select(text=organisation.naam)
-        form["opsteller"].select(text=organisation2.naam)
+        form["publisher"] = str(organisation.pk)
+        form["verantwoordelijke"] = str(organisation.pk)
+        form["opsteller"] = str(organisation2.pk)
         form["officiele_titel"] = "The official title of this publication"
         form["verkorte_titel"] = "The title"
         form["omschrijving"] = (
@@ -122,9 +122,9 @@ class TestPublicationAdminAuditLogging(WebTest):
         form = response.forms["publication_form"]
         form["informatie_categorieen"].select_multiple(texts=[ic.naam])
         form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
-        form["publisher"].select(text=organisation2.naam)
-        form["verantwoordelijke"].select(text=organisation2.naam)
-        form["opsteller"].select(text=organisation2.naam)
+        form["publisher"] = str(organisation2.pk)
+        form["verantwoordelijke"] = str(organisation2.pk)
+        form["opsteller"] = str(organisation2.pk)
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
