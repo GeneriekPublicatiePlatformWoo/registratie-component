@@ -1,10 +1,18 @@
+import logging
+from collections.abc import Iterable
 from typing import override
 from uuid import UUID
 
 from django.db import transaction
+from django.http import StreamingHttpResponse
 from django.utils.translation import gettext_lazy as _
 
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    OpenApiResponse,
+    extend_schema,
+    extend_schema_view,
+)
 from requests import RequestException
 from rest_framework import mixins, serializers, status, viewsets
 from rest_framework.decorators import action
@@ -12,6 +20,8 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from woo_publications.api.exceptions import BadGateway
+from woo_publications.contrib.documents_api.client import get_client
 from woo_publications.logging.service import AuditTrailViewSetMixin
 
 from ..models import Document, Publication
@@ -21,6 +31,12 @@ from .serializers import (
     DocumentStatusSerializer,
     FilePartSerializer,
     PublicationSerializer,
+)
+
+logger = logging.getLogger(__name__)
+
+DOWNLOAD_CHUNK_SIZE = (
+    8_192  # read 8 kB into memory at a time when downloading from upstream
 )
 
 
@@ -101,7 +117,8 @@ class DocumentViewSet(
         url_name="filepart-detail",
     )
     def file_part(self, request: Request, part_uuid: UUID, *args, **kwargs) -> Response:
-        document: Document = self.get_object()
+        document = self.get_object()
+        assert isinstance(document, Document)
         serializer = FilePartSerializer(
             data=request.data,
             context={"request": request, "view": self},
@@ -124,6 +141,81 @@ class DocumentViewSet(
             instance={"document_upload_voltooid": is_completed}
         )
         return Response(response_serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        summary=_("Download the binary file contents"),
+        description=_(
+            "Download the binary content of the document. The endpoint does not return "
+            "JSON data, but instead the file content is streamed.\n\n"
+            "You can only download the content of files that are completely uploaded "
+            "in the upstream API."
+        ),
+        responses={
+            (status.HTTP_200_OK, "application/octet-stream"): OpenApiResponse(
+                description=_("The binary file contents."),
+                response=bytes,
+            ),
+            status.HTTP_502_BAD_GATEWAY: OpenApiResponse(
+                description=_("Bad gateway - failure to stream content."),
+            ),
+        },
+        parameters=[
+            OpenApiParameter(
+                name="Content-Length",
+                type=str,
+                location=OpenApiParameter.HEADER,
+                description=_("Total size in bytes of the download."),
+                response=(200,),
+            )
+        ],
+    )
+    @action(detail=True, methods=["get"], url_name="download")
+    def download(self, request: Request, *args, **kwargs) -> StreamingHttpResponse:
+        # TODO: audit event download
+        document = self.get_object()
+        assert isinstance(document, Document)
+
+        assert (
+            document.document_service is not None
+        ), "Document must exist in upstream API"
+
+        endpoint = f"enkelvoudiginformatieobjecten/{document.document_uuid}/download"
+        with get_client(document.document_service) as client:
+            upstream_response = client.get(endpoint, stream=True)
+
+            if (_status := upstream_response.status_code) != status.HTTP_200_OK:
+                logger.warning(
+                    "Streaming of file contents (ID: %s) fails. Status code: %r.",
+                    document.document_uuid,
+                    _status,
+                    extra={
+                        "document_id": document.document_uuid,
+                        "api_root": client.base_url,
+                    },
+                )
+                raise BadGateway(detail=_("Could not download from the upstream."))
+
+            # generator that produces the chunks
+            streaming_content: Iterable[bytes] = (
+                chunk
+                for chunk in upstream_response.iter_content(
+                    chunk_size=DOWNLOAD_CHUNK_SIZE
+                )
+                if chunk
+            )
+
+            response = StreamingHttpResponse(
+                streaming_content,
+                # TODO: if we have format information, we can use it, but that's not part
+                # of BB-MVP
+                content_type="application/octet-stream",
+                headers={
+                    "Content-Length": upstream_response.headers.get(
+                        "Content-Length", str(document.bestandsomvang)
+                    )
+                },
+            )
+            return response
 
 
 @extend_schema(tags=["Publicaties"])

@@ -1,6 +1,8 @@
+from collections.abc import Iterator
 from uuid import uuid4
 
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.http import StreamingHttpResponse
 from django.test import override_settings
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -821,3 +823,90 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                     "Host": "host.docker.internal:8000",
                 },
             )
+
+
+class DocumentDownloadTests(VCRMixin, TokenAuthMixin, APITestCase):
+    """
+    Test the Document download (GET) endpoint.
+
+    WOO Publications acts as a bit of a proxy - a document that gets created/registered
+    with us is saved into the Documents API, primarily to handle the file uploads
+    accordingly.
+
+    The API traffic is captured and 'mocked' using VCR.py. When re-recording the cassettes
+    for these tests, make sure to bring up the docker compose in the root of the repo:
+
+    .. code-block:: bash
+
+        docker compose up
+
+    See ``docker/open-zaak/README.md`` for the test credentials and available data.
+    """
+
+    # this UUID is in the fixture
+    DOCUMENT_TYPE_UUID = "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8"
+    DOCUMENT_TYPE_URL = (
+        "http://host.docker.internal:8000/catalogi/api/v1/informatieobjecttypen/"
+        + DOCUMENT_TYPE_UUID
+    )
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        # Set up global configuration
+        cls.service = service = ServiceFactory.create(
+            for_documents_api_docker_compose=True
+        )
+        config = GlobalConfiguration.get_solo()
+        config.documents_api_service = service
+        config.organisation_rsin = "000000000"
+        config.save()
+
+        cls.information_category = InformationCategoryFactory.create(
+            uuid=cls.DOCUMENT_TYPE_UUID
+        )
+
+    def setUp(self):
+        super().setUp()
+        self.addCleanup(GlobalConfiguration.clear_cache)
+
+    def test_download_document(self):
+        document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+        assert document.zgw_document is not None
+        document.upload_part_data(
+            uuid=document.zgw_document.file_parts[0].uuid,
+            file=SimpleUploadedFile("dummy.txt", b"aAaAa"),
+        )
+        endpoint = reverse("api:document-download", kwargs={"uuid": document.uuid})
+
+        response = self.client.get(endpoint, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        assert isinstance(response, StreamingHttpResponse)
+        self.assertTrue(response.streaming)
+        self.assertEqual(response["Content-Length"], "5")
+
+        assert isinstance(response.streaming_content, Iterator)
+        content = b"".join(response.streaming_content)
+        self.assertEqual(content, b"aAaAa")
+
+    def test_download_incomplete_document(self):
+        document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[self.information_category],
+            bestandsomvang=5,
+        )
+        document.register_in_documents_api(
+            build_absolute_uri=lambda path: f"http://host.docker.internal:8000{path}",
+        )
+
+        endpoint = reverse("api:document-download", kwargs={"uuid": document.uuid})
+
+        response = self.client.get(endpoint, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_502_BAD_GATEWAY)
