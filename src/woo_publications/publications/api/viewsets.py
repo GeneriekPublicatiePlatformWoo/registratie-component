@@ -22,7 +22,11 @@ from rest_framework.response import Response
 
 from woo_publications.api.exceptions import BadGateway
 from woo_publications.contrib.documents_api.client import get_client
-from woo_publications.logging.service import AuditTrailViewSetMixin
+from woo_publications.logging.service import (
+    AuditTrailViewSetMixin,
+    audit_api_download,
+    extract_audit_parameters,
+)
 
 from ..models import Document, Publication
 from .filters import DocumentFilterSet, PublicationFilterSet
@@ -171,7 +175,6 @@ class DocumentViewSet(
     )
     @action(detail=True, methods=["get"], url_name="download")
     def download(self, request: Request, *args, **kwargs) -> StreamingHttpResponse:
-        # TODO: audit event download
         document = self.get_object()
         assert isinstance(document, Document)
 
@@ -215,6 +218,15 @@ class DocumentViewSet(
                     )
                 },
             )
+
+            user_id, user_repr, remarks = extract_audit_parameters(request)
+            audit_api_download(
+                content_object=document,
+                user_id=user_id,
+                user_display=user_repr,
+                remarks=remarks,
+            )
+
             return response
 
 
