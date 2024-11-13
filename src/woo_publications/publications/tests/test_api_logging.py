@@ -212,7 +212,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
         self.assertEqual(TimelineLogProxy.objects.count(), 2)
 
         with self.subTest("update publication audit logging"):
-            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore reportAttributeAccessIssue
+            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
                 publication
             ).get(
                 extra_data__event=Events.update
@@ -242,7 +242,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
             self.assertEqual(update_publication_log.extra_data, expected_data)
 
         with self.subTest("update document audit logging"):
-            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore reportAttributeAccessIssue
+            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
                 published_document
             ).get()
 

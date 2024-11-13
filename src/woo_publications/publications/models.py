@@ -21,7 +21,6 @@ from woo_publications.logging.serializing import serialize_instance
 from woo_publications.logging.service import audit_admin_update, audit_api_update
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
-from woo_publications.typing import ApiUser
 
 from .constants import PublicationStatusOptions
 
@@ -139,41 +138,40 @@ class Publication(models.Model):
         return log.acting_user[0]
 
     def revoke_own_published_documents(
-        self, user: User | ApiUser, remarks: str | None = None
+        self, user: User | ActingUser, remarks: str | None = None
     ) -> None:
-        documents = (
-            self.document_set.filter(  # pyright: ignore reportAttributeAccessIssue
+        published_documents = (
+            self.document_set.filter(  # pyright: ignore[reportAttributeAccessIssue]
                 publicatiestatus=PublicationStatusOptions.published
             )
         )
 
-        match user:
-            case User():
-                for document in documents:
-                    document.publicatiestatus = PublicationStatusOptions.revoked
-                    document.laatst_gewijzigd_datum = timezone.now()
-                    audit_admin_update(
-                        content_object=document,
-                        django_user=user,
-                        object_data=serialize_instance(document),
-                    )
-            case dict():
-                assert remarks
-                for document in documents:
-                    document.publicatiestatus = PublicationStatusOptions.revoked
-                    document.laatst_gewijzigd_datum = timezone.now()
-                    audit_api_update(
-                        content_object=document,
-                        user_id=user["user_id"],
-                        user_display=user["user_repr"],
-                        object_data=serialize_instance(document),
-                        remarks=remarks,
-                    )
-
-        # manually update laatst_gewijzigd_datum because bulk_update doesn't trigger save method.
-        Document.objects.bulk_update(
-            documents, ["publicatiestatus", "laatst_gewijzigd_datum"]
+        # get a list of IDs of published documents, make sure to evaluate the queryset so it's not affected by
+        # the `update` query
+        document_ids_to_log = list(published_documents.values_list("pk", flat=True))
+        published_documents.update(
+            publicatiestatus=PublicationStatusOptions.revoked,
+            laatst_gewijzigd_datum=timezone.now(),
         )
+
+        # audit log actions
+        is_django_user = isinstance(user, User)
+        log_callback = audit_admin_update if is_django_user else audit_api_update
+        log_extra_kwargs = (
+            {"django_user": user}
+            if is_django_user
+            else {
+                "user_id": user["identifier"],
+                "user_display": user["display_name"],
+                "remarks": remarks,
+            }
+        )
+        for document in Document.objects.filter(pk__in=document_ids_to_log):
+            log_callback(
+                content_object=document,
+                object_data=serialize_instance(document),
+                **log_extra_kwargs,  # pyright: ignore[reportArgumentType]
+            )
 
 
 class Document(models.Model):

@@ -187,10 +187,9 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
             "publicatiestatus": {
                 "help_text": _(
                     "\n**Disclaimer**: you can't create a {revoked} publication."
-                    "\n\n**Disclaimer**: when you {revoked} a publication, the attached {published} documents also get's {revoked}."
+                    "\n\n**Disclaimer**: when you revoke a publication, the attached published documents also get revoked."
                 ).format(
                     revoked=PublicationStatusOptions.revoked.label.lower(),
-                    published=PublicationStatusOptions.published.label.lower(),
                 )
             },
         }
@@ -221,6 +220,7 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
 
     @transaction.atomic
     def update(self, instance, validated_data):
+        assert instance.publicatiestatus != PublicationStatusOptions.revoked
         publication = super().update(instance, validated_data)
 
         if validated_data.get("publicatiestatus") == PublicationStatusOptions.revoked:
@@ -229,7 +229,7 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
             )
 
             publication.revoke_own_published_documents(
-                user={"user_id": user_id, "user_repr": user_repr}, remarks=remarks
+                user={"identifier": user_id, "display_name": user_repr}, remarks=remarks
             )
 
         return publication
