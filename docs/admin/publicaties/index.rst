@@ -47,6 +47,7 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Bestandsformaat``. *In ontwikkeling* (DiWoo : ``format``)
 * ``Bestandsnaam``. Naam van het bestand zoals deze op de harde schijf opgeslagen wordt.
 * ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
+* ``Status``. De publicatiestatus van het document (DiWoo : ``publicatiestatus``)
 * ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
@@ -103,6 +104,7 @@ Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het sc
 * ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van de publicatie. (DiWoo : ``officieleTitel``)
 * ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : ``verkorteTitel``)
 * ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : ``omschrijving``)
+* ``Status``. De publicatiestatus van de publicatie **LET OP**: wanneer de publicatie ingetrokken wordt, worden de gepubliceerde documenten ook ingetrokken. (DiWoo : ``publicatiestatus``)
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop de publicatie nieuw is toegevoegd.

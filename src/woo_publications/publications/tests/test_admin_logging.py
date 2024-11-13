@@ -175,6 +175,142 @@ class TestPublicationAdminAuditLogging(WebTest):
 
             self.assertEqual(update_log.extra_data, expected_data)
 
+    def test_admin_update_revoke_published_documents_when_revoking_publication(self):
+        assert not TimelineLogProxy.objects.exists()
+        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        organisation = OrganisationFactory.create(is_actief=True)
+        with freeze_time("2024-09-27T00:14:00-00:00"):
+            publication = PublicationFactory.create(
+                publisher=organisation,
+                verantwoordelijke=organisation,
+                opsteller=organisation,
+                informatie_categorieen=[ic, ic2],
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            )
+            published_document = DocumentFactory.create(
+                publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.published,
+                identifier="http://example.com/1",
+                officiele_titel="title",
+                creatiedatum="2024-10-17",
+            )
+            concept_document = DocumentFactory.create(
+                publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.concept,
+            )
+            revoked_document = DocumentFactory.create(
+                publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.revoked,
+            )
+
+        reverse_url = reverse(
+            "admin:publications_publication_change",
+            kwargs={"object_id": publication.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(TimelineLogProxy.objects.count(), 1)
+
+        with self.subTest("read audit logging"):
+            log = TimelineLogProxy.objects.get()
+
+            expected_data = {
+                "event": Events.read,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "_cached_object_repr": "title one",
+            }
+
+            self.assertEqual(log.extra_data, expected_data)
+
+        form = response.forms["publication_form"]
+        form["publicatiestatus"].select(text=PublicationStatusOptions.revoked.label)
+
+        with freeze_time("2024-09-28T00:14:00-00:00"):
+            response = form.submit(name="_save")
+
+        self.assertEqual(response.status_code, 302)
+
+        publication.refresh_from_db()
+        published_document.refresh_from_db()
+        concept_document.refresh_from_db()
+        revoked_document.refresh_from_db()
+
+        self.assertEqual(TimelineLogProxy.objects.count(), 3)
+
+        with self.subTest("update publication audit logging"):
+            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+                publication
+            ).get(
+                extra_data__event=Events.update
+            )
+
+            expected_data = {
+                "event": Events.update,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "object_data": {
+                    "id": publication.pk,
+                    "informatie_categorieen": [ic.pk, ic2.pk],
+                    "laatst_gewijzigd_datum": "2024-09-28T00:14:00Z",
+                    "officiele_titel": "title one",
+                    "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "opsteller": organisation.pk,
+                    "publicatiestatus": PublicationStatusOptions.revoked,
+                    "publisher": organisation.pk,
+                    "registratiedatum": "2024-09-27T00:14:00Z",
+                    "uuid": str(publication.uuid),
+                    "verantwoordelijke": organisation.pk,
+                    "verkorte_titel": "one",
+                },
+                "_cached_object_repr": "title one",
+            }
+
+            self.assertEqual(update_publication_log.extra_data, expected_data)
+
+        with self.subTest("update document audit logging"):
+            update_publication_log = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
+                published_document
+            ).get()
+
+            expected_data = {
+                "event": Events.update,
+                "acting_user": {
+                    "identifier": self.user.id,
+                    "display_name": self.user.get_full_name(),
+                },
+                "object_data": {
+                    "id": published_document.pk,
+                    "lock": "",
+                    "uuid": str(published_document.uuid),
+                    "identifier": "http://example.com/1",
+                    "publicatie": publication.id,
+                    "publicatiestatus": PublicationStatusOptions.revoked,
+                    "bestandsnaam": "unknown.bin",
+                    "creatiedatum": "2024-10-17",
+                    "omschrijving": "",
+                    "document_uuid": None,
+                    "bestandsomvang": 0,
+                    "verkorte_titel": "",
+                    "bestandsformaat": "unknown",
+                    "officiele_titel": "title",
+                    "document_service": None,
+                    "registratiedatum": "2024-09-27T00:14:00Z",
+                    "laatst_gewijzigd_datum": "2024-09-28T00:14:00Z",
+                },
+                "_cached_object_repr": "title",
+            }
+
+            self.assertEqual(update_publication_log.extra_data, expected_data)
+
     def test_admin_delete(self):
         assert not TimelineLogProxy.objects.exists()
         information_category = InformationCategoryFactory.create()

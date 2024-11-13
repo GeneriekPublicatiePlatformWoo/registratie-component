@@ -1,8 +1,10 @@
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
 from woo_publications.contrib.documents_api.client import FilePart
+from woo_publications.logging.service import extract_audit_parameters
 from woo_publications.metadata.models import InformationCategory, Organisation
 
 from ..constants import PublicationStatusOptions
@@ -206,7 +208,10 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
             "publicatiestatus": {
                 "help_text": _(
                     "\n**Disclaimer**: you can't create a {revoked} publication."
-                ).format(revoked=PublicationStatusOptions.revoked.label.lower())
+                    "\n\n**Disclaimer**: when you revoke a publication, the attached published documents also get revoked."
+                ).format(
+                    revoked=PublicationStatusOptions.revoked.label.lower(),
+                )
             },
         }
 
@@ -233,3 +238,19 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
                 )
 
         return value
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        assert instance.publicatiestatus != PublicationStatusOptions.revoked
+        publication = super().update(instance, validated_data)
+
+        if validated_data.get("publicatiestatus") == PublicationStatusOptions.revoked:
+            user_id, user_repr, remarks = extract_audit_parameters(
+                self.context["request"]
+            )
+
+            publication.revoke_own_published_documents(
+                user={"identifier": user_id, "display_name": user_repr}, remarks=remarks
+            )
+
+        return publication
