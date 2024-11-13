@@ -33,6 +33,7 @@ _DOCUMENT_SET = ~models.Q(document_service=None) & ~models.Q(document_uuid=None)
 
 
 class Publication(models.Model):
+    id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),
         unique=True,
@@ -179,6 +180,7 @@ class Publication(models.Model):
 
 
 class Document(models.Model):
+    id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),
         unique=True,
