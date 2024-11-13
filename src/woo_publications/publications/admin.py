@@ -37,6 +37,11 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "show_actions",
     )
     autocomplete_fields = ("informatie_categorieen",)
+    raw_id_fields = (
+        "publisher",
+        "verantwoordelijke",
+        "opsteller",
+    )
     readonly_fields = (
         "uuid",
         "registratiedatum",
