@@ -198,6 +198,7 @@ class Document(models.Model):
         _("identifier"),
         help_text=_("The (primary) unique identifier."),
         max_length=255,
+        blank=True,
     )
     officiele_titel = models.CharField(
         _("official title"),

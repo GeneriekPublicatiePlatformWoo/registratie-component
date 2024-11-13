@@ -1313,7 +1313,6 @@ components:
       required:
       - bestandsdelen
       - creatiedatum
-      - identifier
       - laatstGewijzigdDatum
       - officieleTitel
       - publicatie

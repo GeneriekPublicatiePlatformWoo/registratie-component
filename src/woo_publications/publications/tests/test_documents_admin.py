@@ -49,12 +49,14 @@ class TestDocumentAdmin(WebTest):
                 officiele_titel="title one",
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                identifier="document-1",
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication2 = DocumentFactory.create(
                 officiele_titel="title two",
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                identifier="document-2",
             )
         reverse_url = reverse("admin:publications_document_changelist")
 
@@ -109,6 +111,7 @@ class TestDocumentAdmin(WebTest):
                 verkorte_titel="one",
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 creatiedatum="2024-09-24",
+                identifier="document-1",
             )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             document2 = DocumentFactory.create(
@@ -117,6 +120,7 @@ class TestDocumentAdmin(WebTest):
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
                 creatiedatum="2024-09-25",
+                identifier="document-2",
             )
         reverse_url = reverse("admin:publications_document_changelist")
 
