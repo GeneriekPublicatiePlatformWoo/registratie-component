@@ -37,6 +37,11 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "show_actions",
     )
     autocomplete_fields = ("informatie_categorieen",)
+    raw_id_fields = (
+        "publisher",
+        "verantwoordelijke",
+        "opsteller",
+    )
     readonly_fields = (
         "uuid",
         "registratiedatum",
@@ -58,6 +63,11 @@ class PublicationAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         if obj and obj.publicatiestatus == PublicationStatusOptions.revoked:
             return False
         return super().has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        if obj.publicatiestatus == PublicationStatusOptions.revoked:
+            obj.revoke_own_published_documents(request.user)
+        super().save_model(request, obj, form, change)
 
     @admin.display(description=_("actions"))
     def show_actions(self, obj: Publication) -> str:

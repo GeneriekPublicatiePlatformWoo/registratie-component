@@ -25,12 +25,13 @@ __all__ = [
     "AuditTrailUpdateMixin",
     "AuditTrailDestroyMixin",
     "AuditTrailViewSetMixin",
+    "extract_audit_parameters",
 ]
 
 _MT_co = TypeVar("_MT_co", bound=Model, covariant=True)  # taken from DRF stubs
 
 
-def _extract_audit_parameters(request: Request) -> tuple[str, str, str]:
+def extract_audit_parameters(request: Request) -> tuple[str, str, str]:
     user_id = request.headers[AUDIT_USER_ID_PARAMETER.name]
     user_repr = request.headers[AUDIT_USER_REPRESENTATION_PARAMETER.name]
     remarks = request.headers[AUDIT_REMARKS_PARAMETER.name]
@@ -52,7 +53,7 @@ class AuditTrailCreateMixin:
         instance = serializer.instance
         assert instance is not None
 
-        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
+        user_id, user_repr, remarks = extract_audit_parameters(self.request)
 
         # XXX: there *could* be a django user making this request, and that information
         # is currently ignored
@@ -82,7 +83,7 @@ class AuditTrailRetrieveMixin(Generic[_MT_co]):
     def retrieve(self, request: Request, *args, **kwargs):
         response = super().retrieve(request, *args, **kwargs)  # pyright: ignore
 
-        user_id, user_repr, remarks = _extract_audit_parameters(request)
+        user_id, user_repr, remarks = extract_audit_parameters(request)
         audit_api_read(
             content_object=self.get_object(),
             user_id=user_id,
@@ -108,7 +109,7 @@ class AuditTrailUpdateMixin:
         instance = serializer.instance
         assert instance is not None
 
-        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
+        user_id, user_repr, remarks = extract_audit_parameters(self.request)
         audit_api_update(
             content_object=instance,
             user_id=user_id,
@@ -126,7 +127,7 @@ class AuditTrailDestroyMixin:
     request: Request
 
     def perform_destroy(self, instance: Model):
-        user_id, user_repr, remarks = _extract_audit_parameters(self.request)
+        user_id, user_repr, remarks = extract_audit_parameters(self.request)
 
         # take a snapshot of the data before it's deleted by the super() method, that
         # way we can investigate if unintended deletes happen and start a manual

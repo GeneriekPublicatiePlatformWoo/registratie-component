@@ -13,7 +13,7 @@ from woo_publications.metadata.tests.factories import (
 
 from ..constants import PublicationStatusOptions
 from ..models import Publication
-from .factories import PublicationFactory
+from .factories import DocumentFactory, PublicationFactory
 
 
 @disable_admin_mfa()
@@ -200,9 +200,9 @@ class TestPublicationsAdmin(WebTest):
             # Force the value because the select box options get loaded in with js
             form["informatie_categorieen"].force_value([ic.id, ic2.id, ic3.id])
             form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
-            form["publisher"].select(text=organisation.naam)
-            form["verantwoordelijke"].select(text=organisation.naam)
-            form["opsteller"].select(text=organisation.naam)
+            form["publisher"] = str(organisation.pk)
+            form["verantwoordelijke"] = str(organisation.pk)
+            form["opsteller"] = str(organisation.pk)
             form["officiele_titel"] = "The official title of this publication"
             form["verkorte_titel"] = "The title"
             form["omschrijving"] = (
@@ -314,9 +314,9 @@ class TestPublicationsAdmin(WebTest):
         with self.subTest("complete data updates publication"):
             form["informatie_categorieen"].select_multiple(texts=[ic.naam])
             form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
-            form["publisher"].select(text=organisation2.naam)
-            form["verantwoordelijke"].select(text=organisation2.naam)
-            form["opsteller"].select(text=organisation2.naam)
+            form["publisher"] = str(organisation2.pk)
+            form["verantwoordelijke"] = str(organisation2.pk)
+            form["opsteller"] = str(organisation2.pk)
             form["officiele_titel"] = "changed official title"
             form["verkorte_titel"] = "changed short title"
             form["omschrijving"] = "changed description"
@@ -343,6 +343,55 @@ class TestPublicationsAdmin(WebTest):
             self.assertEqual(
                 str(publication.laatst_gewijzigd_datum), "2024-09-27 00:14:00+00:00"
             )
+
+    def test_publications_when_revoking_publication_the_published_documents_also_get_revoked(
+        self,
+    ):
+        ic = InformationCategoryFactory.create()
+        publication = PublicationFactory.create(
+            informatie_categorieen=[ic],
+            publicatiestatus=PublicationStatusOptions.published,
+        )
+        published_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.published
+        )
+        concept_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.concept
+        )
+        revoked_document = DocumentFactory.create(
+            publicatie=publication, publicatiestatus=PublicationStatusOptions.revoked
+        )
+
+        reverse_url = reverse(
+            "admin:publications_publication_change",
+            kwargs={"object_id": publication.id},
+        )
+
+        response = self.app.get(reverse_url, user=self.user)
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.forms["publication_form"]
+        form["publicatiestatus"].select(text=PublicationStatusOptions.revoked.label)
+        response = form.submit(name="_save")
+
+        self.assertEqual(response.status_code, 302)
+
+        publication.refresh_from_db()
+        published_document.refresh_from_db()
+        concept_document.refresh_from_db()
+        revoked_document.refresh_from_db()
+
+        self.assertEqual(publication.publicatiestatus, PublicationStatusOptions.revoked)
+        self.assertEqual(
+            published_document.publicatiestatus, PublicationStatusOptions.revoked
+        )
+        self.assertEqual(
+            concept_document.publicatiestatus, PublicationStatusOptions.concept
+        )
+        self.assertEqual(
+            revoked_document.publicatiestatus, PublicationStatusOptions.revoked
+        )
 
     def test_publications_admin_not_allowed_to_update_when_publication_is_revoked(self):
         ic = InformationCategoryFactory.create()

@@ -5,11 +5,13 @@ from uuid import UUID
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models, transaction
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.reverse import reverse
 from zgw_consumers.constants import APITypes
 
+from woo_publications.accounts.models import User
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import (
     Document as ZGWDocument,
@@ -17,6 +19,8 @@ from woo_publications.contrib.documents_api.client import (
 )
 from woo_publications.logging.constants import Events
 from woo_publications.logging.models import TimelineLogProxy
+from woo_publications.logging.serializing import serialize_instance
+from woo_publications.logging.service import audit_admin_update, audit_api_update
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
@@ -137,6 +141,42 @@ class Publication(models.Model):
         assert isinstance(log, TimelineLogProxy)
         return log.acting_user[0]
 
+    def revoke_own_published_documents(
+        self, user: User | ActingUser, remarks: str | None = None
+    ) -> None:
+        published_documents = (
+            self.document_set.filter(  # pyright: ignore[reportAttributeAccessIssue]
+                publicatiestatus=PublicationStatusOptions.published
+            )
+        )
+
+        # get a list of IDs of published documents, make sure to evaluate the queryset so it's not affected by
+        # the `update` query
+        document_ids_to_log = list(published_documents.values_list("pk", flat=True))
+        published_documents.update(
+            publicatiestatus=PublicationStatusOptions.revoked,
+            laatst_gewijzigd_datum=timezone.now(),
+        )
+
+        # audit log actions
+        is_django_user = isinstance(user, User)
+        log_callback = audit_admin_update if is_django_user else audit_api_update
+        log_extra_kwargs = (
+            {"django_user": user}
+            if is_django_user
+            else {
+                "user_id": user["identifier"],
+                "user_display": user["display_name"],
+                "remarks": remarks,
+            }
+        )
+        for document in Document.objects.filter(pk__in=document_ids_to_log):
+            log_callback(
+                content_object=document,
+                object_data=serialize_instance(document),
+                **log_extra_kwargs,  # pyright: ignore[reportArgumentType]
+            )
+
 
 class Document(models.Model):
     uuid = models.UUIDField(
@@ -158,6 +198,7 @@ class Document(models.Model):
         _("identifier"),
         help_text=_("The (primary) unique identifier."),
         max_length=255,
+        blank=True,
     )
     officiele_titel = models.CharField(
         _("official title"),
