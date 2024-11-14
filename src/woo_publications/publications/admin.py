@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import admin
 from django.template.defaultfilters import filesizeformat
 from django.urls import reverse
@@ -11,6 +13,7 @@ from woo_publications.logging.service import (
     AuditLogInlineformset,
     get_logs_link,
 )
+from woo_publications.metadata.models import Organisation
 
 from .constants import PublicationStatusOptions
 from .models import Document, Publication
@@ -99,10 +102,54 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         "registratiedatum",
         "show_actions",
     )
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": (
+                    "publicatie",
+                    "identifier",
+                    "officiele_titel",
+                    "verkorte_titel",
+                    "omschrijving",
+                    "creatiedatum",
+                    "bestandsformaat",
+                    "bestandsnaam",
+                    "bestandsomvang",
+                    "publicatiestatus",
+                    "registratiedatum",
+                    "laatst_gewijzigd_datum",
+                    "uuid",
+                )
+            },
+        ),
+        (
+            _("Document actions"),
+            {
+                "fields": (
+                    "soort_handeling",
+                    "at_time",
+                    "was_assciated_with",
+                )
+            },
+        ),
+        (
+            _("Documents API integration"),
+            {
+                "fields": (
+                    "document_service",
+                    "document_uuid",
+                    "lock",
+                )
+            },
+        ),
+    ]
     readonly_fields = (
         "uuid",
         "registratiedatum",
         "laatst_gewijzigd_datum",
+        "at_time",
+        "was_assciated_with",
     )
     search_fields = (
         "identifier",
@@ -132,3 +179,11 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
             '<a href="{}">{}</a>',
             actions,
         )
+
+    @admin.display(description=_("at time"))
+    def at_time(self, obj: Document) -> datetime:
+        return obj.registratiedatum
+
+    @admin.display(description=_("was associated with"))
+    def was_assciated_with(self, obj: Document) -> Organisation:
+        return obj.publicatie.verantwoordelijke
