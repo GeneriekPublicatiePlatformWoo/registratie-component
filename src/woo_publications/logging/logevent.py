@@ -20,6 +20,7 @@ __all__ = [
     "audit_api_read",
     "audit_api_update",
     "audit_api_delete",
+    "audit_api_download",
 ]
 
 
@@ -200,5 +201,22 @@ def audit_api_delete(
         user_display=user_display,
         django_user=None,
         object_data=object_data,
+        remarks=remarks,
+    )
+
+
+def audit_api_download(
+    *,
+    content_object: models.Model,
+    user_id: str,
+    user_display: str,
+    remarks: str,
+) -> None:
+    _audit_event(
+        content_object=content_object,
+        event=Events.download,
+        user_id=user_id,
+        user_display=user_display,
+        django_user=None,
         remarks=remarks,
     )

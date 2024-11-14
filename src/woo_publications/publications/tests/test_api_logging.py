@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.urls import reverse
 
 from freezegun import freeze_time
@@ -346,5 +348,33 @@ class DocumentLoggingTests(TokenAuthMixin, APITestCase):
             "remarks": "remark",
             "acting_user": {"identifier": "id", "display_name": "username"},
             "_cached_object_repr": "title one",
+        }
+        self.assertEqual(log.extra_data, expected_data)
+
+    @patch("woo_publications.publications.api.viewsets.get_client")
+    def test_download_logging(self, mock_get_client):
+        # mock out the actual download, we don't care about the main result, only about
+        # the audit logs
+        mock_get_client.return_value.__enter__.return_value.get.return_value.status_code = (
+            200
+        )
+        information_category = InformationCategoryFactory.create()
+        document = DocumentFactory.create(
+            publicatie__informatie_categorieen=[information_category],
+            bestandsomvang=5,
+            with_registered_document=True,
+        )
+        endpoint = reverse("api:document-download", kwargs={"uuid": document.uuid})
+
+        response = self.client.get(endpoint, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        log = TimelineLogProxy.objects.get()
+        self.assertEqual(log.content_object, document)
+        expected_data = {
+            "event": Events.download,
+            "remarks": "remark",
+            "acting_user": {"identifier": "id", "display_name": "username"},
+            "_cached_object_repr": document.officiele_titel,
         }
         self.assertEqual(log.extra_data, expected_data)

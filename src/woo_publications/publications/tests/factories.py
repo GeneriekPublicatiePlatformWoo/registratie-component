@@ -9,7 +9,7 @@ from woo_publications.metadata.tests.factories import OrganisationFactory
 from ..models import Document, Publication
 
 
-class PublicationFactory(factory.django.DjangoModelFactory):
+class PublicationFactory(factory.django.DjangoModelFactory[Publication]):
     publisher = factory.SubFactory(OrganisationFactory, is_actief=True)
     officiele_titel = factory.Faker("word")
 
@@ -30,7 +30,7 @@ class PublicationFactory(factory.django.DjangoModelFactory):
             obj.informatie_categorieen.set(extracted)
 
 
-class DocumentFactory(factory.django.DjangoModelFactory):
+class DocumentFactory(factory.django.DjangoModelFactory[Document]):
     publicatie = factory.SubFactory(PublicationFactory)
     officiele_titel = factory.Faker("word")
     creatiedatum = factory.Faker("past_date")
