@@ -38,6 +38,8 @@ Hierop zien we:
 
 Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
+**Algemene velden**
+
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
 * ``Identificatie``. Het unieke kenmerk dat intern aan het *document* is toegekend, bijvoorbeeld door het zaaksysteem of het DMS. (DiWoo : ``identifier``)
 * ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van het document. (DiWoo : ``officieleTitel``)
@@ -51,9 +53,18 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
 * ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd was.
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
-* ``Bestandshandeling``. De type behandeling die uitgevoerd is bij deze Document.
-* ``Vanaf``. De tijd wanneer de bestandshandeling plaats gevonden heeft.
-* ``Was Geassocieerd Met``. De organisatie die deze handeling heeft uitgevoerd.
+
+**Documenthandelingen**
+
+Documenthandelingen zijn verplichte gegevens in de DiWoo-standaard.
+
+* ``Soort handeling``. De soort documenthandeling die op dit document plaatsgevonden heeft. Dit wordt nu automatisch gezet.
+* ``Vanaf``. Het gerapporteerde moment van de documenthandeling, deze is gelijk aan de documentregistratiedatum.
+* ``Was geassocieerd met``. De organisatie die deze handeling heeft uitgevoerd, afgeleid uit de verantwoordelijke
+  organisatie van de gerelateerde publicatie.
+
+**Documenten-API-koppeling**
+
 * ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Documentvergrendelingscode``. systeemveld, bevat de vergrendelingscode van een bestand in de Documenten API.

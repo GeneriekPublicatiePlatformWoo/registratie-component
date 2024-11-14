@@ -185,5 +185,5 @@ class DocumentAdmin(AdminAuditLogMixin, admin.ModelAdmin):
         return obj.registratiedatum
 
     @admin.display(description=_("was associated with"))
-    def was_assciated_with(self, obj: Document) -> Organisation:
+    def was_assciated_with(self, obj: Document) -> Organisation | None:
         return obj.publicatie.verantwoordelijke
