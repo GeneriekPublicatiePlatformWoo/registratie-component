@@ -48,10 +48,15 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Bestandsnaam``. Naam van het bestand zoals deze op de harde schijf opgeslagen wordt.
 * ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
 * ``Status``. De publicatiestatus van het document (DiWoo : ``publicatiestatus``)
-* ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
-* ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
 * ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd was.
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
+* ``Bestandshandeling``. De type behandeling die uitgevoerd is bij deze Document.
+* ``Vanaf``. De tijd wanneer de bestandshandeling plaats gevonden heeft.
+* ``Was Geassocieerd Met``. De organisatie die deze handeling heeft uitgevoerd.
+* ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Documentvergrendelingscode``. systeemveld, bevat de vergrendelingscode van een bestand in de Documenten API.
 
 Publicaties
 ------------
