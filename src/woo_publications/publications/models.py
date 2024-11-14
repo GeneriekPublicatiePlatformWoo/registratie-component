@@ -25,6 +25,7 @@ from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
 from .constants import DocumentActionTypeOptions, PublicationStatusOptions
+from .typing import DocumentActions
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -329,6 +330,34 @@ class Document(models.Model):
                     revoked=PublicationStatusOptions.revoked.label.lower()
                 )
             )
+
+    @property
+    def documenthandelingen(self) -> DocumentActions:
+        """
+        Fake documenthandeling field to populate the `DocumentActionSerializer`.
+        """
+        return [
+            {
+                "soort_handeling": self.soort_handeling,
+                "at_time": self.registratiedatum,
+                "was_assciated_with": (
+                    self.publicatie.verantwoordelijke.uuid
+                    if self.publicatie.verantwoordelijke
+                    else None
+                ),
+            }
+        ]
+
+    @documenthandelingen.setter
+    def documenthandelingen(self, value: DocumentActions) -> None:
+        """
+        Set the (created) `soort_handeling` field
+        """
+        assert len(value) == 1
+        documenthandeling = value[0]
+        assert documenthandeling["soort_handeling"]
+
+        self.soort_handeling = documenthandeling["soort_handeling"]
 
     @property
     def zgw_document(self) -> ZGWDocument | None:

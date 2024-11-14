@@ -7,7 +7,7 @@ from woo_publications.contrib.documents_api.client import FilePart
 from woo_publications.logging.service import extract_audit_parameters
 from woo_publications.metadata.models import InformationCategory, Organisation
 
-from ..constants import PublicationStatusOptions
+from ..constants import DocumentActionTypeOptions, PublicationStatusOptions
 from ..models import Document, Publication
 
 
@@ -50,6 +50,20 @@ class FilePartSerializer(serializers.Serializer[FilePart]):
     )
 
 
+class DocumentActionSerializer(serializers.Serializer):
+    soort_handeling = serializers.ChoiceField(
+        choices=DocumentActionTypeOptions.choices,
+        default=DocumentActionTypeOptions.declared,
+    )
+    at_time = serializers.DateTimeField(
+        read_only=True,
+    )
+    was_assciated_with = serializers.UUIDField(
+        help_text=_("The unique identifier of the organisation."),
+        read_only=True,
+    )
+
+
 class DocumentStatusSerializer(serializers.Serializer):
     document_upload_voltooid = serializers.BooleanField(
         label=_("document upload completed"),
@@ -78,6 +92,15 @@ class DocumentSerializer(serializers.ModelSerializer):
         read_only=True,
         allow_null=True,
     )
+    documenthandelingen = DocumentActionSerializer(
+        help_text=_(
+            "The document actions of this document, currently only one action will be used per document."
+        ),
+        required=False,
+        many=True,
+        min_length=1,  # pyright: ignore[reportCallIssue]
+        max_length=1,  # pyright: ignore[reportCallIssue]
+    )
 
     class Meta:  # pyright: ignore
         model = Document
@@ -96,6 +119,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "registratiedatum",
             "laatst_gewijzigd_datum",
             "bestandsdelen",
+            "documenthandelingen",
         )
         extra_kwargs = {
             "uuid": {
