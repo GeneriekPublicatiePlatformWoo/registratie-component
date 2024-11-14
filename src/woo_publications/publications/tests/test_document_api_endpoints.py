@@ -467,6 +467,30 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
         self.assertEqual(data, expected_data)
 
+    def test_read_endpoints_document_registered_in_documenten_api(self):
+        document = DocumentFactory.create(with_registered_document=True)
+
+        with self.subTest("list endpoint"):
+            endpoint = reverse("api:document-list")
+
+            response = self.client.get(endpoint, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            # avoid hitting the documenten API for list endpoints
+            self.assertIsNone(response.json()["results"][0]["bestandsdelen"])
+
+        with self.subTest("detail endpoint"):
+            detail_url = reverse(
+                "api:document-detail",
+                kwargs={"uuid": str(document.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            # avoid hitting the documenten API for retrieve operations
+            self.assertIsNone(response.json()["bestandsdelen"])
+
 
 @override_settings(ALLOWED_HOSTS=["testserver", "host.docker.internal"])
 class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
