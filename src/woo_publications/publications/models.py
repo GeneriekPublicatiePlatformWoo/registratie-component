@@ -24,7 +24,7 @@ from woo_publications.logging.service import audit_admin_update, audit_api_updat
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
-from .constants import PublicationStatusOptions
+from .constants import DocumentActionTypeOptions, PublicationStatusOptions
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -264,6 +264,13 @@ class Document(models.Model):
             "System timestamp reflecting when the document was last modified in the "
             "database."
         ),
+    )
+
+    # documenthandeling fields
+    soort_handeling = models.CharField(
+        verbose_name=_("action type"),
+        choices=DocumentActionTypeOptions.choices,
+        default=DocumentActionTypeOptions.declared,
     )
 
     # Documents API integration
