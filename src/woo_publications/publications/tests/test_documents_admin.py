@@ -11,7 +11,7 @@ from zgw_consumers.test.factories import ServiceFactory
 
 from woo_publications.accounts.tests.factories import UserFactory
 
-from ..constants import PublicationStatusOptions
+from ..constants import DocumentActionTypeOptions, PublicationStatusOptions
 from ..models import Document
 from .factories import DocumentFactory, PublicationFactory
 
@@ -190,6 +190,30 @@ class TestDocumentAdmin(WebTest):
                 ),
             )
 
+        with self.subTest("documenthandeling fields save default values"):
+            form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
+            form["publicatie"] = publication.id
+            form["identifier"] = identifier
+            form["officiele_titel"] = "The official title of this document"
+            form["verkorte_titel"] = "The title"
+            form["creatiedatum"] = "2024-01-01"
+            form["omschrijving"] = (
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
+                "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
+
+            add_response = form.submit(name="_save")
+
+            self.assertRedirects(
+                add_response, reverse("admin:publications_document_changelist")
+            )
+            added_item = Document.objects.order_by("-pk").first()
+            assert added_item is not None
+            # test if defaults will be saved
+            self.assertEqual(
+                str(added_item.soort_handeling), DocumentActionTypeOptions.declared
+            )
+
         with self.subTest("complete data"):
             form["publicatiestatus"].select(text=PublicationStatusOptions.concept.label)
             form["publicatie"] = publication.id
@@ -200,6 +224,9 @@ class TestDocumentAdmin(WebTest):
             form["omschrijving"] = (
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
                 "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur."
+            )
+            form["soort_handeling"].select(
+                text=DocumentActionTypeOptions.received.label
             )
 
             add_response = form.submit(name="_save")
@@ -230,6 +257,9 @@ class TestDocumentAdmin(WebTest):
             self.assertEqual(
                 str(added_item.laatst_gewijzigd_datum), "2024-09-24 12:00:00+00:00"
             )
+            self.assertEqual(
+                str(added_item.soort_handeling), DocumentActionTypeOptions.received
+            )
 
     def test_document_admin_update(self):
         with freeze_time("2024-09-25T14:00:00-00:00"):
@@ -256,6 +286,7 @@ class TestDocumentAdmin(WebTest):
         form["officiele_titel"] = "changed official title"
         form["verkorte_titel"] = "changed short title"
         form["omschrijving"] = "changed description"
+        form["soort_handeling"].select(text=DocumentActionTypeOptions.received.label)
 
         with freeze_time("2024-09-29T14:00:00-00:00"):
             response = form.submit(name="_save")
@@ -272,6 +303,9 @@ class TestDocumentAdmin(WebTest):
         self.assertEqual(str(document.registratiedatum), "2024-09-25 14:00:00+00:00")
         self.assertEqual(
             str(document.laatst_gewijzigd_datum), "2024-09-29 14:00:00+00:00"
+        )
+        self.assertEqual(
+            str(document.soort_handeling), DocumentActionTypeOptions.received
         )
 
     def test_document_admin_delete(self):
