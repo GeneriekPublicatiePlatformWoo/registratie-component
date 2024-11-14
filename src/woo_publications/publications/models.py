@@ -336,9 +336,10 @@ class Document(models.Model):
         if not (self.document_service and self.document_uuid):
             return None
 
-        raise NotImplementedError(
-            "Dynamically retrieving the 'zgw_document' is not yet implemented."
-        )
+        # at this time we do not dynamically look up the object in the upstream API,
+        # since evaluating this property in API detail/list responses adds significant
+        # overhead.
+        return None
 
     @zgw_document.setter
     def zgw_document(self, document: ZGWDocument) -> None:

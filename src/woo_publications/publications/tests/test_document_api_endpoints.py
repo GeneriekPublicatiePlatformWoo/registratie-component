@@ -477,7 +477,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             # avoid hitting the documenten API for list endpoints
-            self.assertEqual(response.json()["results"][0]["bestandsdelen"], [])
+            self.assertIsNone(response.json()["results"][0]["bestandsdelen"])
 
         with self.subTest("detail endpoint"):
             detail_url = reverse(
@@ -489,7 +489,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             # avoid hitting the documenten API for retrieve operations
-            self.assertEqual(response.json()["bestandsdelen"], [])
+            self.assertIsNone(response.json()["bestandsdelen"])
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "host.docker.internal"])
