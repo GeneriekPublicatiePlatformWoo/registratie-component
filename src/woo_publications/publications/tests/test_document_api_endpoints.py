@@ -17,10 +17,13 @@ from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuth
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
-from woo_publications.metadata.tests.factories import InformationCategoryFactory
+from woo_publications.metadata.tests.factories import (
+    InformationCategoryFactory,
+    OrganisationFactory,
+)
 from woo_publications.utils.tests.vcr import VCRMixin
 
-from ..constants import PublicationStatusOptions
+from ..constants import DocumentActionTypeOptions, PublicationStatusOptions
 from ..models import Document
 from .factories import DocumentFactory, PublicationFactory
 
@@ -62,7 +65,9 @@ class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITes
 
 class DocumentApiReadTests(TokenAuthMixin, APITestCase):
     def test_list_documents(self):
-        publication, publication2 = PublicationFactory.create_batch(2)
+        organisation = OrganisationFactory.create()
+        publication = PublicationFactory.create(verantwoordelijke=organisation)
+        publication2 = PublicationFactory.create(verantwoordelijke=None)
         with freeze_time("2024-09-25T12:30:00-00:00"):
             document = DocumentFactory.create(
                 publicatie=publication,
@@ -91,6 +96,13 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         self.assertEqual(data["count"], 2)
 
         with self.subTest("first_item_in_response_with_expected_data"):
+            documenthandelingen = [
+                {
+                    "soortHandeling": DocumentActionTypeOptions.declared,
+                    "atTime": "2024-09-24T14:00:00+02:00",
+                    "wasAssciatedWith": None,
+                }
+            ]
             expected_second_item_data = {
                 "uuid": str(document2.uuid),
                 "identifier": "document-2",
@@ -106,11 +118,19 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
                 "bestandsdelen": None,
+                "documenthandelingen": documenthandelingen,
             }
 
             self.assertEqual(data["results"][0], expected_second_item_data)
 
         with self.subTest("second_item_in_response_with_expected_data"):
+            documenthandelingen = [
+                {
+                    "soortHandeling": DocumentActionTypeOptions.declared,
+                    "atTime": "2024-09-25T14:30:00+02:00",
+                    "wasAssciatedWith": str(organisation.uuid),
+                }
+            ]
             expected_first_item_data = {
                 "uuid": str(document.uuid),
                 "identifier": "document-1",
@@ -126,6 +146,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
                 "bestandsdelen": None,
+                "documenthandelingen": documenthandelingen,
             }
 
             self.assertEqual(data["results"][1], expected_first_item_data)
@@ -151,39 +172,6 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 creatiedatum="2024-02-02",
             )
 
-        expected_first_item_data = {
-            "uuid": str(document.uuid),
-            "identifier": "document-1",
-            "publicatie": str(publication.uuid),
-            "officieleTitel": "title one",
-            "verkorteTitel": "one",
-            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "publicatiestatus": PublicationStatusOptions.published,
-            "creatiedatum": "2024-01-01",
-            "bestandsformaat": "unknown",
-            "bestandsnaam": "unknown.bin",
-            "bestandsomvang": 0,
-            "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
-            "bestandsdelen": None,
-        }
-        expected_second_item_data = {
-            "uuid": str(document2.uuid),
-            "identifier": "document-2",
-            "publicatie": str(publication2.uuid),
-            "officieleTitel": "title two",
-            "verkorteTitel": "two",
-            "omschrijving": "Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
-            "publicatiestatus": PublicationStatusOptions.published,
-            "creatiedatum": "2024-02-02",
-            "bestandsformaat": "unknown",
-            "bestandsnaam": "unknown.bin",
-            "bestandsomvang": 0,
-            "registratiedatum": "2024-09-24T14:00:00+02:00",
-            "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
-            "bestandsdelen": None,
-        }
-
         # registratiedatum
         with self.subTest("creatiedatum_ascending"):
             response = self.client.get(
@@ -196,8 +184,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_first_item_data)
-            self.assertEqual(data["results"][1], expected_second_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document2.uuid))
 
         with self.subTest("creatiedatum_descending"):
             response = self.client.get(
@@ -210,8 +198,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_second_item_data)
-            self.assertEqual(data["results"][1], expected_first_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document.uuid))
 
         # Officiele titel
         with self.subTest("officiele_title_ascending"):
@@ -225,8 +213,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_first_item_data)
-            self.assertEqual(data["results"][1], expected_second_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document2.uuid))
 
         with self.subTest("officiele_title_descending"):
             response = self.client.get(
@@ -239,8 +227,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_second_item_data)
-            self.assertEqual(data["results"][1], expected_first_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document.uuid))
 
         # short titel
         with self.subTest("verkorte_titel_ascending"):
@@ -254,8 +242,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_first_item_data)
-            self.assertEqual(data["results"][1], expected_second_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document2.uuid))
 
         with self.subTest("verkorte_titel_descending"):
             response = self.client.get(
@@ -268,8 +256,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
             data = response.json()
 
-            self.assertEqual(data["results"][0], expected_second_item_data)
-            self.assertEqual(data["results"][1], expected_first_item_data)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(document.uuid))
 
     def test_list_document_publication_filter(self):
         publication, publication2 = PublicationFactory.create_batch(2)
@@ -294,23 +282,6 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 creatiedatum="2024-02-02",
             )
 
-        expected_first_item_data = {
-            "uuid": str(document.uuid),
-            "identifier": "document-1",
-            "publicatie": str(publication.uuid),
-            "officieleTitel": "title one",
-            "verkorteTitel": "one",
-            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "publicatiestatus": PublicationStatusOptions.concept,
-            "creatiedatum": "2024-01-01",
-            "bestandsformaat": "unknown",
-            "bestandsnaam": "unknown.bin",
-            "bestandsomvang": 0,
-            "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
-            "bestandsdelen": None,
-        }
-
         response = self.client.get(
             reverse("api:document-list"),
             {"publicatie": str(publication.uuid)},
@@ -322,7 +293,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         data = response.json()
 
         self.assertEqual(data["count"], 1)
-        self.assertEqual(data["results"][0], expected_first_item_data)
+        self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
 
     def test_list_document_identifier_filter(self):
         publication, publication2 = PublicationFactory.create_batch(2)
@@ -345,23 +316,6 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 creatiedatum="2024-02-02",
             )
 
-        expected_first_item_data = {
-            "uuid": str(document.uuid),
-            "identifier": "document-1",
-            "publicatie": str(publication.uuid),
-            "officieleTitel": "title one",
-            "verkorteTitel": "one",
-            "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "publicatiestatus": PublicationStatusOptions.published,
-            "creatiedatum": "2024-01-01",
-            "bestandsformaat": "unknown",
-            "bestandsnaam": "unknown.bin",
-            "bestandsomvang": 0,
-            "registratiedatum": "2024-09-25T14:30:00+02:00",
-            "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
-            "bestandsdelen": None,
-        }
-
         response = self.client.get(
             reverse("api:document-list"),
             {"identifier": "document-1"},
@@ -373,7 +327,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         data = response.json()
 
         self.assertEqual(data["count"], 1)
-        self.assertEqual(data["results"][0], expected_first_item_data)
+        self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
 
     def test_list_document_filter_publication_status(self):
         published = DocumentFactory.create(
@@ -450,6 +404,14 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.json()
+
+        documenthandelingen = [
+            {
+                "soortHandeling": DocumentActionTypeOptions.declared,
+                "atTime": "2024-09-25T14:30:00+02:00",
+                "wasAssciatedWith": None,
+            }
+        ]
         expected_data = {
             "uuid": str(document.uuid),
             "identifier": "document-1",
@@ -465,6 +427,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "registratiedatum": "2024-09-25T14:30:00+02:00",
             "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
             "bestandsdelen": None,
+            "documenthandelingen": documenthandelingen,
         }
 
         self.assertEqual(data, expected_data)
@@ -570,8 +533,10 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
         return super()._get_vcr_kwargs(**kwargs)
 
     def test_create_document_results_in_document_in_external_api(self):
+        organisation = OrganisationFactory.create()
         publication = PublicationFactory.create(
-            informatie_categorieen=[self.information_category]
+            informatie_categorieen=[self.information_category],
+            verantwoordelijke=organisation,
         )
         endpoint = reverse("api:document-list")
         body = {
@@ -585,18 +550,36 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 10,
+            "documenthandelingen": [
+                {
+                    "soortHandeling": DocumentActionTypeOptions.signed,
+                }
+            ],
         }
 
-        response = self.client.post(
-            endpoint,
-            data=body,
-            headers={
-                **AUDIT_HEADERS,
-                "Host": "host.docker.internal:8000",
-            },
-        )
+        with freeze_time("2024-11-13T15:00:00-00:00"):
+            response = self.client.post(
+                endpoint,
+                data=body,
+                headers={
+                    **AUDIT_HEADERS,
+                    "Host": "host.docker.internal:8000",
+                },
+            )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        with self.subTest("documenthandelingen is succesfully created."):
+            self.assertEqual(
+                response.json()["documenthandelingen"],
+                [
+                    {
+                        "soortHandeling": DocumentActionTypeOptions.signed,
+                        "atTime": "2024-11-13T16:00:00+01:00",
+                        "wasAssciatedWith": str(organisation.uuid),
+                    }
+                ],
+            )
 
         with self.subTest("expected woo-publications state"):
             document = Document.objects.get()
@@ -625,6 +608,54 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
             self.assertEqual(detail.status_code, status.HTTP_200_OK)
             detail_data = detail.json()
             self.assertTrue(detail_data["locked"])
+
+    def test_create_document_without_document_handelingen_saves_with_default_options(
+        self,
+    ):
+        organisation = OrganisationFactory.create()
+        publication = PublicationFactory.create(
+            informatie_categorieen=[self.information_category],
+            verantwoordelijke=organisation,
+        )
+        endpoint = reverse("api:document-list")
+        body = {
+            "identifier": "WOO-P/0042",
+            "publicatie": publication.uuid,
+            "publicatiestatus": PublicationStatusOptions.published,
+            "officieleTitel": "Testdocument WOO-P + Open Zaak",
+            "verkorteTitel": "Testdocument",
+            "omschrijving": "Testing 123",
+            "creatiedatum": "2024-11-05",
+            "bestandsformaat": "unknown",
+            "bestandsnaam": "unknown.bin",
+            "bestandsomvang": 10,
+        }
+
+        with freeze_time("2024-11-13T14:00:00+01:00"):
+            response = self.client.post(
+                endpoint,
+                data=body,
+                headers={
+                    **AUDIT_HEADERS,
+                    "Host": "host.docker.internal:8000",
+                },
+            )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        data = response.json()
+
+        with self.subTest("documenthandelingen is succesfully created."):
+            self.assertEqual(
+                data["documenthandelingen"],
+                [
+                    {
+                        "soortHandeling": DocumentActionTypeOptions.declared,
+                        "atTime": data["registratiedatum"],
+                        "wasAssciatedWith": str(organisation.uuid),
+                    }
+                ],
+            )
 
     def test_create_revoked_document_results_in_error(self):
         publication = PublicationFactory.create(
@@ -663,6 +694,54 @@ class DocumentApiCreateTests(VCRMixin, TokenAuthMixin, APITestCase):
                     revoked=PublicationStatusOptions.revoked.label.lower()
                 )
             ],
+        )
+
+    def test_create_document_with_multiple_handelingen_results_in_error(self):
+        organisation = OrganisationFactory.create()
+        publication = PublicationFactory.create(
+            informatie_categorieen=[self.information_category],
+            verantwoordelijke=organisation,
+        )
+        endpoint = reverse("api:document-list")
+        body = {
+            "identifier": "WOO-P/0042",
+            "publicatie": publication.uuid,
+            "publicatiestatus": PublicationStatusOptions.published,
+            "officieleTitel": "Testdocument WOO-P + Open Zaak",
+            "verkorteTitel": "Testdocument",
+            "omschrijving": "Testing 123",
+            "creatiedatum": "2024-11-05",
+            "bestandsformaat": "unknown",
+            "bestandsnaam": "unknown.bin",
+            "bestandsomvang": 10,
+            "documenthandelingen": [
+                {
+                    "soortHandeling": DocumentActionTypeOptions.signed,
+                    "atTime": "2024-11-13T14:00:00+01:00",
+                },
+                {
+                    "soortHandeling": DocumentActionTypeOptions.signed,
+                    "atTime": "2024-11-13T14:00:00+01:00",
+                },
+            ],
+        }
+
+        response = self.client.post(
+            endpoint,
+            data=body,
+            headers={
+                **AUDIT_HEADERS,
+                "Host": "host.docker.internal:8000",
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        data = response.json()
+
+        self.assertEqual(
+            data["documenthandelingen"]["nonFieldErrors"],
+            ["Ensure this field has no more than 1 elements."],
         )
 
     def test_upload_file_parts(self):

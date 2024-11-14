@@ -14,7 +14,7 @@ from woo_publications.metadata.tests.factories import (
     OrganisationFactory,
 )
 
-from ..constants import PublicationStatusOptions
+from ..constants import DocumentActionTypeOptions, PublicationStatusOptions
 from ..models import Publication
 from .factories import DocumentFactory, PublicationFactory
 
@@ -270,6 +270,7 @@ class PublicationLoggingTests(TokenAuthMixin, APITestCase):
                     "document_service": None,
                     "registratiedatum": "2024-09-27T00:14:00Z",
                     "laatst_gewijzigd_datum": "2024-09-28T00:14:00Z",
+                    "soort_handeling": DocumentActionTypeOptions.declared,
                 },
                 "_cached_object_repr": "title",
             }

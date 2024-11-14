@@ -1375,6 +1375,12 @@ components:
           description: The expected file parts/chunks to upload the file contents.
             These are derived from the specified total file size (`bestandsomvang`)
             in the document create body.
+        documenthandelingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentAction'
+          description: The document actions of this document, currently only one action
+            will be used per document.
       required:
       - bestandsdelen
       - creatiedatum
@@ -1383,6 +1389,25 @@ components:
       - publicatie
       - registratiedatum
       - uuid
+    DocumentAction:
+      type: object
+      properties:
+        soortHandeling:
+          allOf:
+          - $ref: '#/components/schemas/SoortHandelingEnum'
+          default: vaststelling
+        atTime:
+          type: string
+          format: date-time
+          readOnly: true
+        wasAssciatedWith:
+          type: string
+          format: uuid
+          readOnly: true
+          description: The unique identifier of the organisation.
+      required:
+      - atTime
+      - wasAssciatedWith
     DocumentStatus:
       type: object
       properties:
@@ -1859,6 +1884,16 @@ components:
       - publisher
       - registratiedatum
       - uuid
+    SoortHandelingEnum:
+      enum:
+      - ondertekening
+      - ontvangst
+      - vaststelling
+      type: string
+      description: |-
+        * `ondertekening` - Signed
+        * `ontvangst` - Received
+        * `vaststelling` - Declared
     Theme:
       type: object
       properties:
