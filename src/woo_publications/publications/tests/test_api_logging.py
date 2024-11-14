@@ -352,6 +352,66 @@ class DocumentLoggingTests(TokenAuthMixin, APITestCase):
         }
         self.assertEqual(log.extra_data, expected_data)
 
+    def test_update_documentation(self):
+        assert not TimelineLogProxy.objects.exists()
+        publication = PublicationFactory.create()
+        with freeze_time("2024-09-27T12:00:00-00:00"):
+            document = DocumentFactory.create(
+                publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.concept,
+                identifier="document-1",
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                creatiedatum="2024-01-01",
+            )
+
+        detail_url = reverse(
+            "api:document-detail",
+            kwargs={"uuid": str(document.uuid)},
+        )
+
+        data = {
+            "officieleTitel": "changed officiele_title",
+            "verkorteTitel": "changed verkorte_title",
+            "omschrijving": "changed omschrijving",
+            "publicatiestatus": PublicationStatusOptions.published,
+        }
+
+        with freeze_time("2024-09-27T12:00:00-00:00"):
+            response = self.client.put(detail_url, data, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        log = TimelineLogProxy.objects.get()
+        expected_data = {
+            "event": Events.update,
+            "remarks": "remark",
+            "acting_user": {"identifier": "id", "display_name": "username"},
+            "object_data": {
+                "bestandsformaat": "unknown",
+                "bestandsnaam": "unknown.bin",
+                "bestandsomvang": 0,
+                "creatiedatum": "2024-01-01",
+                "document_service": None,
+                "document_uuid": None,
+                "id": document.pk,
+                "identifier": "document-1",
+                "laatst_gewijzigd_datum": "2024-09-27T12:00:00Z",
+                "lock": "",
+                "officiele_titel": "changed officiele_title",
+                "omschrijving": "changed omschrijving",
+                "publicatie": publication.pk,
+                "publicatiestatus": PublicationStatusOptions.published,
+                "registratiedatum": "2024-09-27T12:00:00Z",
+                "soort_handeling": DocumentActionTypeOptions.declared,
+                "uuid": str(document.uuid),
+                "verkorte_titel": "changed verkorte_title",
+            },
+            "_cached_object_repr": "changed officiele_title",
+        }
+
+        self.assertEqual(log.extra_data, expected_data)
+
     @patch("woo_publications.publications.api.viewsets.get_client")
     def test_download_logging(self, mock_get_client):
         # mock out the actual download, we don't care about the main result, only about
