@@ -9,4 +9,4 @@ class Events(models.TextChoices):
     update = "update", _("Record updated")
     delete = "delete", _("Record deleted")
     # Specific events
-    ...
+    download = "download", _("Downloaded")

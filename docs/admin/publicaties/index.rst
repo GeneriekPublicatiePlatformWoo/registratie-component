@@ -38,6 +38,8 @@ Hierop zien we:
 
 Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
+**Algemene velden**
+
 * ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
 * ``Identificatie``. Het unieke kenmerk dat intern aan het *document* is toegekend, bijvoorbeeld door het zaaksysteem of het DMS. (DiWoo : ``identifier``)
 * ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van het document. (DiWoo : ``officieleTitel``)
@@ -48,11 +50,24 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Bestandsnaam``. Naam van het bestand zoals deze op de harde schijf opgeslagen wordt.
 * ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
 * ``Status``. De publicatiestatus van het document. "Published" betekent dat het document online vindbaar en raadpleegbaar is. "Concept" en "Revoked" zijn offline voor de buitenwereld.
-* ``Documenten API-service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
-* ``Document-UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
-* ``Documentvergrendelingscode``. Systeemveld, bevat de ontgrendelsleutel nodig voor updates aan het document in de Documenten API.
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
 * ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd is.
+* ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
+
+**Documenthandelingen**
+
+Documenthandelingen zijn verplichte gegevens in de DiWoo-standaard.
+
+* ``Soort handeling``. De soort documenthandeling die op dit document plaatsgevonden heeft. Dit wordt voorlopig automatisch gezet.
+* ``Vanaf``. Het gerapporteerde moment van de documenthandeling. Deze wordt voorlopig gelijk gesteld aan de documentregistratiedatum.
+* ``Was geassocieerd met``. De organisatie die deze handeling heeft uitgevoerd. Deze wordt voorlopig afgeleid uit de verantwoordelijke
+  organisatie van de gerelateerde publicatie.
+
+**Documenten-API-koppeling**
+
+* ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
+* ``Documentvergrendelingscode``. Systeemveld, bevat de vergrendelingscode van een bestand in de Documenten API.
 
 Publicaties
 ------------

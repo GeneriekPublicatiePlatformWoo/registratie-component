@@ -14,6 +14,7 @@ from .logevent import (
     audit_admin_update,
     audit_api_create,
     audit_api_delete,
+    audit_api_download,
     audit_api_read,
     audit_api_update,
 )
@@ -41,4 +42,5 @@ __all__ = [
     "audit_api_read",
     "audit_api_update",
     "audit_api_delete",
+    "audit_api_download",
 ]

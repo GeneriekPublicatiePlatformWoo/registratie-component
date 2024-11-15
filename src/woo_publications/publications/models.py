@@ -24,7 +24,8 @@ from woo_publications.logging.service import audit_admin_update, audit_api_updat
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
-from .constants import PublicationStatusOptions
+from .constants import DocumentActionTypeOptions, PublicationStatusOptions
+from .typing import DocumentActions
 
 # when the document isn't specified both the service and uuid needs to be unset
 _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
@@ -33,6 +34,7 @@ _DOCUMENT_SET = ~models.Q(document_service=None) & ~models.Q(document_uuid=None)
 
 
 class Publication(models.Model):
+    id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),
         unique=True,
@@ -179,6 +181,7 @@ class Publication(models.Model):
 
 
 class Document(models.Model):
+    id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),
         unique=True,
@@ -264,6 +267,13 @@ class Document(models.Model):
         ),
     )
 
+    # documenthandeling fields
+    soort_handeling = models.CharField(
+        verbose_name=_("action type"),
+        choices=DocumentActionTypeOptions.choices,
+        default=DocumentActionTypeOptions.declared,
+    )
+
     # Documents API integration
     document_service = models.ForeignKey(
         "zgw_consumers.Service",
@@ -322,6 +332,34 @@ class Document(models.Model):
             )
 
     @property
+    def documenthandelingen(self) -> DocumentActions:
+        """
+        Fake documenthandeling field to populate the `DocumentActionSerializer`.
+        """
+        return [
+            {
+                "soort_handeling": self.soort_handeling,
+                "at_time": self.registratiedatum,
+                "was_assciated_with": (
+                    self.publicatie.verantwoordelijke.uuid
+                    if self.publicatie.verantwoordelijke
+                    else None
+                ),
+            }
+        ]
+
+    @documenthandelingen.setter
+    def documenthandelingen(self, value: DocumentActions) -> None:
+        """
+        Set the (created) `soort_handeling` field
+        """
+        assert len(value) == 1
+        documenthandeling = value[0]
+        assert documenthandeling["soort_handeling"]
+
+        self.soort_handeling = documenthandeling["soort_handeling"]
+
+    @property
     def zgw_document(self) -> ZGWDocument | None:
         """
         The related ZGW Documents API document.
@@ -336,9 +374,10 @@ class Document(models.Model):
         if not (self.document_service and self.document_uuid):
             return None
 
-        raise NotImplementedError(
-            "Dynamically retrieving the 'zgw_document' is not yet implemented."
-        )
+        # at this time we do not dynamically look up the object in the upstream API,
+        # since evaluating this property in API detail/list responses adds significant
+        # overhead.
+        return None
 
     @zgw_document.setter
     def zgw_document(self, document: ZGWDocument) -> None:
