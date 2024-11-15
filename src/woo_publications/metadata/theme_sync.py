@@ -62,13 +62,22 @@ def update_theme(file_path: Path):
     # create/update sub themes
     for theme in sub_themes:
         try:
+            move = False
             theme_object = Theme.objects.get(identifier=theme["identifier"])
             theme_object.naam = theme["naam"]
             theme_object.save()
-            if theme["parent"] != theme_object.identifier:
+            if parent := theme_object.get_parent():
+                assert isinstance(parent, Theme)
+                if theme["parent"] != parent.identifier:
+                    move = True
+            else:
+                move = True
+
+            if move:
                 theme_object.move(
                     Theme.objects.get(identifier=theme["parent"]), "sorted-child"
                 )
+
         except Theme.DoesNotExist:
             parent = Theme.objects.get(identifier=theme["parent"])
             parent.add_child(
