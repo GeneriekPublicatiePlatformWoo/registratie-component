@@ -794,6 +794,19 @@ paths:
         schema:
           type: string
         description: Filter publicaties op basis van de identificatie van de eigenaar.
+      - in: query
+        name: informatieCategorieen
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: |-
+          Filter publications that belong to a particular information category. When you specify multiple categories, publications belonging to any category are returned.
+
+          Filter values should be the UUID of the categories.
+        explode: true
+        style: form
       - name: page
         required: false
         in: query
@@ -815,6 +828,24 @@ paths:
           * `gepubliceerd` - Published
           * `concept` - Concept
           * `ingetrokken` - Revoked
+      - in: query
+        name: registratiedatumTot
+        schema:
+          type: string
+          format: date-time
+        description: Filter publications that were registered before the given value.
+      - in: query
+        name: registratiedatumVanaf
+        schema:
+          type: string
+          format: date-time
+        description: Filter publications that were registered after or on the given
+          value.
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Searches publications based on the official and short title.
       - in: query
         name: sorteer
         schema:

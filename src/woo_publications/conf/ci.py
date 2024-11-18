@@ -1,6 +1,8 @@
 import os
 import warnings
 
+from django.core.paginator import UnorderedObjectListWarning
+
 os.environ.setdefault("IS_HTTPS", "no")
 os.environ.setdefault("SECRET_KEY", "for-testing-purposes-only")
 os.environ.setdefault("LOG_REQUESTS", "no")
@@ -38,4 +40,12 @@ warnings.filterwarnings(
     r"DateTimeField .* received a naive datetime",
     RuntimeWarning,
     r"django\.db\.models\.fields",
+)
+
+# querysets in api viewsets *must* be ordered
+warnings.filterwarnings(
+    "error",
+    r"Pagination may yield inconsistent results with an unordered object_list: .*",
+    UnorderedObjectListWarning,
+    r"rest_framework\.pagination",
 )
