@@ -1076,6 +1076,7 @@ class DocumentDownloadTests(VCRMixin, TokenAuthMixin, APITestCase):
         assert isinstance(response, StreamingHttpResponse)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Length"], "5")
+        self.assertIn("Content-Disposition", response)
 
         assert isinstance(response.streaming_content, Iterator)
         content = b"".join(response.streaming_content)

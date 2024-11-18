@@ -443,6 +443,10 @@ paths:
               schema:
                 type: string
               description: Total size in bytes of the download.
+            Content-Disposition:
+              schema:
+                type: string
+              description: Marks the file as attachment and includes the filename.
           content:
             application/octet-stream:
               schema:
@@ -455,6 +459,10 @@ paths:
               schema:
                 type: string
               description: Total size in bytes of the download.
+            Content-Disposition:
+              schema:
+                type: string
+              description: Marks the file as attachment and includes the filename.
           description: Bad gateway - failure to stream content.
   /api/v1/informatiecategorieen:
     get:
