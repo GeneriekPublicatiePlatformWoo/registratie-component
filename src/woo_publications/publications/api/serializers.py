@@ -147,6 +147,39 @@ class DocumentSerializer(serializers.ModelSerializer):
         return value
 
 
+class DocumentUpdateSerializer(DocumentSerializer):
+    publicatie = serializers.SlugRelatedField(
+        slug_field="uuid",
+        help_text=_("The unique identifier of the publication."),
+        read_only=True,
+    )
+    documenthandelingen = DocumentActionSerializer(
+        help_text=_(
+            "The document actions of this document, currently only one action will be used per document."
+        ),
+        read_only=True,
+    )
+
+    class Meta(DocumentSerializer.Meta):
+        fields = DocumentSerializer.Meta.fields
+        read_only_fields = [
+            field
+            for field in DocumentSerializer.Meta.fields
+            if field
+            not in (
+                "officiele_titel",
+                "verkorte_titel",
+                "omschrijving",
+                "publicatiestatus",
+            )
+        ]
+        extra_kwargs = {
+            "officiele_titel": {
+                "required": False,
+            }
+        }
+
+
 class EigenaarSerializer(serializers.Serializer):
     weergave_naam = serializers.CharField(
         source="display_name",

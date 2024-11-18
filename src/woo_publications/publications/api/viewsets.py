@@ -33,6 +33,7 @@ from .filters import DocumentFilterSet, PublicationFilterSet
 from .serializers import (
     DocumentSerializer,
     DocumentStatusSerializer,
+    DocumentUpdateSerializer,
     FilePartSerializer,
     PublicationSerializer,
 )
@@ -53,6 +54,14 @@ DOWNLOAD_CHUNK_SIZE = (
     retrieve=extend_schema(
         summary=_("Retrieve a specific document."),
         description=_("Retrieve a specific document."),
+    ),
+    update=extend_schema(
+        summary=_("Update the metadata of a specific document."),
+        description=_("Update the metadata of a specific document."),
+    ),
+    partial_update=extend_schema(
+        summary=_("Update the metadata of a specific document partially."),
+        description=_("Update the metadata of a specific document partially."),
     ),
     create=extend_schema(
         summary=_("Register a document's metadata."),
@@ -75,6 +84,7 @@ DOWNLOAD_CHUNK_SIZE = (
 class DocumentViewSet(
     AuditTrailViewSetMixin,
     mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
     viewsets.ReadOnlyModelViewSet,
 ):
     queryset = Document.objects.order_by("-creatiedatum")
@@ -96,6 +106,12 @@ class DocumentViewSet(
         woo_document.register_in_documents_api(
             build_absolute_uri=self.request.build_absolute_uri,
         )
+
+    def get_serializer_class(self):
+        action = getattr(self, "action", None)
+        if action in ["update", "partial_update"]:
+            return DocumentUpdateSerializer
+        return super().get_serializer_class()
 
     @extend_schema(
         summary=_("Upload file part"),

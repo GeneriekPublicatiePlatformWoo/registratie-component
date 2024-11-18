@@ -51,6 +51,21 @@ class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITes
 
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+        with self.subTest(action="put"):
+            response = self.client.put(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="patch"):
+            response = self.client.patch(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        with self.subTest(action="post"):
+            response = self.client.post(detail_endpoint, headers={})
+
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_api_key_result_in_301_with_wrong_credentials(self):
         document = DocumentFactory.create()
         list_url = reverse("api:document-list")
@@ -61,6 +76,9 @@ class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITes
 
         self.assertWrongApiKeyProhibitsGetEndpointAccess(list_url)
         self.assertWrongApiKeyProhibitsGetEndpointAccess(detail_url)
+        self.assertWrongApiKeyProhibitsPutEndpointAccess(detail_url)
+        self.assertWrongApiKeyProhibitsPatchEndpointAccess(detail_url)
+        self.assertWrongApiKeyProhibitsPostEndpointAccess(list_url)
 
 
 class DocumentApiReadTests(TokenAuthMixin, APITestCase):
@@ -455,6 +473,70 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             # avoid hitting the documenten API for retrieve operations
             self.assertIsNone(response.json()["bestandsdelen"])
+
+
+class DocumentApiMetaDataUpdateTests(TokenAuthMixin, APITestCase):
+    def test_update_document(self):
+        document = DocumentFactory.create(
+            publicatiestatus=PublicationStatusOptions.concept,
+            identifier="document-1",
+            officiele_titel="title one",
+            verkorte_titel="one",
+            omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            creatiedatum="2024-01-01",
+        )
+
+        body = {
+            "officieleTitel": "changed officiele_title",
+            "verkorteTitel": "changed verkorte_title",
+            "omschrijving": "changed omschrijving",
+            "publicatiestatus": PublicationStatusOptions.published,
+        }
+
+        detail_url = reverse(
+            "api:document-detail",
+            kwargs={"uuid": str(document.uuid)},
+        )
+
+        response = self.client.put(detail_url, data=body, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response_data = response.json()
+
+        self.assertEqual(response_data["officieleTitel"], "changed officiele_title")
+        self.assertEqual(response_data["verkorteTitel"], "changed verkorte_title")
+        self.assertEqual(response_data["omschrijving"], "changed omschrijving")
+        self.assertEqual(
+            response_data["publicatiestatus"], PublicationStatusOptions.published
+        )
+
+    def test_partial_update_document(self):
+        document = DocumentFactory.create(
+            publicatiestatus=PublicationStatusOptions.concept,
+            identifier="document-1",
+            officiele_titel="title one",
+            verkorte_titel="one",
+            omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            creatiedatum="2024-01-01",
+        )
+
+        body = {
+            "officieleTitel": "changed officiele_title",
+        }
+
+        detail_url = reverse(
+            "api:document-detail",
+            kwargs={"uuid": str(document.uuid)},
+        )
+
+        response = self.client.patch(detail_url, data=body, headers=AUDIT_HEADERS)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response_data = response.json()
+
+        self.assertEqual(response_data["officieleTitel"], "changed officiele_title")
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "host.docker.internal"])
