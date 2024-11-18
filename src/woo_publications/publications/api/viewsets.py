@@ -5,6 +5,7 @@ from uuid import UUID
 
 from django.db import transaction
 from django.http import StreamingHttpResponse
+from django.utils.http import content_disposition_header
 from django.utils.translation import gettext_lazy as _
 
 from drf_spectacular.utils import (
@@ -186,7 +187,16 @@ class DocumentViewSet(
                 location=OpenApiParameter.HEADER,
                 description=_("Total size in bytes of the download."),
                 response=(200,),
-            )
+            ),
+            OpenApiParameter(
+                name="Content-Disposition",
+                type=str,
+                location=OpenApiParameter.HEADER,
+                description=_(
+                    "Marks the file as attachment and includes the filename."
+                ),
+                response=(200,),
+            ),
         ],
     )
     @action(detail=True, methods=["get"], url_name="download")
@@ -231,7 +241,11 @@ class DocumentViewSet(
                 headers={
                     "Content-Length": upstream_response.headers.get(
                         "Content-Length", str(document.bestandsomvang)
-                    )
+                    ),
+                    "Content-Disposition": content_disposition_header(
+                        as_attachment=True,
+                        filename=document.bestandsnaam,
+                    ),
                 },
             )
 
