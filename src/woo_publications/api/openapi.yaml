@@ -801,8 +801,10 @@ paths:
           items:
             type: string
             format: uuid
-        description: Filter publications based on information category/categories
-          UUID (UUIDs should be seperated by commas).
+        description: |-
+          Filter publications that belong to a particular information category. When you specify multiple categories, publications belonging to any category are returned.
+
+          Filter values should be the UUID of the categories.
         explode: true
         style: form
       - name: page
@@ -827,18 +829,17 @@ paths:
           * `concept` - Concept
           * `ingetrokken` - Revoked
       - in: query
-        name: registratiedatum_Gte
+        name: registratiedatumTot
+        schema:
+          type: string
+          format: date-time
+        description: Filter publications that were registered before the given value.
+      - in: query
+        name: registratiedatumVanaf
         schema:
           type: string
           format: date-time
         description: Filter publications that were registered after or on the given
-          value.
-      - in: query
-        name: registratiedatum_Lte
-        schema:
-          type: string
-          format: date-time
-        description: Filter publications that were registered before or on the given
           value.
       - in: query
         name: search

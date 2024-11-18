@@ -280,15 +280,15 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             self.assertEqual(data["results"][1], expected_first_item_data)
 
     def test_list_publications_filter_information_categories(self):
-        ic, ic2, ic3 = InformationCategoryFactory.create_batch(3)
+        ic, ic2, ic3, ic4 = InformationCategoryFactory.create_batch(4)
         publication = PublicationFactory.create(informatie_categorieen=[ic])
         publication2 = PublicationFactory.create(informatie_categorieen=[ic2])
-        publication3 = PublicationFactory.create(informatie_categorieen=[ic2, ic3])
+        publication3 = PublicationFactory.create(informatie_categorieen=[ic3, ic4])
 
         with self.subTest("filter on a single information category"):
             response = self.client.get(
                 reverse("api:publication-list"),
-                {"informatie_categorieen": str(ic.uuid)},
+                {"informatieCategorieen": str(ic.uuid)},
                 headers=AUDIT_HEADERS,
             )
 
@@ -302,7 +302,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with self.subTest("filter on multiple information categories "):
             response = self.client.get(
                 reverse("api:publication-list"),
-                {"informatie_categorieen": f"{ic2.uuid},{ic3.uuid}"},
+                {"informatieCategorieen": f"{ic2.uuid},{ic4.uuid}"},
                 headers=AUDIT_HEADERS,
             )
 
@@ -327,7 +327,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             with self.subTest("filter on gte date is exact match"):
                 response = self.client.get(
                     reverse("api:publication-list"),
-                    {"registratiedatum__gte": "2024-09-26T12:00:00-00:00"},
+                    {"registratiedatumVanaf": "2024-09-26T12:00:00-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -341,7 +341,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             with self.subTest("filter on gte date is greater then publication"):
                 response = self.client.get(
                     reverse("api:publication-list"),
-                    {"registratiedatum__gte": "2024-09-26T00:00:00-00:00"},
+                    {"registratiedatumVanaf": "2024-09-26T00:00:00-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -356,7 +356,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             with self.subTest("filter on lte date is exact match"):
                 response = self.client.get(
                     reverse("api:publication-list"),
-                    {"registratiedatum__lte": "2024-09-24T12:00:00-00:00"},
+                    {"registratiedatumTot": "2024-09-24T12:00:01-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -370,7 +370,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             with self.subTest("filter on lte date is lesser then publication"):
                 response = self.client.get(
                     reverse("api:publication-list"),
-                    {"registratiedatum__lte": "2024-09-25T00:00:00-00:00"},
+                    {"registratiedatumTot": "2024-09-25T00:00:00-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -388,8 +388,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 response = self.client.get(
                     reverse("api:publication-list"),
                     {
-                        "registratiedatum__gte": "2024-09-25T00:00:00-00:00",
-                        "registratiedatum__lte": "2024-09-26T00:00:00-00:00",
+                        "registratiedatumVanaf": "2024-09-25T00:00:00-00:00",
+                        "registratiedatumTot": "2024-09-26T00:00:00-00:00",
                     },
                     headers=AUDIT_HEADERS,
                 )
@@ -482,8 +482,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 2)
-            self.assertEqual(data["results"][0]["uuid"], str(publication.uuid))
-            self.assertEqual(data["results"][1]["uuid"], str(publication2.uuid))
+            self.assertEqual(data["results"][0]["uuid"], str(publication2.uuid))
+            self.assertEqual(data["results"][1]["uuid"], str(publication.uuid))
 
     def test_list_publications_filter_owner(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
