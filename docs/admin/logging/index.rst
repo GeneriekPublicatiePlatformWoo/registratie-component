@@ -19,7 +19,7 @@ Hier wordt de logging getoond van:
 
 * Publicaties
 * Documenten
-* Informatiecategorieëm
+* Informatiecategorieën
 * Organisaties
 * Thema's
 * Gebruikers (alleen degene die direct toegang hebben tot dit component)
