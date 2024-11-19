@@ -28,6 +28,7 @@ Daarop worden de volgende handelingen gelogd.
 
 * Nieuwe registraties (create)
 * Raadplegingen van registraties (read)
+* Downloaden van bestanden (bij _documenten_)
 * Wijzigingen van registraties (update / patch)
 * Verwijdering / vernietiging van registraties (delete)
 
