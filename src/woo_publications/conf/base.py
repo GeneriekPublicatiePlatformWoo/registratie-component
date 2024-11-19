@@ -135,13 +135,13 @@ SUBPATH = (
 #
 
 REST_FRAMEWORK = BASE_REST_FRAMEWORK.copy()
-REST_FRAMEWORK["PAGE_SIZE"] = 100
+REST_FRAMEWORK["PAGE_SIZE"] = 10
 REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
 REST_FRAMEWORK["DEFAULT_FILTER_BACKENDS"] = (
     "django_filters.rest_framework.DjangoFilterBackend",
 )
 REST_FRAMEWORK["DEFAULT_PAGINATION_CLASS"] = (
-    "rest_framework.pagination.PageNumberPagination"
+    "woo_publications.api.pagination.DynamicPageSizePagination"
 )
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
     "woo_publications.api.permissions.TokenAuthPermission",
