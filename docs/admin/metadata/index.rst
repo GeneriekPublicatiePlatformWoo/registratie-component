@@ -118,7 +118,7 @@ toe te voegen. Deze zijn de herkennen aan de waarde "Zelf-toegevoegd item" in de
 
 Op het beheerscherm zijn de volgende acties mogelijk:
 
-* Rechtboven zit een knop **organisatie toevoegen** waarmee een *organisatie* toegevoegd kan worden.
+* Rechtsboven zit een knop **organisatie toevoegen** waarmee een *organisatie* toegevoegd kan worden.
 * Bovenaan zit een zoekveld met en knop **Zoeken** waarmee naar *organisaties* gezocht kan worden.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere organisaties**.
   Op dit moment wordt alleen de actie **Geselecteerde organisaties verwijderen** ondersteund. 
