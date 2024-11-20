@@ -11,6 +11,8 @@ Onder het menu-item "Metadata" en op het dashboard onder het kopje "Metadata" wo
 
 Door hierop te klikken wordt het desbetreffende beheerscherm geopend.
 
+.. _admin_metadata_index_information_categories:
+
 Informatiecategorieën
 ---------------------
 

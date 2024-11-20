@@ -77,6 +77,11 @@ The Documenten API from the
 the actual documents. Version 1.1 and newer are supported, since we use the large file
 uploads mechanism.
 
+.. seealso::
+
+   The :ref:`installation requirements <installation_requirements>` list available
+   Documenten API options.
+
 .. table:: Documenten API version support
    :widths: auto
 
