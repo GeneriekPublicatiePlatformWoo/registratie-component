@@ -18,4 +18,5 @@ and expertise.
 
    docker_compose
    helm
+   requirements
    config
