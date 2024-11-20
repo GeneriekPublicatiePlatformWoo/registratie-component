@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
+from furl import furl
 from maykin_2fa.test import disable_admin_mfa
 
 from woo_publications.accounts.tests.factories import UserFactory
@@ -182,4 +183,54 @@ class TestInformationCategoryAdmin(WebTest):
             added_item.definitie,
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris risus nibh, "
             "iaculis eu cursus sit amet, accumsan ac urna. Mauris interdum eleifend eros sed consectetur.",
+        )
+
+
+@disable_admin_mfa()
+class InformationCategoryAPIResourceListAdminTests(WebTest):
+
+    def test_staff_user_required(self):
+        bad_users = (
+            None,
+            UserFactory.create(),
+        )
+        url = reverse("admin:metadata_informationcategory_iotendpoints")
+
+        for user in bad_users:
+            self.client.logout()
+            if user is not None:
+                self.client.force_login(user)
+
+            response = self.client.get(url)
+
+            self.assertRedirects(
+                response,
+                str(furl(reverse("admin:login")).add({"next": url})),
+            )
+
+    def test_access_blocked_without_permissions(self):
+        staff_user_without_permissions = UserFactory.create(is_staff=True)
+        self.client.force_login(staff_user_without_permissions)
+        url = reverse("admin:metadata_informationcategory_iotendpoints")
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_lists_api_endpoints(self):
+        user = UserFactory.create(superuser=True)
+        url = reverse("admin:metadata_informationcategory_iotendpoints")
+        InformationCategoryFactory.create(
+            naam="unique snowflake", uuid="7aa923ea-9e72-4523-9ef9-f7e1e74cf53a"
+        )
+
+        response = self.app.get(url, user=user)
+
+        self.assertContains(response, "unique snowflake")
+        self.assertContains(
+            response,
+            (
+                "http://testserver/catalogi/api/v1/informatieobjecttypen/"
+                "7aa923ea-9e72-4523-9ef9-f7e1e74cf53a"
+            ),
         )

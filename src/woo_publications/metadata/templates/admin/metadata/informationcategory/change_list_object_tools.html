@@ -1,0 +1,16 @@
+{% extends "admin/change_list_object_tools.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+    {% url 'admin:metadata_informationcategory_iotendpoints' as overview_url %}
+
+    {% if request.path != overview_url %}
+        <li>
+            <a href="{{ overview_url }}" class=>
+                {% trans "View API resource URLs" %}
+            </a>
+        </li>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}
