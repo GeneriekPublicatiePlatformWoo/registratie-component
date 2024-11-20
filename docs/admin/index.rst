@@ -25,6 +25,10 @@ Menubalk
 ----------
 Bovenaan de Admin-omgeving staat de menubalk. Deze geeft toegang tot de verschillende beheer-functionaliteiten van het 'WOO Publications'-component. Deze onderdelen leggen we hieronder verder uit, maar eerst willen we je nog wijzen op de klikbare links uiterst rechtsboven in de menubalk.
 
+.. image:: menubalk_rechtsboven.png
+    :width: 100%
+    :alt: Menubalk rechtsboven
+
 * Toon site
    Deze klinkbare link brengt je terug naar de webpagina met enige informatie over het component, zonder uit te loggen.
 
@@ -59,6 +63,7 @@ Klik verder om meer te leren over de volgende onderdelen:
    publicaties/index
    metadata/index
    accounts/index
+   api_access/index
    logging/index
    configuratie/index
    handige_links/index

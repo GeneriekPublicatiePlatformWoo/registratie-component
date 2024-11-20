@@ -23,15 +23,15 @@ Op dit scherm zijn de volgende acties mogelijk:
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere documentregistraties**. Op dit moment wordt alleen de actie **Geselecteerde documenten verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *document*-regsitraties aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *document*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
-* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum en/of creatiedatum**.
+* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum, creatiedatum en/of publicatiestatus**.
 * Bij een *document*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *document*-registratie kan op **Show logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *document*-registratie kan op **Toon logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
 Wanneer bij een *document*-registratie op  de `officiële titel` wordt geklikt, wordt een scherm geopend met de *document*-details.
 Hierop zien we:
 
 * **Alle metadatavelden**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **Show logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *document*-registratie.
+* Rechtsboven een knop **Toon logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *document*-registratie.
 * Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de Admin-interface zijn uitgevoerd op de registratie.
 * Linksonder de mogelijkheid om **wijzigingen op te slaan**. Er kan voor gekozen worden om na het opslaan direct een nieuwe registratie aan te maken of om direct de huidige registratie nogmaals te wijzigen.
 * Rechtsonder de mogelijkheid om de registratie te **verwijderen**.
@@ -49,25 +49,25 @@ Op een *document*-registratie zijn de volgende metadata beschikbaar. Op het sche
 * ``Bestandsformaat``. *In ontwikkeling* (DiWoo : ``format``)
 * ``Bestandsnaam``. Naam van het bestand zoals deze op de harde schijf opgeslagen wordt.
 * ``Bestandsomvang`` Bestandsgrootte, in aantal bytes.
-* ``Status``. De publicatiestatus van het document (DiWoo : ``publicatiestatus``)
+* ``Status``. De publicatiestatus van het document. "Gepubliceerd" betekent dat het document online vindbaar en raadpleegbaar is. "Concept" en "Ingetrokken" zijn offline voor de buitenwereld.
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop het document nieuw is toegevoegd.
-* ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd was.
+* ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop het document voor het laatst gewijzigd is.
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
 
 **Documenthandelingen**
 
 Documenthandelingen zijn verplichte gegevens in de DiWoo-standaard.
 
-* ``Soort handeling``. De soort documenthandeling die op dit document plaatsgevonden heeft. Dit wordt nu automatisch gezet.
-* ``Vanaf``. Het gerapporteerde moment van de documenthandeling, deze is gelijk aan de documentregistratiedatum.
-* ``Was geassocieerd met``. De organisatie die deze handeling heeft uitgevoerd, afgeleid uit de verantwoordelijke
+* ``Soort handeling``. De soort documenthandeling die op dit document plaatsgevonden heeft. Dit wordt voorlopig automatisch gezet.
+* ``Vanaf``. Het gerapporteerde moment van de documenthandeling. Deze wordt voorlopig gelijk gesteld aan de documentregistratiedatum.
+* ``Was geassocieerd met``. De organisatie die deze handeling heeft uitgevoerd. Deze wordt voorlopig afgeleid uit de verantwoordelijke
   organisatie van de gerelateerde publicatie.
 
 **Documenten-API-koppeling**
 
 * ``Documents API Service``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
 * ``Document UUID``. Systeemveld, bevat de verwijzing naar het bestand in de Documenten API.
-* ``Documentvergrendelingscode``. systeemveld, bevat de vergrendelingscode van een bestand in de Documenten API.
+* ``Documentvergrendelingscode``. Systeemveld, bevat de vergrendelingscode van een bestand in de Documenten API.
 
 Publicaties
 ------------
@@ -95,16 +95,16 @@ Op dit scherm zijn de volgende acties mogelijk:
 * Direct onder de zoekbalk zit de mogelijkheid om de lijst te **filteren op een specifieke registratiedatum**.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere publicaties**. Op dit moment wordt alleen de actie **Geselecteerde publicaties verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *publicatie*-regsitraties aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *publicatie*-registraties. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
-* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum**.
+* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op registratiedatum en/of publicatiestatus**.
 * Bij een *publicatie*-registratie kan op de `officiële titel` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *publicatie*-registratie kan op **Show documents** (rechter kolom) geklikt worden om direct de gekoppelde *documenten* in te zien.
-* Bij een *publicatie*-registratie kan op **Show logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *publicatie*-registratie kan op **Toon documenten** (rechter kolom) geklikt worden om direct de gekoppelde *documenten* in te zien.
+* Bij een *publicatie*-registratie kan op **Toon logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
 Wanneer bij een *publicatie*-registratie op  de `officiële titel` wordt geklikt, wordt een scherm geopend met de *publicatie*-details.
 Hierop zien we:
 
 * **Alle metadatavelden**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **Show logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *publicatie*-registratie.
+* Rechtsboven een knop **Toon logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *publicatie*-registratie.
 * Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de Admin-interface zijn uitgevoerd op de registratie.
 * Onder de metadatavelden de gekoppelde *documenten*. De metadata die getoond en gewijzigd kan worden komt overeen met zoals hierboven beschreven. Een *document* kan ook verwijderd worden door dit aan de rechterzijde aan te vinken. Let op, dit betreft niet alleen het ontkoppelen van een *document*, maar de volledige verwijdering!
 * Onder de *documenten* de mogelijkheid om **een nieuw document** toe te voegen aan de *publicatie*.
@@ -120,8 +120,8 @@ Op een *publicatie*-registratie zijn de volgende metadata beschikbaar. Op het sc
 * ``Officiële titel``. De (mogelijk uitgebreide) officiële titel van de publicatie. (DiWoo : ``officieleTitel``)
 * ``Verkorte titel``. De verkorte titel / citeertitel van de publicatie. (DiWoo : ``verkorteTitel``)
 * ``Omschrijving``. Een beknopte omschrijving / samenvatting van de publicatie. (DiWoo : ``omschrijving``)
-* ``Status``. De publicatiestatus van de publicatie **LET OP**: wanneer de publicatie ingetrokken wordt, worden de gepubliceerde documenten ook ingetrokken. (DiWoo : ``publicatiestatus``)
-* ``Publicatie``. Het *document* moet hier gekoppeld worden aan een bestaande of nieuwe *publicatie*
+* ``Status``. De status van de publicatie. "Gepubliceerd" betekent dat de publicatie online vindbaar en raadpleegbaar is. "Concept" en "Ingetrokken" zijn offline voor de buitenwereld.
+  Let op, als je een publicatie intrekt, dan worden de documenten met de huidige status "Gepubliceerd" automatisch ook ingetrokken!
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk. (DiWoo : ``identifier``)
 * ``Geregistreerd op``. De niet-wijzigbare datum en tijd waarop de publicatie nieuw is toegevoegd.
 * ``Laatst gewijzigd op``. De niet-wijzigbare datum en tijd waarop de publicatie voor het laatst gewijzigd was.

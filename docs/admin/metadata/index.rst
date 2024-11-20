@@ -45,13 +45,13 @@ Op het beheerscherm zijn de volgende acties mogelijk:
 * Onder de (bulk-)actie staat de lijst met *informatiecategorieën*. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong**.
 * Bij een *informatiecategorie* kan op de `naam` geklikt worden om **de details in te zien** en deze eventueel **te wijzigen**.
-* Bij een *informatiecategorie* kan op **Show logs** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *informatiecategorie* kan op **Toon logs** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
 Wanneer bij een *informatiecategorie* op  de `naam` wordt geklikt, wordt een scherm geopend met nadere details.
 Hierop zien we:
 
 * **Alle gegevens**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **Show logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *informatiecategorie*.
+* Rechtsboven een knop **Toon logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *informatiecategorie*.
 * Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de beheerinterface zijn uitgevoerd op de *informatiecategorie*.
 * Als de *informatiecategorie* tot de landelijke lijst behoort, linksonder een knop om het scherm te **sluiten** en terug te keren naar de lijst.
 * Als de *informatiecatgeorie* door de organisatie zelf is toegevoegd, linksonder de mogelijkheid om **wijzigingen op te slaan** (indien van toepassing). Er kan voor gekozen worden om na het opslaan direct een nieuwe *informatiecategorie* aan te maken of om direct de huidige *informatiecategorie* nogmaals te wijzigen.
@@ -118,47 +118,31 @@ toe te voegen. Deze zijn de herkennen aan de waarde "Zelf-toegevoegd item" in de
 
 Op het beheerscherm zijn de volgende acties mogelijk:
 
-
-* Rechtboven zit een knop **organisatie toevoegen** waarmee een *organisatie* toegevoegd
-  kan worden.
-* Bovenaan zit een zoekveld met en knop **Zoeken** waarmee naar *organisaties* gezocht
-  kan worden.
+* Rechtsboven zit een knop **organisatie toevoegen** waarmee een *organisatie* toegevoegd kan worden.
+* Bovenaan zit een zoekveld met en knop **Zoeken** waarmee naar *organisaties* gezocht kan worden.
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere organisaties**.
-  Op dit moment wordt alleen de actie **Geselecteerde organisaties verwijderen**
-  ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *organisaties*
-  aan te vinken.
-* Onder de (bulk-)actie staat de lijst met *organisaties*. Door op de kolomtitels te
-  klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
-* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong**.
-* Bij een *organisatie* kan op de *naam* geklikt worden om **de details in te zien** en
-  deze eventueel **te wijzigen** en/of (de)activeren.
-* Bij een *organisatie* kan op **Show logs** (op één na rechter kolom) geklikt worden om
-  direct de :ref:`audit trail<admin_logging_index>` in te zien.
+  Op dit moment wordt alleen de actie **Geselecteerde organisaties verwijderen** ondersteund. 
+  Merk op dat het mogelijk is om in de lijst één of meerdere *organisaties* aan te vinken.
+* Onder de (bulk-)actie staat de lijst met *organisaties*. Door op de kolomtitels te klikken kan de lijst **alfabetisch of chronologisch geordend** worden.
+* Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op oorsprong en/ofof status**.
+* Bij een *organisatie* kan op de *naam* geklikt worden om **de details in te zien** en deze eventueel **te wijzigen** en/of (de)activeren.
+* Bij een *organisatie* kan op **Toon logs** (op één na rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
-Wanneer bij een *organisatie* op de *naam* wordt geklikt, dan opent een scherm met
-nadere details. Hierop zien we:
+Wanneer bij een *organisatie* op de *naam* wordt geklikt, dan opent een scherm met nadere details. Hierop zien we:
 
 * **Alle gegevens**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **Show logs**. Deze toont de volledige
-  :ref:`audit trail<admin_logging_index>` van de *organisatie*.
-* Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de
-  beheerinterface zijn uitgevoerd op de *organisatie*.
-* Linksonder de mogelijkheid om **wijzigingen op te slaan**. Er kan voor gekozen worden
-  om na het opslaan direct een nieuwe *organisatie* aan te maken of om direct de
-  huidige *organisatie* nogmaals te wijzigen.
+* Rechtsboven een knop **Toon logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van de *organisatie*.
+* Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de beheerinterface zijn uitgevoerd op de *organisatie*.
+* Linksonder de mogelijkheid om **wijzigingen op te slaan**. Er kan voor gekozen worden om na het opslaan direct een nieuwe *organisatie* aan te maken of om direct de huidige *organisatie* nogmaals te wijzigen.
 * Rechtsonder de mogelijkheid om de *organisatie* te **verwijderen**.
 
-Op een organisatie zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte
-velden **dikgedrukt** weergegeven.
+Op een organisatie zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte velden **dikgedrukt** weergegeven.
 
-* ``Naam``. De naam van de *organistaie*, bijvoorbeeld "Politie".
-* ``Is actief``. Een selectievakje die aangeeft of de organisatie geactiveerd is of
-  niet. Om een organisatie te activeren klik je het vinkje aan, om een organisatie te
-  deactiveren schakel je het vinkje uit, en sla de wijzigingen op.
+* ``Is actief``. Een selectievakje die aangeeft of de organisatie geactiveerd is of niet. 
+  Om een organisatie te activeren klik je het vinkje aan, om een organisatie te deactiveren schakel je het vinkje uit, en sla de wijzigingen op.
 * ``UUID``. Een niet-wijzigbaar, automatisch toegekend identificatiekenmerk.
-* ``Oorsprong``. Een niet-wijzigbaar, automatisch toegekende aanduiding die aangeeft
-  uit welke landelijke waardelijst de organisatie komt, of dat deze zelf toegevoegd is
-  door een beheerder.
+* ``Oorsprong``. Een niet-wijzigbaar, automatisch toegekende aanduiding die aangeeft uit welke landelijke waardelijst de organisatie komt, of dat deze zelf toegevoegd is door een beheerder.
+* ``Naam``. De naam van de *organistaie*, bijvoorbeeld "Politie".
 
 .. _admin_metadata_index_organisation_active:
 
@@ -198,13 +182,13 @@ Op het beheerscherm zijn de volgende acties mogelijk:
 * Daaronder zit de mogelijkheid om **eenzelfde actie uit te voeren over meerdere informatiecategorieën**. Op dit moment wordt alleen de actie **Geselecteerde thema's verwijderen** ondersteund. Merk op dat het mogelijk is om in de lijst één of meerdere *thema's* aan te vinken.
 * Onder de (bulk-)actie staat de lijst met *thema's*.
 * Bij een *thema* kan op de `naam` geklikt worden om **de details in te zien**.
-* Bij een *thema* kan op **Show logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
+* Bij een *thema* kan op **Toon logs** (rechter kolom) geklikt worden om direct de :ref:`audit trail<admin_logging_index>` in te zien.
 
 Wanneer bij een *thema* op  de `naam` wordt geklikt, wordt een scherm geopend met nadere details.
 Hierop zien we:
 
 * **Alle gegevens**. Deze lichten we hieronder toe.
-* Rechtsboven een knop **Show logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van het *thema*.
+* Rechtsboven een knop **Toon logs**. Deze toont de volledige :ref:`audit trail<admin_logging_index>` van het *thema*.
 * Rechtsboven een knop **Geschiedenis**. Deze toont de beheer-handelingen die vanuit de Admin-interface zijn uitgevoerd op het *thema*.
 * Linksonder een knop om het scherm te **sluiten** en teurg te keren naar de lijst.
 * Rechtsonder de mogelijkheid om het *thema* te **verwijderen**.
