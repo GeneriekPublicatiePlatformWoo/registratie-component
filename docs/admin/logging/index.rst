@@ -26,11 +26,11 @@ Hier wordt de logging getoond van:
 
 Daarop worden de volgende handelingen gelogd. 
 
-* Nieuwe registraties (create)
-* Raadplegingen van registraties (read)
+* Nieuwe records (create)
+* Raadplegingen van records (read)
 * Downloaden van bestanden (bij _documenten_)
-* Wijzigingen van registraties (update / patch)
-* Verwijdering / vernietiging van registraties (delete)
+* Wijzigingen van records (update / patch)
+* Verwijdering / vernietiging van records (delete)
 
 Zowel handelingen uitgevoerd via de admin-interface als via de API worden gelogd.
 
@@ -40,7 +40,7 @@ Op het beheerscherm zijn de volgende acties mogelijk:
 * Onder de (bulk-)actie staat de lijst met *(audit)logitems*. Door op de kolomtitels (m.u.v. de kolom `bericht`) te klikken kan de lijst **alfabetisch of chronologisch geordend** worden. 
 * Rechts naast de lijst bestaat de mogelijkheid om deze te **filteren op datum en/of gebeurtenis**.
 * Bij een *(audit)logitem* kan op het `bericht` geklikt worden om **de details in te zien**. Daarbij worden o.a. de gegevens getoond van het betrokken object zoals bekend direct ná de handeling.
-* Bij een *(audit)logitem* kan op het **betrokken object** (rechter kolom) geklikt worden om direct naar de registratie te gaan waar het *(audit)logitem* betrekking op heeft.
+* Bij een *(audit)logitem* kan op het **betrokken object** (rechter kolom) geklikt worden om direct naar het record te gaan waar het *(audit)logitem* betrekking op heeft.
 
 Access attempts
 ---------------
