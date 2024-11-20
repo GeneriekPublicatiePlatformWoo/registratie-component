@@ -67,22 +67,12 @@ Documents API are based on these document types.
 
 Woo Publications requires the scopes listed above, for all information categories.
 
-You can construct the API resource URLs of the document
-types by taking the domain where Woo Publications is hosted (e.g.
-``https://woo-publications.example.com``) and concatenating the part
-``/catalogi/api/v1/informatieobjecttypen/`` and the UUID of each information category
-in the admin environment.
+The API resource URLs for all information categories are available on a page in the
+admin. Navigate to **Admin** > **Metadata** > **Information categories**. In the top
+right, click the **View API resource URLs** button.
 
-An example of a full resource URL is:
-``https://woo-publications.example.com/catalogi/api/v1/informatieobjecttypen/be4e21c2-0be5-4616-945e-1f101b0c0e6d``
-
-You can find the UUIDs by navigating to the **Admin** > **Metadata** >
-**Information categories** and then opening each category where you'll see the *UUID*
-field listed.
-
-.. note:: Currently this requires manual actions, we're developing a page to more easily
-   provide this information.
-
+The list page displays all information categories, grouped by their origin with the
+fully qualified resource URLs required by the Authorisations API.
 
 Known applications/products providing a Documents API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
