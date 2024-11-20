@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import assert_never
+
 from django.db import models
 
 from woo_publications.accounts.models import User
@@ -52,6 +54,8 @@ def _audit_event(
             display_name = (
                 user_display or django_user.get_full_name() or django_user.username
             )
+        case _:  # pragma: no cover
+            assert_never(django_user)
 
     metadata: MetadataDict = {
         "event": event,

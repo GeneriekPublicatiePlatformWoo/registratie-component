@@ -6,7 +6,9 @@ from django.views.csrf import (
 )
 
 
-def csrf_failure(request, reason="", template_name=CSRF_FAILURE_TEMPLATE_NAME):
+def csrf_failure(
+    request, reason="", template_name=CSRF_FAILURE_TEMPLATE_NAME
+):  # pragma: no cover
     """
     Catch CSRF failure when tryin to login a second time, when already logged
     in, by redirecting to the LOGIN_REDIRECT_URL.
