@@ -1,19 +1,20 @@
+from typing import TypedDict
+
 from django.conf import settings as django_settings
+from django.http import HttpRequest
 
 
-def settings(request):
+class SettingsContext(TypedDict):
+    settings: dict[str, str]
+
+
+def settings(request: HttpRequest) -> SettingsContext:
     public_settings = (
-        "GOOGLE_ANALYTICS_ID",
         "PROJECT_NAME",
         "RELEASE",
         "GIT_SHA",
     )
-
-    context = {
-        "settings": {k: getattr(django_settings, k, None) for k in public_settings},
+    context: SettingsContext = {
+        "settings": {k: getattr(django_settings, k) for k in public_settings},
     }
-
-    if hasattr(django_settings, "SENTRY_CONFIG"):
-        context.update(dsn=django_settings.SENTRY_CONFIG.get("public_dsn", ""))
-
     return context

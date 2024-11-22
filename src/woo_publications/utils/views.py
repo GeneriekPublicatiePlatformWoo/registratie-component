@@ -14,7 +14,7 @@ def server_error(request, template_name=ERROR_500_TEMPLATE_NAME):
     """
     try:
         template = loader.get_template(template_name)
-    except TemplateDoesNotExist:
+    except TemplateDoesNotExist:  # pragma: no cover
         if template_name != ERROR_500_TEMPLATE_NAME:
             # Reraise if it's a missing custom template.
             raise

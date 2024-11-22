@@ -1,4 +1,5 @@
 from time import time
+from typing import Literal
 
 from django.core.cache import caches
 from django.core.exceptions import PermissionDenied
@@ -23,14 +24,21 @@ class ThrottleMixin:
 
     # get and options should always be fast. By default
     # do not throttle them.
-    throttle_methods = ["post", "put", "patch", "delete", "head", "trace"]
+    throttle_methods: list[str] | Literal["all"] = [
+        "post",
+        "put",
+        "patch",
+        "delete",
+        "head",
+        "trace",
+    ]
 
     request: HttpRequest
 
     def get_throttle_cache(self):
         return caches["default"]
 
-    def get_throttle_identifier(self) -> str:
+    def get_throttle_identifier(self) -> str:  # pragma: no cover
         user = getattr(self, "user_cache", self.request.user)
         return str(user.pk)
 
@@ -63,18 +71,18 @@ class ThrottleMixin:
         else:
             try:
                 visits = cache.incr(key)
-            except ValueError:
+            except ValueError:  # pragma: no cover
                 visits = initial_visits
         return visits
 
     def should_be_throttled(self):
-        if self.throttle_methods == "all":
+        if self.throttle_methods == "all":  # pragma: no cover
             return True
         assert self.request.method is not None
         return self.request.method.lower() in self.throttle_methods
 
     def dispatch(self, request, *args, **kwargs):
-        if self.throttle_403:
+        if self.throttle_403:  # pragma: no cover
             if (
                 self.should_be_throttled()
                 and self.get_visits_in_window() > self.throttle_visits

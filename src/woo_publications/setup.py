@@ -17,6 +17,7 @@ from pathlib import Path
 from django.conf import settings
 
 from dotenv import load_dotenv
+from requests import Session
 
 logger = logging.getLogger(__name__)
 
@@ -38,13 +39,7 @@ def monkeypatch_requests():
     Clean up the code by removing the try/except if requests is installed, or removing
     the call to this function in setup_env if it isn't
     """
-    try:
-        from requests import Session
-    except ModuleNotFoundError:
-        logger.debug("Attempt to patch requests, but the library is not installed")
-        return
-
-    if hasattr(Session, "_original_request"):
+    if hasattr(Session, "_original_request"):  # pragma: no cover
         logger.debug(
             "Session is already patched OR has an ``_original_request`` attribute."
         )

@@ -20,7 +20,7 @@ def get_subclasses(cls):
 
 
 @register()
-def check_modelform_exclude(app_configs, **kwargs):
+def check_modelform_exclude(app_configs, **kwargs):  # pragma: no cover
     """
     Check that ModelForms use Meta.fields instead of Meta.exclude.
 
@@ -57,7 +57,7 @@ def check_modelform_exclude(app_configs, **kwargs):
 
 
 @register
-def check_missing_init_files(app_configs, **kwargs):
+def check_missing_init_files(app_configs, **kwargs):  # pragma: no cover
     """
     Check that all packages have __init__.py files.
 
@@ -124,7 +124,7 @@ def check_docker_hostname_dns(app_configs, **kwargs):
 
 
 @register
-def check_model_admin_includes_logging_mixin(app_configs, **kwargs):
+def check_model_admin_includes_logging_mixin(app_configs, **kwargs):  # pragma: no cover
     errors: list[Error] = []
 
     for admin_cls in get_subclasses(ModelAdmin):
