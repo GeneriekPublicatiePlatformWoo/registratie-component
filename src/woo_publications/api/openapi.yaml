@@ -92,6 +92,11 @@ paths:
           The display name of the user performing the action, to make them recognizable.
         required: true
       - in: query
+        name: eigenaar
+        schema:
+          type: string
+        description: Filter documents based on the owner identifier of the object.
+      - in: query
         name: identifier
         schema:
           type: string
@@ -125,11 +130,11 @@ paths:
           - gepubliceerd
           - ingetrokken
         description: |-
-          Filter documents based on the publication status.
+          Filter documenten op publicatiestatus.
 
-          * `gepubliceerd` - Published
+          * `gepubliceerd` - Gepubliceerd
           * `concept` - Concept
-          * `ingetrokken` - Revoked
+          * `ingetrokken` - Ingetrokken
       - in: query
         name: sorteer
         schema:
@@ -168,18 +173,18 @@ paths:
     post:
       operationId: documentenCreate
       description: |-
-        Creating a document results in the registration of the metadata and prepares the client for the upload of the binary data.
+        Het registreren van een document zorgt ervoor dat de metadata vastgelegd wordt en geeft informatie terug aan de client zodat de bestandsinhoud geüpload kan worden.
 
-        The document (metadata) is immediately registered in the underlying Documents API, and you receive an array of `bestandsdelen` in the response data to upload the actual binary data of the document.
+        Het document (= de metadata) wordt meteen vastgelegd in de achterliggende Documenten-API, en je krijgt een lijst van bestandsdelen terug in het antwoord waarmee je de eigenlijke bestandsinhoud kan uploaden.
 
-        Note that the record in the underlying Documents API remains locked until all file parts have been provided.
+        Merk op dat de record in de achterliggende Documenten-API vergrendeld is tot dat alle bestandsdelen toegevoegd zijn.
 
         **NOTE**
-        This requires the global configuration to be set up via the admin interface. You must:
+        Je moet hiervoor een aantal algemene instellingen doen in de beheeromgeving. Met name:
 
-        * configure and select the Documents API to use
-        * specify the organisation RSIN for the created documents
-      summary: Register a document's metadata.
+        * een Documenten-API-service instellen en selecteren
+        * een organisatie-RSIN instellen om te gebruiken voor geregistreerde documenten
+      summary: Registreer de metadata van een document.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -275,8 +280,8 @@ paths:
           description: ''
     put:
       operationId: documentenUpdate
-      description: Update the metadata of a specific document.
-      summary: Update the metadata of a specific document.
+      description: Werk de metadata van een specifiek document bij.
+      summary: Werk de metadata van een specifiek document bij.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -328,8 +333,8 @@ paths:
           description: ''
     patch:
       operationId: documentenPartialUpdate
-      description: Update the metadata of a specific document partially.
-      summary: Update the metadata of a specific document partially.
+      description: Werk de metadata van een specifiek document gedeeltelijk bij.
+      summary: Werk de metadata van een specifiek document gedeeltelijk bij.
       parameters:
       - in: header
         name: Audit-Remarks
@@ -383,12 +388,12 @@ paths:
     put:
       operationId: documentenBestandsdelenUpdate
       description: |-
-        Send the binary data for a file part to perform the actual file upload. The response data of the document create endpoints returns the list of expected file parts, pointing to this endpoint. The client must split the binary file in the expected part sizes and then upload each chunk individually.
+        Upload de binaire data voor een bestandsdeel. De response van de document create endpoint geeft een lijst van verwachtte bestandsdelen terug die naar dit endpoint verwijzen. De client moet het bestand opknippen in de verwachtte bestandsdeelgroottes en dan elk stuk individueel uploaden.
 
-        Once all file parts for the document are received, the document will be automatically unlocked in the Documents API and ready for use.
+        Eenmaal alle bestandsdelen voor het document ontvangen zijn, zal het document automatisch ontgrendeld worden in de achterliggende Documenten-API en dan is het document klaar voor gebruik.
 
-        **NOTE** this endpoint expects `multipart/form-data` rather than JSON to avoid the base64 encoding overhead.
-      summary: Upload file part
+        **NOTE** dit endpoint verwacht `multipart/form-data` gegevens in plaats van JSON - op deze manier kan de base64-encoding overhead voorkomen worden.
+      summary: Bestandsdeel uploaden
       parameters:
       - in: header
         name: Audit-Remarks
@@ -449,10 +454,10 @@ paths:
     get:
       operationId: documentenDownloadRetrieve
       description: |-
-        Download the binary content of the document. The endpoint does not return JSON data, but instead the file content is streamed.
+        Download de inhoud van het document als binaire data. Dit endpoint geeft geen JSON terug, in de plaats daarvan wordt de bestandsinhoud direct gestreamed.
 
-        You can only download the content of files that are completely uploaded in the upstream API.
-      summary: Download the binary file contents
+        Je kan enkel bestanden downloaden waarvan de upload naar de achterliggende Documenten-API voltooid is.
+      summary: Download de binaire bestandsdata
       parameters:
       - in: header
         name: Audit-Remarks
@@ -496,28 +501,30 @@ paths:
             Content-Length:
               schema:
                 type: string
-              description: Total size in bytes of the download.
+              description: Totale grootte (in bytes) van de download.
             Content-Disposition:
               schema:
                 type: string
-              description: Marks the file as attachment and includes the filename.
+              description: Markeert het bestand als 'bijlage' en bevat de bestandsnaam
+                van het document.
           content:
             application/octet-stream:
               schema:
                 type: string
                 format: binary
-          description: The binary file contents.
+          description: De binaire bestandsinhoud.
         '502':
           headers:
             Content-Length:
               schema:
                 type: string
-              description: Total size in bytes of the download.
+              description: Totale grootte (in bytes) van de download.
             Content-Disposition:
               schema:
                 type: string
-              description: Marks the file as attachment and includes the filename.
-          description: Bad gateway - failure to stream content.
+              description: Markeert het bestand als 'bijlage' en bevat de bestandsnaam
+                van het document.
+          description: Bad gateway - kon de inhoud niet streamen.
   /api/v1/informatiecategorieen:
     get:
       operationId: informatiecategorieenList
@@ -982,9 +989,9 @@ paths:
             type: string
             format: uuid
         description: |-
-          Filter publications that belong to a particular information category. When you specify multiple categories, publications belonging to any category are returned.
+          Filter publicaties die binnen een bepaalde informatiecategorie vallen. Als je meerdere categorieën opgeeft, dan krijg je alle publicaties die aan één van deze categorieën gerelateerd zijn.
 
-          Filter values should be the UUID of the categories.
+          De filterwaarden zijn UUIDs van de categorieën. Gebruik komma's om meerdere waarden van elkaar te scheiden.
         explode: true
         style: form
       - name: page
@@ -1009,29 +1016,30 @@ paths:
           - gepubliceerd
           - ingetrokken
         description: |-
-          Filter publications based on the publication status.
+          Filter publicaties op publicatiestatus.
 
-          * `gepubliceerd` - Published
+          * `gepubliceerd` - Gepubliceerd
           * `concept` - Concept
-          * `ingetrokken` - Revoked
+          * `ingetrokken` - Ingetrokken
       - in: query
         name: registratiedatumTot
         schema:
           type: string
           format: date-time
-        description: Filter publications that were registered before the given value.
+        description: Filter publicaties op registratiedatum voor de opgegeven datumtijd.
       - in: query
         name: registratiedatumVanaf
         schema:
           type: string
           format: date-time
-        description: Filter publications that were registered after or on the given
-          value.
+        description: Filter publicaties op registratiedatum op of na de opgegeven
+          datumtijd.
       - in: query
         name: search
         schema:
           type: string
-        description: Searches publications based on the official and short title.
+        description: Doorzoek publicaties op officiële en verkorte titel (niet hoofdlettergevoelig
+          en zoekt op delen van de zoekterm).
       - in: query
         name: sorteer
         schema:
@@ -1548,11 +1556,11 @@ components:
           title: Status
           description: |2-
 
-            **Disclaimer**: you can't create a revoked document.
+            **Waarschuwing**: je kan geen ingetrokken document aanmaken.
 
-            * `gepubliceerd` - Published
+            * `gepubliceerd` - Gepubliceerd
             * `concept` - Concept
-            * `ingetrokken` - Revoked
+            * `ingetrokken` - Ingetrokken
         creatiedatum:
           type: string
           format: date
@@ -1573,40 +1581,47 @@ components:
           maximum: 2147483647
           minimum: 0
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
           readOnly: true
           title: Geregistreerd op
-          description: System timestamp reflecting when the document was registered
-            in the database. Not to be confused with the creation date of the document,
-            which is usually *before* the registration date.
+          description: Systeemdatum en -tijd wanneer het document in de databank opgeslagen
+            is. Niet te verwarren met de creatiedatum van de publicatie, die typisch
+            *voor* de registratiedatum valt.
         laatstGewijzigdDatum:
           type: string
           format: date-time
           readOnly: true
           title: Laatst gewijzigd op
-          description: System timestamp reflecting when the document was last modified
-            in the database.
+          description: Systeemdatum en -tijd wanneer het document laatst gewijzigd
+            is in de database.
         bestandsdelen:
           type: array
           items:
             $ref: '#/components/schemas/FilePart'
           readOnly: true
           nullable: true
-          title: file parts
-          description: The expected file parts/chunks to upload the file contents.
-            These are derived from the specified total file size (`bestandsomvang`)
-            in the document create body.
+          description: De verwachte bestandsdelen/chunks om de bestandsinhoud te uploaden.
+            Deze zijn afgeleid uit de opgegeven totale bestandsgrootte (`bestandsomvang`)
+            in de body van de document create operatie.
         documenthandelingen:
           type: array
           items:
             $ref: '#/components/schemas/DocumentAction'
-          description: The document actions of this document, currently only one action
-            will be used per document.
+          description: De documenthandelingen voor dit document. Op dit moment kan
+            je slechts één handeling opgeven. Als je dit niet opgeeft, dan worden
+            standaardwaarden gebruikt.
       required:
       - bestandsdelen
       - creatiedatum
+      - eigenaar
       - laatstGewijzigdDatum
       - officieleTitel
       - publicatie
@@ -1627,7 +1642,7 @@ components:
           type: string
           format: uuid
           readOnly: true
-          description: The unique identifier of the organisation.
+          description: De unieke identificatie van de organisatie.
       required:
       - atTime
       - wasAssciatedWith
@@ -1636,10 +1651,10 @@ components:
       properties:
         documentUploadVoltooid:
           type: boolean
-          title: document upload completed
-          description: Indicates if all chunks of the file have been received and
-            the document has been unlocked and made 'ready for use' in the upstream
-            Documents API.
+          title: documentupload voltooid
+          description: Geeft aan of alle bestandsdelen van het bestand ontvangen zijn
+            en het document ontgrendeld en klaar voor gebruik is in de achterliggende
+            Documenten-API.
       required:
       - documentUploadVoltooid
     DocumentUpdate:
@@ -1692,37 +1707,43 @@ components:
           type: integer
           readOnly: true
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
           readOnly: true
           title: Geregistreerd op
-          description: System timestamp reflecting when the document was registered
-            in the database. Not to be confused with the creation date of the document,
-            which is usually *before* the registration date.
+          description: Systeemdatum en -tijd wanneer het document in de databank opgeslagen
+            is. Niet te verwarren met de creatiedatum van de publicatie, die typisch
+            *voor* de registratiedatum valt.
         laatstGewijzigdDatum:
           type: string
           format: date-time
           readOnly: true
           title: Laatst gewijzigd op
-          description: System timestamp reflecting when the document was last modified
-            in the database.
+          description: Systeemdatum en -tijd wanneer het document laatst gewijzigd
+            is in de database.
         bestandsdelen:
           type: array
           items:
             $ref: '#/components/schemas/FilePart'
           readOnly: true
           nullable: true
-          title: file parts
-          description: The expected file parts/chunks to upload the file contents.
-            These are derived from the specified total file size (`bestandsomvang`)
-            in the document create body.
+          description: De verwachte bestandsdelen/chunks om de bestandsinhoud te uploaden.
+            Deze zijn afgeleid uit de opgegeven totale bestandsgrootte (`bestandsomvang`)
+            in de body van de document create operatie.
         documenthandelingen:
           allOf:
           - $ref: '#/components/schemas/DocumentAction'
           readOnly: true
-          description: The document actions of this document, currently only one action
-            will be used per document.
+          description: De documenthandelingen voor dit document. Op dit moment kan
+            je slechts één handeling opgeven. Als je dit niet opgeeft, dan worden
+            standaardwaarden gebruikt.
       required:
       - bestandsdelen
       - bestandsformaat
@@ -1730,6 +1751,7 @@ components:
       - bestandsomvang
       - creatiedatum
       - documenthandelingen
+      - eigenaar
       - identifier
       - laatstGewijzigdDatum
       - publicatie
@@ -1757,31 +1779,34 @@ components:
           type: string
           format: uuid
           readOnly: true
-          description: The unique ID for a given file part for a document.
+          description: Het unieke ID van een bestandsdeel horend bij een document.
         url:
           type: string
           format: uri
           readOnly: true
-          description: Endpoint where to submit the file part data to.
+          description: Endpoint waar het bestandsdeel geüpload moet worden.
         volgnummer:
           type: integer
           readOnly: true
-          title: order
-          description: Index of the filepart, indicating which chunk is being uploaded.
+          title: volgorde
+          description: Index van het bestandsdeel, geeft aan welk bestandsdeel precies
+            geüpload wordt.
         omvang:
           type: integer
           readOnly: true
-          title: size
-          description: Chunk size, in bytes. Large files must be cut up into chunks,
-            where each chunk has an expected chunk size (configured on the Documents
-            API server). A part is only considered complete once each chunk has binary
-            data of exactly this size attached to it.
+          title: grootte
+          description: Bestandsdeelomvang, in bytes. Grote bestanden moeten in meerdere
+            stukken gesplitst worden, waarbij voor elk stuk een bepaalde bestandsgrootte
+            verwacht wordt (deze grootte is ingesteld op de Documenten-API-server).
+            Een bestandsdeel is pas voltooid als er binaire data van precies deze
+            omvang geüpload zijn.
         inhoud:
           type: string
           writeOnly: true
-          title: binary content
-          description: The binary data of this chunk, which will be forwarded to the
-            underlying Documents API. The file size must match the part's `omvang`.
+          title: binaire data
+          description: De binaire data van dit stuk, dit wordt doorgezet naar de achterliggende
+            Documenten-API. De bestandsgrootte moet overeenkomen met de `omvang` van
+            het bestandsdeel.
       required:
       - inhoud
       - omvang
@@ -1821,6 +1846,7 @@ components:
         order:
           type: integer
           readOnly: true
+          title: Volgorde
           description: Heeft invloed op de (standaard-)sortering van categorieën in
             de resultaten.
       required:
@@ -2051,37 +2077,43 @@ components:
           type: integer
           readOnly: true
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
           readOnly: true
           title: Geregistreerd op
-          description: System timestamp reflecting when the document was registered
-            in the database. Not to be confused with the creation date of the document,
-            which is usually *before* the registration date.
+          description: Systeemdatum en -tijd wanneer het document in de databank opgeslagen
+            is. Niet te verwarren met de creatiedatum van de publicatie, die typisch
+            *voor* de registratiedatum valt.
         laatstGewijzigdDatum:
           type: string
           format: date-time
           readOnly: true
           title: Laatst gewijzigd op
-          description: System timestamp reflecting when the document was last modified
-            in the database.
+          description: Systeemdatum en -tijd wanneer het document laatst gewijzigd
+            is in de database.
         bestandsdelen:
           type: array
           items:
             $ref: '#/components/schemas/FilePart'
           readOnly: true
           nullable: true
-          title: file parts
-          description: The expected file parts/chunks to upload the file contents.
-            These are derived from the specified total file size (`bestandsomvang`)
-            in the document create body.
+          description: De verwachte bestandsdelen/chunks om de bestandsinhoud te uploaden.
+            Deze zijn afgeleid uit de opgegeven totale bestandsgrootte (`bestandsomvang`)
+            in de body van de document create operatie.
         documenthandelingen:
           allOf:
           - $ref: '#/components/schemas/DocumentAction'
           readOnly: true
-          description: The document actions of this document, currently only one action
-            will be used per document.
+          description: De documenthandelingen voor dit document. Op dit moment kan
+            je slechts één handeling opgeven. Als je dit niet opgeeft, dan worden
+            standaardwaarden gebruikt.
     PatchedOrganisation:
       type: object
       properties:
@@ -2129,23 +2161,23 @@ components:
           items:
             type: string
             format: uuid
-          description: The information categories clarify the kind of information
-            present in the publication.
+          description: De informatiecategorie verduidelijkt de soort informatie die
+            in de publicatie voorkomt.
         publisher:
           type: string
           format: uuid
-          description: The organisation which publishes the publication.
+          description: De organisatie die de publicatie publiceert.
         verantwoordelijke:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which is liable for the publication and its
-            contents.
+          description: De organisatie die verantwoordelijk is voor de publicatie en
+            haar inhoud.
         opsteller:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which drafted the publication and its content.
+          description: De organisatie die de publicatie en haar inhoud opgesteld heeft.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -2168,13 +2200,13 @@ components:
           title: Status
           description: |2-
 
-            **Disclaimer**: you can't create a revoked publication.
+            **Waarschuwing**: je kan geen ingetrokken publicatie aanmaken.
 
-            **Disclaimer**: when you revoke a publication, the attached published documents also get revoked.
+            **Waarschuwing**: wanneer je een publicatie intrekt, dan worden ook de gerelateerde gepubliceerde documenten ingetrokken.
 
-            * `gepubliceerd` - Published
+            * `gepubliceerd` - Gepubliceerd
             * `concept` - Concept
-            * `ingetrokken` - Revoked
+            * `ingetrokken` - Ingetrokken
         registratiedatum:
           type: string
           format: date-time
@@ -2188,8 +2220,8 @@ components:
           format: date-time
           readOnly: true
           title: Laatst gewijzigd op
-          description: System timestamp reflecting when the publication was last modified
-            in the database.
+          description: Systeemdatum en -tijd wanneer de publicatie laatst gewijzigd
+            is in de database.
     PublicatiestatusEnum:
       enum:
       - gepubliceerd
@@ -2197,9 +2229,9 @@ components:
       - ingetrokken
       type: string
       description: |-
-        * `gepubliceerd` - Published
+        * `gepubliceerd` - Gepubliceerd
         * `concept` - Concept
-        * `ingetrokken` - Revoked
+        * `ingetrokken` - Ingetrokken
     Publication:
       type: object
       properties:
@@ -2212,23 +2244,23 @@ components:
           items:
             type: string
             format: uuid
-          description: The information categories clarify the kind of information
-            present in the publication.
+          description: De informatiecategorie verduidelijkt de soort informatie die
+            in de publicatie voorkomt.
         publisher:
           type: string
           format: uuid
-          description: The organisation which publishes the publication.
+          description: De organisatie die de publicatie publiceert.
         verantwoordelijke:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which is liable for the publication and its
-            contents.
+          description: De organisatie die verantwoordelijk is voor de publicatie en
+            haar inhoud.
         opsteller:
           type: string
           format: uuid
           nullable: true
-          description: The organisation which drafted the publication and its content.
+          description: De organisatie die de publicatie en haar inhoud opgesteld heeft.
         officieleTitel:
           type: string
           title: Officiële titel
@@ -2251,13 +2283,13 @@ components:
           title: Status
           description: |2-
 
-            **Disclaimer**: you can't create a revoked publication.
+            **Waarschuwing**: je kan geen ingetrokken publicatie aanmaken.
 
-            **Disclaimer**: when you revoke a publication, the attached published documents also get revoked.
+            **Waarschuwing**: wanneer je een publicatie intrekt, dan worden ook de gerelateerde gepubliceerde documenten ingetrokken.
 
-            * `gepubliceerd` - Published
+            * `gepubliceerd` - Gepubliceerd
             * `concept` - Concept
-            * `ingetrokken` - Revoked
+            * `ingetrokken` - Ingetrokken
         registratiedatum:
           type: string
           format: date-time
@@ -2271,8 +2303,8 @@ components:
           format: date-time
           readOnly: true
           title: Laatst gewijzigd op
-          description: System timestamp reflecting when the publication was last modified
-            in the database.
+          description: Systeemdatum en -tijd wanneer de publicatie laatst gewijzigd
+            is in de database.
       required:
       - eigenaar
       - informatieCategorieen
@@ -2288,9 +2320,9 @@ components:
       - vaststelling
       type: string
       description: |-
-        * `ondertekening` - Signed
-        * `ontvangst` - Received
-        * `vaststelling` - Declared
+        * `ondertekening` - Ondertekend
+        * `ontvangst` - Ontvangen
+        * `vaststelling` - Vastgesteld
     Theme:
       type: object
       properties:

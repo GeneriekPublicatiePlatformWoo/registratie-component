@@ -17,10 +17,12 @@ from woo_publications.contrib.documents_api.client import (
     Document as ZGWDocument,
     get_client,
 )
-from woo_publications.logging.constants import Events
-from woo_publications.logging.models import TimelineLogProxy
 from woo_publications.logging.serializing import serialize_instance
-from woo_publications.logging.service import audit_admin_update, audit_api_update
+from woo_publications.logging.service import (
+    ModelOwnerMixin,
+    audit_admin_update,
+    audit_api_update,
+)
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
@@ -33,7 +35,7 @@ _DOCUMENT_NOT_SET = models.Q(document_service=None, document_uuid=None)
 _DOCUMENT_SET = ~models.Q(document_service=None) & ~models.Q(document_uuid=None)
 
 
-class Publication(models.Model):
+class Publication(ModelOwnerMixin, models.Model):
     id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),
@@ -129,20 +131,6 @@ class Publication(models.Model):
                 )
             )
 
-    def get_owner(self) -> ActingUser | None:
-        """
-        Extract the owner from the audit trails.
-        """
-        qs = TimelineLogProxy.objects.for_object(  # pyright: ignore[reportAttributeAccessIssue]
-            self
-        )
-        try:
-            log = qs.get(extra_data__event=Events.create)
-        except TimelineLogProxy.DoesNotExist:
-            return None
-        assert isinstance(log, TimelineLogProxy)
-        return log.acting_user[0]
-
     def revoke_own_published_documents(
         self, user: User | ActingUser, remarks: str | None = None
     ) -> None:
@@ -180,7 +168,7 @@ class Publication(models.Model):
             )
 
 
-class Document(models.Model):
+class Document(ModelOwnerMixin, models.Model):
     id: int  # implicitly provided by django
     uuid = models.UUIDField(
         _("UUID"),

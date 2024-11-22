@@ -17,6 +17,8 @@ from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuth
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
+from woo_publications.logging.logevent import audit_api_create
+from woo_publications.logging.serializing import serialize_instance
 from woo_publications.metadata.tests.factories import (
     InformationCategoryFactory,
     OrganisationFactory,
@@ -96,6 +98,14 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 creatiedatum="2024-01-01",
             )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=document,
+                user_id="123",
+                user_display="blauw",
+                object_data=serialize_instance(document),
+                remarks="test",
+            )
         with freeze_time("2024-09-24T12:00:00-00:00"):
             document2 = DocumentFactory.create(
                 publicatie=publication2,
@@ -105,6 +115,14 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 verkorte_titel="two",
                 omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
                 creatiedatum="2024-02-02",
+            )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=document2,
+                user_id="456",
+                user_display="groen",
+                object_data=serialize_instance(document2),
+                remarks="test",
             )
 
         response = self.client.get(reverse("api:document-list"), headers=AUDIT_HEADERS)
@@ -133,6 +151,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "bestandsformaat": "unknown",
                 "bestandsnaam": "unknown.bin",
                 "bestandsomvang": 0,
+                "eigenaar": {"weergaveNaam": "groen", "identifier": "456"},
                 "registratiedatum": "2024-09-24T14:00:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
                 "bestandsdelen": None,
@@ -161,6 +180,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
                 "bestandsformaat": "unknown",
                 "bestandsnaam": "unknown.bin",
                 "bestandsomvang": 0,
+                "eigenaar": {"weergaveNaam": "blauw", "identifier": "123"},
                 "registratiedatum": "2024-09-25T14:30:00+02:00",
                 "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
                 "bestandsdelen": None,
@@ -168,6 +188,81 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             }
 
             self.assertEqual(data["results"][1], expected_first_item_data)
+
+    def test_list_documents_filter_owner(self):
+        organisation = OrganisationFactory.create()
+        publication = PublicationFactory.create(verantwoordelijke=organisation)
+        publication2 = PublicationFactory.create(verantwoordelijke=None)
+        with freeze_time("2024-09-25T12:30:00-00:00"):
+            document = DocumentFactory.create(
+                publicatie=publication,
+                publicatiestatus=PublicationStatusOptions.concept,
+                identifier="document-1",
+                officiele_titel="title one",
+                verkorte_titel="one",
+                omschrijving="Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                creatiedatum="2024-01-01",
+            )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=document,
+                user_id="123",
+                user_display="blauw",
+                object_data=serialize_instance(document),
+                remarks="test",
+            )
+        with freeze_time("2024-09-24T12:00:00-00:00"):
+            document2 = DocumentFactory.create(
+                publicatie=publication2,
+                publicatiestatus=PublicationStatusOptions.published,
+                identifier="document-2",
+                officiele_titel="title two",
+                verkorte_titel="two",
+                omschrijving="Vestibulum eros nulla, tincidunt sed est non, facilisis mollis urna.",
+                creatiedatum="2024-02-02",
+            )
+            # mimicking creating log though api
+            audit_api_create(
+                content_object=document2,
+                user_id="456",
+                user_display="groen",
+                object_data=serialize_instance(document2),
+                remarks="test",
+            )
+
+        with self.subTest("filter with existing eigenaar"):
+            response = self.client.get(
+                reverse("api:document-list"),
+                {"eigenaar": "123"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
+
+        with self.subTest("filter with none existing eigenaar"):
+            response = self.client.get(
+                reverse("api:document-list"),
+                {"eigenaar": "789"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 0)
+
+        with self.subTest("filter with no input"):
+            response = self.client.get(
+                reverse("api:document-list"),
+                {"eigenaar": ""},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            data = response.json()
+            self.assertEqual(data["count"], 2)
 
     def test_list_documents_filter_order(self):
         publication, publication2 = PublicationFactory.create_batch(2)
@@ -442,6 +537,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             "bestandsformaat": "unknown",
             "bestandsnaam": "unknown.bin",
             "bestandsomvang": 0,
+            "eigenaar": None,
             "registratiedatum": "2024-09-25T14:30:00+02:00",
             "laatstGewijzigdDatum": "2024-09-25T14:30:00+02:00",
             "bestandsdelen": None,

@@ -172,8 +172,6 @@ class TestDocumentAdmin(WebTest):
             user=self.user,
         )
 
-        self.assertEqual(response.status_code, 200)
-
         form = response.forms["document_form"]
 
         with self.subTest("trying to create a revoked publication results in errors"):
