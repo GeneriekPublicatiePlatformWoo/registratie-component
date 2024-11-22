@@ -1573,8 +1573,9 @@ components:
           maxLength: 255
         bestandsomvang:
           type: integer
-          maximum: 2147483647
+          maximum: 9223372036854775807
           minimum: 0
+          format: int64
           description: Bestandsgrootte op de harde schijf, in bytes.
         registratiedatum:
           type: string

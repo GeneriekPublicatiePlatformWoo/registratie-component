@@ -236,7 +236,7 @@ class Document(models.Model):
         help_text=_("File name 'on disk' of the document, e.g. 'gelakt-verslag.pdf'."),
         default="unknown.bin",  # TODO: remove this once we can enforce the blank=False
     )
-    bestandsomvang = models.PositiveIntegerField(
+    bestandsomvang = models.PositiveBigIntegerField(
         _("file size"),
         default=0,
         help_text=_("Size of the file on disk, in bytes."),
