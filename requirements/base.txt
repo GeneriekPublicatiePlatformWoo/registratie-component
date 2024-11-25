@@ -361,7 +361,7 @@ sqlparse==0.5.1
     # via django
 textile==4.0.2
     # via django-markup
-tornado==6.4.1
+tornado==6.4.2
     # via flower
 typing-extensions==4.12.2
     # via
