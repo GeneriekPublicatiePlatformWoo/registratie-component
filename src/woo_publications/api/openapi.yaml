@@ -92,6 +92,11 @@ paths:
           The display name of the user performing the action, to make them recognizable.
         required: true
       - in: query
+        name: eigenaar
+        schema:
+          type: string
+        description: Filter documents based on the owner identifier of the object.
+      - in: query
         name: identifier
         schema:
           type: string
@@ -1577,6 +1582,12 @@ components:
           minimum: 0
           format: int64
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
@@ -1611,6 +1622,7 @@ components:
       required:
       - bestandsdelen
       - creatiedatum
+      - eigenaar
       - laatstGewijzigdDatum
       - officieleTitel
       - publicatie
@@ -1696,6 +1708,12 @@ components:
           type: integer
           readOnly: true
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
@@ -1734,6 +1752,7 @@ components:
       - bestandsomvang
       - creatiedatum
       - documenthandelingen
+      - eigenaar
       - identifier
       - laatstGewijzigdDatum
       - publicatie
@@ -2059,6 +2078,12 @@ components:
           type: integer
           readOnly: true
           description: Bestandsgrootte op de harde schijf, in bytes.
+        eigenaar:
+          allOf:
+          - $ref: '#/components/schemas/Eigenaar'
+          readOnly: true
+          nullable: true
+          description: The creator of the document, derived from the audit logs.
         registratiedatum:
           type: string
           format: date-time
