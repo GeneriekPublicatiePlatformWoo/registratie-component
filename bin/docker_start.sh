@@ -68,7 +68,6 @@ exec uwsgi \
     --static-map /media=/app/media  \
     --chdir src \
     --enable-threads \
-    --py-call-uwsgi-fork-hooks \
     --processes $uwsgi_processes \
     --threads $uwsgi_threads \
     --post-buffering=8192 \
