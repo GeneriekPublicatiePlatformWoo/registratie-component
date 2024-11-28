@@ -21,6 +21,40 @@ class DocumentFilterSet(FilterSet):
             "**Disclaimer**: disregard the documented type `integer` the correct type is `UUID`."
         ),
     )
+    registratiedatum_vanaf = filters.DateTimeFilter(
+        help_text=_(
+            "Filter documents that were registered after or on the given value."
+        ),
+        field_name="registratiedatum",
+        lookup_expr="gte",
+    )
+    registratiedatum_tot = filters.DateTimeFilter(
+        help_text=_("Filter documents that were registered before the given value."),
+        field_name="registratiedatum",
+        lookup_expr="lt",
+    )
+    creatiedatum_vanaf = filters.DateTimeFilter(
+        help_text=_("Filter documents that were created after or on the given value."),
+        field_name="creatiedatum",
+        lookup_expr="gte",
+    )
+    creatiedatum_tot = filters.DateTimeFilter(
+        help_text=_("Filter documents that were created before the given value."),
+        field_name="creatiedatum",
+        lookup_expr="lt",
+    )
+    laatst_gewijzigd_datum_vanaf = filters.DateTimeFilter(
+        help_text=_(
+            "Filter documents that were last modified after or on the given value."
+        ),
+        field_name="laatst_gewijzigd_datum",
+        lookup_expr="gte",
+    )
+    laatst_gewijzigd_datum_tot = filters.DateTimeFilter(
+        help_text=_("Filter documents that were last modified before the given value."),
+        field_name="laatst_gewijzigd_datum",
+        lookup_expr="lt",
+    )
     eigenaar = OwnerFilter(
         help_text=_("Filter documents based on the owner identifier of the object."),
     )
@@ -47,6 +81,12 @@ class DocumentFilterSet(FilterSet):
             "eigenaar",
             "publicatiestatus",
             "identifier",
+            "registratiedatum_vanaf",
+            "registratiedatum_tot",
+            "creatiedatum_vanaf",
+            "creatiedatum_tot",
+            "laatst_gewijzigd_datum_vanaf",
+            "laatst_gewijzigd_datum_tot",
             "sorteer",
         )
 
