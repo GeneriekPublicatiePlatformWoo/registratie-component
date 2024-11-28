@@ -61,16 +61,17 @@ fi
 exec uwsgi \
     --http :$uwsgi_port \
     --http-keepalive \
-    --http-timeout 600 \
+    --http-timeout=1800 \
     --manage-script-name \
     --mount $mountpoint=woo_publications.wsgi:application \
     --static-map /static=/app/static \
     --static-map /media=/app/media  \
     --chdir src \
     --enable-threads \
+    --py-call-uwsgi-fork-hooks \
     --processes $uwsgi_processes \
     --threads $uwsgi_threads \
     --post-buffering=8192 \
     --buffer-size=65535 \
-    --harakiri=600
+    --harakiri=1800
     # processes & threads are needed for concurrency without nginx sitting inbetween

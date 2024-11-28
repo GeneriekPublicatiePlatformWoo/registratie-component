@@ -246,6 +246,9 @@ class DocumentViewSet(
                         as_attachment=True,
                         filename=document.bestandsnaam,
                     ),
+                    # nginx-specific header that prevents files being buffered, instead
+                    # they will be sent synchronously to the nginx client.
+                    "X-Accel-Buffering": "no",
                 },
             )
 
