@@ -79,6 +79,11 @@ LOGIN_URLS = [reverse_lazy("admin:login")]
 # Default (connection timeout, read timeout) for the requests library (in seconds)
 REQUESTS_DEFAULT_TIMEOUT = (10, 30)
 
+# The Identifier of `inspanningsverplichting` from the gov origins list for the Information Categories.
+INSPANNINGSVERPLICHTING_IDENTIFIER = (
+    "https://identifier.overheid.nl/tooi/def/thes/kern/c_816e508d"
+)
+
 ##############################
 #                            #
 # 3RD PARTY LIBRARY SETTINGS #
