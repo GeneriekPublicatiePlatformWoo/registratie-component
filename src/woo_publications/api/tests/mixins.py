@@ -1,5 +1,11 @@
+from typing import Any
+
+from django.utils.translation import gettext as _
+
 from rest_framework import status
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APITestCase
+
+from woo_publications.typing import JSON
 
 from .factories import TokenAuthFactory
 
@@ -242,6 +248,34 @@ class APIKeyUnAuthorizedMixin:
             self.assertEqual(  # pyright: ignore[reportAttributeAccessIssue]
                 response.status_code, status.HTTP_403_FORBIDDEN
             )
+
+
+class APITestCaseMixin:
+
+    def assertItemInResults(
+        self: APITestCase,  # pyright: ignore [reportGeneralTypeIssues]
+        results: JSON,
+        key: str,
+        value: Any,
+        count: int | None = None,
+    ) -> None:
+        """
+        Custom assert to validate if value of key is in api results.
+        """
+        try:
+            values: list[Any] = [result[key] for result in results]
+        except KeyError:
+            raise AssertionError(
+                _("Key '{key}' not found in the given results.").format(key=key)
+            )
+
+        items_found: int = values.count(value)
+
+        if count:
+            self.assertEqual(items_found, count)
+
+        else:
+            self.assertTrue(items_found >= 1)
 
 
 class TokenAuthMixin:

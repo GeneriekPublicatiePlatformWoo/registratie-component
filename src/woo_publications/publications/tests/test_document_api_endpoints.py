@@ -14,7 +14,11 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
+from woo_publications.api.tests.mixins import (
+    APIKeyUnAuthorizedMixin,
+    APITestCaseMixin,
+    TokenAuthMixin,
+)
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
@@ -85,7 +89,7 @@ class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITes
         self.assertWrongApiKeyProhibitsPostEndpointAccess(list_url)
 
 
-class DocumentApiReadTests(TokenAuthMixin, APITestCase):
+class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
     def test_list_documents(self):
         organisation = OrganisationFactory.create()
         publication = PublicationFactory.create(verantwoordelijke=organisation)
@@ -761,7 +765,7 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 1)
-            self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
+            self.assertItemInResults(data["results"], "uuid", str(document.uuid), 1)
 
         with self.subTest("filter on multiple information categories "):
             response = self.client.get(
@@ -775,9 +779,8 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 2)
-
-            self.assertContains(response, str(document2.uuid), 1)
-            self.assertContains(response, str(document3.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document2.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document3.uuid), 1)
 
         with self.subTest("filter on the insappingsverplichting category"):
             response = self.client.get(
@@ -791,10 +794,9 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 3)
-
-            self.assertContains(response, str(document4.uuid), 1)
-            self.assertContains(response, str(document5.uuid), 1)
-            self.assertContains(response, str(document6.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document4.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document5.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document6.uuid), 1)
 
         with self.subTest("filter with invalid uuid"):
             fake_ic = uuid4()

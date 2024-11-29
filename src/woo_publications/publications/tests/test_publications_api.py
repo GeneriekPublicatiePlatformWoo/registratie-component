@@ -9,7 +9,11 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
+from woo_publications.api.tests.mixins import (
+    APIKeyUnAuthorizedMixin,
+    APITestCaseMixin,
+    TokenAuthMixin,
+)
 from woo_publications.logging.logevent import audit_api_create
 from woo_publications.logging.serializing import serialize_instance
 from woo_publications.metadata.constants import InformationCategoryOrigins
@@ -85,7 +89,7 @@ class PublicationApiAuthorizationAndPermissionTests(
         self.assertWrongApiKeyProhibitsDeleteEndpointAccess(detail_url)
 
 
-class PublicationApiTests(TokenAuthMixin, APITestCase):
+class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
     def test_list_publications(self):
         ic, ic2 = InformationCategoryFactory.create_batch(2)
         with freeze_time("2024-09-25T12:30:00-00:00"):
@@ -318,7 +322,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 1)
-            self.assertEqual(data["results"][0]["uuid"], str(publication.uuid))
+            self.assertItemInResults(data["results"], "uuid", str(publication.uuid), 1)
 
         with self.subTest("filter on multiple information categories "):
             response = self.client.get(
@@ -332,8 +336,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 2)
-            self.assertEqual(data["results"][0]["uuid"], str(publication3.uuid))
-            self.assertEqual(data["results"][1]["uuid"], str(publication2.uuid))
+            self.assertItemInResults(data["results"], "uuid", str(publication2.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(publication3.uuid), 1)
 
         with self.subTest("filter on the insappingsverplichting category"):
             response = self.client.get(
@@ -347,10 +351,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
             data = response.json()
 
             self.assertEqual(data["count"], 3)
-
-            self.assertContains(response, str(publication4.uuid), 1)
-            self.assertContains(response, str(publication5.uuid), 1)
-            self.assertContains(response, str(publication6.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(publication4.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(publication5.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(publication6.uuid), 1)
 
         with self.subTest("filter with invalid uuid"):
             fake_ic = uuid4()
