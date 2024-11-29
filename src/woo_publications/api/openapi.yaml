@@ -92,6 +92,18 @@ paths:
           The display name of the user performing the action, to make them recognizable.
         required: true
       - in: query
+        name: creatiedatumTot
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were created before the given value.
+      - in: query
+        name: creatiedatumVanaf
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were created after or on the given value.
+      - in: query
         name: eigenaar
         schema:
           type: string
@@ -101,6 +113,19 @@ paths:
         schema:
           type: string
         description: Search the document based on the identifier field.
+      - in: query
+        name: laatstGewijzigdDatumTot
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were last modified before the given value.
+      - in: query
+        name: laatstGewijzigdDatumVanaf
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were last modified after or on the given
+          value.
       - name: page
         required: false
         in: query
@@ -135,6 +160,18 @@ paths:
           * `gepubliceerd` - Gepubliceerd
           * `concept` - Concept
           * `ingetrokken` - Ingetrokken
+      - in: query
+        name: registratiedatumTot
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were registered before the given value.
+      - in: query
+        name: registratiedatumVanaf
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were registered after or on the given value.
       - in: query
         name: sorteer
         schema:

@@ -323,7 +323,7 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
         with freeze_time("2024-09-26T12:00:00-00:00"):
             publication3 = PublicationFactory.create(informatie_categorieen=[ic])
 
-        with self.subTest("lte specific tests"):
+        with self.subTest("gte specific tests"):
             with self.subTest("filter on gte date is exact match"):
                 response = self.client.get(
                     reverse("api:publication-list"),
@@ -352,22 +352,8 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 self.assertEqual(data["count"], 1)
                 self.assertEqual(data["results"][0]["uuid"], str(publication3.uuid))
 
-        with self.subTest("lte specific tests"):
-            with self.subTest("filter on lte date is exact match"):
-                response = self.client.get(
-                    reverse("api:publication-list"),
-                    {"registratiedatumTot": "2024-09-24T12:00:01-00:00"},
-                    headers=AUDIT_HEADERS,
-                )
-
-                self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-                data = response.json()
-
-                self.assertEqual(data["count"], 1)
-                self.assertEqual(data["results"][0]["uuid"], str(publication.uuid))
-
-            with self.subTest("filter on lte date is lesser then publication"):
+        with self.subTest("lt specific tests"):
+            with self.subTest("filter on lt date is lesser then publication"):
                 response = self.client.get(
                     reverse("api:publication-list"),
                     {"registratiedatumTot": "2024-09-25T00:00:00-00:00"},
@@ -382,9 +368,9 @@ class PublicationApiTests(TokenAuthMixin, APITestCase):
                 self.assertEqual(data["results"][0]["uuid"], str(publication.uuid))
 
         with self.subTest(
-            "filter both lte and gte to find publication between two dates"
+            "filter both lt and gte to find publication between two dates"
         ):
-            with self.subTest("filter on lte date is lesser then publication"):
+            with self.subTest("filter on lt date is lesser then publication"):
                 response = self.client.get(
                     reverse("api:publication-list"),
                     {
