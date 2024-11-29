@@ -1,0 +1,57 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls admin_list %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:metadata_informationcategory_changelist'  %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; {% trans "Information object type API resource URLs" %}
+</div>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block result_list %}
+<div class="results">
+    <table id="result_list">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <div class="text"><span>{% trans "name" %}</span></div>
+                </th>
+                <th scope="col">
+                    <div class="text"><span>{% trans "resource URI" %}</span></div>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for category in information_categories %}
+
+                {% ifchanged category.oorsprong %}
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <strong>
+                                    {% filter capfirst %}{% trans "origin" %}: {% endfilter %}
+                                </strong>
+                                {{ category.get_oorsprong_display }}
+                            </td>
+                        </tr>
+                {% endifchanged %}
+
+                <tr>
+                    <td>{{ category.naam }}</td>
+                    <td>
+                        <code>{{ url_prefix }}{% url 'catalogi-informatieobjecttypen-detail' uuid=category.uuid %}</code>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block pagination %}{% endblock %}
+{% block filters %}{% endblock %}

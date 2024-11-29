@@ -1,4 +1,9 @@
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
+from django.db.models import Case, Value, When
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
+from django.urls import path
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
 
@@ -36,6 +41,17 @@ class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
             return False
         return super().has_change_permission(request, obj)
 
+    def get_urls(self):
+        default_urls = super().get_urls()
+        custom_urls = [
+            path(
+                "api-resources/",
+                self.admin_site.admin_view(self.list_api_endpoints),
+                name="metadata_informationcategory_iotendpoints",
+            ),
+        ]
+        return custom_urls + default_urls
+
     @admin.display(description=_("actions"))
     def show_actions(self, obj: InformationCategory) -> str:
         actions = [
@@ -45,6 +61,32 @@ class InformationCategoryAdmin(AdminAuditLogMixin, OrderedModelAdmin):
             " | ",
             '<a href="{}">{}</a>',
             actions,
+        )
+
+    def list_api_endpoints(self, request: HttpRequest) -> HttpResponse:
+        if not self.has_view_permission(request):
+            raise PermissionDenied
+
+        qs = InformationCategory.objects.annotate(
+            origin_order=Case(
+                When(oorsprong=InformationCategoryOrigins.value_list, then=Value(0)),
+                When(oorsprong=InformationCategoryOrigins.custom_entry, then=Value(1)),
+                default=Value(10),
+            )
+        ).order_by("origin_order", "order")
+        context = {
+            **self.admin_site.each_context(request),
+            "title": _("Information object type API resource URLs"),
+            "has_add_permission": self.has_add_permission(request),
+            "opts": self.model._meta,
+            "information_categories": qs,
+            "cl": {"opts": self.model._meta},
+            "url_prefix": request.build_absolute_uri("/")[
+                :-1
+            ],  # strip off the trailing slash
+        }
+        return render(
+            request, "metadata/admin_information_category_api_resources.html", context
         )
 
 
