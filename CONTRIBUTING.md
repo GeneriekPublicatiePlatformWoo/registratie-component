@@ -69,8 +69,8 @@ All pull requests will be reviewed by a project member before they are merged
 to a release branch. 
 
 
-[issues]: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues
-[new_issue]: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues/new/choose
+[issues]: https://github.com/GPP-Woo/GPP-publicatiebank/issues
+[new_issue]: https://github.com/GPP-Woo/GPP-publicatiebank/issues/new/choose
 [mailinglist]: t.b.d.
 [Standard_for_Public_Code]: https://standard.publiccode.net
-[repository]: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component
+[repository]: https://github.com/GPP-Woo/GPP-publicatiebank

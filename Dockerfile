@@ -103,9 +103,9 @@ ENV RELEASE=${RELEASE} \
 ARG SECRET_KEY=dummy
 
 LABEL org.label-schema.vcs-ref=$COMMIT_HASH \
-      org.label-schema.vcs-url="https://github.com/GeneriekPublicatiePlatformWoo/registratie-component" \
+      org.label-schema.vcs-url="https://github.com/GPP-Woo/GPP-publicatiebank" \
       org.label-schema.version=$RELEASE \
-      org.label-schema.name="woo_publications"
+      org.label-schema.name="gpp-publicatiebank"
 
 # Run collectstatic and compilemessages, so the result is already included in
 # the image

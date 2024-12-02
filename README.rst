@@ -3,7 +3,7 @@ Openbare Documenten Registratie
 ===============================
 
 :Version: 0.1.0
-:Source: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component
+:Source: https://github.com/GPP-Woo/GPP-publicatiebank
 :Keywords: WOO, Openbare Documenten, NL, Open Data
 
 |docs| |docker|
@@ -45,14 +45,14 @@ API specificatie
 ==============  ==============  =============================
 Versie          Release datum   API specificatie
 ==============  ==============  =============================
-latest          n/a             `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GeneriekPublicatiePlatformWoo/registratie-component/main/src/woo_publications/api/openapi.yaml>`_,
-                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GeneriekPublicatiePlatformWoo/registratie-component/main/src/woo_publications/api/openapi.yaml>`_,
-                                (`verschillen <https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/compare/0.1.0..main#diff-b9c28fec6c3f3fa5cff870d24601d6ab7027520f3b084cc767aefd258cb8c40a>`_)
-0.1.0           YYYY-MM-DD      `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GeneriekPublicatiePlatformWoo/registratie-component/0.1.0/src/woo_publications/api/openapi.yaml>`_,
-                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GeneriekPublicatiePlatformWoo/registratie-component/0.1.0/src/woo_publications/api/openapi.yaml>`_
+latest          n/a             `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/main/src/woo_publications/api/openapi.yaml>`_,
+                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/main/src/woo_publications/api/openapi.yaml>`_,
+                                (`verschillen <https://github.com/GPP-Woo/GPP-publicatiebank/compare/0.1.0..main#diff-b9c28fec6c3f3fa5cff870d24601d6ab7027520f3b084cc767aefd258cb8c40a>`_)
+0.1.0           YYYY-MM-DD      `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/0.1.0/src/woo_publications/api/openapi.yaml>`_,
+                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/0.1.0/src/woo_publications/api/openapi.yaml>`_
 ==============  ==============  =============================
 
-Zie: `Alle versies en wijzigingen <https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/CHANGELOG.rst>`_
+Zie: `Alle versies en wijzigingen <https://github.com/GPP-Woo/GPP-publicatiebank/blob/main/CHANGELOG.rst>`_
 
 
 Ontwikkelaars
@@ -71,7 +71,7 @@ Quickstart
 
    .. code:: bash
 
-      wget https://raw.githubusercontent.com/GeneriekPublicatiePlatformWoo/registratie-component/main/docker-compose.yml
+      wget https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/main/docker-compose.yml
       docker-compose up -d --no-build
 
 2. In de browser, navigeer naar ``http://localhost:8000/`` om de beheerinterface
@@ -81,11 +81,11 @@ Quickstart
 Links
 =====
 
-* `Documentatie <https://odrc.readthedocs.io>`_
-* `Docker image <https://hub.docker.com/r/GeneriekPublicatiePlatformWoo/registratie-component>`_
-* `Issues <https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues>`_
-* `Code <https://github.com/GeneriekPublicatiePlatformWoo/registratie-component>`_
-* `Community <https://github.com/GeneriekPublicatiePlatformWoo>`_
+* `Documentatie <https://gpp-publicatiebank.readthedocs.io>`_
+* `Docker image <https://hub.docker.com/r/maykinmedia/woo-publications>`_
+* `Issues <https://github.com/GPP-Woo/GPP-publicatiebank/issues>`_
+* `Code <https://github.com/GPP-Woo/GPP-publicatiebank>`_
+* `Community <https://github.com/GPP-Woo>`_
 
 
 Licentie
@@ -102,17 +102,17 @@ Licensed under the EUPL_
 
 .. _`EUPL`: LICENSE.md
 
-.. |build-status| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/ci.yml/badge.svg
+.. |build-status| image:: https://github.com/GPP-Woo/GPP-publicatiebank/actions/workflows/ci.yml/badge.svg
     :alt: Build status
-    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/ci.yml
+    :target: https://github.com/GPP-Woo/GPP-publicatiebank/actions/workflows/ci.yml
 
-.. |docs| image:: https://readthedocs.org/projects/odrc/badge/?version=latest
-    :target: https://odrc.readthedocs.io/
+.. |docs| image:: https://readthedocs.org/projects/gpp-publicatiebank/badge/?version=latest
+    :target: https://gpp-publicatiebank.readthedocs.io/
     :alt: Documentation Status
 
-.. |coverage| image:: https://codecov.io/github/GeneriekPublicatiePlatformWoo/registratie-component/branch/main/graphs/badge.svg?branch=main
+.. |coverage| image:: https://codecov.io/github/GPP-Woo/GPP-publicatiebank/branch/main/graphs/badge.svg?branch=main
     :alt: Coverage
-    :target: https://codecov.io/gh/GeneriekPublicatiePlatformWoo/registratie-component
+    :target: https://codecov.io/gh/GPP-Woo/GPP-publicatiebank
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :alt: Code style
@@ -125,6 +125,6 @@ Licensed under the EUPL_
 .. |python-versions| image:: https://img.shields.io/badge/python-3.12%2B-blue.svg
     :alt: Supported Python version
 
-.. |oas| image:: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/oas.yml/badge.svg
+.. |oas| image:: https://github.com/GPP-Woo/GPP-publicatiebank/actions/workflows/oas.yml/badge.svg
     :alt: OpenAPI specification checks
-    :target: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/actions/workflows/oas.yml
+    :target: https://github.com/GPP-Woo/GPP-publicatiebank/actions/workflows/oas.yml

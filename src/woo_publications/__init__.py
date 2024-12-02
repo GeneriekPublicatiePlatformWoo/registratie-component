@@ -3,4 +3,4 @@
 # __all__ = ("celery_app",)
 __version__ = "0.1.0"
 __author__ = "Maykin"
-__homepage__ = "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component"
+__homepage__ = "https://github.com/GPP-Woo/GPP-publicatiebank"

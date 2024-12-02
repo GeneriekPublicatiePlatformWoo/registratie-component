@@ -204,7 +204,7 @@
             "handige-links"
         ],
         "name": "Documentatie",
-        "link": "https://odrc.readthedocs.io/"
+        "link": "https://gpp-publicatiebank.readthedocs.io"
     }
 },
 {
@@ -218,7 +218,7 @@
             "handige-links"
         ],
         "name": "Github",
-        "link": "https://github.com/GeneriekPublicatiePlatformWoo"
+        "link": "https://github.com/GPP-Woo"
     }
 },
 {
@@ -232,7 +232,7 @@
             "handige-links"
         ],
         "name": "Bug rapporteren",
-        "link": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/issues/new/choose"
+        "link": "https://github.com/GPP-Woo/GPP-publicatiebank/issues/new/choose"
     }
 },
 {

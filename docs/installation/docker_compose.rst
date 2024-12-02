@@ -40,7 +40,7 @@ Getting started
 
    .. code:: bash
 
-      wget https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/archive/refs/heads/main.zip
+      wget https://github.com/GPP-Woo/GPP-publicatiebank/archive/refs/heads/main.zip
       unzip main.zip
       cd registratie-component-main
 

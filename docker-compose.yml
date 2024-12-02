@@ -14,7 +14,7 @@
 #   Authorization: Token insecure-ea1a8d297e3b2d3313b8a30b18959c3
 #
 # Before deploying to production, please review the environment configuration reference:
-# https://odrc.readthedocs.io/en/latest/installation/config.html
+# https://gpp-publicatiebank.readthedocs.io/en/latest/installation/config.html
 
 services:
   db:

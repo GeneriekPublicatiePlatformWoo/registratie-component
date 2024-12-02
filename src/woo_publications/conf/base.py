@@ -229,18 +229,18 @@ purposes:
     "CAMELIZE_NAMES": True,
     "TOS": None,
     "CONTACT": {
-        "url": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component",
+        "url": "https://github.com/GPP-Woo/GPP-publicatiebank",
         "email": "support@maykinmedia.nl",
     },
     "LICENSE": {
         "name": "EUPL",
-        "url": "https://github.com/GeneriekPublicatiePlatformWoo/registratie-component/blob/main/LICENSE.md",
+        "url": "https://github.com/GPP-Woo/GPP-publicatiebank/blob/main/LICENSE.md",
     },
     "VERSION": "0.1.0",
     "TAGS": [],
     "EXTERNAL_DOCS": {
         "description": "Functional and technical documentation",
-        "url": "https://odrc.readthedocs.io/",
+        "url": "https://gpp-publicatiebank.readthedocs.io/",
     },
 }
 

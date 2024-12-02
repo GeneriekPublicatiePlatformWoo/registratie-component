@@ -44,7 +44,7 @@ development machine.
 
    .. code-block:: bash
 
-       git clone git@github.com:GeneriekPublicatiePlatformWoo/registratie-component.git
+       git clone git@github.com:GPP-Woo/GPP-publicatiebank.git
        cd registratie-component
 
 3. Install all required (backend) libraries.
@@ -186,7 +186,7 @@ The easiest way to get the project started is by using `Docker Compose`_.
 
    .. code-block:: bash
 
-       git clone git@github.com:GeneriekPublicatiePlatformWoo/registratie-component.git
+       git clone git@github.com:GPP-Woo/GPP-publicatiebank.git
        Cloning into 'registratie-component'...
        ...
 
@@ -240,7 +240,7 @@ The easiest way to get the project started is by using `Docker Compose`_.
    system you can run ``docker system prune``.
 
 .. _Docker Compose: https://docs.docker.com/compose/install/
-.. _Github: https://github.com/GeneriekPublicatiePlatformWoo/registratie-component
+.. _Github: https://github.com/GPP-Woo/GPP-publicatiebank
 
 
 More Docker

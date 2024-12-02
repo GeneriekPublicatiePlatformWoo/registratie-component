@@ -16,9 +16,9 @@ This component provides a storage repository and JSON API to manage and expose p
 
 For a full publication platform, three additional components are required:
 
-* `WOO Administration <https://github.com/GeneriekPublicatiePlatformWoo/Openbaar-Documenten-Publicatie-Component>`_, a component which provides public servants with a web-based user interface to manulaly upload and publish public records.
-* `WOO Search <https://github.com/GeneriekPublicatiePlatformWoo/search>`_, a component responsible for indexing public records.
-* `WOO Citizen Portal <https://github.com/GeneriekPublicatiePlatformWoo/Openbaar-Documenten-Burger-Portaal>`_, a component which provides citizens with a website where they can browse and search through public records.
+* `GPP App <https://github.com/GPP-Woo/GPP-app>`_, a component which provides public servants with a web-based user interface to manulaly upload and publish public records.
+* `GPP Search <https://github.com/GPP-Woo/GPP-zoeken>`_, a component responsible for indexing public records.
+* `GPP Citizen Portal <https://github.com/GPP-Woo/GPP-burgerportaal>`_, a component which provides citizens with a website where they can browse and search through public records.
 
 All components are designed in line with the `Common Ground`_ model.
 
