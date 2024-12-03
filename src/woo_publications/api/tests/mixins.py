@@ -3,9 +3,9 @@ from typing import Any
 from django.utils.translation import gettext as _
 
 from rest_framework import status
-from rest_framework.test import APIClient, APITestCase
+from rest_framework.test import APIClient
 
-from woo_publications.typing import JSON
+from woo_publications.typing import JSONObject
 
 from .factories import TokenAuthFactory
 
@@ -253,8 +253,8 @@ class APIKeyUnAuthorizedMixin:
 class APITestCaseMixin:
 
     def assertItemInResults(
-        self: APITestCase,  # pyright: ignore [reportGeneralTypeIssues]
-        results: JSON,
+        self,
+        results: list[JSONObject],
         key: str,
         value: Any,
         count: int | None = None,
@@ -272,10 +272,14 @@ class APITestCaseMixin:
         items_found: int = values.count(value)
 
         if count:
-            self.assertEqual(items_found, count)
+            self.assertEqual(  # pyright: ignore [reportAttributeAccessIssue]
+                items_found, count
+            )
 
         else:
-            self.assertTrue(items_found >= 1)
+            self.assertTrue(  # pyright: ignore [reportAttributeAccessIssue]
+                items_found >= 1
+            )
 
 
 class TokenAuthMixin:
