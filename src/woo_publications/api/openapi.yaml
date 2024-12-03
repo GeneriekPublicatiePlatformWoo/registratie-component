@@ -114,6 +114,18 @@ paths:
           type: string
         description: Search the document based on the identifier field.
       - in: query
+        name: informatieCategorieen
+        schema:
+          type: array
+          items:
+            type: string
+        description: |-
+          Filter documents that belong to a particular information category. When you specify multiple categories, documents belonging to any category are returned.
+
+          Filter values should be the UUID of the categories.
+        explode: true
+        style: form
+      - in: query
         name: laatstGewijzigdDatumTot
         schema:
           type: string
@@ -1024,7 +1036,6 @@ paths:
           type: array
           items:
             type: string
-            format: uuid
         description: |-
           Filter publicaties die binnen een bepaalde informatiecategorie vallen. Als je meerdere categorieën opgeeft, dan krijg je alle publicaties die aan één van deze categorieën gerelateerd zijn.
 

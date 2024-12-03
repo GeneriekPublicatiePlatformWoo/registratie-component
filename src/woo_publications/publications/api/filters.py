@@ -1,14 +1,30 @@
-from django.db.models import Q
+from django.conf import settings
+from django.db.models import Q, QuerySet
 from django.utils.translation import gettext_lazy as _
 
 from django_filters.rest_framework import FilterSet, filters
 from django_filters.widgets import CSVWidget
 
 from woo_publications.logging.service import OwnerFilter
+from woo_publications.metadata.constants import InformationCategoryOrigins
 from woo_publications.metadata.models import InformationCategory
 
 from ..constants import PublicationStatusOptions
 from ..models import Document, Publication
+
+
+def _filter_informatie_categorieen(
+    queryset: QuerySet, name: str, value: list[InformationCategory] | None
+) -> QuerySet:
+    if not value:
+        return queryset
+
+    qs = Q(**{f"{name}__in": value})
+
+    if settings.INSPANNINGSVERPLICHTING_IDENTIFIER in [ic.identifier for ic in value]:
+        qs |= Q(**{f"{name}__oorsprong": InformationCategoryOrigins.custom_entry})
+
+    return queryset.filter(qs)
 
 
 class DocumentFilterSet(FilterSet):
@@ -64,6 +80,19 @@ class DocumentFilterSet(FilterSet):
     )
     identifier = filters.CharFilter(
         help_text="Search the document based on the identifier field.",
+    )
+    informatie_categorieen = filters.ModelMultipleChoiceFilter(
+        help_text=_(
+            "Filter documents that belong to a particular information category. "
+            "When you specify multiple categories, documents belonging to any "
+            "category are returned.\n\n"
+            "Filter values should be the UUID of the categories."
+        ),
+        field_name="publicatie__informatie_categorieen",
+        to_field_name="uuid",
+        queryset=InformationCategory.objects.all(),
+        widget=CSVWidget(),
+        method=_filter_informatie_categorieen,
     )
     sorteer = filters.OrderingFilter(
         help_text=_("Order on."),
@@ -122,10 +151,11 @@ class PublicationFilterSet(FilterSet):
             "category are returned.\n\n"
             "Filter values should be the UUID of the categories."
         ),
-        field_name="informatie_categorieen__uuid",
+        field_name="informatie_categorieen",
         to_field_name="uuid",
         queryset=InformationCategory.objects.all(),
         widget=CSVWidget(),
+        method=_filter_informatie_categorieen,
     )
 
     sorteer = filters.OrderingFilter(

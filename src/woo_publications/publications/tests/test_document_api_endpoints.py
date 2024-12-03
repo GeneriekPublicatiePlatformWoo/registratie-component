@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 from uuid import uuid4
 
+from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import StreamingHttpResponse
 from django.test import override_settings
@@ -13,12 +14,17 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from woo_publications.accounts.tests.factories import UserFactory
-from woo_publications.api.tests.mixins import APIKeyUnAuthorizedMixin, TokenAuthMixin
+from woo_publications.api.tests.mixins import (
+    APIKeyUnAuthorizedMixin,
+    APITestCaseMixin,
+    TokenAuthMixin,
+)
 from woo_publications.config.models import GlobalConfiguration
 from woo_publications.contrib.documents_api.client import get_client
 from woo_publications.contrib.documents_api.tests.factories import ServiceFactory
 from woo_publications.logging.logevent import audit_api_create
 from woo_publications.logging.serializing import serialize_instance
+from woo_publications.metadata.constants import InformationCategoryOrigins
 from woo_publications.metadata.tests.factories import (
     InformationCategoryFactory,
     OrganisationFactory,
@@ -83,7 +89,7 @@ class DocumentApiAuthorizationAndPermissionTests(APIKeyUnAuthorizedMixin, APITes
         self.assertWrongApiKeyProhibitsPostEndpointAccess(list_url)
 
 
-class DocumentApiReadTests(TokenAuthMixin, APITestCase):
+class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
     def test_list_documents(self):
         organisation = OrganisationFactory.create()
         publication = PublicationFactory.create(verantwoordelijke=organisation)
@@ -715,6 +721,99 @@ class DocumentApiReadTests(TokenAuthMixin, APITestCase):
 
                 self.assertEqual(data["count"], 1)
                 self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+
+    def test_list_document_filter_information_categories(self):
+        ic, ic2, ic3, ic4 = InformationCategoryFactory.create_batch(
+            4, oorsprong=InformationCategoryOrigins.value_list
+        )
+        (
+            custom_ic,
+            custom_ic2,
+        ) = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.custom_entry
+        )
+        inspanningsverplichting_ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list,
+            identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER,
+        )
+        publication = PublicationFactory.create(informatie_categorieen=[ic])
+        publication2 = PublicationFactory.create(informatie_categorieen=[ic2])
+        publication3 = PublicationFactory.create(informatie_categorieen=[ic3, ic4])
+        publication4 = PublicationFactory.create(informatie_categorieen=[custom_ic])
+        publication5 = PublicationFactory.create(informatie_categorieen=[custom_ic2])
+        publication6 = PublicationFactory.create(
+            informatie_categorieen=[inspanningsverplichting_ic]
+        )
+        document = DocumentFactory.create(publicatie=publication)
+        document2 = DocumentFactory.create(publicatie=publication2)
+        document3 = DocumentFactory.create(publicatie=publication3)
+        document4 = DocumentFactory.create(publicatie=publication4)
+        document5 = DocumentFactory.create(publicatie=publication5)
+        document6 = DocumentFactory.create(publicatie=publication6)
+
+        list_url = reverse("api:document-list")
+
+        with self.subTest("filter on a single information category"):
+            response = self.client.get(
+                list_url,
+                {"informatieCategorieen": str(ic.uuid)},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertItemInResults(data["results"], "uuid", str(document.uuid), 1)
+
+        with self.subTest("filter on multiple information categories "):
+            response = self.client.get(
+                list_url,
+                {"informatieCategorieen": f"{ic2.uuid},{ic4.uuid}"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 2)
+            self.assertItemInResults(data["results"], "uuid", str(document2.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document3.uuid), 1)
+
+        with self.subTest("filter on the insappingsverplichting category"):
+            response = self.client.get(
+                list_url,
+                {"informatieCategorieen": f"{inspanningsverplichting_ic.uuid}"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 3)
+            self.assertItemInResults(data["results"], "uuid", str(document4.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document5.uuid), 1)
+            self.assertItemInResults(data["results"], "uuid", str(document6.uuid), 1)
+
+        with self.subTest("filter with invalid uuid"):
+            fake_ic = uuid4()
+            response = self.client.get(
+                list_url,
+                {"informatieCategorieen": f"{fake_ic}"},
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+            data = response.json()
+            error_message = _(
+                "Select a valid choice. %(value)s is not one of the available choices."
+            ) % {"value": str(fake_ic)}
+
+            self.assertEqual(data["informatieCategorieen"], [error_message])
 
     def test_detail_document(self):
         publication = PublicationFactory.create()

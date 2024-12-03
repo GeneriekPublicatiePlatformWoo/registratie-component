@@ -1,5 +1,11 @@
+from typing import Any
+
+from django.utils.translation import gettext as _
+
 from rest_framework import status
 from rest_framework.test import APIClient
+
+from woo_publications.typing import JSONObject
 
 from .factories import TokenAuthFactory
 
@@ -241,6 +247,38 @@ class APIKeyUnAuthorizedMixin:
             )
             self.assertEqual(  # pyright: ignore[reportAttributeAccessIssue]
                 response.status_code, status.HTTP_403_FORBIDDEN
+            )
+
+
+class APITestCaseMixin:
+
+    def assertItemInResults(
+        self,
+        results: list[JSONObject],
+        key: str,
+        value: Any,
+        count: int | None = None,
+    ) -> None:
+        """
+        Custom assert to validate if value of key is in api results.
+        """
+        try:
+            values: list[Any] = [result[key] for result in results]
+        except KeyError:
+            raise AssertionError(
+                _("Key '{key}' not found in the given results.").format(key=key)
+            )
+
+        items_found: int = values.count(value)
+
+        if count:
+            self.assertEqual(  # pyright: ignore [reportAttributeAccessIssue]
+                items_found, count
+            )
+
+        else:
+            self.assertTrue(  # pyright: ignore [reportAttributeAccessIssue]
+                items_found >= 1
             )
 
 
