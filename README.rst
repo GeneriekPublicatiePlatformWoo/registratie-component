@@ -82,7 +82,7 @@ Links
 =====
 
 * `Documentatie <https://gpp-publicatiebank.readthedocs.io>`_
-* `Docker image <https://hub.docker.com/r/maykinmedia/woo-publications>`_
+* `Docker image <https://github.com/GPP-Woo/GPP-publicatiebank/pkgs/container/gpp-publicatiebank>`_
 * `Issues <https://github.com/GPP-Woo/GPP-publicatiebank/issues>`_
 * `Code <https://github.com/GPP-Woo/GPP-publicatiebank>`_
 * `Community <https://github.com/GPP-Woo>`_
