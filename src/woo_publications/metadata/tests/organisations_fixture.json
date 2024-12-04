@@ -1,0 +1,47 @@
+[
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "d74932b6-63ae-488f-97d1-63b176f61ad4",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0006",
+        "naam": "Regio Gooi en Vechtstreek",
+        "oorsprong": "solijst"
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "2010f12e-31c1-4a3d-81fb-03e0e7f21989",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0011",
+        "naam": "Regio Midden-Holland",
+        "oorsprong": "solijst"
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "38689e9d-e732-4469-ba51-5c736b7f7d24",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0013",
+        "naam": "Stadsgewest 's-Hertogenbosch",
+        "oorsprong": "solijst"
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "48c01b9b-fb4c-4e93-ab3e-7a0f99a3cc18",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0026",
+        "naam": "Regio Rivierenland",
+        "oorsprong": "solijst"
+    }
+},
+{
+    "model": "metadata.organisation",
+    "fields": {
+        "uuid": "a72c8602-8027-444e-9ea3-25a39fa4ddea",
+        "identifier": "https://identifier.overheid.nl/tooi/id/so/so0030",
+        "naam": "Dienst Gezondheid & Jeugd Zuid-Holland Zuid",
+        "oorsprong": "solijst"
+    }
+}
+]
