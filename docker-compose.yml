@@ -34,7 +34,7 @@ services:
       - redis-data:/data
 
   openzaak-web:
-    image: openzaak/open-zaak:${OPENZAAK_VERSION:-1.14.0}
+    image: openzaak/open-zaak:${OPENZAAK_VERSION:-latest}
     environment: &openzaak_web_env
       - DJANGO_SETTINGS_MODULE=openzaak.conf.patched_settings
       - SECRET_KEY=${SECRET_KEY:-django-insecure-^#9nzgn*@-@0szv+$$)6th!i+$$ks^+bt@&ejcgzqt==7af(a(u3}
