@@ -30,7 +30,8 @@ python src/manage.py migrate
 echo "Loading required fixtures"
 python src/manage.py loaddata \
     information_categories \
-    themes \
+    themes
+python src/manage.py load_organisations \
     organisations
 
 # Load any JSON fixtures present in the configured fixtures dir
