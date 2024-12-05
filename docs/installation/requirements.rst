@@ -80,3 +80,38 @@ Known applications/products providing a Documents API
 * `Open Zaak <https://open-zaak.readthedocs.io/>`_
 
 .. tip:: If you're a vendor, please create a PR to add your product to this list.
+
+Reverse proxy
+-------------
+
+It's recommended to set up a reverse proxy (like nginx or a Kubernetes ingress/gateway)
+before the application container, as these pieces of software are designed to scale
+well. They can prevent the application containers from becoming overloaded.
+
+Configuring a reverse proxy or Kubernetes cluster is out of scope for this project, but
+some implementation details are relevant and they are listed below.
+
+Allow streaming of document downloads
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Uploaded documents in the API are also downloaded again - especially by the National
+Search Index (DiWoo) which indexes the documents, but ultimately also by interested
+parties like citizens, journalists...
+
+Our download API endpoint (``/api/v1/documenten/:uuid/download``) sends a response
+header ``X-Accel-Buffering: off`` to the reverse proxy to promote synchronous streaming
+to the client. Certain nginx (or possibly other reverse proxy implementations)
+configuration can lead to this header being ignored.
+
+Most of the time (small files, fast networks...) this shouldn't be a problem, but
+especially with larger files (1GB+) being downloaded over slow connections it's possible
+the internal nginx buffers fill up and the application container times out when trying
+to write the response back to nginx. This results in downloads getting aborted after
+about 1GB. Disabling buffering prevents this problem by writing/streaming directly to
+the client.
+
+Alternative configurations could be to disable buffering for these endpoints in
+particular, in which case the response header can be safely ignored too.
+
+.. seealso:: For all the gritty details, you can read more in
+   `github issue 164 <https://github.com/GPP-Woo/GPP-publicatiebank/issues/164>`_.
