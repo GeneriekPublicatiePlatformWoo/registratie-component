@@ -2,6 +2,7 @@ import uuid
 from typing import Callable
 from uuid import UUID
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models, transaction
@@ -26,6 +27,7 @@ from woo_publications.logging.service import (
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
+from ..metadata.constants import InformationCategoryOrigins
 from .constants import DocumentActionTypeOptions, PublicationStatusOptions
 from .typing import DocumentActions
 
@@ -166,6 +168,27 @@ class Publication(ModelOwnerMixin, models.Model):
                 object_data=serialize_instance(document),
                 **log_extra_kwargs,  # pyright: ignore[reportArgumentType]
             )
+
+    # TODO: refactor code to make it actually performant.
+    @property
+    def get_diwoo_informatie_categorieen_uuids(
+        self,
+    ) -> models.QuerySet[InformationCategory, UUID]:
+        information_categories = self.informatie_categorieen
+        ic_value_list = information_categories.filter(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
+
+        if information_categories.filter(
+            oorsprong=InformationCategoryOrigins.custom_entry
+        ).exists():
+            inspannings_verplicht = InformationCategory.objects.filter(
+                identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER
+            )
+
+            ic_value_list |= inspannings_verplicht
+
+        return ic_value_list.distinct().values_list("uuid", flat=True)
 
 
 class Document(ModelOwnerMixin, models.Model):
