@@ -2212,6 +2212,13 @@ components:
             format: uuid
           description: De informatiecategorie verduidelijkt de soort informatie die
             in de publicatie voorkomt.
+        diWooInformatieCategorieen:
+          type: array
+          items:
+            type: string
+            format: uuid
+          readOnly: true
+          description: The information categories used for the sitemap
         publisher:
           type: string
           format: uuid
@@ -2295,6 +2302,13 @@ components:
             format: uuid
           description: De informatiecategorie verduidelijkt de soort informatie die
             in de publicatie voorkomt.
+        diWooInformatieCategorieen:
+          type: array
+          items:
+            type: string
+            format: uuid
+          readOnly: true
+          description: The information categories used for the sitemap
         publisher:
           type: string
           format: uuid
@@ -2355,6 +2369,7 @@ components:
           description: Systeemdatum en -tijd wanneer de publicatie laatst gewijzigd
             is in de database.
       required:
+      - diWooInformatieCategorieen
       - eigenaar
       - informatieCategorieen
       - laatstGewijzigdDatum

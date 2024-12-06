@@ -219,6 +219,12 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
         many=True,
         allow_empty=False,
     )
+    di_woo_informatie_categorieen = serializers.ListField(
+        child=serializers.UUIDField(),
+        source="get_diwoo_informatie_categorieen_uuids",
+        help_text=_("The information categories used for the sitemap"),
+        read_only=True,
+    )
     publisher = serializers.SlugRelatedField(
         queryset=Organisation.objects.filter(is_actief=True),
         slug_field="uuid",
@@ -249,6 +255,7 @@ class PublicationSerializer(serializers.ModelSerializer[Publication]):
         fields = (
             "uuid",
             "informatie_categorieen",
+            "di_woo_informatie_categorieen",
             "publisher",
             "verantwoordelijke",
             "opsteller",
