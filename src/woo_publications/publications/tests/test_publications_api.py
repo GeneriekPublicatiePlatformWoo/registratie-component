@@ -121,6 +121,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             expected_first_item_data = {
                 "uuid": str(publication.uuid),
                 "informatieCategorieen": [str(ic.uuid)],
+                "diWooInformatieCategorieen": [],
                 "publisher": str(publication.publisher.uuid),
                 "verantwoordelijke": None,
                 "opsteller": None,
@@ -139,6 +140,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             expected_second_item_data = {
                 "uuid": str(publication2.uuid),
                 "informatieCategorieen": [str(ic2.uuid)],
+                "diWooInformatieCategorieen": [],
                 "publisher": str(publication2.publisher.uuid),
                 "verantwoordelijke": None,
                 "opsteller": None,
@@ -172,6 +174,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -186,6 +189,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(publication2.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -565,6 +569,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -579,6 +584,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(publication2.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -717,6 +723,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -730,6 +737,73 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         }
 
         self.assertEqual(data, expected_first_item_data)
+
+    def test_diwoo_informatie_categories(self):
+        custom_ic, custom_ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.custom_entry
+        )
+        value_list_ic, value_list_ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
+        inspannings_verplicht_ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list,
+            identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER,
+        )
+
+        with self.subTest(
+            "publication with only custom ics returns uuid of insappings verplicht ic"
+        ):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[custom_ic, custom_ic2]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(
+                response.json()["diWooInformatieCategorieen"],
+                [str(inspannings_verplicht_ic.uuid)],
+            )
+
+        with self.subTest("publication with ic from ic don't get transformed"):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[value_list_ic, value_list_ic2]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(
+                response.json()["diWooInformatieCategorieen"],
+                [str(value_list_ic.uuid), str(value_list_ic2.uuid)],
+            )
+
+        with self.subTest(
+            "publication with custom ic and inspannings verplicht ic dont have duplicate insappings verplicht ic uuid"
+        ):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[custom_ic, custom_ic2, inspannings_verplicht_ic]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(
+                response.json()["diWooInformatieCategorieen"],
+                [str(inspannings_verplicht_ic.uuid)],
+            )
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_create_publication(self):
@@ -849,6 +923,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                     "uuid"
                 ],  # uuid gets generated so we are just testing that its there
                 "informatieCategorieen": [str(ic.uuid), str(ic2.uuid)],
+                "diWooInformatieCategorieen": [],
                 "publisher": str(organisation.uuid),
                 "verantwoordelijke": str(organisation2.uuid),
                 "opsteller": str(organisation3.uuid),
@@ -919,6 +994,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                     "uuid"
                 ],  # uuid gets generated so we are just testing that its there
                 "informatieCategorieen": [str(ic2.uuid)],
+                "diWooInformatieCategorieen": [],
                 "publisher": str(organisation.uuid),
                 "verantwoordelijke": str(organisation2.uuid),
                 "opsteller": str(organisation3.uuid),
@@ -997,6 +1073,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 "uuid"
             ],  # uuid gets generated so we are just testing that its there
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [],
             "publisher": str(organisation.uuid),
             "verantwoordelijke": None,
             "opsteller": None,

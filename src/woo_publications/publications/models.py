@@ -25,9 +25,9 @@ from woo_publications.logging.service import (
     audit_api_update,
 )
 from woo_publications.logging.typing import ActingUser
+from woo_publications.metadata.constants import InformationCategoryOrigins
 from woo_publications.metadata.models import InformationCategory
 
-from ..metadata.constants import InformationCategoryOrigins
 from .constants import DocumentActionTypeOptions, PublicationStatusOptions
 from .typing import DocumentActions
 
