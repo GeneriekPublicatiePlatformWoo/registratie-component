@@ -26,6 +26,8 @@ from woo_publications.logging.service import (
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.models import InformationCategory
 
+from ..metadata.constants import InformationCategoryOrigins
+from ..metadata.service import get_inspannings_verplicting
 from .constants import DocumentActionTypeOptions, PublicationStatusOptions
 from .typing import DocumentActions
 
@@ -166,6 +168,25 @@ class Publication(ModelOwnerMixin, models.Model):
                 object_data=serialize_instance(document),
                 **log_extra_kwargs,  # pyright: ignore[reportArgumentType]
             )
+
+    @property
+    def get_diwoo_informatie_categorieen_uuids(
+        self,
+    ) -> models.QuerySet[InformationCategory, UUID]:
+        return (
+            self.informatie_categorieen.annotate(
+                sitemap_uuid=models.Case(
+                    models.When(
+                        oorsprong=InformationCategoryOrigins.custom_entry,
+                        then=models.Value(get_inspannings_verplicting().uuid),
+                    ),
+                    default=models.F("uuid"),
+                )
+            )
+            .order_by("sitemap_uuid")
+            .distinct("sitemap_uuid")
+            .values_list("sitemap_uuid", flat=True)
+        )
 
 
 class Document(ModelOwnerMixin, models.Model):

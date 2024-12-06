@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from django.conf import settings
+from django.core.cache import cache
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
@@ -90,8 +91,26 @@ class PublicationApiAuthorizationAndPermissionTests(
 
 
 class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # diWooInformatieCategorieen needs to have inspannings verplichting record in case of custom entries
+        cls.inspannings_verplichting = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list,
+            identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER,
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        # the get_inspannings_verplicting func which is called while fetching the diWooInformatieCategorieen data is cached.
+        # so we clear the cache after each test to maintain test isolation.
+        cache.clear()
+
     def test_list_publications(self):
-        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        ic, ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
         with freeze_time("2024-09-25T12:30:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
@@ -121,6 +140,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             expected_first_item_data = {
                 "uuid": str(publication.uuid),
                 "informatieCategorieen": [str(ic.uuid)],
+                "diWooInformatieCategorieen": [str(ic.uuid)],
                 "publisher": str(publication.publisher.uuid),
                 "verantwoordelijke": None,
                 "opsteller": None,
@@ -139,6 +159,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             expected_second_item_data = {
                 "uuid": str(publication2.uuid),
                 "informatieCategorieen": [str(ic2.uuid)],
+                "diWooInformatieCategorieen": [str(ic2.uuid)],
                 "publisher": str(publication2.publisher.uuid),
                 "verantwoordelijke": None,
                 "opsteller": None,
@@ -154,7 +175,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             self.assertEqual(data["results"][1], expected_second_item_data)
 
     def test_list_publications_filter_order(self):
-        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        ic, ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
@@ -172,6 +195,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [str(ic.uuid)],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -186,6 +210,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "diWooInformatieCategorieen": [str(ic2.uuid)],
             "publisher": str(publication2.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -295,17 +320,13 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         ) = InformationCategoryFactory.create_batch(
             2, oorsprong=InformationCategoryOrigins.custom_entry
         )
-        inspanningsverplichting_ic = InformationCategoryFactory.create(
-            oorsprong=InformationCategoryOrigins.value_list,
-            identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER,
-        )
         publication = PublicationFactory.create(informatie_categorieen=[ic])
         publication2 = PublicationFactory.create(informatie_categorieen=[ic2])
         publication3 = PublicationFactory.create(informatie_categorieen=[ic3, ic4])
         publication4 = PublicationFactory.create(informatie_categorieen=[custom_ic])
         publication5 = PublicationFactory.create(informatie_categorieen=[custom_ic2])
         publication6 = PublicationFactory.create(
-            informatie_categorieen=[inspanningsverplichting_ic]
+            informatie_categorieen=[self.inspannings_verplichting]
         )
 
         list_url = reverse("api:publication-list")
@@ -342,7 +363,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         with self.subTest("filter on the insappingsverplichting category"):
             response = self.client.get(
                 list_url,
-                {"informatieCategorieen": f"{inspanningsverplichting_ic.uuid}"},
+                {"informatieCategorieen": f"{self.inspannings_verplichting.uuid}"},
                 headers=AUDIT_HEADERS,
             )
 
@@ -373,7 +394,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             self.assertEqual(data["informatieCategorieen"], [error_message])
 
     def test_list_publications_filter_registratie_datum(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(informatie_categorieen=[ic])
         with freeze_time("2024-09-25T12:00:00-00:00"):
@@ -446,7 +469,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 self.assertEqual(data["results"][0]["uuid"], str(publication2.uuid))
 
     def test_list_publications_filter_search(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
             officiele_titel="Een prachtige titel met een heleboel woorden.",
@@ -530,7 +555,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             self.assertEqual(data["results"][1]["uuid"], str(publication.uuid))
 
     def test_list_publications_filter_owner(self):
-        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        ic, ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
         with freeze_time("2024-09-24T12:00:00-00:00"):
             publication = PublicationFactory.create(
                 informatie_categorieen=[ic],
@@ -565,6 +592,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [str(ic.uuid)],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -579,6 +607,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_second_item_data = {
             "uuid": str(publication2.uuid),
             "informatieCategorieen": [str(ic2.uuid)],
+            "diWooInformatieCategorieen": [str(ic2.uuid)],
             "publisher": str(publication2.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -696,7 +725,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_detail_publication(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
             publicatiestatus=PublicationStatusOptions.concept,
@@ -717,6 +748,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         expected_first_item_data = {
             "uuid": str(publication.uuid),
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [str(ic.uuid)],
             "publisher": str(publication.publisher.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -731,9 +763,79 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
 
         self.assertEqual(data, expected_first_item_data)
 
+    def test_diwoo_informatie_categories(self):
+        custom_ic, custom_ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.custom_entry
+        )
+        value_list_ic, value_list_ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
+
+        with self.subTest(
+            "publication with only custom ics returns uuid of insappings verplicht ic"
+        ):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[custom_ic, custom_ic2]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(
+                response.json()["diWooInformatieCategorieen"],
+                [str(self.inspannings_verplichting.uuid)],
+            )
+
+        with self.subTest("publication with ic from ic don't get transformed"):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[value_list_ic, value_list_ic2]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertIn(str(value_list_ic.uuid), data["diWooInformatieCategorieen"])
+            self.assertIn(str(value_list_ic2.uuid), data["diWooInformatieCategorieen"])
+
+        with self.subTest(
+            "publication with custom ic and inspannings verplicht ic dont have duplicate insappings verplicht ic uuid"
+        ):
+            publication = PublicationFactory.create(
+                informatie_categorieen=[
+                    custom_ic,
+                    custom_ic2,
+                    self.inspannings_verplichting,
+                ]
+            )
+            detail_url = reverse(
+                "api:publication-detail",
+                kwargs={"uuid": str(publication.uuid)},
+            )
+
+            response = self.client.get(detail_url, headers=AUDIT_HEADERS)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(
+                response.json()["diWooInformatieCategorieen"],
+                [str(self.inspannings_verplichting.uuid)],
+            )
+
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_create_publication(self):
-        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        ic, ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
         organisation, organisation2, organisation3 = OrganisationFactory.create_batch(
             3, is_actief=True
         )
@@ -861,11 +963,18 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 "laatstGewijzigdDatum": "2024-09-24T14:00:00+02:00",
             }
 
+            # diWooInformatieCategorieen ordering is done on the UUID field to make sure there are no duplicated data.
+            # Which results in unpredictable ordering for testing, so I rest these individually
+            self.assertIn(str(ic.uuid), response_data["diWooInformatieCategorieen"])
+            self.assertIn(str(ic2.uuid), response_data["diWooInformatieCategorieen"])
+            del response_data["diWooInformatieCategorieen"]
             self.assertEqual(response_data, expected_data)
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_update_publication(self):
-        ic, ic2 = InformationCategoryFactory.create_batch(2)
+        ic, ic2 = InformationCategoryFactory.create_batch(
+            2, oorsprong=InformationCategoryOrigins.value_list
+        )
         organisation, organisation2, organisation3 = OrganisationFactory.create_batch(
             3, is_actief=True
         )
@@ -919,6 +1028,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                     "uuid"
                 ],  # uuid gets generated so we are just testing that its there
                 "informatieCategorieen": [str(ic2.uuid)],
+                "diWooInformatieCategorieen": [str(ic2.uuid)],
                 "publisher": str(organisation.uuid),
                 "verantwoordelijke": str(organisation2.uuid),
                 "opsteller": str(organisation3.uuid),
@@ -934,7 +1044,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             self.assertEqual(response_data, expected_data)
 
     def test_update_revoked_publication_cannot_be_modified(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         organisation = OrganisationFactory.create(is_actief=True)
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
@@ -971,7 +1083,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
 
     @freeze_time("2024-09-24T12:00:00-00:00")
     def test_partial_update_publication(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         organisation = OrganisationFactory.create(is_actief=True)
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
@@ -997,6 +1111,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 "uuid"
             ],  # uuid gets generated so we are just testing that its there
             "informatieCategorieen": [str(ic.uuid)],
+            "diWooInformatieCategorieen": [str(ic.uuid)],
             "publisher": str(organisation.uuid),
             "verantwoordelijke": None,
             "opsteller": None,
@@ -1015,7 +1130,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
     def test_partial_update_when_revoking_publication_the_published_documents_also_get_revoked(
         self,
     ):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
             publicatiestatus=PublicationStatusOptions.published,
@@ -1057,7 +1174,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
         )
 
     def test_destroy_publication(self):
-        ic = InformationCategoryFactory.create()
+        ic = InformationCategoryFactory.create(
+            oorsprong=InformationCategoryOrigins.value_list
+        )
         publication = PublicationFactory.create(
             informatie_categorieen=[ic],
             officiele_titel="title one",
