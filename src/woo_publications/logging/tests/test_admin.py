@@ -301,8 +301,12 @@ class AuditLogAdminTests(WebTest):
         #  7. get the admin index configuration (second aspect)
         #  8. get the admin index configuration (third aspect)
         #  9. get the timestamp min/max for the date_hierarchy links
-        # 10. another query related to date_hierarchy I think
-        with self.assertNumQueries(10):
+        #  10. another query related to date_hierarchy I think
+        #
+        # added by updating open-api-framework from 0.8.0 to 0.9.0 ticket #46:
+        #  11. get all active django sessions
+        #  12. look up the super user from the session's user_id (again)
+        with self.assertNumQueries(12):
             response = self.app.get(self.list_url)
 
         self.assertEqual(response.status_code, 200)
