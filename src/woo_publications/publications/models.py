@@ -26,7 +26,7 @@ from woo_publications.logging.service import (
 from woo_publications.logging.typing import ActingUser
 from woo_publications.metadata.constants import InformationCategoryOrigins
 from woo_publications.metadata.models import InformationCategory
-from woo_publications.metadata.service import get_inspannings_verplicting
+from woo_publications.metadata.service import get_inspannings_verplichting
 
 from .constants import DocumentActionTypeOptions, PublicationStatusOptions
 from .typing import DocumentActions
@@ -178,7 +178,7 @@ class Publication(ModelOwnerMixin, models.Model):
                 sitemap_uuid=models.Case(
                     models.When(
                         oorsprong=InformationCategoryOrigins.custom_entry,
-                        then=models.Value(get_inspannings_verplicting().uuid),
+                        then=models.Value(get_inspannings_verplichting().uuid),
                     ),
                     default=models.F("uuid"),
                 )

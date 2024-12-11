@@ -4,9 +4,9 @@ from django.core.cache import cache
 from .models import InformationCategory
 
 
-def get_inspannings_verplicting():
+def get_inspannings_verplichting():
     inspannings_verplicht = cache.get_or_set(
-        "inspannings_verplicting",
+        "inspannings_verplichting",
         lambda: InformationCategory.objects.get(
             identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER
         ),

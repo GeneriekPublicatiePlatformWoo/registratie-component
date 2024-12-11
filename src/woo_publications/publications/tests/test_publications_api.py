@@ -100,12 +100,9 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             identifier=settings.INSPANNINGSVERPLICHTING_IDENTIFIER,
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-        # the get_inspannings_verplicting func which is called while fetching the diWooInformatieCategorieen data is cached.
+        # the get_inspannings_verplichting func which is called while fetching the diWooInformatieCategorieen data is cached.
         # so we clear the cache after each test to maintain test isolation.
-        cache.clear()
+        cls.addClassCleanup(cache.clear)
 
     def test_list_publications(self):
         ic, ic2 = InformationCategoryFactory.create_batch(
@@ -964,7 +961,7 @@ class PublicationApiTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
             }
 
             # diWooInformatieCategorieen ordering is done on the UUID field to make sure there are no duplicated data.
-            # Which results in unpredictable ordering for testing, so I rest these individually
+            # Which results in unpredictable ordering for testing, so I test these individually
             self.assertIn(str(ic.uuid), response_data["diWooInformatieCategorieen"])
             self.assertIn(str(ic2.uuid), response_data["diWooInformatieCategorieen"])
             del response_data["diWooInformatieCategorieen"]
