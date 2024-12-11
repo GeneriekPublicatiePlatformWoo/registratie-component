@@ -10,6 +10,8 @@ amqp==5.2.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   kombu
+annotated-types==0.7.0
+    # via pydantic
 ape-pie==0.2.0
     # via
     #   -c requirements/ci.txt
@@ -65,7 +67,9 @@ boltons==24.0.0
     #   -r requirements/ci.txt
     #   face
     #   glom
-bump2version==1.0.1
+bracex==2.5.post1
+    # via wcmatch
+bump-my-version==0.28.1
     # via -r requirements/dev.in
 cbor2==5.6.4
     # via
@@ -101,10 +105,12 @@ click==8.1.7
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   black
+    #   bump-my-version
     #   celery
     #   click-didyoumean
     #   click-plugins
     #   click-repl
+    #   rich-click
 click-didyoumean==0.3.1
     # via
     #   -c requirements/ci.txt
@@ -566,6 +572,8 @@ markdown==3.7
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-markup
+markdown-it-py==3.0.0
+    # via rich
 markupsafe==2.1.5
     # via
     #   -c requirements/ci.txt
@@ -581,6 +589,8 @@ mccabe==0.7.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   flake8
+mdurl==0.1.2
+    # via markdown-it-py
 mozilla-django-oidc==4.0.1
     # via
     #   -c requirements/ci.txt
@@ -663,6 +673,7 @@ prompt-toolkit==3.0.47
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   click-repl
+    #   questionary
 psycopg2==2.9.9
     # via
     #   -c requirements/ci.txt
@@ -678,6 +689,14 @@ pycparser==2.22
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   cffi
+pydantic==2.10.3
+    # via
+    #   bump-my-version
+    #   pydantic-settings
+pydantic-core==2.27.1
+    # via pydantic
+pydantic-settings==2.6.1
+    # via bump-my-version
 pyflakes==3.2.0
     # via
     #   -c requirements/ci.txt
@@ -688,6 +707,7 @@ pygments==2.18.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-markup
+    #   rich
     #   sphinx
     #   sphinx-tabs
 pyjwt==2.9.0
@@ -739,6 +759,7 @@ python-dotenv==1.0.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   open-api-framework
+    #   pydantic-settings
 python-ipware==3.0.0
     # via
     #   -c requirements/ci.txt
@@ -764,6 +785,8 @@ qrcode==7.4.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-two-factor-auth
+questionary==1.10.0
+    # via bump-my-version
 redis==5.0.8
     # via
     #   -c requirements/ci.txt
@@ -799,6 +822,12 @@ requests-mock==1.12.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+rich==13.9.4
+    # via
+    #   bump-my-version
+    #   rich-click
+rich-click==1.8.5
+    # via bump-my-version
 rpds-py==0.20.0
     # via
     #   -c requirements/ci.txt
@@ -904,6 +933,8 @@ textile==4.0.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-markup
+tomlkit==0.13.2
+    # via bump-my-version
 tornado==6.4.2
     # via
     #   -c requirements/ci.txt
@@ -914,7 +945,10 @@ typing-extensions==4.12.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   mozilla-django-oidc-db
+    #   pydantic
+    #   pydantic-core
     #   qrcode
+    #   rich-click
     #   zgw-consumers
 tzdata==2024.1
     # via
@@ -956,6 +990,8 @@ waitress==3.0.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webtest
+wcmatch==10.0
+    # via bump-my-version
 wcwidth==0.2.13
     # via
     #   -c requirements/ci.txt
