@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: WOO Publications
-  version: 0.1.0
+  version: 1.0.0
   description: |2
 
     ## Documentatie
@@ -96,18 +96,18 @@ paths:
         schema:
           type: string
           format: date-time
-        description: Filter documents that were created before the given value.
+        description: Filter documenten op creatiedatum voor de opgegeven datumtijd.
       - in: query
         name: creatiedatumVanaf
         schema:
           type: string
           format: date-time
-        description: Filter documents that were created after or on the given value.
+        description: Filter documenten op creatiedatum op of na de opgegeven datumtijd.
       - in: query
         name: eigenaar
         schema:
           type: string
-        description: Filter documents based on the owner identifier of the object.
+        description: Filter documenten op basis van de identificatie van de eigenaar.
       - in: query
         name: identifier
         schema:
@@ -120,9 +120,9 @@ paths:
           items:
             type: string
         description: |-
-          Filter documents that belong to a particular information category. When you specify multiple categories, documents belonging to any category are returned.
+          Filter documenten die binnen een bepaalde informatiecategorie vallen. Als je meerdere categorieën opgeeft, dan krijg je alle documenten die aan één van deze categorieën gerelateerd zijn.
 
-          Filter values should be the UUID of the categories.
+          De filterwaarden zijn UUIDs van de categorieën. Gebruik komma's om meerdere waarden van elkaar te scheiden.
         explode: true
         style: form
       - in: query
@@ -130,14 +130,15 @@ paths:
         schema:
           type: string
           format: date-time
-        description: Filter documents that were last modified before the given value.
+        description: Filter documenten op laastste wijzigingsdatum voor de opgegeven
+          datumtijd.
       - in: query
         name: laatstGewijzigdDatumVanaf
         schema:
           type: string
           format: date-time
-        description: Filter documents that were last modified after or on the given
-          value.
+        description: Filter documenten op laastste wijzigingsdatum op of na de opgegeven
+          datumtijd.
       - name: page
         required: false
         in: query
@@ -177,13 +178,13 @@ paths:
         schema:
           type: string
           format: date-time
-        description: Filter documents that were registered before the given value.
+        description: Filter documenten op registratiedatum voor de opgegeven datumtijd.
       - in: query
         name: registratiedatumVanaf
         schema:
           type: string
           format: date-time
-        description: Filter documents that were registered after or on the given value.
+        description: Filter documenten op registratiedatum op of na de opgegeven datumtijd.
       - in: query
         name: sorteer
         schema:
@@ -1635,7 +1636,8 @@ components:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
           nullable: true
-          description: The creator of the document, derived from the audit logs.
+          description: De persoon die het document aangemaakt heeft, afgeleid uit
+            de auditlogs.
         registratiedatum:
           type: string
           format: date-time
@@ -1761,7 +1763,8 @@ components:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
           nullable: true
-          description: The creator of the document, derived from the audit logs.
+          description: De persoon die het document aangemaakt heeft, afgeleid uit
+            de auditlogs.
         registratiedatum:
           type: string
           format: date-time
@@ -2131,7 +2134,8 @@ components:
           - $ref: '#/components/schemas/Eigenaar'
           readOnly: true
           nullable: true
-          description: The creator of the document, derived from the audit logs.
+          description: De persoon die het document aangemaakt heeft, afgeleid uit
+            de auditlogs.
         registratiedatum:
           type: string
           format: date-time
@@ -2218,7 +2222,7 @@ components:
             type: string
             format: uuid
           readOnly: true
-          description: The information categories used for the sitemap
+          description: De informatiecategorieën voor in de sitemap.
         publisher:
           type: string
           format: uuid
@@ -2308,7 +2312,7 @@ components:
             type: string
             format: uuid
           readOnly: true
-          description: The information categories used for the sitemap
+          description: De informatiecategorieën voor in de sitemap.
         publisher:
           type: string
           format: uuid
