@@ -203,7 +203,7 @@ django==4.2.17
     #   notifications-api-common
     #   open-api-framework
     #   zgw-consumers
-django-admin-index==3.1.1
+django-admin-index==4.0.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
