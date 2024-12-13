@@ -56,17 +56,17 @@ class DocumentFilterSet(FilterSet):
         field_name="registratiedatum",
         lookup_expr="lte",
     )
-    creatiedatum_vanaf = filters.DateTimeFilter(
+    creatiedatum_vanaf = filters.DateFilter(
         help_text=_("Filter documents that were created after or on the given value."),
         field_name="creatiedatum",
         lookup_expr="gte",
     )
-    creatiedatum_tot = filters.DateTimeFilter(
+    creatiedatum_tot = filters.DateFilter(
         help_text=_("Filter documents that were created before the given value."),
         field_name="creatiedatum",
         lookup_expr="lt",
     )
-    creatiedatum_tot_en_met = filters.DateTimeFilter(
+    creatiedatum_tot_en_met = filters.DateFilter(
         help_text=_("Filter documents that were created before or on the given value."),
         field_name="creatiedatum",
         lookup_expr="lte",

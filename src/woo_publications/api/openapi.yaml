@@ -95,19 +95,19 @@ paths:
         name: creatiedatumTot
         schema:
           type: string
-          format: date-time
+          format: date
         description: Filter documenten op creatiedatum voor de opgegeven datumtijd.
       - in: query
         name: creatiedatumTotEnMet
         schema:
           type: string
-          format: date-time
+          format: date
         description: Filter documents that were created before or on the given value.
       - in: query
         name: creatiedatumVanaf
         schema:
           type: string
-          format: date-time
+          format: date
         description: Filter documenten op creatiedatum op of na de opgegeven datumtijd.
       - in: query
         name: eigenaar
