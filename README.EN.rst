@@ -2,7 +2,7 @@
 Public documents registration
 =============================
 
-:Version: 0.1.0
+:Version: 1.0.0-rc.0
 :Source: https://github.com/GPP-Woo/GPP-publicatiebank
 :Keywords: WOO, Public Documents, NL, Open Data
 
@@ -48,9 +48,9 @@ Version         Release date    API specification
 ==============  ==============  =============================
 latest          n/a             `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/main/src/woo_publications/api/openapi.yaml>`_,
                                 `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/main/src/woo_publications/api/openapi.yaml>`_,
-                                (`verschillen <https://github.com/GPP-Woo/GPP-publicatiebank/compare/0.1.0..main#diff-b9c28fec6c3f3fa5cff870d24601d6ab7027520f3b084cc767aefd258cb8c40a>`_)
-0.1.0           YYYY-MM-DD      `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/0.1.0/src/woo_publications/api/openapi.yaml>`_,
-                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/0.1.0/src/woo_publications/api/openapi.yaml>`_
+                                (`verschillen <https://github.com/GPP-Woo/GPP-publicatiebank/compare/1.0.0-rc.0..main>`_)
+1.0.0           2024-12-12      `ReDoc <https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/1.0.0-rc.0/src/woo_publications/api/openapi.yaml>`_,
+                                `Swagger <https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GPP-Woo/GPP-publicatiebank/1.0.0-rc.0/src/woo_publications/api/openapi.yaml>`_
 ==============  ==============  =============================
 
 See: `All versions and changes <https://github.com/GPP-Woo/GPP-publicatiebank/blob/main/CHANGELOG.rst>`_

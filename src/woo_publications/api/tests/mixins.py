@@ -1,7 +1,5 @@
 from typing import Any
 
-from django.utils.translation import gettext as _
-
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -264,10 +262,10 @@ class APITestCaseMixin:
         """
         try:
             values: list[Any] = [result[key] for result in results]
-        except KeyError:
-            raise AssertionError(
-                _("Key '{key}' not found in the given results.").format(key=key)
-            )
+        except KeyError as exc:
+            raise self.failureException(  # pyright: ignore [reportAttributeAccessIssue]
+                f"Key '{key}' not found in the given results."
+            ) from exc
 
         items_found: int = values.count(value)
 

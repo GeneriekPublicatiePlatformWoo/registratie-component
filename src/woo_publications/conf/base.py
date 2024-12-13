@@ -153,6 +153,8 @@ REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = (
 )
 REST_FRAMEWORK["EXCEPTION_HANDLER"] = "rest_framework.views.exception_handler"
 
+API_VERSION = "1.0.0"
+
 SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": "/api/v1",
     "TITLE": "WOO Publications",
@@ -237,7 +239,7 @@ purposes:
         "name": "EUPL",
         "url": "https://github.com/GPP-Woo/GPP-publicatiebank/blob/main/LICENSE.md",
     },
-    "VERSION": "0.1.0",
+    "VERSION": API_VERSION,
     "TAGS": [],
     "EXTERNAL_DOCS": {
         "description": "Functional and technical documentation",
