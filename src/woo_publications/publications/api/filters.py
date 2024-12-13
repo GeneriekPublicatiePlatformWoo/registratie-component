@@ -49,15 +49,27 @@ class DocumentFilterSet(FilterSet):
         field_name="registratiedatum",
         lookup_expr="lt",
     )
-    creatiedatum_vanaf = filters.DateTimeFilter(
+    registratiedatum_tot_en_met = filters.DateTimeFilter(
+        help_text=_(
+            "Filter documents that were registered before or on the given value."
+        ),
+        field_name="registratiedatum",
+        lookup_expr="lte",
+    )
+    creatiedatum_vanaf = filters.DateFilter(
         help_text=_("Filter documents that were created after or on the given value."),
         field_name="creatiedatum",
         lookup_expr="gte",
     )
-    creatiedatum_tot = filters.DateTimeFilter(
+    creatiedatum_tot = filters.DateFilter(
         help_text=_("Filter documents that were created before the given value."),
         field_name="creatiedatum",
         lookup_expr="lt",
+    )
+    creatiedatum_tot_en_met = filters.DateFilter(
+        help_text=_("Filter documents that were created before or on the given value."),
+        field_name="creatiedatum",
+        lookup_expr="lte",
     )
     laatst_gewijzigd_datum_vanaf = filters.DateTimeFilter(
         help_text=_(
@@ -70,6 +82,13 @@ class DocumentFilterSet(FilterSet):
         help_text=_("Filter documents that were last modified before the given value."),
         field_name="laatst_gewijzigd_datum",
         lookup_expr="lt",
+    )
+    laatst_gewijzigd_datum_tot_en_met = filters.DateTimeFilter(
+        help_text=_(
+            "Filter documents that were last modified before or on the given value."
+        ),
+        field_name="laatst_gewijzigd_datum",
+        lookup_expr="lte",
     )
     eigenaar = OwnerFilter(
         help_text=_("Filter documents based on the owner identifier of the object."),
@@ -112,10 +131,13 @@ class DocumentFilterSet(FilterSet):
             "identifier",
             "registratiedatum_vanaf",
             "registratiedatum_tot",
+            "registratiedatum_tot_en_met",
             "creatiedatum_vanaf",
             "creatiedatum_tot",
+            "creatiedatum_tot_en_met",
             "laatst_gewijzigd_datum_vanaf",
             "laatst_gewijzigd_datum_tot",
+            "laatst_gewijzigd_datum_tot_en_met",
             "sorteer",
         )
 
@@ -143,6 +165,13 @@ class PublicationFilterSet(FilterSet):
         help_text=_("Filter publications that were registered before the given value."),
         field_name="registratiedatum",
         lookup_expr="lt",
+    )
+    registratiedatum_tot_en_met = filters.DateTimeFilter(
+        help_text=_(
+            "Filter publications that were registered before or on the given value."
+        ),
+        field_name="registratiedatum",
+        lookup_expr="lte",
     )
     informatie_categorieen = filters.ModelMultipleChoiceFilter(
         help_text=_(
@@ -176,6 +205,7 @@ class PublicationFilterSet(FilterSet):
             "informatie_categorieen",
             "registratiedatum_vanaf",
             "registratiedatum_tot",
+            "registratiedatum_tot_en_met",
             "sorteer",
         )
 
