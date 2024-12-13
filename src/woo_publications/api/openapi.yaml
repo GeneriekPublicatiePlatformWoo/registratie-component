@@ -98,6 +98,12 @@ paths:
           format: date-time
         description: Filter documenten op creatiedatum voor de opgegeven datumtijd.
       - in: query
+        name: creatiedatumTotEnMet
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were created before or on the given value.
+      - in: query
         name: creatiedatumVanaf
         schema:
           type: string
@@ -132,6 +138,13 @@ paths:
           format: date-time
         description: Filter documenten op laastste wijzigingsdatum voor de opgegeven
           datumtijd.
+      - in: query
+        name: laatstGewijzigdDatumTotEnMet
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were last modified before or on the given
+          value.
       - in: query
         name: laatstGewijzigdDatumVanaf
         schema:
@@ -179,6 +192,13 @@ paths:
           type: string
           format: date-time
         description: Filter documenten op registratiedatum voor de opgegeven datumtijd.
+      - in: query
+        name: registratiedatumTotEnMet
+        schema:
+          type: string
+          format: date-time
+        description: Filter documents that were registered before or on the given
+          value.
       - in: query
         name: registratiedatumVanaf
         schema:
@@ -1076,6 +1096,13 @@ paths:
           type: string
           format: date-time
         description: Filter publicaties op registratiedatum voor de opgegeven datumtijd.
+      - in: query
+        name: registratiedatumTotEnMet
+        schema:
+          type: string
+          format: date-time
+        description: Filter publications that were registered before or on the given
+          value.
       - in: query
         name: registratiedatumVanaf
         schema:
