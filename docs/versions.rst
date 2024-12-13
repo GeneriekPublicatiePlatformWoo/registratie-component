@@ -6,7 +6,7 @@ Versioning
 Policy
 ------
 
-WOO Publications (and the associated API spefication) adheres to
+GPP-Publicatiebank (and the associated API spefication) adheres to
 `semantic versioning <https://semver.org/>`_, meaning major versions may introduce
 breaking changes and minor versions are backwards compatible. Release notes for each
 version are documented in the :ref:`changelog`.
@@ -27,14 +27,14 @@ The backend contains the storage and exposes the API.
    =============== ===========
    Backend version API version
    =============== ===========
-   latest          0.1.0
+   1.0.0           1.0.0
    =============== ===========
 
 Compatibility and requirements
 ------------------------------
 
-WOO Publications itself makes use of other services, APIs and software. The tables below
-describe these dependencies.
+GPP-Publicatiebank itself makes use of other services, APIs and software. The tables
+below describe these dependencies.
 
 PostgreSQL
 **********
@@ -91,5 +91,5 @@ uploads mechanism.
    1.1             Should work
    1.2             Should work
    1.3             Should work
-   1.4             Tested in CI (based on Open Zaak 1.14)
+   1.4             Tested in CI (based on Open Zaak 1.16)
    ==============  ==========================
