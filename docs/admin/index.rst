@@ -7,10 +7,6 @@ Admin interface
 
 Because the admin interface is in the Dutch language, the remainder of the following instructions are also written in the Dutch language.
 
-.. todo:: Provide proper guides/manual.
-
-.. todo:: Add screenshots when interfaces are no longer changing constantly.
-
 Hoe krijg ik toegang?
 -----------------------
 
