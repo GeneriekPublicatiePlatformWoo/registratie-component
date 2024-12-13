@@ -3,8 +3,7 @@
 Open-source
 ===========
 
-The woo_publications is open-source and available 
-under the `EUPL license`_.
+The GPP-Publicatiebank is open-source and available under the `EUPL license`_.
 
 In addition, this project makes use of various open-source `Python libraries`_ 
 and `npm packages`_ under the hood.

@@ -11,7 +11,7 @@ a part of `Nederlandse API Strategie`_.
    :header: "#", "Principle", "Compliant?"
    :widths: 10, 65, 25
 
-   API-01,Operations are Safe and/or Idempotent,"Yes, with exception of PUT"
+   API-01,Operations are Safe and/or Idempotent,Yes
    API-02,Do not maintain state information at the server,Yes
    API-03,Only apply default HTTP operations,Yes
    API-04,Define interfaces in Dutch unless there is an official English glossary,Yes
@@ -23,7 +23,7 @@ a part of `Nederlandse API Strategie`_.
    API-17,Publish documentation in Dutch unless there is existing documentation in English or there is an official English glossary available,Yes
    API-18,Include a deprecation schedule when publishing API changes,Yes
    API-19,Allow for a maximum 1 year transition period to a new API version,Yes
-   API-20,API-20: Include the major version number only in ihe URI,Yes
+   API-20,Include the major version number only in ihe URI,Yes
    API-48,Leave off trailing slashes from API endpoints,Yes
    API-51,Publish OAS at the base-URI in JSON-format,Yes
 
