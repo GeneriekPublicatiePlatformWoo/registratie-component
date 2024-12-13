@@ -183,7 +183,7 @@
         "translations": {
             "en": "API access"
         },
-        "name": "API access",
+        "name": "API-toegang",
         "slug": "api_access",
         "models": [
             [

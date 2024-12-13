@@ -62,7 +62,7 @@ nadere details. Hier zie je:
 * Linksonder de mogelijkheid om de wijzigingen op te slaan.
 * Rechtsonder de mogelijkheid om de gebruiker te **verwijderen**.
 
-Bij een gebruiker zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte
+Bij een gebruiker zijn de volgende gegevens beschikbaar. Op het scherm worden verplichte
 velden **dikgedrukt** weergegeven.
 
 * ``Gebruikersnaam``. De gebruikersnaam waarmee de gebruiker inlogt. Voor inloggen met
@@ -121,7 +121,7 @@ zie je:
 * Linksonder de mogelijkheid om de wijzigingen op te slaan.
 * Rechtsonder de mogelijkheid om de groep te **verwijderen**.
 
-Bij een groep zijn de volgende gegevens beschikbaar. Op het scherm wordt verplichte
+Bij een groep zijn de volgende gegevens beschikbaar. Op het scherm worden verplichte
 velden **dikgedrukt** weergegeven.
 
 * ``Naam``. Een unieke naam waaraan je de groep herkent, en waarmee inloggen met
