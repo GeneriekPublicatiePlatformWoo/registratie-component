@@ -556,16 +556,11 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 self.assertEqual(data["count"], 1)
                 self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
 
-        with self.subTest(
-            "filter both lt and gte to find publication between two dates"
-        ):
-            with self.subTest("filter on lt date is lesser then publication"):
+        with self.subTest("lte specific tests"):
+            with self.subTest("filter on lt date is exact match"):
                 response = self.client.get(
                     list_url,
-                    {
-                        "registratiedatumVanaf": "2024-09-25T00:00:00-00:00",
-                        "registratiedatumTot": "2024-09-26T00:00:00-00:00",
-                    },
+                    {"registratiedatumTotEnMet": "2024-09-24T12:00:00-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -574,7 +569,63 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 data = response.json()
 
                 self.assertEqual(data["count"], 1)
-                self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+                self.assertItemInResults(data["results"], "uuid", str(document.uuid), 1)
+
+            with self.subTest("date is not exact"):
+                with self.subTest("filter on lte date is exact match"):
+                    response = self.client.get(
+                        list_url,
+                        {"registratiedatumTotEnMet": "2024-09-25T12:00:00-00:00"},
+                        headers=AUDIT_HEADERS,
+                    )
+
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+                    data = response.json()
+
+                    self.assertEqual(data["count"], 2)
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document.uuid), 1
+                    )
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document2.uuid), 1
+                    )
+
+        with self.subTest(
+            "filter both lt and gte to find publication between two dates"
+        ):
+            response = self.client.get(
+                list_url,
+                {
+                    "registratiedatumVanaf": "2024-09-25T00:00:00-00:00",
+                    "registratiedatumTot": "2024-09-26T00:00:00-00:00",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+
+        with self.subTest("filter both lte and gte to find document between two dates"):
+            response = self.client.get(
+                list_url,
+                {
+                    "registratiedatumVanaf": "2024-09-25T12:00:00-00:00",
+                    "registratiedatumTotEnMet": "2024-09-25T12:00:00-00:00",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertItemInResults(data["results"], "uuid", str(document2.uuid), 1)
 
     def test_list_documents_filter_creatie_datum(self):
         document = DocumentFactory.create(creatiedatum="2024-09-24")
@@ -628,16 +679,11 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 self.assertEqual(data["count"], 1)
                 self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
 
-        with self.subTest(
-            "filter both lt and gte to find publication between two dates"
-        ):
-            with self.subTest("filter on lt date is lesser then publication"):
+        with self.subTest("lte specific tests"):
+            with self.subTest("filter on lte date is exact match"):
                 response = self.client.get(
                     list_url,
-                    {
-                        "creatiedatumVanaf": "2024-09-25",
-                        "creatiedatumTot": "2024-09-26",
-                    },
+                    {"creatiedatumTotEnMet": "2024-09-24"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -646,7 +692,63 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 data = response.json()
 
                 self.assertEqual(data["count"], 1)
-                self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+                self.assertItemInResults(data["results"], "uuid", str(document.uuid), 1)
+
+            with self.subTest("date is not exact"):
+                with self.subTest("filter on lte date is exact match"):
+                    response = self.client.get(
+                        list_url,
+                        {"creatiedatumTotEnMet": "2024-09-25"},
+                        headers=AUDIT_HEADERS,
+                    )
+
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+                    data = response.json()
+
+                    self.assertEqual(data["count"], 2)
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document.uuid), 1
+                    )
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document2.uuid), 1
+                    )
+
+        with self.subTest(
+            "filter both lt and gte to find publication between two dates"
+        ):
+            response = self.client.get(
+                list_url,
+                {
+                    "creatiedatumVanaf": "2024-09-25",
+                    "creatiedatumTot": "2024-09-26",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+
+        with self.subTest("filter both lte and gte to find document between two dates"):
+            response = self.client.get(
+                list_url,
+                {
+                    "creatiedatumVanaf": "2024-09-25",
+                    "creatiedatumTotEnMet": "2024-09-25",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertItemInResults(data["results"], "uuid", str(document2.uuid), 1)
 
     def test_list_documents_filter_laatst_gewijzigd_datum(self):
         with freeze_time("2024-09-24T12:00:00-00:00"):
@@ -702,16 +804,11 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 self.assertEqual(data["count"], 1)
                 self.assertEqual(data["results"][0]["uuid"], str(document.uuid))
 
-        with self.subTest(
-            "filter both lt and gte to find publication between two dates"
-        ):
-            with self.subTest("filter on lt date is lesser then publication"):
+        with self.subTest("lte specific tests"):
+            with self.subTest("filter on lte date is exact match"):
                 response = self.client.get(
                     list_url,
-                    {
-                        "laatstGewijzigdDatumVanaf": "2024-09-25T00:00:00-00:00",
-                        "laatstGewijzigdDatumTot": "2024-09-26T00:00:00-00:00",
-                    },
+                    {"laatstGewijzigdDatumTotEnMet": "2024-09-24T12:00:00-00:00"},
                     headers=AUDIT_HEADERS,
                 )
 
@@ -720,7 +817,65 @@ class DocumentApiReadTestsCase(TokenAuthMixin, APITestCaseMixin, APITestCase):
                 data = response.json()
 
                 self.assertEqual(data["count"], 1)
-                self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+                self.assertItemInResults(data["results"], "uuid", str(document.uuid), 1)
+
+            with self.subTest("date is not exact"):
+                with self.subTest("filter on lte date is exact match"):
+                    response = self.client.get(
+                        list_url,
+                        {"laatstGewijzigdDatumTotEnMet": "2024-09-25T12:00:00-00:00"},
+                        headers=AUDIT_HEADERS,
+                    )
+
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+                    data = response.json()
+
+                    self.assertEqual(data["count"], 2)
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document.uuid), 1
+                    )
+                    self.assertItemInResults(
+                        data["results"], "uuid", str(document2.uuid), 1
+                    )
+
+        with self.subTest(
+            "filter both lt and gte to find publication between two dates"
+        ):
+            response = self.client.get(
+                list_url,
+                {
+                    "laatstGewijzigdDatumVanaf": "2024-09-25T00:00:00-00:00",
+                    "laatstGewijzigdDatumTot": "2024-09-26T00:00:00-00:00",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertEqual(data["results"][0]["uuid"], str(document2.uuid))
+
+        with self.subTest(
+            "filter both lte and gte to find publication between two dates"
+        ):
+            response = self.client.get(
+                list_url,
+                {
+                    "laatstGewijzigdDatumVanaf": "2024-09-25T12:00:00-00:00",
+                    "laatstGewijzigdDatumTotEnMet": "2024-09-25T12:00:00-00:00",
+                },
+                headers=AUDIT_HEADERS,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            data = response.json()
+
+            self.assertEqual(data["count"], 1)
+            self.assertItemInResults(data["results"], "uuid", str(document2.uuid), 1)
 
     def test_list_document_filter_information_categories(self):
         ic, ic2, ic3, ic4 = InformationCategoryFactory.create_batch(
