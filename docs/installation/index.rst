@@ -12,6 +12,9 @@ and expertise.
 3. Run from :ref:`Python code <developers_installation>` on your computer for
    development purposes
 
+After deploying the application, review the :ref:`installation_requirements` and  make
+sure to finish the installation with the necessary :ref:`configuration <configuration_index>`.
+
 .. toctree::
    :maxdepth: 1
    :caption: Further reading
