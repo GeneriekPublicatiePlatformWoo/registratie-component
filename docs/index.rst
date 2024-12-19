@@ -41,6 +41,7 @@ To get you started, you might find some of these links relevant:
    api/index
    admin/index
    installation/index
+   configuration/index
    developers/index
    versions
    changelog
